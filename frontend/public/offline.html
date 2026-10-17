@@ -1,0 +1,95 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="theme-color" content="#0B1E3D" />
+    <title>PIIMS — Offline</title>
+    <style>
+      * {
+        box-sizing: border-box;
+      }
+      html,
+      body {
+        margin: 0;
+        padding: 0;
+        height: 100%;
+        font-family: ui-sans-serif, system-ui, sans-serif;
+        background: linear-gradient(
+          160deg,
+          #0b1e3d 0%,
+          #14315e 55%,
+          #1e4976 100%
+        );
+        color: #fff;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+      }
+      .wrap {
+        max-width: 420px;
+        padding: 32px;
+        text-align: center;
+      }
+      .mark {
+        width: 56px;
+        height: 56px;
+        border-radius: 12px;
+        margin: 0 auto 24px;
+        background: conic-gradient(
+          from 210deg,
+          #38bdf8,
+          #818cf8,
+          #f472b6,
+          #38bdf8
+        );
+        box-shadow: 0 0 32px rgba(56, 189, 248, 0.5);
+      }
+      h1 {
+        font-size: 22px;
+        font-weight: 800;
+        margin: 0 0 8px;
+      }
+      p {
+        font-size: 14px;
+        line-height: 1.6;
+        opacity: 0.8;
+        margin: 0 0 24px;
+      }
+      button {
+        background: #d4a017;
+        color: #0b1e3d;
+        border: 0;
+        padding: 10px 20px;
+        border-radius: 6px;
+        font-weight: 700;
+        font-size: 14px;
+        cursor: pointer;
+      }
+      button:hover {
+        background: #f2d580;
+      }
+      .offline-icon {
+        font-size: 48px;
+        margin-bottom: 16px;
+      }
+    </style>
+  </head>
+  <body>
+    <div class="wrap">
+      <div class="mark"></div>
+      <div class="offline-icon">📡</div>
+      <h1>You're offline</h1>
+      <p>
+        PIIMS cannot reach the server right now. Any changes you made before
+        going offline are saved locally and will sync automatically when your
+        connection returns.
+      </p>
+      <button onclick="window.location.reload()">Retry</button>
+    </div>
+    <script>
+      // Auto-retry when connection returns
+      window.addEventListener("online", () => window.location.reload());
+    </script>
+  </body>
+</html>

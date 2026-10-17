@@ -1,0 +1,83 @@
+{
+  "impactIndicators": {
+    "title": "Impact indicators",
+    "indicators": "indicators",
+    "new": "New indicator",
+    "composite": "Composite index",
+    "filterByDomain": "Filter by domain",
+    "empty": "No impact indicators yet",
+    "emptyHint": "Define the first impact indicator to begin.",
+    "form": {
+      "domain": "Domain",
+      "code": "Code",
+      "name": "Name",
+      "nameAm": "Name (Amharic)",
+      "description": "Description",
+      "unit": "Unit",
+      "direction": "Direction",
+      "method": "Measurement method",
+      "disagg": "Disaggregation dimensions",
+      "standardRef": "Standard reference",
+      "effectiveFrom": "Effective from"
+    },
+    "compositeForm": {
+      "name": "Index name",
+      "normalization": "Normalization",
+      "aggregation": "Aggregation",
+      "components": "Components",
+      "create": "Create composite"
+    },
+    "waveForm": {
+      "title": "Assign to wave",
+      "wave": "Wave",
+      "target": "Target value",
+      "required": "Required in this wave"
+    }
+  },
+  "survey": {
+    "form": {
+      "code": "Code",
+      "type": "Type",
+      "text": "Question text",
+      "textAm": "Question text (Amharic)",
+      "hint": "Hint / constraint",
+      "required": "Required"
+    },
+    "skipForm": {
+      "condition": "Condition",
+      "action": "Action",
+      "target": "Target question"
+    }
+  },
+  "field": {
+    "title": "Field collection",
+    "empty": "No assignments",
+    "emptyHint": "Your supervisor will assign interviews to you.",
+    "required": "This question is required"
+  },
+  "qa": {
+    "title": "Data quality",
+    "subtitle": "Review flags, scorecards, and high-frequency checks",
+    "empty": "No flags to review",
+    "tabs": {
+      "flags": "Flag queue",
+      "scorecards": "Collector scorecards",
+      "hfc": "HFC dashboard"
+    }
+  },
+  "warehouse": {
+    "title": "Longitudinal warehouse",
+    "subtitle": "Panel-linked datasets across waves"
+  },
+  "research": {
+    "title": "Research datasets",
+    "subtitle": "Anonymized data available for approved research"
+  },
+  "analytics": {
+    "did": {
+      "title": "Treatment vs control",
+      "subtitle": "Difference-in-differences analysis",
+      "noData": "Select an indicator to run DiD analysis"
+    }
+  }
+}

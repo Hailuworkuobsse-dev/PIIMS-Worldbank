@@ -1,0 +1,2359 @@
+{
+  "generatedAt": "2026-10-17T04:02:16.388Z",
+  "generatedBy": "PIIMS Code Extractor",
+  "totalFiles": 392,
+  "files": [
+    {
+      "path": "package.json",
+      "language": "json",
+      "sizeBytes": 1806,
+      "pathSource": "heading"
+    },
+    {
+      "path": "vite.config.ts",
+      "language": "ts",
+      "sizeBytes": 1865,
+      "pathSource": "heading"
+    },
+    {
+      "path": "tsconfig.json",
+      "language": "json",
+      "sizeBytes": 825,
+      "pathSource": "heading"
+    },
+    {
+      "path": "tailwind.config.ts",
+      "language": "ts",
+      "sizeBytes": 2397,
+      "pathSource": "heading"
+    },
+    {
+      "path": "src/design/tokens.css",
+      "language": "css",
+      "sizeBytes": 1511,
+      "pathSource": "heading"
+    },
+    {
+      "path": "src/design/globals.css",
+      "language": "css",
+      "sizeBytes": 1288,
+      "pathSource": "heading"
+    },
+    {
+      "path": "index.html",
+      "language": "html",
+      "sizeBytes": 832,
+      "pathSource": "heading"
+    },
+    {
+      "path": "src/main.tsx",
+      "language": "tsx",
+      "sizeBytes": 709,
+      "pathSource": "heading"
+    },
+    {
+      "path": "src/app/providers.tsx",
+      "language": "tsx",
+      "sizeBytes": 1132,
+      "pathSource": "heading"
+    },
+    {
+      "path": "src/app/config.ts",
+      "language": "ts",
+      "sizeBytes": 529,
+      "pathSource": "heading"
+    },
+    {
+      "path": "src/app/router.tsx",
+      "language": "tsx",
+      "sizeBytes": 768,
+      "pathSource": "heading"
+    },
+    {
+      "path": "src/App.tsx",
+      "language": "tsx",
+      "sizeBytes": 100,
+      "pathSource": "heading"
+    },
+    {
+      "path": "src/lib/i18n/index.ts",
+      "language": "ts",
+      "sizeBytes": 758,
+      "pathSource": "heading"
+    },
+    {
+      "path": "src/lib/i18n/en.json",
+      "language": "json",
+      "sizeBytes": 1224,
+      "pathSource": "heading"
+    },
+    {
+      "path": "src/lib/i18n/am.json",
+      "language": "json",
+      "sizeBytes": 1636,
+      "pathSource": "heading"
+    },
+    {
+      "path": "src/lib/api/client.ts",
+      "language": "ts",
+      "sizeBytes": 1116,
+      "pathSource": "heading"
+    },
+    {
+      "path": "src/lib/api/errors.ts",
+      "language": "ts",
+      "sizeBytes": 662,
+      "pathSource": "heading"
+    },
+    {
+      "path": "src/stores/auth.store.ts",
+      "language": "ts",
+      "sizeBytes": 3124,
+      "pathSource": "heading"
+    },
+    {
+      "path": "src/stores/ui.store.ts",
+      "language": "ts",
+      "sizeBytes": 560,
+      "pathSource": "heading"
+    },
+    {
+      "path": "src/stores/sync.store.ts",
+      "language": "ts",
+      "sizeBytes": 788,
+      "pathSource": "heading"
+    },
+    {
+      "path": "src/lib/utils/date.ts",
+      "language": "ts",
+      "sizeBytes": 1094,
+      "pathSource": "heading"
+    },
+    {
+      "path": "src/lib/utils/currency.ts",
+      "language": "ts",
+      "sizeBytes": 453,
+      "pathSource": "heading"
+    },
+    {
+      "path": "src/pages/LoginPage.tsx",
+      "language": "tsx",
+      "sizeBytes": 578,
+      "pathSource": "heading"
+    },
+    {
+      "path": "src/pages/DashboardPage.tsx",
+      "language": "tsx",
+      "sizeBytes": 323,
+      "pathSource": "heading"
+    },
+    {
+      "path": "src/pages/NotFoundPage.tsx",
+      "language": "tsx",
+      "sizeBytes": 594,
+      "pathSource": "heading"
+    },
+    {
+      "path": ".eslintrc.cjs",
+      "language": "js",
+      "sizeBytes": 640,
+      "pathSource": "heading"
+    },
+    {
+      "path": "README.md",
+      "language": "`md",
+      "sizeBytes": 199,
+      "pathSource": "heading"
+    },
+    {
+      "path": "src/components/ui/utils/cn.ts",
+      "language": "ts",
+      "sizeBytes": 125,
+      "pathSource": "heading"
+    },
+    {
+      "path": "Button.tsx",
+      "language": "tsx",
+      "sizeBytes": 2473,
+      "pathSource": "heading"
+    },
+    {
+      "path": "IconButton.tsx",
+      "language": "tsx",
+      "sizeBytes": 1401,
+      "pathSource": "heading"
+    },
+    {
+      "path": "Input.tsx",
+      "language": "tsx",
+      "sizeBytes": 2680,
+      "pathSource": "heading"
+    },
+    {
+      "path": "Textarea.tsx",
+      "language": "tsx",
+      "sizeBytes": 2050,
+      "pathSource": "heading"
+    },
+    {
+      "path": "Select.tsx",
+      "language": "tsx",
+      "sizeBytes": 2902,
+      "pathSource": "heading"
+    },
+    {
+      "path": "Checkbox.tsx",
+      "language": "tsx",
+      "sizeBytes": 2435,
+      "pathSource": "heading"
+    },
+    {
+      "path": "Radio.tsx",
+      "language": "tsx",
+      "sizeBytes": 2698,
+      "pathSource": "heading"
+    },
+    {
+      "path": "Switch.tsx",
+      "language": "tsx",
+      "sizeBytes": 1796,
+      "pathSource": "heading"
+    },
+    {
+      "path": "DateInput.tsx",
+      "language": "tsx",
+      "sizeBytes": 2322,
+      "pathSource": "heading"
+    },
+    {
+      "path": "FileUpload.tsx",
+      "language": "tsx",
+      "sizeBytes": 3885,
+      "pathSource": "heading"
+    },
+    {
+      "path": "Chip.tsx",
+      "language": "tsx",
+      "sizeBytes": 1206,
+      "pathSource": "comment"
+    },
+    {
+      "path": "Badge.tsx",
+      "language": "tsx",
+      "sizeBytes": 1286,
+      "pathSource": "comment"
+    },
+    {
+      "path": "Tooltip.tsx",
+      "language": "tsx",
+      "sizeBytes": 1194,
+      "pathSource": "heading"
+    },
+    {
+      "path": "Popover.tsx",
+      "language": "tsx",
+      "sizeBytes": 1677,
+      "pathSource": "heading"
+    },
+    {
+      "path": "Modal.tsx",
+      "language": "tsx",
+      "sizeBytes": 3200,
+      "pathSource": "heading"
+    },
+    {
+      "path": "Drawer.tsx",
+      "language": "tsx",
+      "sizeBytes": 1883,
+      "pathSource": "heading"
+    },
+    {
+      "path": "ConfirmDialog.tsx",
+      "language": "tsx",
+      "sizeBytes": 1379,
+      "pathSource": "heading"
+    },
+    {
+      "path": "Toast.tsx",
+      "language": "tsx",
+      "sizeBytes": 2781,
+      "pathSource": "heading"
+    },
+    {
+      "path": "Banner.tsx",
+      "language": "tsx",
+      "sizeBytes": 1767,
+      "pathSource": "heading"
+    },
+    {
+      "path": "Card.tsx",
+      "language": "tsx",
+      "sizeBytes": 1158,
+      "pathSource": "heading"
+    },
+    {
+      "path": "KPITile.tsx",
+      "language": "tsx",
+      "sizeBytes": 1464,
+      "pathSource": "heading"
+    },
+    {
+      "path": "Table.tsx",
+      "language": "tsx",
+      "sizeBytes": 1458,
+      "pathSource": "heading"
+    },
+    {
+      "path": "DataGrid.tsx",
+      "language": "tsx",
+      "sizeBytes": 5570,
+      "pathSource": "heading"
+    },
+    {
+      "path": "Pagination.tsx",
+      "language": "tsx",
+      "sizeBytes": 2298,
+      "pathSource": "heading"
+    },
+    {
+      "path": "Skeleton.tsx",
+      "language": "tsx",
+      "sizeBytes": 1036,
+      "pathSource": "heading"
+    },
+    {
+      "path": "EmptyState.tsx",
+      "language": "tsx",
+      "sizeBytes": 714,
+      "pathSource": "comment"
+    },
+    {
+      "path": "ErrorState.tsx",
+      "language": "tsx",
+      "sizeBytes": 721,
+      "pathSource": "comment"
+    },
+    {
+      "path": "LoadingState.tsx",
+      "language": "tsx",
+      "sizeBytes": 453,
+      "pathSource": "comment"
+    },
+    {
+      "path": "Tabs.tsx",
+      "language": "tsx",
+      "sizeBytes": 2381,
+      "pathSource": "heading"
+    },
+    {
+      "path": "Accordion.tsx",
+      "language": "tsx",
+      "sizeBytes": 1920,
+      "pathSource": "heading"
+    },
+    {
+      "path": "Breadcrumb.tsx",
+      "language": "tsx",
+      "sizeBytes": 1192,
+      "pathSource": "heading"
+    },
+    {
+      "path": "Stepper.tsx",
+      "language": "tsx",
+      "sizeBytes": 2370,
+      "pathSource": "heading"
+    },
+    {
+      "path": "Progress.tsx",
+      "language": "tsx",
+      "sizeBytes": 1001,
+      "pathSource": "heading"
+    },
+    {
+      "path": "TrafficLight.tsx",
+      "language": "tsx",
+      "sizeBytes": 1118,
+      "pathSource": "heading"
+    },
+    {
+      "path": "SyncBadge.tsx",
+      "language": "tsx",
+      "sizeBytes": 1169,
+      "pathSource": "heading"
+    },
+    {
+      "path": "index.ts",
+      "language": "ts",
+      "sizeBytes": 963,
+      "pathSource": "heading"
+    },
+    {
+      "path": "__tests__/Button.test.tsx",
+      "language": "tsx",
+      "sizeBytes": 1218,
+      "pathSource": "heading"
+    },
+    {
+      "path": "__tests__/DataGrid.test.tsx",
+      "language": "tsx",
+      "sizeBytes": 2021,
+      "pathSource": "heading"
+    },
+    {
+      "path": "src/pages/DesignSystemPage.tsx",
+      "language": "tsx",
+      "sizeBytes": 12091,
+      "pathSource": "heading"
+    },
+    {
+      "path": "src/pages/DesignSystemPage-2.tsx",
+      "language": "tsx",
+      "sizeBytes": 102,
+      "pathSource": "heading"
+    },
+    {
+      "path": "src/features/auth/auth.types.ts",
+      "language": "ts",
+      "sizeBytes": 20666,
+      "pathSource": "heading"
+    },
+    {
+      "path": "src/features/auth/auth.api.ts",
+      "language": "ts",
+      "sizeBytes": 1387,
+      "pathSource": "heading"
+    },
+    {
+      "path": "src/stores/auth.store-2.ts",
+      "language": "ts",
+      "sizeBytes": 5291,
+      "pathSource": "heading"
+    },
+    {
+      "path": "src/features/auth/useIdleTimeout.ts",
+      "language": "ts",
+      "sizeBytes": 1978,
+      "pathSource": "heading"
+    },
+    {
+      "path": "src/features/auth/usePermissions.ts",
+      "language": "ts",
+      "sizeBytes": 1082,
+      "pathSource": "heading"
+    },
+    {
+      "path": "src/features/auth/guards.tsx",
+      "language": "tsx",
+      "sizeBytes": 3083,
+      "pathSource": "heading"
+    },
+    {
+      "path": "src/features/auth/LoginPage.tsx",
+      "language": "tsx",
+      "sizeBytes": 13088,
+      "pathSource": "heading"
+    },
+    {
+      "path": "src/features/auth/IdleTimeoutWarning.tsx",
+      "language": "tsx",
+      "sizeBytes": 1272,
+      "pathSource": "heading"
+    },
+    {
+      "path": "src/features/auth/RoleSwitcher.tsx",
+      "language": "tsx",
+      "sizeBytes": 1602,
+      "pathSource": "heading"
+    },
+    {
+      "path": "src/app/AppBootstrap.tsx",
+      "language": "tsx",
+      "sizeBytes": 1310,
+      "pathSource": "heading"
+    },
+    {
+      "path": "src/app/router-2.tsx",
+      "language": "tsx",
+      "sizeBytes": 10632,
+      "pathSource": "heading"
+    },
+    {
+      "path": "src/app/router-3.tsx",
+      "language": "tsx",
+      "sizeBytes": 415,
+      "pathSource": "heading"
+    },
+    {
+      "path": "src/features/_stub.tsx",
+      "language": "tsx",
+      "sizeBytes": 499,
+      "pathSource": "prose"
+    },
+    {
+      "path": "src/features/projects/ProjectListPage.tsx",
+      "language": "tsx",
+      "sizeBytes": 73,
+      "pathSource": "prose"
+    },
+    {
+      "path": "src/features/auth/__tests__/auth.store.test.ts",
+      "language": "ts",
+      "sizeBytes": 3421,
+      "pathSource": "prose"
+    },
+    {
+      "path": "src/features/auth/__tests__/usePermissions.test.tsx",
+      "language": "tsx",
+      "sizeBytes": 1776,
+      "pathSource": "prose"
+    },
+    {
+      "path": "src/features/auth/__tests__/guards.test.tsx",
+      "language": "tsx",
+      "sizeBytes": 2598,
+      "pathSource": "prose"
+    },
+    {
+      "path": "src/features/auth/useKeyboardShortcut.ts",
+      "language": "ts",
+      "sizeBytes": 3441,
+      "pathSource": "heading"
+    },
+    {
+      "path": "src/stores/ui.store-2.ts",
+      "language": "ts",
+      "sizeBytes": 1315,
+      "pathSource": "heading"
+    },
+    {
+      "path": "src/components/layout/menu.config.ts",
+      "language": "ts",
+      "sizeBytes": 8332,
+      "pathSource": "heading"
+    },
+    {
+      "path": "src/components/layout/menu.config-2.ts",
+      "language": "json",
+      "sizeBytes": 1919,
+      "pathSource": "heading"
+    },
+    {
+      "path": "src/components/layout/menu.config-3.ts",
+      "language": "json",
+      "sizeBytes": 2592,
+      "pathSource": "heading"
+    },
+    {
+      "path": "src/components/layout/Breadcrumbs.tsx",
+      "language": "tsx",
+      "sizeBytes": 2614,
+      "pathSource": "heading"
+    },
+    {
+      "path": "src/components/layout/RouteProgress.tsx",
+      "language": "tsx",
+      "sizeBytes": 1077,
+      "pathSource": "heading"
+    },
+    {
+      "path": "src/components/layout/NotificationBell.tsx",
+      "language": "tsx",
+      "sizeBytes": 5583,
+      "pathSource": "heading"
+    },
+    {
+      "path": "src/components/layout/UserMenu.tsx",
+      "language": "tsx",
+      "sizeBytes": 6234,
+      "pathSource": "heading"
+    },
+    {
+      "path": "src/components/layout/GlobalSearch.tsx",
+      "language": "tsx",
+      "sizeBytes": 7780,
+      "pathSource": "heading"
+    },
+    {
+      "path": "src/components/layout/KeyboardHelp.tsx",
+      "language": "tsx",
+      "sizeBytes": 1330,
+      "pathSource": "heading"
+    },
+    {
+      "path": "src/components/layout/SideNav.tsx",
+      "language": "tsx",
+      "sizeBytes": 6226,
+      "pathSource": "heading"
+    },
+    {
+      "path": "src/components/layout/MobileNav.tsx",
+      "language": "tsx",
+      "sizeBytes": 7736,
+      "pathSource": "heading"
+    },
+    {
+      "path": "src/components/layout/TopBar.tsx",
+      "language": "tsx",
+      "sizeBytes": 4033,
+      "pathSource": "heading"
+    },
+    {
+      "path": "src/components/layout/AppShell.tsx",
+      "language": "tsx",
+      "sizeBytes": 5325,
+      "pathSource": "heading"
+    },
+    {
+      "path": "src/components/layout/AppShell-2.tsx",
+      "language": "tsx",
+      "sizeBytes": 327,
+      "pathSource": "heading"
+    },
+    {
+      "path": "src/pages/AppShellRoute.tsx",
+      "language": "tsx",
+      "sizeBytes": 123,
+      "pathSource": "heading"
+    },
+    {
+      "path": "src/app/router-4.tsx",
+      "language": "tsx",
+      "sizeBytes": 2205,
+      "pathSource": "heading"
+    },
+    {
+      "path": "src/components/layout/__tests__/menu.test.ts",
+      "language": "ts",
+      "sizeBytes": 791,
+      "pathSource": "prose"
+    },
+    {
+      "path": "src/components/layout/__tests__/Breadcrumbs.test.tsx",
+      "language": "tsx",
+      "sizeBytes": 901,
+      "pathSource": "prose"
+    },
+    {
+      "path": "src/features/auth/__tests__/useKeyboardShortcut.test.tsx",
+      "language": "tsx",
+      "sizeBytes": 1132,
+      "pathSource": "prose"
+    },
+    {
+      "path": "src/features/projects/project.types.ts",
+      "language": "ts",
+      "sizeBytes": 3849,
+      "pathSource": "heading"
+    },
+    {
+      "path": "src/features/projects/project.schema.ts",
+      "language": "ts",
+      "sizeBytes": 5560,
+      "pathSource": "heading"
+    },
+    {
+      "path": "src/features/projects/project.api.ts",
+      "language": "ts",
+      "sizeBytes": 3057,
+      "pathSource": "heading"
+    },
+    {
+      "path": "src/features/projects/project.queries.ts",
+      "language": "ts",
+      "sizeBytes": 1909,
+      "pathSource": "heading"
+    },
+    {
+      "path": "src/features/projects/project.mutations.ts",
+      "language": "ts",
+      "sizeBytes": 5626,
+      "pathSource": "heading"
+    },
+    {
+      "path": "src/features/projects/project.utils.ts",
+      "language": "ts",
+      "sizeBytes": 1074,
+      "pathSource": "heading"
+    },
+    {
+      "path": "src/lib/i18n/en-2.json",
+      "language": "json",
+      "sizeBytes": 4601,
+      "pathSource": "heading"
+    },
+    {
+      "path": "src/lib/i18n/en-3.json",
+      "language": "json",
+      "sizeBytes": 5730,
+      "pathSource": "heading"
+    },
+    {
+      "path": "src/features/projects/ProjectListPage-2.tsx",
+      "language": "tsx",
+      "sizeBytes": 9822,
+      "pathSource": "heading"
+    },
+    {
+      "path": "src/features/projects/ProjectListFilters.tsx",
+      "language": "tsx",
+      "sizeBytes": 5804,
+      "pathSource": "heading"
+    },
+    {
+      "path": "src/features/projects/wizard/WizardShell.tsx",
+      "language": "tsx",
+      "sizeBytes": 1963,
+      "pathSource": "heading"
+    },
+    {
+      "path": "src/features/projects/wizard/StepIdentification.tsx",
+      "language": "tsx",
+      "sizeBytes": 1730,
+      "pathSource": "heading"
+    },
+    {
+      "path": "src/features/projects/wizard/StepClassification.tsx",
+      "language": "tsx",
+      "sizeBytes": 2633,
+      "pathSource": "heading"
+    },
+    {
+      "path": "src/features/projects/wizard/StepLocation.tsx",
+      "language": "tsx",
+      "sizeBytes": 2644,
+      "pathSource": "heading"
+    },
+    {
+      "path": "src/features/projects/wizard/StepBudget.tsx",
+      "language": "tsx",
+      "sizeBytes": 5770,
+      "pathSource": "heading"
+    },
+    {
+      "path": "src/features/projects/wizard/StepReview.tsx",
+      "language": "tsx",
+      "sizeBytes": 4781,
+      "pathSource": "heading"
+    },
+    {
+      "path": "src/features/projects/ProjectNewPage.tsx",
+      "language": "tsx",
+      "sizeBytes": 6330,
+      "pathSource": "heading"
+    },
+    {
+      "path": "src/features/projects/ProjectDetailPage.tsx",
+      "language": "tsx",
+      "sizeBytes": 2748,
+      "pathSource": "heading"
+    },
+    {
+      "path": "src/features/projects/ProjectDetailHeader.tsx",
+      "language": "tsx",
+      "sizeBytes": 7253,
+      "pathSource": "heading"
+    },
+    {
+      "path": "src/features/projects/tabs/TabOverview.tsx",
+      "language": "tsx",
+      "sizeBytes": 2740,
+      "pathSource": "heading"
+    },
+    {
+      "path": "TabComponents.tsx",
+      "language": "tsx",
+      "sizeBytes": 598,
+      "pathSource": "comment"
+    },
+    {
+      "path": "src/features/projects/tabs/TabHistory.tsx",
+      "language": "tsx",
+      "sizeBytes": 2438,
+      "pathSource": "heading"
+    },
+    {
+      "path": "src/features/projects/PipelinePage.tsx",
+      "language": "tsx",
+      "sizeBytes": 3558,
+      "pathSource": "heading"
+    },
+    {
+      "path": "src/features/projects/__tests__/project.schema.test.ts",
+      "language": "ts",
+      "sizeBytes": 2071,
+      "pathSource": "heading"
+    },
+    {
+      "path": "src/features/projects/__tests__/ProjectListFilters.test.tsx",
+      "language": "tsx",
+      "sizeBytes": 1567,
+      "pathSource": "heading"
+    },
+    {
+      "path": "src/features/projects/__tests__/ProjectNewWizard.test.tsx",
+      "language": "tsx",
+      "sizeBytes": 2399,
+      "pathSource": "heading"
+    },
+    {
+      "path": "src/features/inception/inception.types.ts",
+      "language": "ts",
+      "sizeBytes": 1961,
+      "pathSource": "heading"
+    },
+    {
+      "path": "src/features/inception/inception.schema.ts",
+      "language": "ts",
+      "sizeBytes": 1723,
+      "pathSource": "heading"
+    },
+    {
+      "path": "src/features/inception/inception.api.ts",
+      "language": "ts",
+      "sizeBytes": 3883,
+      "pathSource": "heading"
+    },
+    {
+      "path": "src/features/inception/inception.queries.ts",
+      "language": "ts",
+      "sizeBytes": 1799,
+      "pathSource": "heading"
+    },
+    {
+      "path": "src/features/inception/inception.mutations.ts",
+      "language": "ts",
+      "sizeBytes": 3027,
+      "pathSource": "heading"
+    },
+    {
+      "path": "src/features/inception/inception.utils.ts",
+      "language": "ts",
+      "sizeBytes": 926,
+      "pathSource": "heading"
+    },
+    {
+      "path": "src/features/inception/DeadlineTracker.tsx",
+      "language": "tsx",
+      "sizeBytes": 2855,
+      "pathSource": "heading"
+    },
+    {
+      "path": "src/features/inception/InceptionSubmitModal.tsx",
+      "language": "tsx",
+      "sizeBytes": 4227,
+      "pathSource": "heading"
+    },
+    {
+      "path": "src/features/inception/InceptionListPage.tsx",
+      "language": "tsx",
+      "sizeBytes": 8314,
+      "pathSource": "heading"
+    },
+    {
+      "path": "src/features/inception/InceptionReviewPage.tsx",
+      "language": "tsx",
+      "sizeBytes": 2764,
+      "pathSource": "heading"
+    },
+    {
+      "path": "src/features/inception/ReviewWorkspace.tsx",
+      "language": "tsx",
+      "sizeBytes": 7657,
+      "pathSource": "heading"
+    },
+    {
+      "path": "src/features/inception/CommentThread.tsx",
+      "language": "tsx",
+      "sizeBytes": 3950,
+      "pathSource": "heading"
+    },
+    {
+      "path": "src/features/inception/NoObjectionModal.tsx",
+      "language": "tsx",
+      "sizeBytes": 2265,
+      "pathSource": "heading"
+    },
+    {
+      "path": "src/features/inception/VersionCompare.tsx",
+      "language": "tsx",
+      "sizeBytes": 1925,
+      "pathSource": "heading"
+    },
+    {
+      "path": "src/features/results/results.types.ts",
+      "language": "ts",
+      "sizeBytes": 2286,
+      "pathSource": "heading"
+    },
+    {
+      "path": "src/features/results/results.schema.ts",
+      "language": "ts",
+      "sizeBytes": 2235,
+      "pathSource": "heading"
+    },
+    {
+      "path": "src/features/results/results.api.ts",
+      "language": "ts",
+      "sizeBytes": 3675,
+      "pathSource": "heading"
+    },
+    {
+      "path": "src/features/results/results.queries.ts",
+      "language": "ts",
+      "sizeBytes": 2237,
+      "pathSource": "heading"
+    },
+    {
+      "path": "src/features/results/results.mutations.ts",
+      "language": "ts",
+      "sizeBytes": 2546,
+      "pathSource": "heading"
+    },
+    {
+      "path": "src/features/results/results.utils.ts",
+      "language": "ts",
+      "sizeBytes": 1642,
+      "pathSource": "heading"
+    },
+    {
+      "path": "src/features/results/ResultsPage.tsx",
+      "language": "tsx",
+      "sizeBytes": 4709,
+      "pathSource": "heading"
+    },
+    {
+      "path": "src/features/results/ComponentTree.tsx",
+      "language": "tsx",
+      "sizeBytes": 4675,
+      "pathSource": "heading"
+    },
+    {
+      "path": "src/features/results/ComponentFormModal.tsx",
+      "language": "tsx",
+      "sizeBytes": 2912,
+      "pathSource": "heading"
+    },
+    {
+      "path": "src/features/results/IndicatorRegister.tsx",
+      "language": "tsx",
+      "sizeBytes": 4396,
+      "pathSource": "heading"
+    },
+    {
+      "path": "src/features/results/IndicatorEntryPage.tsx",
+      "language": "tsx",
+      "sizeBytes": 10248,
+      "pathSource": "heading"
+    },
+    {
+      "path": "src/features/results/TrafficLightDashboard.tsx",
+      "language": "tsx",
+      "sizeBytes": 3800,
+      "pathSource": "heading"
+    },
+    {
+      "path": "src/features/results/AggregationView.tsx",
+      "language": "tsx",
+      "sizeBytes": 3017,
+      "pathSource": "heading"
+    },
+    {
+      "path": "src/features/results/LogframeExport.tsx",
+      "language": "tsx",
+      "sizeBytes": 1797,
+      "pathSource": "heading"
+    },
+    {
+      "path": "src/lib/i18n/en-4.json",
+      "language": "json",
+      "sizeBytes": 483,
+      "pathSource": "prose"
+    },
+    {
+      "path": "src/features/inception/__tests__/inception.schema.test.ts",
+      "language": "ts",
+      "sizeBytes": 1246,
+      "pathSource": "heading"
+    },
+    {
+      "path": "src/features/inception/__tests__/DeadlineTracker.test.tsx",
+      "language": "tsx",
+      "sizeBytes": 1348,
+      "pathSource": "heading"
+    },
+    {
+      "path": "src/features/results/__tests__/results.schema.test.ts",
+      "language": "ts",
+      "sizeBytes": 1372,
+      "pathSource": "heading"
+    },
+    {
+      "path": "src/features/results/__tests__/IndicatorEntryPage.test.tsx",
+      "language": "tsx",
+      "sizeBytes": 2316,
+      "pathSource": "heading"
+    },
+    {
+      "path": "src/features/financial/financial.types.ts",
+      "language": "ts",
+      "sizeBytes": 2601,
+      "pathSource": "heading"
+    },
+    {
+      "path": "src/features/financial/financial.schema.ts",
+      "language": "ts",
+      "sizeBytes": 1650,
+      "pathSource": "heading"
+    },
+    {
+      "path": "src/features/financial/financial.api.ts",
+      "language": "ts",
+      "sizeBytes": 3227,
+      "pathSource": "heading"
+    },
+    {
+      "path": "src/features/financial/financial.queries.ts",
+      "language": "ts",
+      "sizeBytes": 2241,
+      "pathSource": "heading"
+    },
+    {
+      "path": "src/features/financial/financial.mutations.ts",
+      "language": "ts",
+      "sizeBytes": 2085,
+      "pathSource": "heading"
+    },
+    {
+      "path": "src/features/financial/financial.utils.ts",
+      "language": "ts",
+      "sizeBytes": 1305,
+      "pathSource": "heading"
+    },
+    {
+      "path": "src/features/financial/FinancialKPIs.tsx",
+      "language": "tsx",
+      "sizeBytes": 1404,
+      "pathSource": "heading"
+    },
+    {
+      "path": "src/features/financial/BurnRateChart.tsx",
+      "language": "tsx",
+      "sizeBytes": 2229,
+      "pathSource": "heading"
+    },
+    {
+      "path": "src/features/financial/ExecutionGauge.tsx",
+      "language": "tsx",
+      "sizeBytes": 1927,
+      "pathSource": "heading"
+    },
+    {
+      "path": "src/features/financial/ExceptionsPanel.tsx",
+      "language": "tsx",
+      "sizeBytes": 1888,
+      "pathSource": "heading"
+    },
+    {
+      "path": "src/features/financial/FinancialPage.tsx",
+      "language": "tsx",
+      "sizeBytes": 7816,
+      "pathSource": "heading"
+    },
+    {
+      "path": "src/features/financial/BudgetRegister.tsx",
+      "language": "tsx",
+      "sizeBytes": 2692,
+      "pathSource": "heading"
+    },
+    {
+      "path": "src/features/financial/BudgetFormModal.tsx",
+      "language": "tsx",
+      "sizeBytes": 3319,
+      "pathSource": "heading"
+    },
+    {
+      "path": "src/features/financial/DisbursementPage.tsx",
+      "language": "tsx",
+      "sizeBytes": 7671,
+      "pathSource": "heading"
+    },
+    {
+      "path": "src/features/financial/DisbursementFormModal.tsx",
+      "language": "tsx",
+      "sizeBytes": 5021,
+      "pathSource": "heading"
+    },
+    {
+      "path": "src/features/financial/FmisSyncPage.tsx",
+      "language": "tsx",
+      "sizeBytes": 7003,
+      "pathSource": "heading"
+    },
+    {
+      "path": "src/features/financial/CostPerOutputView.tsx",
+      "language": "tsx",
+      "sizeBytes": 2391,
+      "pathSource": "heading"
+    },
+    {
+      "path": "src/features/procurement/procurement.types.ts",
+      "language": "ts",
+      "sizeBytes": 2188,
+      "pathSource": "heading"
+    },
+    {
+      "path": "src/features/procurement/procurement.schema.ts",
+      "language": "ts",
+      "sizeBytes": 1669,
+      "pathSource": "heading"
+    },
+    {
+      "path": "src/features/procurement/procurement.api.ts",
+      "language": "ts",
+      "sizeBytes": 2886,
+      "pathSource": "heading"
+    },
+    {
+      "path": "src/features/procurement/procurement.queries.ts",
+      "language": "ts",
+      "sizeBytes": 1578,
+      "pathSource": "heading"
+    },
+    {
+      "path": "src/features/procurement/procurement.mutations.ts",
+      "language": "ts",
+      "sizeBytes": 1363,
+      "pathSource": "heading"
+    },
+    {
+      "path": "src/features/procurement/procurement.utils.ts",
+      "language": "ts",
+      "sizeBytes": 1086,
+      "pathSource": "heading"
+    },
+    {
+      "path": "src/features/procurement/ProcurementPage.tsx",
+      "language": "tsx",
+      "sizeBytes": 3668,
+      "pathSource": "heading"
+    },
+    {
+      "path": "src/features/procurement/ProcurementTable.tsx",
+      "language": "tsx",
+      "sizeBytes": 2269,
+      "pathSource": "heading"
+    },
+    {
+      "path": "src/features/procurement/ProcurementTimeline.tsx",
+      "language": "tsx",
+      "sizeBytes": 4954,
+      "pathSource": "heading"
+    },
+    {
+      "path": "src/features/procurement/ProcurementFormModal.tsx",
+      "language": "tsx",
+      "sizeBytes": 4124,
+      "pathSource": "heading"
+    },
+    {
+      "path": "src/features/procurement/ContractRegister.tsx",
+      "language": "tsx",
+      "sizeBytes": 2525,
+      "pathSource": "heading"
+    },
+    {
+      "path": "src/features/procurement/ContractFormModal.tsx",
+      "language": "tsx",
+      "sizeBytes": 4513,
+      "pathSource": "heading"
+    },
+    {
+      "path": "src/features/procurement/DelayAlerts.tsx",
+      "language": "tsx",
+      "sizeBytes": 1629,
+      "pathSource": "heading"
+    },
+    {
+      "path": "src/features/procurement/SupplierPerformance.tsx",
+      "language": "tsx",
+      "sizeBytes": 3461,
+      "pathSource": "heading"
+    },
+    {
+      "path": "src/features/supplier/supplier.types.ts",
+      "language": "ts",
+      "sizeBytes": 2129,
+      "pathSource": "heading"
+    },
+    {
+      "path": "src/features/supplier/supplier.schema.ts",
+      "language": "ts",
+      "sizeBytes": 1725,
+      "pathSource": "heading"
+    },
+    {
+      "path": "src/features/supplier/supplier.api.ts",
+      "language": "ts",
+      "sizeBytes": 2698,
+      "pathSource": "heading"
+    },
+    {
+      "path": "src/features/supplier/supplier.queries.ts",
+      "language": "ts",
+      "sizeBytes": 1732,
+      "pathSource": "heading"
+    },
+    {
+      "path": "src/features/supplier/supplier.mutations.ts",
+      "language": "ts",
+      "sizeBytes": 1805,
+      "pathSource": "heading"
+    },
+    {
+      "path": "src/features/supplier/SupplierPortalPage.tsx",
+      "language": "tsx",
+      "sizeBytes": 2623,
+      "pathSource": "heading"
+    },
+    {
+      "path": "src/features/supplier/SupplierDashboard.tsx",
+      "language": "tsx",
+      "sizeBytes": 1142,
+      "pathSource": "heading"
+    },
+    {
+      "path": "src/features/supplier/SupplierContracts.tsx",
+      "language": "tsx",
+      "sizeBytes": 2561,
+      "pathSource": "heading"
+    },
+    {
+      "path": "src/features/supplier/DeliverySubmissionPage.tsx",
+      "language": "tsx",
+      "sizeBytes": 2920,
+      "pathSource": "heading"
+    },
+    {
+      "path": "src/features/supplier/DeliveryForm.tsx",
+      "language": "tsx",
+      "sizeBytes": 5052,
+      "pathSource": "heading"
+    },
+    {
+      "path": "src/features/supplier/InvoiceUploadModal.tsx",
+      "language": "tsx",
+      "sizeBytes": 3736,
+      "pathSource": "heading"
+    },
+    {
+      "path": "src/features/supplier/WarrantyRegister.tsx",
+      "language": "tsx",
+      "sizeBytes": 2062,
+      "pathSource": "heading"
+    },
+    {
+      "path": "src/features/supplier/PaymentStatusPanel.tsx",
+      "language": "tsx",
+      "sizeBytes": 3007,
+      "pathSource": "heading"
+    },
+    {
+      "path": "src/features/supplier/SupplierProfileForm.tsx",
+      "language": "tsx",
+      "sizeBytes": 3812,
+      "pathSource": "heading"
+    },
+    {
+      "path": "src/lib/i18n/en-5.json",
+      "language": "json",
+      "sizeBytes": 6115,
+      "pathSource": "prose"
+    },
+    {
+      "path": "am.json",
+      "language": "json",
+      "sizeBytes": 3052,
+      "pathSource": "prose"
+    },
+    {
+      "path": "src/features/financial/__tests__/financial.schema.test.ts",
+      "language": "ts",
+      "sizeBytes": 1697,
+      "pathSource": "heading"
+    },
+    {
+      "path": "src/features/financial/__tests__/ExecutionGauge.test.tsx",
+      "language": "tsx",
+      "sizeBytes": 634,
+      "pathSource": "heading"
+    },
+    {
+      "path": "src/features/procurement/__tests__/DelayAlerts.test.tsx",
+      "language": "tsx",
+      "sizeBytes": 1493,
+      "pathSource": "heading"
+    },
+    {
+      "path": "src/features/supplier/__tests__/supplier.schema.test.ts",
+      "language": "ts",
+      "sizeBytes": 1284,
+      "pathSource": "heading"
+    },
+    {
+      "path": "src/features/beneficiaries/beneficiary.types.ts",
+      "language": "ts",
+      "sizeBytes": 2750,
+      "pathSource": "heading"
+    },
+    {
+      "path": "src/features/beneficiaries/beneficiary.schema.ts",
+      "language": "ts",
+      "sizeBytes": 3335,
+      "pathSource": "heading"
+    },
+    {
+      "path": "src/features/beneficiaries/beneficiary.api.ts",
+      "language": "ts",
+      "sizeBytes": 5029,
+      "pathSource": "heading"
+    },
+    {
+      "path": "src/features/beneficiaries/beneficiary.queries.ts",
+      "language": "ts",
+      "sizeBytes": 1516,
+      "pathSource": "heading"
+    },
+    {
+      "path": "src/features/beneficiaries/beneficiary.mutations.ts",
+      "language": "ts",
+      "sizeBytes": 3113,
+      "pathSource": "heading"
+    },
+    {
+      "path": "src/features/beneficiaries/beneficiary.utils.ts",
+      "language": "ts",
+      "sizeBytes": 1606,
+      "pathSource": "heading"
+    },
+    {
+      "path": "src/features/beneficiaries/BeneficiaryListPage.tsx",
+      "language": "tsx",
+      "sizeBytes": 8608,
+      "pathSource": "heading"
+    },
+    {
+      "path": "src/features/beneficiaries/BeneficiaryFilters.tsx",
+      "language": "tsx",
+      "sizeBytes": 3993,
+      "pathSource": "heading"
+    },
+    {
+      "path": "src/features/beneficiaries/BeneficiaryFormModal.tsx",
+      "language": "tsx",
+      "sizeBytes": 9544,
+      "pathSource": "heading"
+    },
+    {
+      "path": "src/features/beneficiaries/DuplicateWarningModal.tsx",
+      "language": "tsx",
+      "sizeBytes": 2844,
+      "pathSource": "heading"
+    },
+    {
+      "path": "src/features/beneficiaries/BeneficiaryDetailPage.tsx",
+      "language": "tsx",
+      "sizeBytes": 5922,
+      "pathSource": "heading"
+    },
+    {
+      "path": "src/features/beneficiaries/VerificationPanel.tsx",
+      "language": "tsx",
+      "sizeBytes": 2603,
+      "pathSource": "heading"
+    },
+    {
+      "path": "src/features/beneficiaries/ServiceDeliveryPage.tsx",
+      "language": "tsx",
+      "sizeBytes": 4351,
+      "pathSource": "heading"
+    },
+    {
+      "path": "src/features/beneficiaries/ServiceDeliveryForm.tsx",
+      "language": "tsx",
+      "sizeBytes": 5210,
+      "pathSource": "heading"
+    },
+    {
+      "path": "src/features/beneficiaries/SmsIntakePanel.tsx",
+      "language": "tsx",
+      "sizeBytes": 1889,
+      "pathSource": "heading"
+    },
+    {
+      "path": "src/features/geo/geo.types.ts",
+      "language": "ts",
+      "sizeBytes": 1042,
+      "pathSource": "heading"
+    },
+    {
+      "path": "src/features/geo/geo.api.ts",
+      "language": "ts",
+      "sizeBytes": 1665,
+      "pathSource": "heading"
+    },
+    {
+      "path": "src/features/geo/geo.queries.ts",
+      "language": "ts",
+      "sizeBytes": 943,
+      "pathSource": "heading"
+    },
+    {
+      "path": "src/features/geo/MapPage.tsx",
+      "language": "tsx",
+      "sizeBytes": 7343,
+      "pathSource": "heading"
+    },
+    {
+      "path": "src/features/geo/MapControls.tsx",
+      "language": "tsx",
+      "sizeBytes": 1588,
+      "pathSource": "heading"
+    },
+    {
+      "path": "src/features/geo/LocationPicker.tsx",
+      "language": "tsx",
+      "sizeBytes": 3209,
+      "pathSource": "heading"
+    },
+    {
+      "path": "src/features/geo/GeoVerifyPanel.tsx",
+      "language": "tsx",
+      "sizeBytes": 2637,
+      "pathSource": "heading"
+    },
+    {
+      "path": "src/features/documents/document.types.ts",
+      "language": "ts",
+      "sizeBytes": 1127,
+      "pathSource": "heading"
+    },
+    {
+      "path": "src/features/documents/document.schema.ts",
+      "language": "ts",
+      "sizeBytes": 1161,
+      "pathSource": "heading"
+    },
+    {
+      "path": "src/features/documents/document.api.ts",
+      "language": "ts",
+      "sizeBytes": 2319,
+      "pathSource": "heading"
+    },
+    {
+      "path": "src/features/documents/document.queries.ts",
+      "language": "ts",
+      "sizeBytes": 1091,
+      "pathSource": "heading"
+    },
+    {
+      "path": "src/features/documents/document.mutations.ts",
+      "language": "ts",
+      "sizeBytes": 1227,
+      "pathSource": "heading"
+    },
+    {
+      "path": "src/features/documents/DocumentsPage.tsx",
+      "language": "tsx",
+      "sizeBytes": 7832,
+      "pathSource": "heading"
+    },
+    {
+      "path": "src/features/documents/DocumentUploadModal.tsx",
+      "language": "tsx",
+      "sizeBytes": 4176,
+      "pathSource": "heading"
+    },
+    {
+      "path": "src/features/documents/DocumentPreviewPanel.tsx",
+      "language": "tsx",
+      "sizeBytes": 4081,
+      "pathSource": "heading"
+    },
+    {
+      "path": "src/features/grievances/grievance.types.ts",
+      "language": "ts",
+      "sizeBytes": 2170,
+      "pathSource": "heading"
+    },
+    {
+      "path": "src/features/grievances/grievance.schema.ts",
+      "language": "ts",
+      "sizeBytes": 1708,
+      "pathSource": "heading"
+    },
+    {
+      "path": "src/features/grievances/grievance.api.ts",
+      "language": "ts",
+      "sizeBytes": 2858,
+      "pathSource": "heading"
+    },
+    {
+      "path": "src/features/grievances/grievance.queries.ts",
+      "language": "ts",
+      "sizeBytes": 1457,
+      "pathSource": "heading"
+    },
+    {
+      "path": "src/features/grievances/grievance.mutations.ts",
+      "language": "ts",
+      "sizeBytes": 2093,
+      "pathSource": "heading"
+    },
+    {
+      "path": "src/features/grievances/grievance.utils.ts",
+      "language": "ts",
+      "sizeBytes": 1488,
+      "pathSource": "heading"
+    },
+    {
+      "path": "src/features/grievances/GrievancePage.tsx",
+      "language": "tsx",
+      "sizeBytes": 5772,
+      "pathSource": "heading"
+    },
+    {
+      "path": "src/features/grievances/GrievanceKanban.tsx",
+      "language": "tsx",
+      "sizeBytes": 3548,
+      "pathSource": "heading"
+    },
+    {
+      "path": "src/features/grievances/GrievanceList.tsx",
+      "language": "tsx",
+      "sizeBytes": 2552,
+      "pathSource": "heading"
+    },
+    {
+      "path": "src/features/grievances/GrievanceIntakeModal.tsx",
+      "language": "tsx",
+      "sizeBytes": 4093,
+      "pathSource": "heading"
+    },
+    {
+      "path": "src/features/grievances/GrievanceDetailDrawer.tsx",
+      "language": "tsx",
+      "sizeBytes": 8119,
+      "pathSource": "heading"
+    },
+    {
+      "path": "src/features/grievances/SlaTracker.tsx",
+      "language": "tsx",
+      "sizeBytes": 2023,
+      "pathSource": "heading"
+    },
+    {
+      "path": "src/features/grievances/GrievanceAnalytics.tsx",
+      "language": "tsx",
+      "sizeBytes": 2095,
+      "pathSource": "heading"
+    },
+    {
+      "path": "src/lib/i18n/en-6.json",
+      "language": "json",
+      "sizeBytes": 7448,
+      "pathSource": "prose"
+    },
+    {
+      "path": "am-2.json",
+      "language": "json",
+      "sizeBytes": 1595,
+      "pathSource": "prose"
+    },
+    {
+      "path": "src/features/beneficiaries/__tests__/beneficiary.schema.test.ts",
+      "language": "ts",
+      "sizeBytes": 1739,
+      "pathSource": "heading"
+    },
+    {
+      "path": "src/features/beneficiaries/__tests__/DuplicateWarningModal.test.tsx",
+      "language": "tsx",
+      "sizeBytes": 1084,
+      "pathSource": "heading"
+    },
+    {
+      "path": "src/features/geo/__tests__/geo.test.ts",
+      "language": "ts",
+      "sizeBytes": 335,
+      "pathSource": "heading"
+    },
+    {
+      "path": "src/features/documents/__tests__/document.schema.test.ts",
+      "language": "ts",
+      "sizeBytes": 1239,
+      "pathSource": "heading"
+    },
+    {
+      "path": "src/features/grievances/__tests__/grievance.schema.test.ts",
+      "language": "ts",
+      "sizeBytes": 1109,
+      "pathSource": "heading"
+    },
+    {
+      "path": "src/features/impact-indicators/impactIndicator.types.ts",
+      "language": "ts",
+      "sizeBytes": 1729,
+      "pathSource": "heading"
+    },
+    {
+      "path": "src/features/impact-indicators/impactIndicator.schema.ts",
+      "language": "ts",
+      "sizeBytes": 2024,
+      "pathSource": "heading"
+    },
+    {
+      "path": "src/features/impact-indicators/impactIndicator.api.ts",
+      "language": "ts",
+      "sizeBytes": 2554,
+      "pathSource": "heading"
+    },
+    {
+      "path": "src/features/impact-indicators/impactIndicator.queries.ts",
+      "language": "ts",
+      "sizeBytes": 1447,
+      "pathSource": "heading"
+    },
+    {
+      "path": "src/features/impact-indicators/impactIndicator.mutations.ts",
+      "language": "ts",
+      "sizeBytes": 1702,
+      "pathSource": "heading"
+    },
+    {
+      "path": "src/features/impact-indicators/ImpactIndicatorsPage.tsx",
+      "language": "tsx",
+      "sizeBytes": 7169,
+      "pathSource": "heading"
+    },
+    {
+      "path": "src/features/impact-indicators/ImpactIndicatorForm.tsx",
+      "language": "tsx",
+      "sizeBytes": 4190,
+      "pathSource": "heading"
+    },
+    {
+      "path": "src/features/impact-indicators/CompositeIndexBuilder.tsx",
+      "language": "tsx",
+      "sizeBytes": 5022,
+      "pathSource": "heading"
+    },
+    {
+      "path": "src/features/impact-indicators/WaveAssignmentModal.tsx",
+      "language": "tsx",
+      "sizeBytes": 3306,
+      "pathSource": "heading"
+    },
+    {
+      "path": "src/features/survey/survey.types.ts",
+      "language": "ts",
+      "sizeBytes": 1758,
+      "pathSource": "heading"
+    },
+    {
+      "path": "src/features/survey/survey.schema.ts",
+      "language": "ts",
+      "sizeBytes": 2613,
+      "pathSource": "heading"
+    },
+    {
+      "path": "src/features/survey/skipLogic.ts",
+      "language": "ts",
+      "sizeBytes": 12073,
+      "pathSource": "heading"
+    },
+    {
+      "path": "src/features/survey/xlsform.ts",
+      "language": "ts",
+      "sizeBytes": 7028,
+      "pathSource": "heading"
+    },
+    {
+      "path": "src/features/survey/survey.api.ts",
+      "language": "ts",
+      "sizeBytes": 2775,
+      "pathSource": "heading"
+    },
+    {
+      "path": "survey.queries.ts",
+      "language": "ts",
+      "sizeBytes": 720,
+      "pathSource": "comment"
+    },
+    {
+      "path": "survey.mutations.ts",
+      "language": "ts",
+      "sizeBytes": 1917,
+      "pathSource": "comment"
+    },
+    {
+      "path": "src/features/survey/SurveyBuilderPage.tsx",
+      "language": "tsx",
+      "sizeBytes": 12143,
+      "pathSource": "heading"
+    },
+    {
+      "path": "src/features/survey/QuestionEditor.tsx",
+      "language": "tsx",
+      "sizeBytes": 4862,
+      "pathSource": "heading"
+    },
+    {
+      "path": "src/features/survey/SkipLogicEditor.tsx",
+      "language": "tsx",
+      "sizeBytes": 4004,
+      "pathSource": "heading"
+    },
+    {
+      "path": "src/features/survey/SurveyPreview.tsx",
+      "language": "tsx",
+      "sizeBytes": 4775,
+      "pathSource": "heading"
+    },
+    {
+      "path": "src/features/field/field.types.ts",
+      "language": "ts",
+      "sizeBytes": 2225,
+      "pathSource": "heading"
+    },
+    {
+      "path": "src/features/field/offlineStore.ts",
+      "language": "ts",
+      "sizeBytes": 2022,
+      "pathSource": "heading"
+    },
+    {
+      "path": "src/features/field/field.api.ts",
+      "language": "ts",
+      "sizeBytes": 1227,
+      "pathSource": "heading"
+    },
+    {
+      "path": "field.queries.ts",
+      "language": "ts",
+      "sizeBytes": 936,
+      "pathSource": "comment"
+    },
+    {
+      "path": "field.mutations.ts",
+      "language": "ts",
+      "sizeBytes": 764,
+      "pathSource": "comment"
+    },
+    {
+      "path": "src/features/field/CapiRenderer.tsx",
+      "language": "tsx",
+      "sizeBytes": 22590,
+      "pathSource": "heading"
+    },
+    {
+      "path": "src/features/field/FieldOpsPage.tsx",
+      "language": "tsx",
+      "sizeBytes": 4294,
+      "pathSource": "heading"
+    },
+    {
+      "path": "src/features/field/SyncQueue.tsx",
+      "language": "tsx",
+      "sizeBytes": 2663,
+      "pathSource": "heading"
+    },
+    {
+      "path": "src/features/qa/qa.types.ts",
+      "language": "ts",
+      "sizeBytes": 1589,
+      "pathSource": "heading"
+    },
+    {
+      "path": "src/features/qa/qa.rules.ts",
+      "language": "ts",
+      "sizeBytes": 4182,
+      "pathSource": "heading"
+    },
+    {
+      "path": "qa.api.ts",
+      "language": "ts",
+      "sizeBytes": 1894,
+      "pathSource": "comment"
+    },
+    {
+      "path": "qa.queries.ts",
+      "language": "ts",
+      "sizeBytes": 1240,
+      "pathSource": "comment"
+    },
+    {
+      "path": "qa.mutations.ts",
+      "language": "ts",
+      "sizeBytes": 1199,
+      "pathSource": "comment"
+    },
+    {
+      "path": "src/features/qa/QAPage.tsx",
+      "language": "tsx",
+      "sizeBytes": 13243,
+      "pathSource": "heading"
+    },
+    {
+      "path": "src/features/warehouse/warehouse.types.ts",
+      "language": "ts",
+      "sizeBytes": 1921,
+      "pathSource": "heading"
+    },
+    {
+      "path": "src/features/warehouse/anonymize.ts",
+      "language": "ts",
+      "sizeBytes": 6264,
+      "pathSource": "heading"
+    },
+    {
+      "path": "warehouse.api.ts",
+      "language": "ts",
+      "sizeBytes": 2232,
+      "pathSource": "comment"
+    },
+    {
+      "path": "warehouse.queries.ts",
+      "language": "ts",
+      "sizeBytes": 1226,
+      "pathSource": "comment"
+    },
+    {
+      "path": "warehouse.mutations.ts",
+      "language": "ts",
+      "sizeBytes": 1513,
+      "pathSource": "comment"
+    },
+    {
+      "path": "src/features/warehouse/WarehousePage.tsx",
+      "language": "tsx",
+      "sizeBytes": 6930,
+      "pathSource": "heading"
+    },
+    {
+      "path": "src/features/warehouse/ResearchCataloguePage.tsx",
+      "language": "tsx",
+      "sizeBytes": 5463,
+      "pathSource": "heading"
+    },
+    {
+      "path": "src/features/analytics/analytics.types.ts",
+      "language": "ts",
+      "sizeBytes": 1050,
+      "pathSource": "heading"
+    },
+    {
+      "path": "src/features/analytics/did.ts",
+      "language": "ts",
+      "sizeBytes": 4070,
+      "pathSource": "heading"
+    },
+    {
+      "path": "analytics.api.ts",
+      "language": "ts",
+      "sizeBytes": 1239,
+      "pathSource": "comment"
+    },
+    {
+      "path": "analytics.queries.ts",
+      "language": "ts",
+      "sizeBytes": 996,
+      "pathSource": "comment"
+    },
+    {
+      "path": "src/features/analytics/ImpactDashboardPage.tsx",
+      "language": "tsx",
+      "sizeBytes": 2951,
+      "pathSource": "heading"
+    },
+    {
+      "path": "src/features/analytics/WaveComparisonChart.tsx",
+      "language": "tsx",
+      "sizeBytes": 2261,
+      "pathSource": "heading"
+    },
+    {
+      "path": "src/features/analytics/TreatmentVsControl.tsx",
+      "language": "tsx",
+      "sizeBytes": 3895,
+      "pathSource": "heading"
+    },
+    {
+      "path": "src/lib/i18n/en-7.json",
+      "language": "json",
+      "sizeBytes": 2277,
+      "pathSource": "prose"
+    },
+    {
+      "path": "src/features/survey/__tests__/skipLogic.test.ts",
+      "language": "ts",
+      "sizeBytes": 3502,
+      "pathSource": "heading"
+    },
+    {
+      "path": "src/features/warehouse/__tests__/anonymize.test.ts",
+      "language": "ts",
+      "sizeBytes": 3591,
+      "pathSource": "heading"
+    },
+    {
+      "path": "src/features/analytics/__tests__/did.test.ts",
+      "language": "ts",
+      "sizeBytes": 2417,
+      "pathSource": "heading"
+    },
+    {
+      "path": "src/features/field/__tests__/capi.test.tsx",
+      "language": "tsx",
+      "sizeBytes": 4612,
+      "pathSource": "heading"
+    },
+    {
+      "path": "src/app/ErrorBoundary.tsx",
+      "language": "tsx",
+      "sizeBytes": 3322,
+      "pathSource": "heading"
+    },
+    {
+      "path": "src/app/GlobalLoadingBar.tsx",
+      "language": "tsx",
+      "sizeBytes": 1513,
+      "pathSource": "heading"
+    },
+    {
+      "path": "src/components/layout/OfflineBanner.tsx",
+      "language": "tsx",
+      "sizeBytes": 1836,
+      "pathSource": "heading"
+    },
+    {
+      "path": "src/components/layout/SyncConflictModal.tsx",
+      "language": "tsx",
+      "sizeBytes": 5707,
+      "pathSource": "heading"
+    },
+    {
+      "path": "src/components/pwa/UpdatePrompt.tsx",
+      "language": "tsx",
+      "sizeBytes": 2306,
+      "pathSource": "heading"
+    },
+    {
+      "path": "src/lib/pwa/registerSW.ts",
+      "language": "ts",
+      "sizeBytes": 482,
+      "pathSource": "heading"
+    },
+    {
+      "path": "src/main-2.tsx",
+      "language": "tsx",
+      "sizeBytes": 601,
+      "pathSource": "heading"
+    },
+    {
+      "path": "src/app/providers-2.tsx",
+      "language": "tsx",
+      "sizeBytes": 1453,
+      "pathSource": "heading"
+    },
+    {
+      "path": "vite.config-2.ts",
+      "language": "ts",
+      "sizeBytes": 5972,
+      "pathSource": "heading"
+    },
+    {
+      "path": "public/offline.html",
+      "language": "html",
+      "sizeBytes": 2289,
+      "pathSource": "heading"
+    },
+    {
+      "path": "nginx.conf",
+      "language": "nginx",
+      "sizeBytes": 2500,
+      "pathSource": "heading"
+    },
+    {
+      "path": ".nvmrc",
+      "language": "",
+      "sizeBytes": 7,
+      "pathSource": "heading"
+    },
+    {
+      "path": ".github/workflows/ci.yml",
+      "language": "yaml",
+      "sizeBytes": 2629,
+      "pathSource": "heading"
+    },
+    {
+      "path": ".github/workflows/deploy.yml",
+      "language": "yaml",
+      "sizeBytes": 2280,
+      "pathSource": "heading"
+    },
+    {
+      "path": "lighthouserc.json",
+      "language": "json",
+      "sizeBytes": 923,
+      "pathSource": "heading"
+    },
+    {
+      "path": "README-2.md",
+      "language": "`markdown",
+      "sizeBytes": 1037,
+      "pathSource": "heading"
+    },
+    {
+      "path": "deploy.yml",
+      "language": "`",
+      "sizeBytes": 30,
+      "pathSource": "prose"
+    },
+    {
+      "path": "SECURITY.md",
+      "language": "markdown",
+      "sizeBytes": 1528,
+      "pathSource": "heading"
+    },
+    {
+      "path": "docs/module-map.md",
+      "language": "markdown",
+      "sizeBytes": 3914,
+      "pathSource": "heading"
+    },
+    {
+      "path": "docs/role-training-index.md",
+      "language": "markdown",
+      "sizeBytes": 1587,
+      "pathSource": "heading"
+    },
+    {
+      "path": "docs/smoke-test.md",
+      "language": "markdown",
+      "sizeBytes": 2340,
+      "pathSource": "heading"
+    },
+    {
+      "path": "src/features/admin/admin.types.ts",
+      "language": "ts",
+      "sizeBytes": 2863,
+      "pathSource": "heading"
+    },
+    {
+      "path": "src/features/admin/admin.schema.ts",
+      "language": "ts",
+      "sizeBytes": 1725,
+      "pathSource": "heading"
+    },
+    {
+      "path": "src/features/admin/admin.api.ts",
+      "language": "ts",
+      "sizeBytes": 3831,
+      "pathSource": "heading"
+    },
+    {
+      "path": "src/features/admin/admin.queries.ts",
+      "language": "ts",
+      "sizeBytes": 1948,
+      "pathSource": "heading"
+    },
+    {
+      "path": "src/features/admin/admin.mutations.ts",
+      "language": "ts",
+      "sizeBytes": 3090,
+      "pathSource": "heading"
+    },
+    {
+      "path": "src/features/admin/AdminHomePage.tsx",
+      "language": "tsx",
+      "sizeBytes": 8328,
+      "pathSource": "heading"
+    },
+    {
+      "path": "src/features/admin/AdminUsersPage.tsx",
+      "language": "tsx",
+      "sizeBytes": 11202,
+      "pathSource": "heading"
+    },
+    {
+      "path": "src/features/admin/UserFormModal.tsx",
+      "language": "tsx",
+      "sizeBytes": 7244,
+      "pathSource": "heading"
+    },
+    {
+      "path": "src/features/admin/AdminIntegrationsPage.tsx",
+      "language": "tsx",
+      "sizeBytes": 5811,
+      "pathSource": "heading"
+    },
+    {
+      "path": "src/features/admin/AuditPage.tsx",
+      "language": "tsx",
+      "sizeBytes": 8303,
+      "pathSource": "heading"
+    },
+    {
+      "path": "src/features/reports/report.types.ts",
+      "language": "ts",
+      "sizeBytes": 1379,
+      "pathSource": "heading"
+    },
+    {
+      "path": "src/features/reports/report.schema.ts",
+      "language": "ts",
+      "sizeBytes": 773,
+      "pathSource": "heading"
+    },
+    {
+      "path": "src/features/reports/report.api.ts",
+      "language": "ts",
+      "sizeBytes": 2077,
+      "pathSource": "heading"
+    },
+    {
+      "path": "src/features/reports/report.queries.ts",
+      "language": "ts",
+      "sizeBytes": 1181,
+      "pathSource": "heading"
+    },
+    {
+      "path": "src/features/reports/report.mutations.ts",
+      "language": "ts",
+      "sizeBytes": 1634,
+      "pathSource": "heading"
+    },
+    {
+      "path": "src/features/reports/ReportsPage.tsx",
+      "language": "tsx",
+      "sizeBytes": 13460,
+      "pathSource": "heading"
+    },
+    {
+      "path": "src/features/reports/ReportGenerateModal.tsx",
+      "language": "tsx",
+      "sizeBytes": 3280,
+      "pathSource": "heading"
+    },
+    {
+      "path": "src/features/reports/ScheduleModal.tsx",
+      "language": "tsx",
+      "sizeBytes": 2996,
+      "pathSource": "heading"
+    },
+    {
+      "path": "src/lib/monitoring/logger.ts",
+      "language": "ts",
+      "sizeBytes": 1845,
+      "pathSource": "heading"
+    },
+    {
+      "path": "src/lib/monitoring/sentry.ts",
+      "language": "ts",
+      "sizeBytes": 1159,
+      "pathSource": "heading"
+    },
+    {
+      "path": "src/lib/monitoring/sentry-2.ts",
+      "language": "tsx",
+      "sizeBytes": 67,
+      "pathSource": "heading"
+    },
+    {
+      "path": "docker-compose.yml",
+      "language": "yaml",
+      "sizeBytes": 719,
+      "pathSource": "heading"
+    },
+    {
+      "path": "src/components/ui/__tests__/Modal.test.tsx",
+      "language": "tsx",
+      "sizeBytes": 2327,
+      "pathSource": "heading"
+    },
+    {
+      "path": "src/components/ui/__tests__/Input.test.tsx",
+      "language": "tsx",
+      "sizeBytes": 1475,
+      "pathSource": "heading"
+    },
+    {
+      "path": "tests/e2e/helpers.ts",
+      "language": "ts",
+      "sizeBytes": 1110,
+      "pathSource": "heading"
+    },
+    {
+      "path": "tests/e2e/auth.spec.ts",
+      "language": "ts",
+      "sizeBytes": 1541,
+      "pathSource": "heading"
+    },
+    {
+      "path": "tests/e2e/project-lifecycle.spec.ts",
+      "language": "ts",
+      "sizeBytes": 2239,
+      "pathSource": "heading"
+    },
+    {
+      "path": "tests/e2e/field-interview.spec.ts",
+      "language": "ts",
+      "sizeBytes": 1810,
+      "pathSource": "heading"
+    },
+    {
+      "path": "tests/e2e/wb-review.spec.ts",
+      "language": "ts",
+      "sizeBytes": 1214,
+      "pathSource": "heading"
+    },
+    {
+      "path": "tests/e2e/a11y.spec.ts",
+      "language": "ts",
+      "sizeBytes": 1640,
+      "pathSource": "heading"
+    },
+    {
+      "path": "src/lib/i18n/index-2.ts",
+      "language": "ts",
+      "sizeBytes": 861,
+      "pathSource": "heading"
+    },
+    {
+      "path": "src/lib/i18n/en/index.ts",
+      "language": "ts",
+      "sizeBytes": 1245,
+      "pathSource": "heading"
+    },
+    {
+      "path": "src/lib/i18n/am/index.ts",
+      "language": "ts",
+      "sizeBytes": 1109,
+      "pathSource": "heading"
+    },
+    {
+      "path": "src/lib/i18n/en/common.json",
+      "language": "json",
+      "sizeBytes": 3477,
+      "pathSource": "heading"
+    },
+    {
+      "path": "src/lib/i18n/en/projects.json",
+      "language": "json",
+      "sizeBytes": 4642,
+      "pathSource": "heading"
+    },
+    {
+      "path": "scripts/split-i18n.ts",
+      "language": "ts",
+      "sizeBytes": 1881,
+      "pathSource": "heading"
+    },
+    {
+      "path": "scripts/split-i18n-2.ts",
+      "language": "bash",
+      "sizeBytes": 29,
+      "pathSource": "heading"
+    },
+    {
+      "path": "src/features/qa/qa.rules.schema.ts",
+      "language": "ts",
+      "sizeBytes": 2620,
+      "pathSource": "heading"
+    },
+    {
+      "path": "src/features/qa/qa.rules.mutations.ts",
+      "language": "ts",
+      "sizeBytes": 1991,
+      "pathSource": "heading"
+    },
+    {
+      "path": "src/features/qa/QARuleFormModal.tsx",
+      "language": "tsx",
+      "sizeBytes": 5709,
+      "pathSource": "heading"
+    },
+    {
+      "path": "src/features/qa/QARulesManager.tsx",
+      "language": "tsx",
+      "sizeBytes": 6399,
+      "pathSource": "heading"
+    },
+    {
+      "path": "QAPage.tsx",
+      "language": "tsx",
+      "sizeBytes": 154,
+      "pathSource": "heading"
+    },
+    {
+      "path": "src/features/qa/__tests__/qa.rules.test.ts",
+      "language": "ts",
+      "sizeBytes": 3166,
+      "pathSource": "heading"
+    },
+    {
+      "path": "src/features/warehouse/WaveDatasetBuilder.tsx",
+      "language": "tsx",
+      "sizeBytes": 4616,
+      "pathSource": "heading"
+    },
+    {
+      "path": "src/features/warehouse/AnonymizationConfig.tsx",
+      "language": "tsx",
+      "sizeBytes": 11455,
+      "pathSource": "heading"
+    },
+    {
+      "path": "WarehousePage.tsx",
+      "language": "tsx",
+      "sizeBytes": 230,
+      "pathSource": "heading"
+    },
+    {
+      "path": "src/components/ui/__tests__/Select.test.tsx",
+      "language": "tsx",
+      "sizeBytes": 1853,
+      "pathSource": "heading"
+    },
+    {
+      "path": "src/components/ui/__tests__/Tabs.test.tsx",
+      "language": "tsx",
+      "sizeBytes": 2990,
+      "pathSource": "heading"
+    },
+    {
+      "path": "src/components/ui/__tests__/Toast.test.tsx",
+      "language": "tsx",
+      "sizeBytes": 3190,
+      "pathSource": "heading"
+    },
+    {
+      "path": ".gitignore",
+      "language": "",
+      "sizeBytes": 545,
+      "pathSource": "heading"
+    },
+    {
+      "path": "docs/on-call.md",
+      "language": "markdown",
+      "sizeBytes": 1577,
+      "pathSource": "heading"
+    },
+    {
+      "path": "docs/training/README.md",
+      "language": "markdown",
+      "sizeBytes": 1807,
+      "pathSource": "heading"
+    }
+  ]
+}

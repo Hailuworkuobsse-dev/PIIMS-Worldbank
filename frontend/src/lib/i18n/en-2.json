@@ -1,0 +1,151 @@
+{
+  "projects": {
+    "title": "Projects",
+    "subtitle": "{{count}} projects · {{active}} active · {{pipeline}} in pipeline",
+    "actions": {
+      "new": "New project",
+      "import": "Bulk import",
+      "export": "Export CSV",
+      "columns": "Columns",
+      "filters": "Filters",
+      "clearFilters": "Clear all",
+      "view": "View",
+      "edit": "Edit",
+      "advance": "Advance stage",
+      "archive": "Archive"
+    },
+    "columns": {
+      "code": "Code",
+      "name": "Project",
+      "sector": "Sector",
+      "region": "Region",
+      "status": "Status",
+      "budget": "Budget",
+      "progress": "Progress",
+      "owner": "Owner",
+      "updated": "Updated"
+    },
+    "status": {
+      "idea": "Idea",
+      "profile": "Profile",
+      "pre_feasibility": "Pre-feasibility",
+      "feasibility": "Feasibility",
+      "appraisal": "Appraisal",
+      "approved": "Approved",
+      "active": "Active",
+      "closed": "Closed",
+      "cancelled": "Cancelled"
+    },
+    "sector": {
+      "water": "Water",
+      "energy": "Energy",
+      "both": "Water & Energy",
+      "other": "Other"
+    },
+    "filters": {
+      "searchPlaceholder": "Search by code or name…",
+      "status": "Status",
+      "sector": "Sector",
+      "region": "Region",
+      "owner": "Lead organization"
+    },
+    "empty": {
+      "title": "No projects found",
+      "description": "Try changing filters, or register a new project.",
+      "searchTitle": "No results for “{{q}}”",
+      "searchDescription": "Try a different search term."
+    },
+    "wizard": {
+      "title": "Register new project",
+      "subtitle": "Complete all steps. You can save a draft at any time.",
+      "draftSaved": "Draft saved at {{time}}",
+      "steps": {
+        "identification": "Identification",
+        "classification": "Classification",
+        "location": "Location",
+        "budget": "Budget & financing",
+        "review": "Review & submit"
+      },
+      "buttons": {
+        "back": "Back",
+        "next": "Continue",
+        "submit": "Create project",
+        "saveDraft": "Save draft",
+        "discard": "Discard draft"
+      },
+      "fields": {
+        "name": "Project name",
+        "nameAm": "Project name (Amharic)",
+        "description": "Brief description",
+        "subsector": "Subsector",
+        "sector": "Sector",
+        "ownerOrgId": "Lead organization",
+        "implementationArrangement": "Implementation arrangement",
+        "wbCreditNo": "WB credit / grant number",
+        "region": "Region",
+        "zone": "Zone",
+        "woreda": "Woreda",
+        "kebele": "Kebele",
+        "latitude": "Latitude",
+        "longitude": "Longitude",
+        "totalBudget": "Total budget",
+        "currency": "Currency",
+        "startDate": "Planned start date",
+        "endDate": "Planned end date",
+        "financingSource": "Financing sources",
+        "financingSourceAdd": "Add financing line",
+        "financingSourceRemove": "Remove",
+        "referenceNo": "Reference number"
+      },
+      "review": {
+        "title": "Please review before submitting",
+        "acknowledge": "I confirm the information above is accurate",
+        "budgetMismatch": "Financing sources must sum to the total budget."
+      }
+    },
+    "detail": {
+      "notFound": "Project not found",
+      "notFoundDescription": "The project may have been removed or you may not have access.",
+      "tabs": {
+        "overview": "Overview",
+        "components": "Components & results",
+        "financial": "Financial",
+        "procurement": "Procurement",
+        "beneficiaries": "Beneficiaries",
+        "documents": "Documents",
+        "history": "History"
+      },
+      "fields": {
+        "code": "Code",
+        "owner": "Lead organization",
+        "sector": "Sector",
+        "subsector": "Subsector",
+        "arrangement": "Implementation arrangement",
+        "wbCredit": "WB credit",
+        "start": "Start",
+        "end": "End",
+        "budget": "Total budget",
+        "region": "Region",
+        "zone": "Zone",
+        "woreda": "Woreda",
+        "kebele": "Kebele",
+        "created": "Created",
+        "updated": "Last updated"
+      },
+      "advance": {
+        "title": "Advance project stage",
+        "currentStage": "Current stage",
+        "targetStage": "Target stage",
+        "checklist": "Pre-conditions",
+        "notes": "Notes",
+        "confirm": "Advance"
+      }
+    },
+    "pipeline": {
+      "title": "Pipeline",
+      "subtitle": "Projects by stage gate",
+      "emptyColumn": "No projects",
+      "columnCount": "{{count}} project(s)"
+    }
+  }
+}

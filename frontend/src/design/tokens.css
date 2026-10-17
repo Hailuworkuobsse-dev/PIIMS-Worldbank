@@ -1,0 +1,65 @@
+:root {
+  /* Brand palette */
+  --piims-primary-900: #0b1e3d;
+  --piims-primary-700: #14315e;
+  --piims-primary-500: #1e4976;
+  --piims-primary-300: #7ba7d9;
+  --piims-primary-100: #e7eff9;
+
+  --piims-accent-500: #d4a017;
+  --piims-accent-300: #f2d580;
+  --piims-accent-100: #fdf6e3;
+
+  --piims-success: #16a34a;
+  --piims-warning: #d97706;
+  --piims-danger: #dc2626;
+  --piims-info: #2563eb;
+
+  --piims-neutral-900: #0f172a;
+  --piims-neutral-600: #475569;
+  --piims-neutral-300: #cbd5e1;
+  --piims-neutral-100: #f1f5f9;
+  --piims-neutral-50: #f8fafc;
+
+  /* Data classification */
+  --piims-cls-pu: #16a34a;
+  --piims-cls-in: #2563eb;
+  --piims-cls-cf: #d97706;
+  --piims-cls-rs: #dc2626;
+  --piims-cls-spi: #7c3aed;
+  --piims-cls-rd: #0d9488;
+  --piims-cls-rg: #1f2937;
+
+  /* Traffic light */
+  --piims-tl-on: #16a34a;
+  --piims-tl-at: #d97706;
+  --piims-tl-off: #dc2626;
+  --piims-tl-na: #94a3b8;
+
+  /* Radii, shadows */
+  --piims-radius-sm: 4px;
+  --piims-radius-md: 8px;
+  --piims-radius-lg: 12px;
+  --piims-shadow-sm: 0 1px 2px rgba(0, 0, 0, 0.06);
+  --piims-shadow-md: 0 4px 12px rgba(0, 0, 0, 0.08);
+  --piims-shadow-lg: 0 8px 24px rgba(0, 0, 0, 0.12);
+
+  /* Focus ring */
+  --piims-focus: 0 0 0 3px rgba(37, 99, 235, 0.35);
+}
+
+/* Amharic text adjustments */
+[lang="am"] {
+  font-size: 105%;
+  line-height: 1.6;
+}
+
+/* Reduced motion */
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.001ms !important;
+    transition-duration: 0.001ms !important;
+  }
+}

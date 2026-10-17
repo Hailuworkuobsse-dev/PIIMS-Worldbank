@@ -1,0 +1,43 @@
+{
+  "app": {
+    "name": "PIIMS",
+    "tagline": "Project Inception Information Management System",
+    "owner": "Ministry of Water and Energy · Federal Democratic Republic of Ethiopia"
+  },
+  "actions": {
+    "save": "Save",
+    "cancel": "Cancel",
+    "confirm": "Confirm",
+    "submit": "Submit",
+    "search": "Search",
+    "filter": "Filter",
+    "export": "Export",
+    "print": "Print",
+    "signIn": "Sign in",
+    "signOut": "Sign out",
+    "retry": "Retry"
+  },
+  "nav": {
+    "dashboard": "Dashboard",
+    "projects": "Projects",
+    "results": "Results Framework",
+    "financial": "Financial",
+    "procurement": "Procurement",
+    "beneficiaries": "Beneficiaries",
+    "impact": "Impact",
+    "reports": "Reports",
+    "admin": "Administration",
+    "audit": "Audit"
+  },
+  "a11y": {
+    "skipToMain": "Skip to main content",
+    "loading": "Loading…",
+    "offlineBanner": "You are offline. Changes will sync when you reconnect.",
+    "syncPending": "{{count}} record(s) pending sync"
+  },
+  "errors": {
+    "generic": "Something went wrong. Please try again.",
+    "network": "Network unavailable. Please check your connection.",
+    "unauthorized": "Your session has expired. Please sign in again."
+  }
+}

@@ -1,0 +1,88 @@
+{
+  "financial": {
+    "title": "ፋይናንስ",
+    "kpi": {
+      "appropriation": "ምድብ",
+      "released": "የተለቀቀ",
+      "expended": "የወጣ",
+      "executionRate": "የአፈጻጸም መጠን"
+    },
+    "burn": {
+      "title": "የወጪ መጠን",
+      "released": "የተለቀቀ",
+      "expended": "የወጣ",
+      "committed": "የተጫነ"
+    },
+    "execution": { "title": "የአፈጻጸም መለኪያ", "subtitle": "ወጪ ከምድብ አንጻር" },
+    "exceptions": { "title": "ልዩ ሁኔታዎች", "none": "ልዩ ሁኔታ የለም" },
+    "budget": {
+      "title": "የበጀት መዝገብ",
+      "form": {
+        "title": "የበጀት መስመር ጨምር",
+        "component": "ክፍል",
+        "wholeProject": "ጠቅላላ ፕሮጀክት",
+        "fiscalYear": "የበጀት ዓመት",
+        "currency": "ገንዘብ",
+        "appropriation": "ምድብ",
+        "notes": "ማስታወሻ"
+      }
+    },
+    "tabs": {
+      "budget": "በጀት",
+      "byComponent": "በክፍል",
+      "costPerOutput": "ወጪ በውጤት",
+      "disbursements": "ክፍያዎች"
+    },
+    "disbursements": {
+      "title": "ክፍያዎች",
+      "add": "ክፍያ መዝግብ",
+      "empty": "ክፍያ የለም",
+      "form": {
+        "title": "ክፍያ መዝግብ",
+        "project": "ፕሮጀክት",
+        "source": "ምንጭ",
+        "category": "ምድብ",
+        "amount": "መጠን",
+        "currency": "ገንዘብ",
+        "valueDate": "የእሴት ቀን",
+        "referenceNo": "የማጣቀሻ ቁጥር",
+        "status": "ሁኔታ",
+        "warning": "ክፍያዎች በኦዲት ይመረመራሉ። ከማስቀመጥዎ በፊት ትክክለኛነቱን ያረጋግጡ።"
+      }
+    },
+    "fmis": { "title": "የኤፍኤምአይኤስ ማመሳሰል", "syncNow": "አሁን አመሳስል" },
+    "actions": {
+      "viewFmis": "የFMIS ማመሳሰል ተመልከት",
+      "export": "CSV ላክ",
+      "addBudget": "በጀት ጨምር"
+    }
+  },
+  "procurement": {
+    "title": "ግዥ",
+    "actions": { "newLine": "አዲስ መስመር", "newContract": "አዲስ ውል" },
+    "tabs": {
+      "plan": "እቅድ",
+      "timeline": "የጊዜ መስመር",
+      "contracts": "ውሎች",
+      "performance": "አፈጻጸም"
+    }
+  },
+  "supplier": {
+    "title": "የአቅራቢ ፖርታል",
+    "subtitle": "ውሎችዎን፣ አቅርቦቶችዎን፣ ደረሰኞችዎን እና ክፍያዎችዎን ያስተዳድሩ",
+    "actions": { "uploadInvoice": "ደረሰኝ ስቀል" },
+    "tabs": {
+      "contracts": "ውሎች",
+      "deliveries": "አቅርቦቶች",
+      "warranties": "ዋራንቲዎች",
+      "payments": "ክፍያዎች",
+      "profile": "መገለጫ"
+    },
+    "deliveries": {
+      "title": "አቅርቦቶች",
+      "add": "አዲስ አቅርቦት",
+      "formTitle": "አቅርቦት አስገባ",
+      "captureGps": "GPS ያንሱ"
+    }
+  }
+}
