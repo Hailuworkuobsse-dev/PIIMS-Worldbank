@@ -5,13 +5,12 @@
 
 generator client {
   provider        = "prisma-client-js"
-  previewFeatures = ["postgresqlExtensions", "fullTextSearch"]
+  previewFeatures = ["fullTextSearch"]
 }
 
 datasource db {
-  provider   = "postgresql"
+  provider = "mysql"
   url        = env("DATABASE_URL")
-  extensions = [postgis, pgcrypto, pg_trgm]
 }
 
 // ═══════════════════════════════════════════════════════════════════════════
@@ -473,14 +472,14 @@ enum AuditAction {
 // ═══════════════════════════════════════════════════════════════════════════
 
 model Organization {
-  orgId   String     @id @default(uuid()) @db.Uuid
+  orgId   String     @id @default(uuid()) @db.Char(36)
   code    String     @unique @db.VarChar(20)
   name    String     @db.VarChar(200)
   nameAm  String?    @db.VarChar(200)
   orgType OrgType
   level   OrgLevel
 
-  parentOrgId String?      @db.Uuid
+  parentOrgId String?      @db.Char(36)
   parent      Organization? @relation("OrgHierarchy", fields: [parentOrgId], references: [orgId], onDelete: SetNull)
   children    Organization[] @relation("OrgHierarchy")
 
@@ -512,7 +511,7 @@ model Organization {
 }
 
 model Role {
-  roleId      String  @id @default(uuid()) @db.Uuid
+  roleId      String  @id @default(uuid()) @db.Char(36)
   code        String  @unique @db.VarChar(30)
   name        String  @db.VarChar(100)
   description String? @db.Text
@@ -530,17 +529,17 @@ model Role {
 }
 
 model User {
-  userId     String  @id @default(uuid()) @db.Uuid
+  userId     String  @id @default(uuid()) @db.Char(36)
   username   String  @unique @db.VarChar(60)
   email      String  @unique @db.VarChar(120)
   fullName   String  @db.VarChar(200)
   fullNameAm String? @db.VarChar(200)
   phone      String? @db.VarChar(20)
 
-  orgId String       @db.Uuid
+  orgId String       @db.Char(36)
   org   Organization @relation(fields: [orgId], references: [orgId], onDelete: Restrict)
 
-  roleId String @db.Uuid
+  roleId String @db.Char(36)
   role   Role   @relation(fields: [roleId], references: [roleId], onDelete: Restrict)
 
   passwordHash      String    @db.VarChar(255)
@@ -595,8 +594,8 @@ model User {
 }
 
 model RefreshToken {
-  tokenId   String   @id @default(uuid()) @db.Uuid
-  userId    String   @db.Uuid
+  tokenId   String   @id @default(uuid()) @db.Char(36)
+  userId    String   @db.Char(36)
   user      User     @relation(fields: [userId], references: [userId], onDelete: Cascade)
   tokenHash String   @unique @db.VarChar(128)
   expiresAt DateTime
@@ -612,17 +611,17 @@ model RefreshToken {
 
 model AuditLog {
   logId         BigInt      @id @default(autoincrement())
-  userId        String?     @db.Uuid
+  userId        String?     @db.Char(36)
   user          User?       @relation(fields: [userId], references: [userId], onDelete: SetNull)
-  sessionId     String?     @db.Uuid
+  sessionId     String?     @db.Char(36)
   entity        String      @db.VarChar(60)
-  entityId      String?     @db.Uuid
+  entityId      String?     @db.Char(36)
   action        AuditAction
   oldValue      Json?
   newValue      Json?
   ipAddress     String?     @db.VarChar(45)
   userAgent     String?     @db.VarChar(255)
-  correlationId String?     @db.Uuid
+  correlationId String?     @db.Char(36)
   prevHash      String?     @db.VarChar(64)
   recordHash    String      @db.VarChar(64)
   createdAt     DateTime    @default(now())
@@ -639,7 +638,7 @@ model AuditLog {
 // ═══════════════════════════════════════════════════════════════════════════
 
 model Project {
-  projectId     String        @id @default(uuid()) @db.Uuid
+  projectId     String        @id @default(uuid()) @db.Char(36)
   projectCode   String        @unique @db.VarChar(30)
   name          String        @db.VarChar(300)
   nameAm        String?       @db.VarChar(300)
@@ -649,10 +648,10 @@ model Project {
   status        ProjectStatus @default(IDEA)
   stageGate     String?       @db.VarChar(50)
 
-  ownerOrgId String       @db.Uuid
+  ownerOrgId String       @db.Char(36)
   ownerOrg   Organization @relation(fields: [ownerOrgId], references: [orgId], onDelete: Restrict)
 
-  locationId String?   @db.Uuid
+  locationId String?   @db.Char(36)
   location   Location? @relation("ProjectPrimaryLocation", fields: [locationId], references: [locationId], onDelete: SetNull)
 
   totalBudget Decimal    @db.Decimal(18, 2)
@@ -668,9 +667,9 @@ model Project {
 
   financingSource Json? // [{ source, amount, currency, referenceNo }]
 
-  createdById String? @db.Uuid
+  createdById String? @db.Char(36)
   createdBy   User?   @relation("ProjectCreatedBy", fields: [createdById], references: [userId], onDelete: SetNull)
-  updatedById String? @db.Uuid
+  updatedById String? @db.Char(36)
   updatedBy   User?   @relation("ProjectUpdatedBy", fields: [updatedById], references: [userId], onDelete: SetNull)
 
   deletedAt DateTime?
@@ -711,8 +710,8 @@ model Project {
 }
 
 model Component {
-  componentId String @id @default(uuid()) @db.Uuid
-  projectId   String @db.Uuid
+  componentId String @id @default(uuid()) @db.Char(36)
+  projectId   String @db.Char(36)
   project     Project @relation(fields: [projectId], references: [projectId], onDelete: Cascade)
 
   code        String @db.VarChar(20)
@@ -720,7 +719,7 @@ model Component {
   nameAm      String? @db.VarChar(200)
   description String? @db.Text
   budget      Decimal? @db.Decimal(18, 2)
-  responsibleOrgId String? @db.Uuid
+  responsibleOrgId String? @db.Char(36)
   responsibleOrg   Organization? @relation(fields: [responsibleOrgId], references: [orgId], onDelete: SetNull)
   orderNo     Int    @default(0)
 
@@ -738,8 +737,8 @@ model Component {
 }
 
 model Subcomponent {
-  subcomponentId String    @id @default(uuid()) @db.Uuid
-  componentId    String    @db.Uuid
+  subcomponentId String    @id @default(uuid()) @db.Char(36)
+  componentId    String    @db.Char(36)
   component      Component @relation(fields: [componentId], references: [componentId], onDelete: Cascade)
 
   code        String  @db.VarChar(20)
@@ -747,11 +746,11 @@ model Subcomponent {
   nameAm      String? @db.VarChar(200)
   description String? @db.Text
   budget      Decimal? @db.Decimal(18, 2)
-  responsibleOrgId String? @db.Uuid
+  responsibleOrgId String? @db.Char(36)
   responsibleOrg   Organization? @relation(fields: [responsibleOrgId], references: [orgId], onDelete: SetNull)
   orderNo     Int     @default(0)
 
-  projectId String  @db.Uuid
+  projectId String  @db.Char(36)
   project   Project @relation(fields: [projectId], references: [projectId], onDelete: Cascade)
 
   createdAt DateTime @default(now())
@@ -766,11 +765,11 @@ model Subcomponent {
 }
 
 model Milestone {
-  milestoneId String @id @default(uuid()) @db.Uuid
-  projectId   String @db.Uuid
+  milestoneId String @id @default(uuid()) @db.Char(36)
+  projectId   String @db.Char(36)
   project     Project @relation(fields: [projectId], references: [projectId], onDelete: Cascade)
 
-  componentId String?   @db.Uuid
+  componentId String?   @db.Char(36)
   component   Component? @relation(fields: [componentId], references: [componentId], onDelete: SetNull)
 
   name        String    @db.VarChar(200)
@@ -779,7 +778,7 @@ model Milestone {
   actualDate  DateTime? @db.Date
   status      String    @default("PENDING") @db.VarChar(20)
 
-  ownerOrgId String?      @db.Uuid
+  ownerOrgId String?      @db.Char(36)
   ownerOrg   Organization? @relation(fields: [ownerOrgId], references: [orgId], onDelete: SetNull)
 
   createdAt DateTime @default(now())
@@ -792,7 +791,7 @@ model Milestone {
 }
 
 model Location {
-  locationId String @id @default(uuid()) @db.Uuid
+  locationId String @id @default(uuid()) @db.Char(36)
   region     String @db.VarChar(100)
   regionCode String? @db.VarChar(10)
   zone       String? @db.VarChar(100)
@@ -820,11 +819,11 @@ model Location {
 // ═══════════════════════════════════════════════════════════════════════════
 
 model Indicator {
-  indicatorId    String     @id @default(uuid()) @db.Uuid
-  subcomponentId String     @db.Uuid
+  indicatorId    String     @id @default(uuid()) @db.Char(36)
+  subcomponentId String     @db.Char(36)
   subcomponent   Subcomponent @relation(fields: [subcomponentId], references: [subcomponentId], onDelete: Cascade)
 
-  projectId String  @db.Uuid
+  projectId String  @db.Char(36)
   project   Project @relation(fields: [projectId], references: [projectId], onDelete: Cascade)
 
   code          String       @db.VarChar(30)
@@ -857,8 +856,8 @@ model Indicator {
 }
 
 model IndicatorValue {
-  valueId     String    @id @default(uuid()) @db.Uuid
-  indicatorId String    @db.Uuid
+  valueId     String    @id @default(uuid()) @db.Char(36)
+  indicatorId String    @db.Char(36)
   indicator   Indicator @relation(fields: [indicatorId], references: [indicatorId], onDelete: Cascade)
 
   period         String   @db.VarChar(20)
@@ -870,7 +869,7 @@ model IndicatorValue {
   dataSource     String?  @db.VarChar(100)
   notes          String?  @db.Text
 
-  verifiedById String? @db.Uuid
+  verifiedById String? @db.Char(36)
   verifiedBy   User?   @relation("IndicatorValueVerifiedBy", fields: [verifiedById], references: [userId], onDelete: SetNull)
   verifiedAt   DateTime?
 
@@ -888,11 +887,11 @@ model IndicatorValue {
 // ═══════════════════════════════════════════════════════════════════════════
 
 model Budget {
-  budgetId    String  @id @default(uuid()) @db.Uuid
-  projectId   String  @db.Uuid
+  budgetId    String  @id @default(uuid()) @db.Char(36)
+  projectId   String  @db.Char(36)
   project     Project @relation(fields: [projectId], references: [projectId], onDelete: Cascade)
 
-  componentId String?   @db.Uuid
+  componentId String?   @db.Char(36)
   component   Component? @relation(fields: [componentId], references: [componentId], onDelete: SetNull)
 
   fiscalYear    Int
@@ -915,11 +914,11 @@ model Budget {
 }
 
 model Disbursement {
-  disbursementId String  @id @default(uuid()) @db.Uuid
-  projectId      String  @db.Uuid
+  disbursementId String  @id @default(uuid()) @db.Char(36)
+  projectId      String  @db.Char(36)
   project        Project @relation(fields: [projectId], references: [projectId], onDelete: Cascade)
 
-  sourceOrgId String       @db.Uuid
+  sourceOrgId String       @db.Char(36)
   sourceOrg   Organization @relation(fields: [sourceOrgId], references: [orgId], onDelete: Restrict)
 
   category   FinancingCategory
@@ -947,11 +946,11 @@ model Disbursement {
 // ═══════════════════════════════════════════════════════════════════════════
 
 model Procurement {
-  procurementId String  @id @default(uuid()) @db.Uuid
-  projectId     String  @db.Uuid
+  procurementId String  @id @default(uuid()) @db.Char(36)
+  projectId     String  @db.Char(36)
   project       Project @relation(fields: [projectId], references: [projectId], onDelete: Cascade)
 
-  componentId String?   @db.Uuid
+  componentId String?   @db.Char(36)
   component   Component? @relation(fields: [componentId], references: [componentId], onDelete: SetNull)
 
   planRef          String            @db.VarChar(50)
@@ -978,7 +977,7 @@ model Procurement {
 }
 
 model Supplier {
-  supplierId String  @id @default(uuid()) @db.Uuid
+  supplierId String  @id @default(uuid()) @db.Char(36)
   name       String  @db.VarChar(200)
   nameAm     String? @db.VarChar(200)
   tin        String? @unique @db.VarChar(20)
@@ -991,7 +990,7 @@ model Supplier {
   status        SupplierStatus @default(ACTIVE)
   performanceScore Decimal? @db.Decimal(5, 2)
 
-  orgId String?       @db.Uuid
+  orgId String?       @db.Char(36)
   org   Organization? @relation(fields: [orgId], references: [orgId], onDelete: SetNull)
 
   createdAt DateTime @default(now())
@@ -1007,8 +1006,8 @@ model Supplier {
 }
 
 model Product {
-  productId  String  @id @default(uuid()) @db.Uuid
-  supplierId String  @db.Uuid
+  productId  String  @id @default(uuid()) @db.Char(36)
+  supplierId String  @db.Char(36)
   supplier   Supplier @relation(fields: [supplierId], references: [supplierId], onDelete: Restrict)
 
   name           String      @db.VarChar(200)
@@ -1031,14 +1030,14 @@ model Product {
 }
 
 model Contract {
-  contractId    String  @id @default(uuid()) @db.Uuid
-  projectId     String  @db.Uuid
+  contractId    String  @id @default(uuid()) @db.Char(36)
+  projectId     String  @db.Char(36)
   project       Project @relation(fields: [projectId], references: [projectId], onDelete: Cascade)
 
-  procurementId String?      @db.Uuid
+  procurementId String?      @db.Char(36)
   procurement   Procurement? @relation(fields: [procurementId], references: [procurementId], onDelete: SetNull)
 
-  supplierId String   @db.Uuid
+  supplierId String   @db.Char(36)
   supplier   Supplier @relation(fields: [supplierId], references: [supplierId], onDelete: Restrict)
 
   contractNo String         @unique @db.VarChar(50)
@@ -1051,7 +1050,7 @@ model Contract {
   status     ContractStatus @default(DRAFT)
   amendmentNo Int           @default(0)
 
-  documentId String? @db.Uuid
+  documentId String? @db.Char(36)
 
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
@@ -1067,7 +1066,7 @@ model Contract {
 // ═══════════════════════════════════════════════════════════════════════════
 
 model Beneficiary {
-  beneficiaryId String  @id @default(uuid()) @db.Uuid
+  beneficiaryId String  @id @default(uuid()) @db.Char(36)
   uniqueId      String  @unique @db.VarChar(50)
   nationalId    String? @db.VarChar(50)
   fullName      String  @db.VarChar(200)
@@ -1078,7 +1077,7 @@ model Beneficiary {
   householdSize Int?
   phone         String?  @db.VarChar(20)
 
-  locationId String    @db.Uuid
+  locationId String    @db.Char(36)
   location   Location  @relation(fields: [locationId], references: [locationId], onDelete: Restrict)
 
   region String? @db.VarChar(100)
@@ -1089,7 +1088,7 @@ model Beneficiary {
   vulnerability Json?
   registrationChannel RegistrationChannel
   registrationDate    DateTime            @db.Date
-  verifiedById        String?             @db.Uuid
+  verifiedById        String?             @db.Char(36)
   verifiedBy          User?               @relation("BeneficiaryVerifiedBy", fields: [verifiedById], references: [userId], onDelete: SetNull)
   verifiedAt          DateTime?
   status              BeneficiaryStatus   @default(REGISTERED)
@@ -1111,17 +1110,17 @@ model Beneficiary {
 }
 
 model ServiceDelivery {
-  deliveryId    String      @id @default(uuid()) @db.Uuid
-  beneficiaryId String      @db.Uuid
+  deliveryId    String      @id @default(uuid()) @db.Char(36)
+  beneficiaryId String      @db.Char(36)
   beneficiary   Beneficiary @relation(fields: [beneficiaryId], references: [beneficiaryId], onDelete: Restrict)
 
-  projectId String  @db.Uuid
+  projectId String  @db.Char(36)
   project   Project @relation(fields: [projectId], references: [projectId], onDelete: Cascade)
 
-  supplierId String?   @db.Uuid
+  supplierId String?   @db.Char(36)
   supplier   Supplier? @relation(fields: [supplierId], references: [supplierId], onDelete: SetNull)
 
-  productId String?   @db.Uuid
+  productId String?   @db.Char(36)
   product   Product?  @relation(fields: [productId], references: [productId], onDelete: SetNull)
 
   serialNo  String?   @unique @db.VarChar(80)
@@ -1130,12 +1129,12 @@ model ServiceDelivery {
   installDate DateTime? @db.Date
   installLat Float?
   installLon Float?
-  installPhotoId String? @db.Uuid
+  installPhotoId String? @db.Char(36)
   warrantyStart DateTime? @db.Date
   warrantyEnd   DateTime? @db.Date
   status        DeliveryStatus @default(PLANNED)
 
-  verifiedById String?   @db.Uuid
+  verifiedById String?   @db.Char(36)
   verifiedBy   User?     @relation("DeliveryVerifiedBy", fields: [verifiedById], references: [userId], onDelete: SetNull)
   verifiedAt   DateTime?
 
@@ -1150,13 +1149,13 @@ model ServiceDelivery {
 }
 
 model Grievance {
-  grievanceId String   @id @default(uuid()) @db.Uuid
+  grievanceId String   @id @default(uuid()) @db.Char(36)
   ticketNo    String   @unique @db.VarChar(30)
 
-  projectId String?  @db.Uuid
+  projectId String?  @db.Char(36)
   project   Project? @relation(fields: [projectId], references: [projectId], onDelete: SetNull)
 
-  beneficiaryId String?      @db.Uuid
+  beneficiaryId String?      @db.Char(36)
   beneficiary   Beneficiary? @relation(fields: [beneficiaryId], references: [beneficiaryId], onDelete: SetNull)
 
   category    GrievanceCategory
@@ -1165,10 +1164,10 @@ model Grievance {
   channel     GrievanceChannel
   submittedAt DateTime          @default(now())
 
-  locationId String?   @db.Uuid
+  locationId String?   @db.Char(36)
   location   Location? @relation(fields: [locationId], references: [locationId], onDelete: SetNull)
 
-  assignedToId String? @db.Uuid
+  assignedToId String? @db.Char(36)
   assignedTo   User?   @relation("GrievanceAssignedTo", fields: [assignedToId], references: [userId], onDelete: SetNull)
   assignedAt   DateTime?
 
@@ -1178,7 +1177,7 @@ model Grievance {
   resolution String?        @db.Text
   resolvedAt DateTime?
 
-  escalatedToId String? @db.Uuid
+  escalatedToId String? @db.Char(36)
   escalatedTo   User?   @relation("GrievanceEscalatedTo", fields: [escalatedToId], references: [userId], onDelete: SetNull)
 
   anonymous Boolean @default(false)
@@ -1197,12 +1196,12 @@ model Grievance {
 }
 
 model GrievanceAction {
-  actionId    String    @id @default(uuid()) @db.Uuid
-  grievanceId String    @db.Uuid
+  actionId    String    @id @default(uuid()) @db.Char(36)
+  grievanceId String    @db.Char(36)
   grievance   Grievance @relation(fields: [grievanceId], references: [grievanceId], onDelete: Cascade)
 
   actionType GrievanceActionType
-  actorId    String   @db.Uuid
+  actorId    String   @db.Char(36)
   actor      User     @relation(fields: [actorId], references: [userId], onDelete: Restrict)
   notes      String   @db.Text
   createdAt  DateTime @default(now())
@@ -1216,8 +1215,8 @@ model GrievanceAction {
 // ═══════════════════════════════════════════════════════════════════════════
 
 model Document {
-  docId     String  @id @default(uuid()) @db.Uuid
-  projectId String? @db.Uuid
+  docId     String  @id @default(uuid()) @db.Char(36)
+  projectId String? @db.Char(36)
   project   Project? @relation(fields: [projectId], references: [projectId], onDelete: SetNull)
 
   docType     DocType
@@ -1229,9 +1228,9 @@ model Document {
   mimeType    String  @db.VarChar(100)
   checksum    String  @db.VarChar(64)
   accessLevel AccessLevel @default(INTERNAL)
-  tags        String[] @default([])
+  tags        Json @default("[]")
 
-  uploadedById String @db.Uuid
+  uploadedById String @db.Char(36)
   uploadedBy   User   @relation("DocumentUploadedBy", fields: [uploadedById], references: [userId], onDelete: Restrict)
 
   createdAt DateTime @default(now())
@@ -1246,8 +1245,8 @@ model Document {
 }
 
 model DocumentVersion {
-  versionId  String   @id @default(uuid()) @db.Uuid
-  docId      String   @db.Uuid
+  versionId  String   @id @default(uuid()) @db.Char(36)
+  docId      String   @db.Char(36)
   document   Document @relation(fields: [docId], references: [docId], onDelete: Cascade)
 
   version   Int
@@ -1256,7 +1255,7 @@ model DocumentVersion {
   checksum  String    @db.VarChar(64)
   notes     String?   @db.Text
 
-  uploadedById String   @db.Uuid
+  uploadedById String   @db.Char(36)
   uploadedBy   User     @relation(fields: [uploadedById], references: [userId], onDelete: Restrict)
 
   createdAt DateTime @default(now())
@@ -1271,25 +1270,25 @@ model DocumentVersion {
 // ═══════════════════════════════════════════════════════════════════════════
 
 model InceptionReport {
-  reportId  String  @id @default(uuid()) @db.Uuid
-  projectId String  @db.Uuid
+  reportId  String  @id @default(uuid()) @db.Char(36)
+  projectId String  @db.Char(36)
   project   Project @relation(fields: [projectId], references: [projectId], onDelete: Cascade)
 
   version      Int
-  templateId   String?  @db.Uuid
+  templateId   String?  @db.Char(36)
   submissionDate DateTime? @db.Date
   dueDate      DateTime @db.Date
   status       InceptionStatus @default(DRAFT)
 
-  submittedById String? @db.Uuid
+  submittedById String? @db.Char(36)
   submittedBy   User?   @relation("ReportSubmittedBy", fields: [submittedById], references: [userId], onDelete: SetNull)
-  reviewedById  String? @db.Uuid
+  reviewedById  String? @db.Char(36)
   reviewedBy    User?   @relation("ReportReviewedBy", fields: [reviewedById], references: [userId], onDelete: SetNull)
   reviewedAt    DateTime?
 
   noObjection     Boolean   @default(false)
   noObjectionDate DateTime? @db.Date
-  documentId      String?   @db.Uuid
+  documentId      String?   @db.Char(36)
   summary         String?   @db.Text
 
   createdAt DateTime @default(now())
@@ -1305,19 +1304,19 @@ model InceptionReport {
 }
 
 model ReviewComment {
-  commentId String          @id @default(uuid()) @db.Uuid
-  reportId  String          @db.Uuid
+  commentId String          @id @default(uuid()) @db.Char(36)
+  reportId  String          @db.Char(36)
   report    InceptionReport @relation(fields: [reportId], references: [reportId], onDelete: Cascade)
 
   sectionId String? @db.VarChar(50)
-  authorId  String  @db.Uuid
+  authorId  String  @db.Char(36)
   author    User    @relation(fields: [authorId], references: [userId], onDelete: Restrict)
   text      String  @db.Text
   resolved  Boolean @default(false)
-  resolvedById String? @db.Uuid
+  resolvedById String? @db.Char(36)
   resolvedBy   User?   @relation("CommentResolvedBy", fields: [resolvedById], references: [userId], onDelete: SetNull)
   resolvedAt   DateTime?
-  parentId     String? @db.Uuid
+  parentId     String? @db.Char(36)
 
   createdAt DateTime @default(now())
 
@@ -1331,8 +1330,8 @@ model ReviewComment {
 // ═══════════════════════════════════════════════════════════════════════════
 
 model Report {
-  reportId  String  @id @default(uuid()) @db.Uuid
-  projectId String? @db.Uuid
+  reportId  String  @id @default(uuid()) @db.Char(36)
+  projectId String? @db.Char(36)
   project   Project? @relation(fields: [projectId], references: [projectId], onDelete: SetNull)
 
   reportType ReportType
@@ -1344,7 +1343,7 @@ model Report {
   status     String     @default("QUEUED") @db.VarChar(20)
   error      String?    @db.Text
 
-  generatedById String @db.Uuid
+  generatedById String @db.Char(36)
   generatedBy   User   @relation(fields: [generatedById], references: [userId], onDelete: Restrict)
   generatedAt   DateTime @default(now())
 
@@ -1356,10 +1355,10 @@ model Report {
 }
 
 model ReportSchedule {
-  scheduleId String     @id @default(uuid()) @db.Uuid
+  scheduleId String     @id @default(uuid()) @db.Char(36)
   reportType ReportType
   cron       String     @db.VarChar(100)
-  recipients String[]   @default([])
+  recipients Json @default("[]")
   format     ReportFormat
   active     Boolean    @default(true)
   lastRunAt  DateTime?
@@ -1376,7 +1375,7 @@ model ReportSchedule {
 // ═══════════════════════════════════════════════════════════════════════════
 
 model ImpactDomain {
-  domainId    String          @id @default(uuid()) @db.Uuid
+  domainId    String          @id @default(uuid()) @db.Char(36)
   code        String          @unique @db.VarChar(20)
   name        String          @db.VarChar(100)
   nameAm      String?         @db.VarChar(100)
@@ -1390,8 +1389,8 @@ model ImpactDomain {
 }
 
 model ImpactIndicator {
-  indicatorId String       @id @default(uuid()) @db.Uuid
-  domainId    String       @db.Uuid
+  indicatorId String       @id @default(uuid()) @db.Char(36)
+  domainId    String       @db.Char(36)
   domain      ImpactDomain @relation(fields: [domainId], references: [domainId], onDelete: Restrict)
 
   code          String          @unique @db.VarChar(30)
@@ -1410,7 +1409,7 @@ model ImpactIndicator {
   effectiveTo   DateTime?       @db.Date
   status        ImpactStatus    @default(ACTIVE)
 
-  createdById String @db.Uuid
+  createdById String @db.Char(36)
   createdBy   User   @relation("ImpactIndicatorCreatedBy", fields: [createdById], references: [userId], onDelete: Restrict)
   createdAt   DateTime @default(now())
   updatedAt   DateTime @updatedAt
@@ -1424,11 +1423,11 @@ model ImpactIndicator {
 }
 
 model IndicatorWave {
-  indicatorWaveId String @id @default(uuid()) @db.Uuid
-  indicatorId     String @db.Uuid
+  indicatorWaveId String @id @default(uuid()) @db.Char(36)
+  indicatorId     String @db.Char(36)
   indicator       ImpactIndicator @relation(fields: [indicatorId], references: [indicatorId], onDelete: Cascade)
 
-  waveId String @db.Uuid
+  waveId String @db.Char(36)
   wave   Wave   @relation(fields: [waveId], references: [waveId], onDelete: Cascade)
 
   targetValue            Decimal? @db.Decimal(18, 4)
@@ -1442,8 +1441,8 @@ model IndicatorWave {
 }
 
 model TheoryOfChange {
-  tocId       String  @id @default(uuid()) @db.Uuid
-  projectId   String  @unique @db.Uuid
+  tocId       String  @id @default(uuid()) @db.Char(36)
+  projectId   String  @unique @db.Char(36)
   project     Project @relation(fields: [projectId], references: [projectId], onDelete: Cascade)
 
   name        String  @db.VarChar(200)
@@ -1451,7 +1450,7 @@ model TheoryOfChange {
   diagramUrl  String? @db.VarChar(500)
   links       Json?
 
-  authorId String @db.Uuid
+  authorId String @db.Char(36)
   author   User   @relation(fields: [authorId], references: [userId], onDelete: Restrict)
 
   createdAt DateTime @default(now())
@@ -1465,17 +1464,17 @@ model TheoryOfChange {
 // ═══════════════════════════════════════════════════════════════════════════
 
 model Survey {
-  surveyId  String  @id @default(uuid()) @db.Uuid
+  surveyId  String  @id @default(uuid()) @db.Char(36)
   code      String  @unique @db.VarChar(30)
   name      String  @db.VarChar(300)
   nameAm    String? @db.VarChar(300)
   purpose   String? @db.Text
-  projectId String? @db.Uuid
+  projectId String? @db.Char(36)
   status    SurveyStatus @default(DRAFT)
 
-  currentVersionId String? @db.Uuid
+  currentVersionId String? @db.Char(36)
 
-  createdById String @db.Uuid
+  createdById String @db.Char(36)
   createdBy   User   @relation(fields: [createdById], references: [userId], onDelete: Restrict)
 
   createdAt DateTime @default(now())
@@ -1487,18 +1486,18 @@ model Survey {
 }
 
 model SurveyVersion {
-  versionId String @id @default(uuid()) @db.Uuid
-  surveyId  String @db.Uuid
+  versionId String @id @default(uuid()) @db.Char(36)
+  surveyId  String @db.Char(36)
   survey    Survey @relation(fields: [surveyId], references: [surveyId], onDelete: Cascade)
 
   versionNo   Int
   publishedAt DateTime?
-  publishedById String? @db.Uuid
+  publishedById String? @db.Char(36)
   publishedBy User?   @relation("SurveyVersionPublishedBy", fields: [publishedById], references: [userId], onDelete: SetNull)
   locked      Boolean @default(false)
   lockedAt    DateTime?
   xlsformRef  String? @db.VarChar(500)
-  languages   String[] @default(["en"])
+  languages   Json @default("[\"en\"]")
 
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
@@ -1512,8 +1511,8 @@ model SurveyVersion {
 }
 
 model Section {
-  sectionId String        @id @default(uuid()) @db.Uuid
-  versionId String        @db.Uuid
+  sectionId String        @id @default(uuid()) @db.Char(36)
+  versionId String        @db.Char(36)
   version   SurveyVersion @relation(fields: [versionId], references: [versionId], onDelete: Cascade)
 
   code        String  @db.VarChar(20)
@@ -1535,8 +1534,8 @@ model Section {
 }
 
 model Question {
-  questionId String  @id @default(uuid()) @db.Uuid
-  sectionId  String  @db.Uuid
+  questionId String  @id @default(uuid()) @db.Char(36)
+  sectionId  String  @db.Char(36)
   section    Section @relation(fields: [sectionId], references: [sectionId], onDelete: Cascade)
 
   code     String       @db.VarChar(30)
@@ -1548,7 +1547,7 @@ model Question {
   orderNo  Int          @default(0)
   validation   Json?
   calculation  String?  @db.Text
-  indicatorId  String?  @db.Uuid
+  indicatorId  String?  @db.Char(36)
   indicator    ImpactIndicator? @relation(fields: [indicatorId], references: [indicatorId], onDelete: SetNull)
   disaggregationKey String? @db.VarChar(50)
 
@@ -1567,8 +1566,8 @@ model Question {
 }
 
 model QuestionOption {
-  optionId   String   @id @default(uuid()) @db.Uuid
-  questionId String   @db.Uuid
+  optionId   String   @id @default(uuid()) @db.Char(36)
+  questionId String   @db.Char(36)
   question   Question @relation(fields: [questionId], references: [questionId], onDelete: Cascade)
 
   code    String  @db.VarChar(20)
@@ -1582,13 +1581,13 @@ model QuestionOption {
 }
 
 model SkipLogic {
-  logicId         String   @id @default(uuid()) @db.Uuid
-  questionId      String   @db.Uuid
+  logicId         String   @id @default(uuid()) @db.Char(36)
+  questionId      String   @db.Char(36)
   question        Question @relation("QuestionSource", fields: [questionId], references: [questionId], onDelete: Cascade)
 
   condition       String   @db.Text
   action          SkipLogicAction
-  targetQuestionId String?  @db.Uuid
+  targetQuestionId String?  @db.Char(36)
   targetQuestion  Question? @relation("QuestionTarget", fields: [targetQuestionId], references: [questionId], onDelete: SetNull)
 
   @@index([questionId])
@@ -1596,8 +1595,8 @@ model SkipLogic {
 }
 
 model Wave {
-  waveId    String  @id @default(uuid()) @db.Uuid
-  projectId String  @db.Uuid
+  waveId    String  @id @default(uuid()) @db.Char(36)
+  projectId String  @db.Char(36)
   project   Project @relation(fields: [projectId], references: [projectId], onDelete: Cascade)
 
   code        String     @db.VarChar(20)
@@ -1627,14 +1626,14 @@ model Wave {
 }
 
 model Assignment {
-  assignmentId    String        @id @default(uuid()) @db.Uuid
-  waveId          String        @db.Uuid
+  assignmentId    String        @id @default(uuid()) @db.Char(36)
+  waveId          String        @db.Char(36)
   wave            Wave          @relation(fields: [waveId], references: [waveId], onDelete: Cascade)
-  surveyVersionId String        @db.Uuid
+  surveyVersionId String        @db.Char(36)
   surveyVersion   SurveyVersion @relation(fields: [surveyVersionId], references: [versionId], onDelete: Restrict)
-  collectorId     String        @db.Uuid
+  collectorId     String        @db.Char(36)
   collector       Collector     @relation(fields: [collectorId], references: [collectorId], onDelete: Restrict)
-  supervisorId    String?       @db.Uuid
+  supervisorId    String?       @db.Char(36)
   supervisor      Supervisor?   @relation(fields: [supervisorId], references: [supervisorId], onDelete: SetNull)
 
   region       String? @db.VarChar(100)
@@ -1661,10 +1660,10 @@ model Assignment {
 // ═══════════════════════════════════════════════════════════════════════════
 
 model Collector {
-  collectorId String @id @default(uuid()) @db.Uuid
-  userId      String @unique @db.Uuid
+  collectorId String @id @default(uuid()) @db.Char(36)
+  userId      String @unique @db.Char(36)
   user        User   @relation(fields: [userId], references: [userId], onDelete: Cascade)
-  orgId       String @db.Uuid
+  orgId       String @db.Char(36)
   employeeCode String? @db.VarChar(30)
   region      String? @db.VarChar(100)
   woreda      String? @db.VarChar(100)
@@ -1685,11 +1684,11 @@ model Collector {
 }
 
 model Supervisor {
-  supervisorId String @id @default(uuid()) @db.Uuid
-  userId       String @unique @db.Uuid
+  supervisorId String @id @default(uuid()) @db.Char(36)
+  userId       String @unique @db.Char(36)
   user         User   @relation(fields: [userId], references: [userId], onDelete: Cascade)
-  orgId        String @db.Uuid
-  teamId       String? @db.Uuid
+  orgId        String @db.Char(36)
+  teamId       String? @db.Char(36)
   region       String? @db.VarChar(100)
   status       String  @default("ACTIVE") @db.VarChar(20)
 
@@ -1704,19 +1703,19 @@ model Supervisor {
 }
 
 model Submission {
-  submissionId    String        @id @default(uuid()) @db.Uuid
-  assignmentId    String        @db.Uuid
+  submissionId    String        @id @default(uuid()) @db.Char(36)
+  assignmentId    String        @db.Char(36)
   assignment      Assignment    @relation(fields: [assignmentId], references: [assignmentId], onDelete: Cascade)
-  collectorId     String        @db.Uuid
+  collectorId     String        @db.Char(36)
   collector       Collector     @relation(fields: [collectorId], references: [collectorId], onDelete: Restrict)
-  beneficiaryId   String?       @db.Uuid
-  panelId         String?       @db.Uuid
+  beneficiaryId   String?       @db.Char(36)
+  panelId         String?       @db.Char(36)
   panel           PanelMember?  @relation(fields: [panelId], references: [panelId], onDelete: SetNull)
-  waveId          String        @db.Uuid
+  waveId          String        @db.Char(36)
   wave            Wave          @relation(fields: [waveId], references: [waveId], onDelete: Restrict)
-  surveyVersionId String        @db.Uuid
+  surveyVersionId String        @db.Char(36)
   surveyVersion   SurveyVersion @relation(fields: [surveyVersionId], references: [versionId], onDelete: Restrict)
-  projectId       String        @db.Uuid
+  projectId       String        @db.Char(36)
   project         Project       @relation(fields: [projectId], references: [projectId], onDelete: Restrict)
 
   startedAt        DateTime
@@ -1754,10 +1753,10 @@ model Submission {
 }
 
 model SubmissionAnswer {
-  answerId     String     @id @default(uuid()) @db.Uuid
-  submissionId String     @db.Uuid
+  answerId     String     @id @default(uuid()) @db.Char(36)
+  submissionId String     @db.Char(36)
   submission   Submission @relation(fields: [submissionId], references: [submissionId], onDelete: Cascade)
-  questionId   String     @db.Uuid
+  questionId   String     @db.Char(36)
   question     Question   @relation(fields: [questionId], references: [questionId], onDelete: Restrict)
 
   valueText    String?  @db.Text
@@ -1776,10 +1775,10 @@ model SubmissionAnswer {
 }
 
 model Paradata {
-  paradataId   String     @id @default(uuid()) @db.Uuid
-  submissionId String     @db.Uuid
+  paradataId   String     @id @default(uuid()) @db.Char(36)
+  submissionId String     @db.Char(36)
   submission   Submission @relation(fields: [submissionId], references: [submissionId], onDelete: Cascade)
-  questionId   String?    @db.Uuid
+  questionId   String?    @db.Char(36)
   question     Question?  @relation(fields: [questionId], references: [questionId], onDelete: SetNull)
 
   timeSpentMs   Int?
@@ -1796,8 +1795,8 @@ model Paradata {
 }
 
 model MediaAttachment {
-  mediaId      String     @id @default(uuid()) @db.Uuid
-  submissionId String?    @db.Uuid
+  mediaId      String     @id @default(uuid()) @db.Char(36)
+  submissionId String?    @db.Char(36)
   submission   Submission? @relation(fields: [submissionId], references: [submissionId], onDelete: SetNull)
 
   type       MediaType
@@ -1816,10 +1815,10 @@ model MediaAttachment {
 }
 
 model Consent {
-  consentId     String       @id @default(uuid()) @db.Uuid
-  submissionId  String?      @db.Uuid
+  consentId     String       @id @default(uuid()) @db.Char(36)
+  submissionId  String?      @db.Char(36)
   submission    Submission?  @relation(fields: [submissionId], references: [submissionId], onDelete: SetNull)
-  beneficiaryId String?      @db.Uuid
+  beneficiaryId String?      @db.Char(36)
   beneficiary   Beneficiary? @relation(fields: [beneficiaryId], references: [beneficiaryId], onDelete: SetNull)
 
   consentType     ConsentType
@@ -1842,7 +1841,7 @@ model Consent {
 // ═══════════════════════════════════════════════════════════════════════════
 
 model QaRule {
-  ruleId    String     @id @default(uuid()) @db.Uuid
+  ruleId    String     @id @default(uuid()) @db.Char(36)
   code      String     @unique @db.VarChar(40)
   name      String     @db.VarChar(200)
   type      QaRuleType
@@ -1859,17 +1858,17 @@ model QaRule {
 }
 
 model QaFlag {
-  flagId       String     @id @default(uuid()) @db.Uuid
-  submissionId String     @db.Uuid
+  flagId       String     @id @default(uuid()) @db.Char(36)
+  submissionId String     @db.Char(36)
   submission   Submission @relation(fields: [submissionId], references: [submissionId], onDelete: Cascade)
-  ruleId       String     @db.Uuid
+  ruleId       String     @db.Char(36)
   rule         QaRule     @relation(fields: [ruleId], references: [ruleId], onDelete: Restrict)
 
   severity  Severity
   details   Json?
   status    QaFlagStatus @default(OPEN)
 
-  reviewedById String?   @db.Uuid
+  reviewedById String?   @db.Char(36)
   reviewedBy   User?     @relation("QaFlagReviewedBy", fields: [reviewedById], references: [userId], onDelete: SetNull)
   reviewedAt   DateTime?
   resolution   String?   @db.Text
@@ -1884,17 +1883,17 @@ model QaFlag {
 }
 
 model BackCheck {
-  backcheckId  String         @id @default(uuid()) @db.Uuid
-  submissionId String         @db.Uuid
+  backcheckId  String         @id @default(uuid()) @db.Char(36)
+  submissionId String         @db.Char(36)
   submission   Submission     @relation(fields: [submissionId], references: [submissionId], onDelete: Cascade)
-  supervisorId String         @db.Uuid
+  supervisorId String         @db.Char(36)
   supervisor   Supervisor     @relation(fields: [supervisorId], references: [supervisorId], onDelete: Restrict)
 
   date         DateTime       @db.Date
   result       BackCheckResult
   mismatchPct  Decimal?       @db.Decimal(5, 2)
   notes        String?        @db.Text
-  evidenceId   String?        @db.Uuid
+  evidenceId   String?        @db.Char(36)
 
   createdAt DateTime @default(now())
 
@@ -1903,12 +1902,12 @@ model BackCheck {
 }
 
 model CollectorScorecard {
-  scorecardId   String    @id @default(uuid()) @db.Uuid
-  collectorId   String    @db.Uuid
+  scorecardId   String    @id @default(uuid()) @db.Char(36)
+  collectorId   String    @db.Char(36)
   collector     Collector @relation(fields: [collectorId], references: [collectorId], onDelete: Cascade)
-  waveId        String    @db.Uuid
+  waveId        String    @db.Char(36)
   wave          Wave      @relation(fields: [waveId], references: [waveId], onDelete: Cascade)
-  projectId     String    @db.Uuid
+  projectId     String    @db.Char(36)
   project       Project   @relation(fields: [projectId], references: [projectId], onDelete: Cascade)
 
   submissionsCount Int      @default(0)
@@ -1929,8 +1928,8 @@ model CollectorScorecard {
 // ═══════════════════════════════════════════════════════════════════════════
 
 model TreatmentGroup {
-  groupId   String  @id @default(uuid()) @db.Uuid
-  projectId String  @db.Uuid
+  groupId   String  @id @default(uuid()) @db.Char(36)
+  projectId String  @db.Char(36)
   project   Project @relation(fields: [projectId], references: [projectId], onDelete: Cascade)
 
   code        String @db.VarChar(20)
@@ -1940,7 +1939,7 @@ model TreatmentGroup {
   assignedAt  DateTime @db.Date
   immutable   Boolean  @default(true)
 
-  waveId String? @db.Uuid
+  waveId String? @db.Char(36)
   wave   Wave?   @relation(fields: [waveId], references: [waveId], onDelete: SetNull)
 
   createdAt DateTime @default(now())
@@ -1953,27 +1952,27 @@ model TreatmentGroup {
 }
 
 model PanelMember {
-  panelId   String  @id @default(uuid()) @db.Uuid
-  beneficiaryId String? @unique @db.Uuid
-  householdId   String? @db.Uuid
+  panelId   String  @id @default(uuid()) @db.Char(36)
+  beneficiaryId String? @unique @db.Char(36)
+  householdId   String? @db.Char(36)
 
-  treatmentGroupId String         @db.Uuid
+  treatmentGroupId String         @db.Char(36)
   treatmentGroup   TreatmentGroup @relation(fields: [treatmentGroupId], references: [groupId], onDelete: Restrict)
 
   beneficiary   Beneficiary? @relation(fields: [beneficiaryId], references: [beneficiaryId], onDelete: SetNull)
 
-  projectId String  @db.Uuid
+  projectId String  @db.Char(36)
   project   Project @relation(fields: [projectId], references: [projectId], onDelete: Restrict)
 
   enrolledAt     DateTime @db.Date
-  enrolledWaveId String   @db.Uuid
+  enrolledWaveId String   @db.Char(36)
   enrolledWave   Wave     @relation(fields: [enrolledWaveId], references: [waveId], onDelete: Restrict)
 
   region String? @db.VarChar(100)
   woreda String? @db.VarChar(100)
   status PanelStatus @default(ACTIVE)
   attritionReason String? @db.Text
-  replacedByPanelId String? @db.Uuid
+  replacedByPanelId String? @db.Char(36)
 
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
@@ -1987,8 +1986,8 @@ model PanelMember {
 }
 
 model WaveDataset {
-  datasetId       String   @id @default(uuid()) @db.Uuid
-  waveId          String   @db.Uuid
+  datasetId       String   @id @default(uuid()) @db.Char(36)
+  waveId          String   @db.Char(36)
   wave            Wave     @relation(fields: [waveId], references: [waveId], onDelete: Cascade)
   version         Int
   recordCount     Int
@@ -2004,9 +2003,9 @@ model WaveDataset {
 }
 
 model AnonymizationMap {
-  mapId       String   @id @default(uuid()) @db.Uuid
-  originalId  String   @db.Uuid
-  anonymizedId String  @db.Uuid
+  mapId       String   @id @default(uuid()) @db.Char(36)
+  originalId  String   @db.Char(36)
+  anonymizedId String  @db.Char(36)
   level       AnonLevel
   createdAt   DateTime @default(now())
 
@@ -2016,15 +2015,15 @@ model AnonymizationMap {
 }
 
 model ResearchDataset {
-  datasetId String  @id @default(uuid()) @db.Uuid
-  waveId    String  @db.Uuid
+  datasetId String  @id @default(uuid()) @db.Char(36)
+  waveId    String  @db.Char(36)
   wave      Wave    @relation(fields: [waveId], references: [waveId], onDelete: Cascade)
-  projectId String  @db.Uuid
+  projectId String  @db.Char(36)
   project   Project @relation(fields: [projectId], references: [projectId], onDelete: Cascade)
 
   anonymizationLevel AnonLevel
   version            Int
-  formats            String[] @default(["CSV"])
+  formats            Json @default("[\"CSV\"]")
   recordCount        Int
   releasedAt         DateTime?
   codebookRef        String?  @db.VarChar(500)
@@ -2042,8 +2041,8 @@ model ResearchDataset {
 }
 
 model DataRequest {
-  requestId   String          @id @default(uuid()) @db.Uuid
-  datasetId   String          @db.Uuid
+  requestId   String          @id @default(uuid()) @db.Char(36)
+  datasetId   String          @db.Char(36)
   dataset     ResearchDataset @relation(fields: [datasetId], references: [datasetId], onDelete: Cascade)
 
   researcherName  String @db.VarChar(200)
@@ -2053,12 +2052,12 @@ model DataRequest {
 
   status          DataRequestStatus @default(SUBMITTED)
   submittedAt     DateTime          @default(now())
-  approvedById    String?           @db.Uuid
+  approvedById    String?           @db.Char(36)
   approvedBy      User?             @relation("DataRequestApprovedBy", fields: [approvedById], references: [userId], onDelete: SetNull)
   approvedAt      DateTime?
   accessExpiresAt DateTime?
 
-  requesterId String? @db.Uuid
+  requesterId String? @db.Char(36)
   requester   User?   @relation(fields: [requesterId], references: [userId], onDelete: SetNull)
 
   createdAt DateTime @default(now())
@@ -2072,8 +2071,8 @@ model DataRequest {
 }
 
 model DataUseAgreement {
-  duaId     String      @id @default(uuid()) @db.Uuid
-  requestId String      @unique @db.Uuid
+  duaId     String      @id @default(uuid()) @db.Char(36)
+  requestId String      @unique @db.Char(36)
   request   DataRequest @relation(fields: [requestId], references: [requestId], onDelete: Cascade)
 
   signedAt              DateTime @default(now())
@@ -2087,19 +2086,19 @@ model DataUseAgreement {
 }
 
 model ResearchProject {
-  researchProjectId String  @id @default(uuid()) @db.Uuid
+  researchProjectId String  @id @default(uuid()) @db.Char(36)
   title             String  @db.VarChar(300)
   leadResearcher    String  @db.VarChar(200)
   institution       String? @db.VarChar(200)
   status            ResearchProjectStatus @default(REGISTERED)
-  datasetIds        String[] @default([])
+  datasetIds        Json @default("[]")
   startDate         DateTime? @db.Date
   endDate           DateTime? @db.Date
 
-  projectId String? @db.Uuid
+  projectId String? @db.Char(36)
   project   Project? @relation(fields: [projectId], references: [projectId], onDelete: SetNull)
 
-  createdById String? @db.Uuid
+  createdById String? @db.Char(36)
   createdBy   User?   @relation(fields: [createdById], references: [userId], onDelete: SetNull)
 
   createdAt DateTime @default(now())
@@ -2112,8 +2111,8 @@ model ResearchProject {
 }
 
 model Publication {
-  publicationId String  @id @default(uuid()) @db.Uuid
-  researchProjectId String @db.Uuid
+  publicationId String  @id @default(uuid()) @db.Char(36)
+  researchProjectId String @db.Char(36)
   researchProject   ResearchProject @relation(fields: [researchProjectId], references: [researchProjectId], onDelete: Cascade)
 
   title  String  @db.VarChar(500)
@@ -2135,12 +2134,12 @@ model Publication {
 // ═══════════════════════════════════════════════════════════════════════════
 
 model Notification {
-  notificationId String     @id @default(uuid()) @db.Uuid
-  userId         String?    @db.Uuid
+  notificationId String     @id @default(uuid()) @db.Char(36)
+  userId         String?    @db.Char(36)
   user           User?      @relation(fields: [userId], references: [userId], onDelete: Cascade)
-  beneficiaryId  String?    @db.Uuid
+  beneficiaryId  String?    @db.Char(36)
   channel        NotificationChannel
-  templateId     String?    @db.Uuid
+  templateId     String?    @db.Char(36)
   template       NotificationTemplate? @relation(fields: [templateId], references: [templateId], onDelete: SetNull)
   subject        String?    @db.VarChar(300)
   body           String     @db.Text
@@ -2160,7 +2159,7 @@ model Notification {
 }
 
 model NotificationTemplate {
-  templateId  String    @id @default(uuid()) @db.Uuid
+  templateId  String    @id @default(uuid()) @db.Char(36)
   code        String    @unique @db.VarChar(50)
   channel     NotificationChannel
   subject     String?   @db.VarChar(300)
@@ -2169,7 +2168,7 @@ model NotificationTemplate {
   description String?   @db.Text
   active      Boolean   @default(true)
 
-  orgId String?       @db.Uuid
+  orgId String?       @db.Char(36)
   org   Organization? @relation(fields: [orgId], references: [orgId], onDelete: SetNull)
 
   createdAt DateTime @default(now())
@@ -2185,7 +2184,7 @@ model NotificationTemplate {
 // ═══════════════════════════════════════════════════════════════════════════
 
 model SyncJob {
-  jobId          String           @id @default(uuid()) @db.Uuid
+  jobId          String           @id @default(uuid()) @db.Char(36)
   integrationCode String          @db.VarChar(30)
   direction      SyncJobDirection
   kind           String           @db.VarChar(50)
@@ -2196,7 +2195,7 @@ model SyncJob {
   recordsProcessed Int            @default(0)
   recordsFailed  Int              @default(0)
   errorSummary   String?          @db.Text
-  triggeredById  String?          @db.Uuid
+  triggeredById  String?          @db.Char(36)
   triggeredBy    User?            @relation("SyncJobTriggeredBy", fields: [triggeredById], references: [userId], onDelete: SetNull)
 
   @@index([integrationCode])
@@ -2210,17 +2209,17 @@ model SyncJob {
 // ═══════════════════════════════════════════════════════════════════════════
 
 model MasterData {
-  masterId  String  @id @default(uuid()) @db.Uuid
+  masterId  String  @id @default(uuid()) @db.Char(36)
   category  String  @db.VarChar(50)
   code      String  @db.VarChar(30)
   name      String  @db.VarChar(200)
   nameAm    String? @db.VarChar(200)
-  parentId  String? @db.Uuid
+  parentId  String? @db.Char(36)
   attributes Json?
   orderNo   Int?
   active    Boolean @default(true)
 
-  createdById String? @db.Uuid
+  createdById String? @db.Char(36)
   createdBy   User?   @relation(fields: [createdById], references: [userId], onDelete: SetNull)
 
   createdAt DateTime @default(now())
@@ -2232,7 +2231,7 @@ model MasterData {
 }
 
 model SystemSetting {
-  settingId String  @id @default(uuid()) @db.Uuid
+  settingId String  @id @default(uuid()) @db.Char(36)
   key       String  @unique @db.VarChar(100)
   value     Json
   category  String? @db.VarChar(50)
@@ -2248,8 +2247,8 @@ model SystemSetting {
 // ═══════════════════════════════════════════════════════════════════════════
 
 model CostPerOutputRow {
-  rowId        String    @id @default(uuid()) @db.Uuid
-  indicatorId  String    @unique @db.Uuid
+  rowId        String    @id @default(uuid()) @db.Char(36)
+  indicatorId  String    @unique @db.Char(36)
   indicator    Indicator @relation(fields: [indicatorId], references: [indicatorId], onDelete: Cascade)
   expendedEtb  Decimal   @db.Decimal(18, 2)
   costPerUnit  Decimal   @db.Decimal(18, 2)
