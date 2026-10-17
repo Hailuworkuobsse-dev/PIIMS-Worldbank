@@ -1,0 +1,24 @@
+#!/usr/bin/env sh
+. "$(dirname -- "$0")/_/husky.sh"
+
+echo "í´ Running pre-commit checks..."
+
+# 1. Lint
+npm run lint || {
+  echo "âŒ Lint failed. Fix errors before committing."
+  exit 1
+}
+
+# 2. Typecheck
+npm run typecheck || {
+  echo "âŒ Typecheck failed. Fix TypeScript errors before committing."
+  exit 1
+}
+
+# 3. Unit tests (fast only â€” skip slow e2e)
+npm test -- --run --reporter=dot || {
+  echo "âŒ Tests failed. Fix failing tests before committing."
+  exit 1
+}
+
+echo "âœ… Pre-commit checks passed."
