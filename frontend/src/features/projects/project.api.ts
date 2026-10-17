@@ -60,10 +60,7 @@ export const projectApi = {
   ): Promise<Project> {
     const { data } = await api.put<Envelope<Project>>(
       `/projects/${projectId}`,
-      patch,
-      {
-        headers: { "If-Match": String(version) },
-      },
+      { ...patch, version },
     );
     return data.data;
   },
