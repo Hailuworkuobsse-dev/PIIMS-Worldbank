@@ -1,0 +1,1789 @@
+{
+  "generatedAt": "2026-10-17T16:15:32.291Z",
+  "generatedBy": "PIIMS Code Extractor",
+  "totalFiles": 297,
+  "files": [
+    {
+      "path": "package.json",
+      "language": "json",
+      "sizeBytes": 1920,
+      "pathSource": "heading"
+    },
+    {
+      "path": "tsconfig.json",
+      "language": "json",
+      "sizeBytes": 787,
+      "pathSource": "heading"
+    },
+    {
+      "path": "tsconfig.build.json",
+      "language": "json",
+      "sizeBytes": 281,
+      "pathSource": "heading"
+    },
+    {
+      "path": "vitest.config.ts",
+      "language": "ts",
+      "sizeBytes": 630,
+      "pathSource": "heading"
+    },
+    {
+      "path": "tests/setup.ts",
+      "language": "ts",
+      "sizeBytes": 820,
+      "pathSource": "heading"
+    },
+    {
+      "path": "vitest.e2e.config.ts",
+      "language": "ts",
+      "sizeBytes": 319,
+      "pathSource": "heading"
+    },
+    {
+      "path": ".eslintrc.cjs",
+      "language": "js",
+      "sizeBytes": 892,
+      "pathSource": "heading"
+    },
+    {
+      "path": ".gitignore",
+      "language": "",
+      "sizeBytes": 207,
+      "pathSource": "heading"
+    },
+    {
+      "path": "docker-compose.yml",
+      "language": "yaml",
+      "sizeBytes": 1476,
+      "pathSource": "heading"
+    },
+    {
+      "path": "src/config/env.ts",
+      "language": "ts",
+      "sizeBytes": 3294,
+      "pathSource": "heading"
+    },
+    {
+      "path": "src/config/logger.ts",
+      "language": "ts",
+      "sizeBytes": 898,
+      "pathSource": "heading"
+    },
+    {
+      "path": "src/lib/prisma.ts",
+      "language": "ts",
+      "sizeBytes": 1343,
+      "pathSource": "heading"
+    },
+    {
+      "path": "src/config/redis.ts",
+      "language": "ts",
+      "sizeBytes": 1513,
+      "pathSource": "heading"
+    },
+    {
+      "path": "src/config/queue.ts",
+      "language": "ts",
+      "sizeBytes": 2195,
+      "pathSource": "heading"
+    },
+    {
+      "path": "src/config/storage.ts",
+      "language": "ts",
+      "sizeBytes": 2400,
+      "pathSource": "heading"
+    },
+    {
+      "path": "src/config/index.ts",
+      "language": "ts",
+      "sizeBytes": 140,
+      "pathSource": "heading"
+    },
+    {
+      "path": "src/lib/errors.ts",
+      "language": "ts",
+      "sizeBytes": 3141,
+      "pathSource": "heading"
+    },
+    {
+      "path": "src/lib/response.ts",
+      "language": "ts",
+      "sizeBytes": 1860,
+      "pathSource": "heading"
+    },
+    {
+      "path": "src/utils/pagination.ts",
+      "language": "ts",
+      "sizeBytes": 2194,
+      "pathSource": "heading"
+    },
+    {
+      "path": "src/utils/crypto.ts",
+      "language": "ts",
+      "sizeBytes": 1076,
+      "pathSource": "heading"
+    },
+    {
+      "path": "src/utils/date.ts",
+      "language": "ts",
+      "sizeBytes": 1043,
+      "pathSource": "heading"
+    },
+    {
+      "path": "src/middleware/correlationId.ts",
+      "language": "ts",
+      "sizeBytes": 570,
+      "pathSource": "heading"
+    },
+    {
+      "path": "src/middleware/requestLogger.ts",
+      "language": "ts",
+      "sizeBytes": 697,
+      "pathSource": "heading"
+    },
+    {
+      "path": "src/middleware/rateLimiter.ts",
+      "language": "ts",
+      "sizeBytes": 994,
+      "pathSource": "heading"
+    },
+    {
+      "path": "src/middleware/validate.ts",
+      "language": "ts",
+      "sizeBytes": 1516,
+      "pathSource": "heading"
+    },
+    {
+      "path": "src/middleware/security.ts",
+      "language": "ts",
+      "sizeBytes": 1653,
+      "pathSource": "heading"
+    },
+    {
+      "path": "src/middleware/errorHandler.ts",
+      "language": "ts",
+      "sizeBytes": 3863,
+      "pathSource": "heading"
+    },
+    {
+      "path": "src/middleware/notFound.ts",
+      "language": "ts",
+      "sizeBytes": 277,
+      "pathSource": "heading"
+    },
+    {
+      "path": "src/routes/health.ts",
+      "language": "ts",
+      "sizeBytes": 1182,
+      "pathSource": "heading"
+    },
+    {
+      "path": "src/routes/index.ts",
+      "language": "ts",
+      "sizeBytes": 1493,
+      "pathSource": "heading"
+    },
+    {
+      "path": "src/app.ts",
+      "language": "ts",
+      "sizeBytes": 1534,
+      "pathSource": "heading"
+    },
+    {
+      "path": "src/main.ts",
+      "language": "ts",
+      "sizeBytes": 2090,
+      "pathSource": "heading"
+    },
+    {
+      "path": "src/types/express.d.ts",
+      "language": "ts",
+      "sizeBytes": 609,
+      "pathSource": "heading"
+    },
+    {
+      "path": "prisma/schema.prisma",
+      "language": "prisma",
+      "sizeBytes": 69761,
+      "pathSource": "heading"
+    },
+    {
+      "path": "prisma/seed.ts",
+      "language": "ts",
+      "sizeBytes": 27356,
+      "pathSource": "heading"
+    },
+    {
+      "path": "docker-compose-2.yml",
+      "language": "yaml",
+      "sizeBytes": 551,
+      "pathSource": "heading"
+    },
+    {
+      "path": "src/app-2.ts",
+      "language": "typescript",
+      "sizeBytes": 116,
+      "pathSource": "heading"
+    },
+    {
+      "path": "src/config/auth.config.ts",
+      "language": "typescript",
+      "sizeBytes": 2733,
+      "pathSource": "heading"
+    },
+    {
+      "path": "src/lib/password.ts",
+      "language": "typescript",
+      "sizeBytes": 2290,
+      "pathSource": "heading"
+    },
+    {
+      "path": "src/lib/jwt.ts",
+      "language": "typescript",
+      "sizeBytes": 6621,
+      "pathSource": "heading"
+    },
+    {
+      "path": "src/lib/totp.ts",
+      "language": "typescript",
+      "sizeBytes": 884,
+      "pathSource": "heading"
+    },
+    {
+      "path": "src/lib/permissions.ts",
+      "language": "typescript",
+      "sizeBytes": 1928,
+      "pathSource": "heading"
+    },
+    {
+      "path": "src/lib/audit.ts",
+      "language": "typescript",
+      "sizeBytes": 4169,
+      "pathSource": "heading"
+    },
+    {
+      "path": "src/modules/auth/auth.types.ts",
+      "language": "typescript",
+      "sizeBytes": 1208,
+      "pathSource": "heading"
+    },
+    {
+      "path": "src/modules/auth/auth.schemas.ts",
+      "language": "typescript",
+      "sizeBytes": 1659,
+      "pathSource": "heading"
+    },
+    {
+      "path": "src/modules/auth/auth.service.ts",
+      "language": "typescript",
+      "sizeBytes": 18620,
+      "pathSource": "heading"
+    },
+    {
+      "path": "src/modules/auth/auth.controller.ts",
+      "language": "typescript",
+      "sizeBytes": 7814,
+      "pathSource": "heading"
+    },
+    {
+      "path": "src/modules/auth/auth.routes.ts",
+      "language": "typescript",
+      "sizeBytes": 1714,
+      "pathSource": "heading"
+    },
+    {
+      "path": "src/middleware/requireAuth.ts",
+      "language": "typescript",
+      "sizeBytes": 1997,
+      "pathSource": "heading"
+    },
+    {
+      "path": "src/middleware/requirePermission.ts",
+      "language": "typescript",
+      "sizeBytes": 2363,
+      "pathSource": "heading"
+    },
+    {
+      "path": "src/middleware/loginRateLimiter.ts",
+      "language": "typescript",
+      "sizeBytes": 823,
+      "pathSource": "heading"
+    },
+    {
+      "path": "src/types/express.d-2.ts",
+      "language": "typescript",
+      "sizeBytes": 364,
+      "pathSource": "heading"
+    },
+    {
+      "path": "src/routes/index-2.ts",
+      "language": "typescript",
+      "sizeBytes": 990,
+      "pathSource": "heading"
+    },
+    {
+      "path": "src/app-3.ts",
+      "language": "typescript",
+      "sizeBytes": 188,
+      "pathSource": "heading"
+    },
+    {
+      "path": "src/modules/auth/__tests__/password.test.ts",
+      "language": "typescript",
+      "sizeBytes": 972,
+      "pathSource": "heading"
+    },
+    {
+      "path": "src/modules/auth/__tests__/jwt.test.ts",
+      "language": "typescript",
+      "sizeBytes": 1750,
+      "pathSource": "heading"
+    },
+    {
+      "path": "src/modules/auth/__tests__/totp.test.ts",
+      "language": "typescript",
+      "sizeBytes": 853,
+      "pathSource": "heading"
+    },
+    {
+      "path": "src/modules/auth/__tests__/permissions.test.ts",
+      "language": "typescript",
+      "sizeBytes": 1406,
+      "pathSource": "heading"
+    },
+    {
+      "path": "src/modules/auth/__tests__/auth.service.test.ts",
+      "language": "typescript",
+      "sizeBytes": 4411,
+      "pathSource": "heading"
+    },
+    {
+      "path": "src/lib/scope.ts",
+      "language": "typescript",
+      "sizeBytes": 3702,
+      "pathSource": "heading"
+    },
+    {
+      "path": "src/lib/idempotency.ts",
+      "language": "typescript",
+      "sizeBytes": 1099,
+      "pathSource": "heading"
+    },
+    {
+      "path": "src/modules/projects/project.types.ts",
+      "language": "typescript",
+      "sizeBytes": 2022,
+      "pathSource": "heading"
+    },
+    {
+      "path": "src/modules/projects/project.schemas.ts",
+      "language": "typescript",
+      "sizeBytes": 7087,
+      "pathSource": "heading"
+    },
+    {
+      "path": "src/modules/projects/project.service.ts",
+      "language": "typescript",
+      "sizeBytes": 24681,
+      "pathSource": "heading"
+    },
+    {
+      "path": "src/modules/projects/project.controller.ts",
+      "language": "typescript",
+      "sizeBytes": 6869,
+      "pathSource": "heading"
+    },
+    {
+      "path": "src/modules/projects/project.routes.ts",
+      "language": "typescript",
+      "sizeBytes": 2738,
+      "pathSource": "heading"
+    },
+    {
+      "path": "src/modules/projects/__tests__/project.schemas.test.ts",
+      "language": "typescript",
+      "sizeBytes": 2765,
+      "pathSource": "heading"
+    },
+    {
+      "path": "src/modules/projects/__tests__/project.service.test.ts",
+      "language": "typescript",
+      "sizeBytes": 5074,
+      "pathSource": "heading"
+    },
+    {
+      "path": "src/modules/admin/admin.types.ts",
+      "language": "typescript",
+      "sizeBytes": 1854,
+      "pathSource": "heading"
+    },
+    {
+      "path": "src/modules/admin/admin.schemas.ts",
+      "language": "typescript",
+      "sizeBytes": 3959,
+      "pathSource": "heading"
+    },
+    {
+      "path": "src/modules/admin/admin.users.service.ts",
+      "language": "typescript",
+      "sizeBytes": 15456,
+      "pathSource": "heading"
+    },
+    {
+      "path": "src/modules/admin/admin.users.controller.ts",
+      "language": "typescript",
+      "sizeBytes": 3340,
+      "pathSource": "heading"
+    },
+    {
+      "path": "src/modules/admin/admin.masterdata.service.ts",
+      "language": "typescript",
+      "sizeBytes": 5236,
+      "pathSource": "heading"
+    },
+    {
+      "path": "src/modules/admin/admin.masterdata.controller.ts",
+      "language": "typescript",
+      "sizeBytes": 2071,
+      "pathSource": "heading"
+    },
+    {
+      "path": "src/modules/admin/admin.audit.service.ts",
+      "language": "typescript",
+      "sizeBytes": 2765,
+      "pathSource": "heading"
+    },
+    {
+      "path": "src/modules/admin/admin.audit.controller.ts",
+      "language": "typescript",
+      "sizeBytes": 567,
+      "pathSource": "heading"
+    },
+    {
+      "path": "src/modules/admin/admin.health.service.ts",
+      "language": "typescript",
+      "sizeBytes": 2441,
+      "pathSource": "heading"
+    },
+    {
+      "path": "src/modules/admin/admin.health.controller.ts",
+      "language": "typescript",
+      "sizeBytes": 407,
+      "pathSource": "heading"
+    },
+    {
+      "path": "src/modules/admin/admin.routes.ts",
+      "language": "typescript",
+      "sizeBytes": 5811,
+      "pathSource": "heading"
+    },
+    {
+      "path": "src/modules/admin/__tests__/admin.users.service.test.ts",
+      "language": "typescript",
+      "sizeBytes": 4410,
+      "pathSource": "heading"
+    },
+    {
+      "path": "src/routes/index-3.ts",
+      "language": "typescript",
+      "sizeBytes": 2599,
+      "pathSource": "heading"
+    },
+    {
+      "path": "package-2.json",
+      "language": "json",
+      "sizeBytes": 197,
+      "pathSource": "heading"
+    },
+    {
+      "path": "package-3.json",
+      "language": "bash",
+      "sizeBytes": 11,
+      "pathSource": "heading"
+    },
+    {
+      "path": "src/types/express.d-3.ts",
+      "language": "typescript",
+      "sizeBytes": 507,
+      "pathSource": "heading"
+    },
+    {
+      "path": "src/lib/upload.ts",
+      "language": "typescript",
+      "sizeBytes": 1760,
+      "pathSource": "heading"
+    },
+    {
+      "path": "src/lib/file-naming.ts",
+      "language": "typescript",
+      "sizeBytes": 1349,
+      "pathSource": "heading"
+    },
+    {
+      "path": "src/middleware/errorHandler-2.ts",
+      "language": "typescript",
+      "sizeBytes": 686,
+      "pathSource": "heading"
+    },
+    {
+      "path": "src/modules/documents/document.types.ts",
+      "language": "typescript",
+      "sizeBytes": 753,
+      "pathSource": "heading"
+    },
+    {
+      "path": "src/modules/documents/document.schemas.ts",
+      "language": "typescript",
+      "sizeBytes": 1338,
+      "pathSource": "heading"
+    },
+    {
+      "path": "src/modules/documents/document.service.ts",
+      "language": "typescript",
+      "sizeBytes": 12610,
+      "pathSource": "heading"
+    },
+    {
+      "path": "src/modules/documents/document.controller.ts",
+      "language": "typescript",
+      "sizeBytes": 2684,
+      "pathSource": "heading"
+    },
+    {
+      "path": "src/modules/documents/document.routes.ts",
+      "language": "typescript",
+      "sizeBytes": 1183,
+      "pathSource": "heading"
+    },
+    {
+      "path": "src/modules/inception/inception.types.ts",
+      "language": "typescript",
+      "sizeBytes": 1201,
+      "pathSource": "heading"
+    },
+    {
+      "path": "src/modules/inception/inception.schemas.ts",
+      "language": "typescript",
+      "sizeBytes": 2161,
+      "pathSource": "heading"
+    },
+    {
+      "path": "src/modules/inception/inception.service.ts",
+      "language": "typescript",
+      "sizeBytes": 21004,
+      "pathSource": "heading"
+    },
+    {
+      "path": "src/modules/inception/inception.controller.ts",
+      "language": "typescript",
+      "sizeBytes": 4083,
+      "pathSource": "heading"
+    },
+    {
+      "path": "src/modules/inception/inception.routes.ts",
+      "language": "typescript",
+      "sizeBytes": 3690,
+      "pathSource": "heading"
+    },
+    {
+      "path": "src/modules/reports/report.types.ts",
+      "language": "typescript",
+      "sizeBytes": 994,
+      "pathSource": "heading"
+    },
+    {
+      "path": "src/modules/reports/report.schemas.ts",
+      "language": "typescript",
+      "sizeBytes": 1337,
+      "pathSource": "heading"
+    },
+    {
+      "path": "src/modules/reports/renderers/csv.renderer.ts",
+      "language": "typescript",
+      "sizeBytes": 730,
+      "pathSource": "heading"
+    },
+    {
+      "path": "src/modules/reports/renderers/excel.renderer.ts",
+      "language": "typescript",
+      "sizeBytes": 1250,
+      "pathSource": "heading"
+    },
+    {
+      "path": "src/modules/reports/renderers/pdf.renderer.ts",
+      "language": "typescript",
+      "sizeBytes": 5201,
+      "pathSource": "heading"
+    },
+    {
+      "path": "src/modules/reports/renderers/wb-exporter.ts",
+      "language": "typescript",
+      "sizeBytes": 2105,
+      "pathSource": "heading"
+    },
+    {
+      "path": "src/modules/reports/report.service.ts",
+      "language": "typescript",
+      "sizeBytes": 23678,
+      "pathSource": "heading"
+    },
+    {
+      "path": "src/modules/reports/report.controller.ts",
+      "language": "typescript",
+      "sizeBytes": 3405,
+      "pathSource": "heading"
+    },
+    {
+      "path": "src/modules/reports/report.routes.ts",
+      "language": "typescript",
+      "sizeBytes": 2499,
+      "pathSource": "heading"
+    },
+    {
+      "path": "src/workers/report.worker.ts",
+      "language": "typescript",
+      "sizeBytes": 760,
+      "pathSource": "heading"
+    },
+    {
+      "path": "src/main-2.ts",
+      "language": "typescript",
+      "sizeBytes": 63,
+      "pathSource": "heading"
+    },
+    {
+      "path": "src/main-3.ts",
+      "language": "typescript",
+      "sizeBytes": 69,
+      "pathSource": "heading"
+    },
+    {
+      "path": "src/main-4.ts",
+      "language": "typescript",
+      "sizeBytes": 35,
+      "pathSource": "heading"
+    },
+    {
+      "path": "src/routes/index-4.ts",
+      "language": "typescript",
+      "sizeBytes": 3401,
+      "pathSource": "heading"
+    },
+    {
+      "path": "src/modules/documents/__tests__/document.schemas.test.ts",
+      "language": "typescript",
+      "sizeBytes": 1217,
+      "pathSource": "heading"
+    },
+    {
+      "path": "src/modules/inception/__tests__/inception.schemas.test.ts",
+      "language": "typescript",
+      "sizeBytes": 1886,
+      "pathSource": "heading"
+    },
+    {
+      "path": "src/modules/reports/__tests__/report.schemas.test.ts",
+      "language": "typescript",
+      "sizeBytes": 1641,
+      "pathSource": "heading"
+    },
+    {
+      "path": "src/modules/results/results.types.ts",
+      "language": "typescript",
+      "sizeBytes": 1782,
+      "pathSource": "heading"
+    },
+    {
+      "path": "src/modules/results/results.schemas.ts",
+      "language": "typescript",
+      "sizeBytes": 5140,
+      "pathSource": "heading"
+    },
+    {
+      "path": "src/modules/results/results.utils.ts",
+      "language": "typescript",
+      "sizeBytes": 1942,
+      "pathSource": "heading"
+    },
+    {
+      "path": "src/modules/results/results.service.ts",
+      "language": "typescript",
+      "sizeBytes": 33806,
+      "pathSource": "heading"
+    },
+    {
+      "path": "src/modules/results/results.controller.ts",
+      "language": "typescript",
+      "sizeBytes": 7117,
+      "pathSource": "heading"
+    },
+    {
+      "path": "src/modules/results/results.routes.ts",
+      "language": "typescript",
+      "sizeBytes": 3956,
+      "pathSource": "heading"
+    },
+    {
+      "path": "src/modules/results/__tests__/results.test.ts",
+      "language": "typescript",
+      "sizeBytes": 3367,
+      "pathSource": "heading"
+    },
+    {
+      "path": "src/modules/financial/financial.types.ts",
+      "language": "typescript",
+      "sizeBytes": 1962,
+      "pathSource": "heading"
+    },
+    {
+      "path": "src/modules/financial/financial.schemas.ts",
+      "language": "typescript",
+      "sizeBytes": 3989,
+      "pathSource": "heading"
+    },
+    {
+      "path": "src/modules/financial/financial.utils.ts",
+      "language": "typescript",
+      "sizeBytes": 2617,
+      "pathSource": "heading"
+    },
+    {
+      "path": "src/modules/financial/financial.service.ts",
+      "language": "typescript",
+      "sizeBytes": 21321,
+      "pathSource": "heading"
+    },
+    {
+      "path": "src/modules/financial/financial.controller.ts",
+      "language": "typescript",
+      "sizeBytes": 3941,
+      "pathSource": "heading"
+    },
+    {
+      "path": "src/modules/financial/financial.routes.ts",
+      "language": "typescript",
+      "sizeBytes": 2677,
+      "pathSource": "heading"
+    },
+    {
+      "path": "src/modules/financial/__tests__/financial.test.ts",
+      "language": "typescript",
+      "sizeBytes": 2921,
+      "pathSource": "heading"
+    },
+    {
+      "path": "src/modules/procurement/procurement.types.ts",
+      "language": "typescript",
+      "sizeBytes": 1468,
+      "pathSource": "heading"
+    },
+    {
+      "path": "src/modules/procurement/procurement.schemas.ts",
+      "language": "typescript",
+      "sizeBytes": 4550,
+      "pathSource": "heading"
+    },
+    {
+      "path": "src/modules/procurement/procurement.utils.ts",
+      "language": "typescript",
+      "sizeBytes": 993,
+      "pathSource": "heading"
+    },
+    {
+      "path": "src/modules/procurement/procurement.service.ts",
+      "language": "typescript",
+      "sizeBytes": 18279,
+      "pathSource": "heading"
+    },
+    {
+      "path": "src/modules/procurement/procurement.controller.ts",
+      "language": "typescript",
+      "sizeBytes": 4371,
+      "pathSource": "heading"
+    },
+    {
+      "path": "src/modules/procurement/procurement.routes.ts",
+      "language": "typescript",
+      "sizeBytes": 2542,
+      "pathSource": "heading"
+    },
+    {
+      "path": "src/modules/procurement/__tests__/procurement.test.ts",
+      "language": "typescript",
+      "sizeBytes": 3387,
+      "pathSource": "heading"
+    },
+    {
+      "path": "src/routes/index-5.ts",
+      "language": "typescript",
+      "sizeBytes": 4860,
+      "pathSource": "heading"
+    },
+    {
+      "path": "prisma/schema-2.prisma",
+      "language": "prisma",
+      "sizeBytes": 999,
+      "pathSource": "prose"
+    },
+    {
+      "path": "src/modules/supplier/supplier.types.ts",
+      "language": "typescript",
+      "sizeBytes": 2036,
+      "pathSource": "heading"
+    },
+    {
+      "path": "src/modules/supplier/supplier.schemas.ts",
+      "language": "typescript",
+      "sizeBytes": 1982,
+      "pathSource": "heading"
+    },
+    {
+      "path": "src/modules/supplier/supplier.service.ts",
+      "language": "typescript",
+      "sizeBytes": 19120,
+      "pathSource": "heading"
+    },
+    {
+      "path": "src/modules/supplier/supplier.controller.ts",
+      "language": "typescript",
+      "sizeBytes": 3644,
+      "pathSource": "heading"
+    },
+    {
+      "path": "src/modules/supplier/supplier.routes.ts",
+      "language": "typescript",
+      "sizeBytes": 2009,
+      "pathSource": "heading"
+    },
+    {
+      "path": "src/modules/beneficiaries/beneficiary.types.ts",
+      "language": "typescript",
+      "sizeBytes": 1595,
+      "pathSource": "heading"
+    },
+    {
+      "path": "src/modules/beneficiaries/beneficiary.schemas.ts",
+      "language": "typescript",
+      "sizeBytes": 5003,
+      "pathSource": "heading"
+    },
+    {
+      "path": "src/modules/beneficiaries/beneficiary.utils.ts",
+      "language": "typescript",
+      "sizeBytes": 2804,
+      "pathSource": "heading"
+    },
+    {
+      "path": "src/modules/beneficiaries/beneficiary.service.ts",
+      "language": "typescript",
+      "sizeBytes": 24329,
+      "pathSource": "heading"
+    },
+    {
+      "path": "src/modules/beneficiaries/beneficiary.controller.ts",
+      "language": "typescript",
+      "sizeBytes": 3774,
+      "pathSource": "heading"
+    },
+    {
+      "path": "src/modules/beneficiaries/beneficiary.routes.ts",
+      "language": "typescript",
+      "sizeBytes": 2062,
+      "pathSource": "heading"
+    },
+    {
+      "path": "src/modules/geo/geo.types.ts",
+      "language": "typescript",
+      "sizeBytes": 694,
+      "pathSource": "heading"
+    },
+    {
+      "path": "src/modules/geo/geo.schemas.ts",
+      "language": "typescript",
+      "sizeBytes": 788,
+      "pathSource": "heading"
+    },
+    {
+      "path": "src/modules/geo/geo.utils.ts",
+      "language": "typescript",
+      "sizeBytes": 1105,
+      "pathSource": "heading"
+    },
+    {
+      "path": "src/modules/geo/geo.service.ts",
+      "language": "typescript",
+      "sizeBytes": 6470,
+      "pathSource": "heading"
+    },
+    {
+      "path": "src/modules/geo/geo.controller.ts",
+      "language": "typescript",
+      "sizeBytes": 1287,
+      "pathSource": "heading"
+    },
+    {
+      "path": "src/modules/geo/geo.routes.ts",
+      "language": "typescript",
+      "sizeBytes": 838,
+      "pathSource": "heading"
+    },
+    {
+      "path": "src/modules/grievances/grievance.types.ts",
+      "language": "typescript",
+      "sizeBytes": 1235,
+      "pathSource": "heading"
+    },
+    {
+      "path": "src/modules/grievances/grievance.schemas.ts",
+      "language": "typescript",
+      "sizeBytes": 2567,
+      "pathSource": "heading"
+    },
+    {
+      "path": "src/modules/grievances/grievance.utils.ts",
+      "language": "typescript",
+      "sizeBytes": 837,
+      "pathSource": "heading"
+    },
+    {
+      "path": "src/modules/grievances/grievance.service.ts",
+      "language": "typescript",
+      "sizeBytes": 17384,
+      "pathSource": "heading"
+    },
+    {
+      "path": "src/modules/grievances/grievance.controller.ts",
+      "language": "typescript",
+      "sizeBytes": 3020,
+      "pathSource": "heading"
+    },
+    {
+      "path": "src/modules/grievances/grievance.routes.ts",
+      "language": "typescript",
+      "sizeBytes": 1569,
+      "pathSource": "heading"
+    },
+    {
+      "path": "src/routes/index-6.ts",
+      "language": "typescript",
+      "sizeBytes": 6030,
+      "pathSource": "heading"
+    },
+    {
+      "path": "src/modules/beneficiaries/__tests__/beneficiary.utils.test.ts",
+      "language": "typescript",
+      "sizeBytes": 1955,
+      "pathSource": "heading"
+    },
+    {
+      "path": "src/modules/geo/__tests__/geo.utils.test.ts",
+      "language": "typescript",
+      "sizeBytes": 1048,
+      "pathSource": "heading"
+    },
+    {
+      "path": "src/modules/grievances/__tests__/grievance.utils.test.ts",
+      "language": "typescript",
+      "sizeBytes": 1612,
+      "pathSource": "heading"
+    },
+    {
+      "path": "src/modules/supplier/__tests__/supplier.schemas.test.ts",
+      "language": "typescript",
+      "sizeBytes": 1387,
+      "pathSource": "heading"
+    },
+    {
+      "path": "prisma/seed-2.ts",
+      "language": "typescript",
+      "sizeBytes": 831,
+      "pathSource": "prose"
+    },
+    {
+      "path": "src/modules/impact-indicators/impactIndicator.schemas.ts",
+      "language": "typescript",
+      "sizeBytes": 2865,
+      "pathSource": "heading"
+    },
+    {
+      "path": "src/modules/impact-indicators/impactIndicator.service.ts",
+      "language": "typescript",
+      "sizeBytes": 13398,
+      "pathSource": "heading"
+    },
+    {
+      "path": "src/modules/impact-indicators/impactIndicator.routes.ts",
+      "language": "typescript",
+      "sizeBytes": 4225,
+      "pathSource": "heading"
+    },
+    {
+      "path": "src/modules/survey/skipLogic.ts",
+      "language": "typescript",
+      "sizeBytes": 9785,
+      "pathSource": "heading"
+    },
+    {
+      "path": "src/modules/survey/survey.schemas.ts",
+      "language": "typescript",
+      "sizeBytes": 3340,
+      "pathSource": "heading"
+    },
+    {
+      "path": "src/modules/survey/survey.service.ts",
+      "language": "typescript",
+      "sizeBytes": 12095,
+      "pathSource": "heading"
+    },
+    {
+      "path": "src/modules/survey/survey.routes.ts",
+      "language": "typescript",
+      "sizeBytes": 3189,
+      "pathSource": "heading"
+    },
+    {
+      "path": "src/modules/field/field.schemas.ts",
+      "language": "typescript",
+      "sizeBytes": 1917,
+      "pathSource": "heading"
+    },
+    {
+      "path": "src/modules/field/field.service.ts",
+      "language": "typescript",
+      "sizeBytes": 9078,
+      "pathSource": "heading"
+    },
+    {
+      "path": "src/modules/field/field.routes.ts",
+      "language": "typescript",
+      "sizeBytes": 1594,
+      "pathSource": "heading"
+    },
+    {
+      "path": "src/modules/qa/qa.rules.ts",
+      "language": "typescript",
+      "sizeBytes": 3526,
+      "pathSource": "heading"
+    },
+    {
+      "path": "src/modules/qa/qa.schemas.ts",
+      "language": "typescript",
+      "sizeBytes": 1681,
+      "pathSource": "heading"
+    },
+    {
+      "path": "src/modules/qa/qa.service.ts",
+      "language": "typescript",
+      "sizeBytes": 13990,
+      "pathSource": "heading"
+    },
+    {
+      "path": "src/modules/qa/qa.routes.ts",
+      "language": "typescript",
+      "sizeBytes": 3366,
+      "pathSource": "heading"
+    },
+    {
+      "path": "src/modules/warehouse/anonymize.ts",
+      "language": "typescript",
+      "sizeBytes": 5800,
+      "pathSource": "heading"
+    },
+    {
+      "path": "src/modules/warehouse/warehouse.schemas.ts",
+      "language": "typescript",
+      "sizeBytes": 1371,
+      "pathSource": "heading"
+    },
+    {
+      "path": "src/modules/warehouse/warehouse.service.ts",
+      "language": "typescript",
+      "sizeBytes": 13885,
+      "pathSource": "heading"
+    },
+    {
+      "path": "src/modules/warehouse/warehouse.routes.ts",
+      "language": "typescript",
+      "sizeBytes": 3945,
+      "pathSource": "heading"
+    },
+    {
+      "path": "src/modules/analytics/did.ts",
+      "language": "typescript",
+      "sizeBytes": 3334,
+      "pathSource": "heading"
+    },
+    {
+      "path": "src/modules/analytics/analytics.service.ts",
+      "language": "typescript",
+      "sizeBytes": 6302,
+      "pathSource": "heading"
+    },
+    {
+      "path": "src/modules/analytics/analytics.routes.ts",
+      "language": "typescript",
+      "sizeBytes": 2087,
+      "pathSource": "heading"
+    },
+    {
+      "path": "src/routes/index-7.ts",
+      "language": "typescript",
+      "sizeBytes": 4771,
+      "pathSource": "heading"
+    },
+    {
+      "path": "src/modules/survey/__tests__/skipLogic.test.ts",
+      "language": "typescript",
+      "sizeBytes": 3059,
+      "pathSource": "heading"
+    },
+    {
+      "path": "src/modules/qa/__tests__/qa.rules.test.ts",
+      "language": "typescript",
+      "sizeBytes": 2786,
+      "pathSource": "heading"
+    },
+    {
+      "path": "src/modules/warehouse/__tests__/anonymize.test.ts",
+      "language": "typescript",
+      "sizeBytes": 3221,
+      "pathSource": "heading"
+    },
+    {
+      "path": "src/modules/analytics/__tests__/did.test.ts",
+      "language": "typescript",
+      "sizeBytes": 1962,
+      "pathSource": "heading"
+    },
+    {
+      "path": "package-4.json",
+      "language": "bash",
+      "sizeBytes": 63,
+      "pathSource": "heading"
+    },
+    {
+      "path": "package-5.json",
+      "language": "json",
+      "sizeBytes": 118,
+      "pathSource": "heading"
+    },
+    {
+      "path": "src/modules/notifications/notification.types.ts",
+      "language": "typescript",
+      "sizeBytes": 2296,
+      "pathSource": "heading"
+    },
+    {
+      "path": "src/modules/notifications/notification.templates.ts",
+      "language": "typescript",
+      "sizeBytes": 11007,
+      "pathSource": "heading"
+    },
+    {
+      "path": "src/modules/notifications/notification.schemas.ts",
+      "language": "typescript",
+      "sizeBytes": 1229,
+      "pathSource": "heading"
+    },
+    {
+      "path": "src/modules/notifications/channels/inapp.channel.ts",
+      "language": "typescript",
+      "sizeBytes": 787,
+      "pathSource": "heading"
+    },
+    {
+      "path": "src/modules/notifications/channels/email.channel.ts",
+      "language": "typescript",
+      "sizeBytes": 2565,
+      "pathSource": "heading"
+    },
+    {
+      "path": "src/modules/notifications/channels/sms.channel.ts",
+      "language": "typescript",
+      "sizeBytes": 1791,
+      "pathSource": "heading"
+    },
+    {
+      "path": "src/modules/notifications/notification.service.ts",
+      "language": "typescript",
+      "sizeBytes": 10469,
+      "pathSource": "heading"
+    },
+    {
+      "path": "src/modules/notifications/notification.worker.ts",
+      "language": "typescript",
+      "sizeBytes": 1210,
+      "pathSource": "heading"
+    },
+    {
+      "path": "src/modules/notifications/notification.controller.ts",
+      "language": "typescript",
+      "sizeBytes": 2660,
+      "pathSource": "heading"
+    },
+    {
+      "path": "src/modules/notifications/notification.routes.ts",
+      "language": "typescript",
+      "sizeBytes": 1249,
+      "pathSource": "heading"
+    },
+    {
+      "path": "src/modules/integrations/integration.types.ts",
+      "language": "typescript",
+      "sizeBytes": 1276,
+      "pathSource": "heading"
+    },
+    {
+      "path": "src/modules/integrations/integration.schemas.ts",
+      "language": "typescript",
+      "sizeBytes": 2110,
+      "pathSource": "heading"
+    },
+    {
+      "path": "src/modules/integrations/utils/circuit-breaker.ts",
+      "language": "typescript",
+      "sizeBytes": 3272,
+      "pathSource": "heading"
+    },
+    {
+      "path": "src/modules/integrations/utils/retry.ts",
+      "language": "typescript",
+      "sizeBytes": 1435,
+      "pathSource": "heading"
+    },
+    {
+      "path": "src/modules/integrations/utils/idempotency.ts",
+      "language": "typescript",
+      "sizeBytes": 864,
+      "pathSource": "heading"
+    },
+    {
+      "path": "src/modules/integrations/integration.registry.ts",
+      "language": "typescript",
+      "sizeBytes": 3123,
+      "pathSource": "heading"
+    },
+    {
+      "path": "src/modules/integrations/adapters/base.adapter.ts",
+      "language": "typescript",
+      "sizeBytes": 2087,
+      "pathSource": "heading"
+    },
+    {
+      "path": "src/modules/integrations/adapters/fmis.adapter.ts",
+      "language": "typescript",
+      "sizeBytes": 2621,
+      "pathSource": "heading"
+    },
+    {
+      "path": "src/modules/integrations/adapters/dbe.adapter.ts",
+      "language": "typescript",
+      "sizeBytes": 2026,
+      "pathSource": "heading"
+    },
+    {
+      "path": "src/modules/integrations/adapters/wb.adapter.ts",
+      "language": "typescript",
+      "sizeBytes": 1273,
+      "pathSource": "heading"
+    },
+    {
+      "path": "src/modules/integrations/adapters/sms.adapter.ts",
+      "language": "typescript",
+      "sizeBytes": 1329,
+      "pathSource": "heading"
+    },
+    {
+      "path": "src/modules/integrations/adapters/ussd.adapter.ts",
+      "language": "typescript",
+      "sizeBytes": 1329,
+      "pathSource": "heading"
+    },
+    {
+      "path": "src/modules/integrations/adapters/mobile-money.adapter.ts",
+      "language": "typescript",
+      "sizeBytes": 1532,
+      "pathSource": "heading"
+    },
+    {
+      "path": "src/modules/integrations/adapters/gis.adapter.ts",
+      "language": "typescript",
+      "sizeBytes": 1495,
+      "pathSource": "heading"
+    },
+    {
+      "path": "src/modules/integrations/adapters/idp.adapter.ts",
+      "language": "typescript",
+      "sizeBytes": 1367,
+      "pathSource": "heading"
+    },
+    {
+      "path": "src/modules/integrations/adapters/odk.adapter.ts",
+      "language": "typescript",
+      "sizeBytes": 1771,
+      "pathSource": "heading"
+    },
+    {
+      "path": "src/modules/integrations/adapters/safe-room.adapter.ts",
+      "language": "typescript",
+      "sizeBytes": 1485,
+      "pathSource": "heading"
+    },
+    {
+      "path": "src/modules/integrations/integration.service.ts",
+      "language": "typescript",
+      "sizeBytes": 10914,
+      "pathSource": "heading"
+    },
+    {
+      "path": "src/modules/integrations/adapters/index.ts",
+      "language": "typescript",
+      "sizeBytes": 499,
+      "pathSource": "heading"
+    },
+    {
+      "path": "src/modules/integrations/integration.controller.ts",
+      "language": "typescript",
+      "sizeBytes": 1706,
+      "pathSource": "heading"
+    },
+    {
+      "path": "src/modules/integrations/integration.routes.ts",
+      "language": "typescript",
+      "sizeBytes": 1063,
+      "pathSource": "heading"
+    },
+    {
+      "path": "src/modules/integrations/webhooks.routes.ts",
+      "language": "typescript",
+      "sizeBytes": 7342,
+      "pathSource": "heading"
+    },
+    {
+      "path": "src/modules/integrations/workers/sync.worker.ts",
+      "language": "typescript",
+      "sizeBytes": 720,
+      "pathSource": "heading"
+    },
+    {
+      "path": "src/main-5.ts",
+      "language": "typescript",
+      "sizeBytes": 2246,
+      "pathSource": "heading"
+    },
+    {
+      "path": "src/routes/index-8.ts",
+      "language": "typescript",
+      "sizeBytes": 5391,
+      "pathSource": "heading"
+    },
+    {
+      "path": "prisma/seed-3.ts",
+      "language": "typescript",
+      "sizeBytes": 844,
+      "pathSource": "heading"
+    },
+    {
+      "path": "src/modules/integrations/__tests__/circuit-breaker.test.ts",
+      "language": "typescript",
+      "sizeBytes": 2247,
+      "pathSource": "heading"
+    },
+    {
+      "path": "src/modules/integrations/__tests__/retry.test.ts",
+      "language": "typescript",
+      "sizeBytes": 1993,
+      "pathSource": "heading"
+    },
+    {
+      "path": "src/modules/notifications/__tests__/notification.templates.test.ts",
+      "language": "typescript",
+      "sizeBytes": 2145,
+      "pathSource": "heading"
+    },
+    {
+      "path": ".nvmrc",
+      "language": "",
+      "sizeBytes": 7,
+      "pathSource": "heading"
+    },
+    {
+      "path": "docker-compose-3.yml",
+      "language": "yaml",
+      "sizeBytes": 3297,
+      "pathSource": "heading"
+    },
+    {
+      "path": "docker-compose.prod.yml",
+      "language": "yaml",
+      "sizeBytes": 1645,
+      "pathSource": "heading"
+    },
+    {
+      "path": ".github/workflows/ci.yml",
+      "language": "yaml",
+      "sizeBytes": 3237,
+      "pathSource": "heading"
+    },
+    {
+      "path": ".github/workflows/deploy.yml",
+      "language": "yaml",
+      "sizeBytes": 2826,
+      "pathSource": "heading"
+    },
+    {
+      "path": "vitest.e2e.config-2.ts",
+      "language": "typescript",
+      "sizeBytes": 479,
+      "pathSource": "heading"
+    },
+    {
+      "path": "tests/e2e/setup.ts",
+      "language": "typescript",
+      "sizeBytes": 1161,
+      "pathSource": "heading"
+    },
+    {
+      "path": "tests/e2e/helpers.ts",
+      "language": "typescript",
+      "sizeBytes": 1076,
+      "pathSource": "heading"
+    },
+    {
+      "path": "tests/e2e/auth.e2e.test.ts",
+      "language": "typescript",
+      "sizeBytes": 4118,
+      "pathSource": "heading"
+    },
+    {
+      "path": "tests/e2e/project-lifecycle.e2e.test.ts",
+      "language": "typescript",
+      "sizeBytes": 4967,
+      "pathSource": "heading"
+    },
+    {
+      "path": "tests/e2e/field-interview.e2e.test.ts",
+      "language": "typescript",
+      "sizeBytes": 5540,
+      "pathSource": "heading"
+    },
+    {
+      "path": "src/lib/monitoring/metrics.ts",
+      "language": "typescript",
+      "sizeBytes": 4145,
+      "pathSource": "heading"
+    },
+    {
+      "path": "src/middleware/metrics.ts",
+      "language": "typescript",
+      "sizeBytes": 986,
+      "pathSource": "heading"
+    },
+    {
+      "path": "src/routes/metrics.ts",
+      "language": "typescript",
+      "sizeBytes": 440,
+      "pathSource": "heading"
+    },
+    {
+      "path": "src/app-4.ts",
+      "language": "typescript",
+      "sizeBytes": 1436,
+      "pathSource": "heading"
+    },
+    {
+      "path": "scripts/backup.sh",
+      "language": "bash",
+      "sizeBytes": 3805,
+      "pathSource": "heading"
+    },
+    {
+      "path": "scripts/restore.sh",
+      "language": "bash",
+      "sizeBytes": 1494,
+      "pathSource": "heading"
+    },
+    {
+      "path": "scripts/smoke-test.sh",
+      "language": "bash",
+      "sizeBytes": 4931,
+      "pathSource": "heading"
+    },
+    {
+      "path": "scripts/wait-for-it.sh",
+      "language": "bash",
+      "sizeBytes": 584,
+      "pathSource": "heading"
+    },
+    {
+      "path": "README.md",
+      "language": "markdown",
+      "sizeBytes": 713,
+      "pathSource": "heading"
+    },
+    {
+      "path": "README-2.md",
+      "language": "",
+      "sizeBytes": 163,
+      "pathSource": "heading"
+    },
+    {
+      "path": "README-3.md",
+      "language": "",
+      "sizeBytes": 30,
+      "pathSource": "heading"
+    },
+    {
+      "path": "scripts/smoke-test-2.sh",
+      "language": "",
+      "sizeBytes": 512,
+      "pathSource": "prose"
+    },
+    {
+      "path": "RUNBOOK.md",
+      "language": "markdown",
+      "sizeBytes": 661,
+      "pathSource": "heading"
+    },
+    {
+      "path": "RUNBOOK-2.md",
+      "language": "",
+      "sizeBytes": 179,
+      "pathSource": "heading"
+    },
+    {
+      "path": "RUNBOOK-3.md",
+      "language": "",
+      "sizeBytes": 721,
+      "pathSource": "heading"
+    },
+    {
+      "path": "scripts/restore-2.sh",
+      "language": "",
+      "sizeBytes": 2620,
+      "pathSource": "prose"
+    },
+    {
+      "path": "opt/piims/backend/scripts/backup.sh",
+      "language": "",
+      "sizeBytes": 87,
+      "pathSource": "prose"
+    },
+    {
+      "path": "scripts/backup-2.sh",
+      "language": "",
+      "sizeBytes": 64,
+      "pathSource": "prose"
+    },
+    {
+      "path": "scripts/restore-3.sh",
+      "language": "",
+      "sizeBytes": 68,
+      "pathSource": "prose"
+    },
+    {
+      "path": "SECURITY.md",
+      "language": "markdown",
+      "sizeBytes": 2081,
+      "pathSource": "heading"
+    },
+    {
+      "path": "CONTRIBUTING.md",
+      "language": "markdown",
+      "sizeBytes": 380,
+      "pathSource": "heading"
+    },
+    {
+      "path": "CONTRIBUTING-2.md",
+      "language": "",
+      "sizeBytes": 376,
+      "pathSource": "heading"
+    },
+    {
+      "path": "CONTRIBUTING-3.md",
+      "language": "",
+      "sizeBytes": 2261,
+      "pathSource": "heading"
+    },
+    {
+      "path": "CHANGELOG.md",
+      "language": "markdown",
+      "sizeBytes": 7071,
+      "pathSource": "heading"
+    },
+    {
+      "path": "docs/migration-workflow.md",
+      "language": "markdown",
+      "sizeBytes": 72,
+      "pathSource": "heading"
+    },
+    {
+      "path": "docs/migration-workflow-2.md",
+      "language": "",
+      "sizeBytes": 31,
+      "pathSource": "heading"
+    },
+    {
+      "path": "docs/migration-workflow-3.md",
+      "language": "",
+      "sizeBytes": 37,
+      "pathSource": "heading"
+    },
+    {
+      "path": "docs/migration-workflow-4.md",
+      "language": "",
+      "sizeBytes": 167,
+      "pathSource": "heading"
+    },
+    {
+      "path": "docs/migration-workflow-5.md",
+      "language": "",
+      "sizeBytes": 16,
+      "pathSource": "heading"
+    },
+    {
+      "path": "docs/migration-workflow-6.md",
+      "language": "",
+      "sizeBytes": 108,
+      "pathSource": "heading"
+    },
+    {
+      "path": "docs/migration-workflow-7.md",
+      "language": "",
+      "sizeBytes": 41,
+      "pathSource": "heading"
+    },
+    {
+      "path": "docs/migration-workflow-8.md",
+      "language": "",
+      "sizeBytes": 208,
+      "pathSource": "heading"
+    },
+    {
+      "path": "docs/migration-workflow-9.md",
+      "language": "",
+      "sizeBytes": 161,
+      "pathSource": "heading"
+    },
+    {
+      "path": "docs/migration-workflow-10.md",
+      "language": "",
+      "sizeBytes": 76,
+      "pathSource": "heading"
+    },
+    {
+      "path": "docs/migration-workflow-11.md",
+      "language": "",
+      "sizeBytes": 291,
+      "pathSource": "heading"
+    },
+    {
+      "path": "docs/migration-workflow-12.md",
+      "language": "",
+      "sizeBytes": 204,
+      "pathSource": "heading"
+    },
+    {
+      "path": "docs/migration-workflow-13.md",
+      "language": "",
+      "sizeBytes": 621,
+      "pathSource": "heading"
+    },
+    {
+      "path": "docs/migration-workflow-14.md",
+      "language": "",
+      "sizeBytes": 321,
+      "pathSource": "heading"
+    },
+    {
+      "path": "docs/migration-workflow-15.md",
+      "language": "",
+      "sizeBytes": 165,
+      "pathSource": "heading"
+    },
+    {
+      "path": "docs/migration-workflow-16.md",
+      "language": "",
+      "sizeBytes": 133,
+      "pathSource": "heading"
+    },
+    {
+      "path": "docs/migration-workflow-17.md",
+      "language": "",
+      "sizeBytes": 240,
+      "pathSource": "heading"
+    },
+    {
+      "path": "docs/migration-workflow-18.md",
+      "language": "",
+      "sizeBytes": 178,
+      "pathSource": "heading"
+    },
+    {
+      "path": "docs/migration-workflow-19.md",
+      "language": "",
+      "sizeBytes": 62,
+      "pathSource": "heading"
+    },
+    {
+      "path": "docs/migration-workflow-20.md",
+      "language": "",
+      "sizeBytes": 268,
+      "pathSource": "heading"
+    },
+    {
+      "path": "docs/migration-workflow-21.md",
+      "language": "",
+      "sizeBytes": 401,
+      "pathSource": "heading"
+    },
+    {
+      "path": "docs/backup-restore.md",
+      "language": "markdown",
+      "sizeBytes": 388,
+      "pathSource": "heading"
+    },
+    {
+      "path": "docs/backup-restore-2.md",
+      "language": "",
+      "sizeBytes": 18,
+      "pathSource": "heading"
+    },
+    {
+      "path": "docs/backup-restore-3.md",
+      "language": "",
+      "sizeBytes": 8,
+      "pathSource": "heading"
+    },
+    {
+      "path": "docs/backup-restore-4.md",
+      "language": "",
+      "sizeBytes": 79,
+      "pathSource": "heading"
+    },
+    {
+      "path": "docs/backup-restore-5.md",
+      "language": "",
+      "sizeBytes": 79,
+      "pathSource": "heading"
+    },
+    {
+      "path": "docs/smoke-test.md",
+      "language": "markdown",
+      "sizeBytes": 100,
+      "pathSource": "heading"
+    },
+    {
+      "path": "docs/smoke-test-2.md",
+      "language": "",
+      "sizeBytes": 1951,
+      "pathSource": "heading"
+    },
+    {
+      "path": "docs/on-call.md",
+      "language": "markdown",
+      "sizeBytes": 1363,
+      "pathSource": "heading"
+    }
+  ]
+}

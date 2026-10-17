@@ -1,0 +1,1888 @@
+// ═══════════════════════════════════════════════════════════════════════════
+//  PIIMS — Prisma Schema v2.0
+//  62 models · 24 enums · PostGIS · hash-chained audit log
+// ═══════════════════════════════════════════════════════════════════════════
+
+generator client {
+  provider        = "prisma-client-js"
+  previewFeatures = ["postgresqlExtensions", "fullTextSearchPostgres"]
+}
+
+datasource db {
+  provider   = "postgresql"
+  url        = env("DATABASE_URL")
+  extensions = [postgis, pgcrypto, pg_trgm]
+}
+
+// ═══════════════════════════════════════════════════════════════════════════
+//  ENUMS
+// ═══════════════════════════════════════════════════════════════════════════
+
+enum OrgType { WB GOV_MINISTRY GOV_AGENCY FIN_INST SUPPLIER LOCAL_GOV OTHER }
+enum OrgLevel { FEDERAL REGIONAL ZONAL WOREDA KEBELE }
+enum OrgStatus { ACTIVE INACTIVE SUSPENDED }
+enum UserStatus { ACTIVE INACTIVE LOCKED SUSPENDED }
+
+enum ProjectStatus { IDEA PROFILE PRE_FEASIBILITY FEASIBILITY APPRAISAL APPROVED ACTIVE CLOSED CANCELLED }
+enum ProjectSector { WATER ENERGY BOTH OTHER }
+enum ImplArrangement { PIU LINE_MINISTRY REGIONAL OTHER }
+
+enum IndicatorType { OUTPUT OUTCOME IMPACT }
+enum IndicatorFrequency { MONTHLY QUARTERLY SEMI_ANNUAL ANNUAL }
+enum IndicatorDirection { INCREASE DECREASE }
+enum TrafficLight { ON_TRACK AT_RISK OFF_TRACK NOT_STARTED }
+
+enum DisbursementStatus { PLANNED REQUESTED APPROVED DISBURSED RECONCILED REJECTED }
+enum FinancingCategory { CATEGORY_1 CATEGORY_2 CATEGORY_3 OTHER }
+
+enum ProcurementMethod { ICB NCB SHOPPING DIRECT OTHER }
+enum ProcurementStatus { PLANNED ADVERTISED BID_OPEN EVALUATED AWARDED CANCELLED }
+enum ContractStatus { DRAFT SIGNED ACTIVE COMPLETED TERMINATED }
+enum SupplierCategory { MANUFACTURER IMPORTER INSTALLER DISTRIBUTOR OTHER }
+enum SupplierStatus { ACTIVE INACTIVE BLACKLISTED }
+enum ProductType { SHS MINI_GRID PUMP LANTERN OTHER }
+enum ProductStatus { ACTIVE INACTIVE }
+
+enum Gender { MALE FEMALE OTHER }
+enum RegistrationChannel { WEB SMS USSD CAPI IMPORT SUPPLIER }
+enum BeneficiaryStatus { REGISTERED VERIFIED ACTIVE INACTIVE DUPLICATE }
+enum DeliveryStatus { PLANNED DELIVERED INSTALLED VERIFIED FAILED }
+
+enum GrievanceCategory { SERVICE_QUALITY DELAY PAYMENT SAFEGUARDS CONDUCT OTHER }
+enum GrievanceChannel { WEB SMS USSD PHONE IN_PERSON LETTER }
+enum GrievanceStatus { OPEN IN_PROGRESS RESOLVED CLOSED ESCALATED }
+enum Severity { LOW MEDIUM HIGH CRITICAL }
+enum GrievanceActionType { ASSIGN RESPOND ESCALATE RESOLVE CLOSE REOPEN }
+
+enum DocType { APPRAISAL FEASIBILITY CONTRACT INVOICE REPORT INCEPTION PROCUREMENT LEGAL TECHNICAL OTHER }
+enum AccessLevel { PUBLIC INTERNAL RESTRICTED }
+enum ReportType { INCEPTION PPMR ISR FINANCIAL PROCUREMENT BENEFICIARY GRIEVANCE IMPACT AD_HOC }
+enum ReportFormat { PDF EXCEL CSV }
+enum InceptionStatus { DRAFT SUBMITTED UNDER_REVIEW REVISION_REQUIRED APPROVED REJECTED }
+
+enum ImpactDomain { INCOME ENERGY WATER HEALTH EDUCATION GENDER ENVIRONMENT RESILIENCE SATISFACTION }
+enum ImpactDirection { INCREASE DECREASE }
+enum ImpactStatus { ACTIVE DEPRECATED }
+
+enum SurveyStatus { DRAFT PUBLISHED LOCKED ARCHIVED }
+enum WaveType { BASELINE MIDLINE ENDLINE EX_POST }
+enum WaveStatus { PLANNED ACTIVE COMPLETED CANCELLED }
+enum QuestionType { SINGLE MULTI NUMERIC DECIMAL DATE TEXT GPS PHOTO AUDIO BARCODE MATRIX RANKING CALCULATED }
+enum SkipLogicAction { SKIP SHOW HIDE REQUIRE }
+
+enum CollectorStatus { ACTIVE INACTIVE SUSPENDED }
+enum AssignmentStatus { ASSIGNED IN_PROGRESS COMPLETED CANCELLED }
+enum SubmissionStatus { DRAFT SUBMITTED SYNCED QA_REVIEW QA_CLEARED REJECTED }
+enum QaStatus { PENDING FLAGGED CLEARED REJECTED }
+enum AnswerType { TEXT NUMERIC DATE JSON GPS MEDIA }
+enum MediaType { PHOTO AUDIO VIDEO SIGNATURE }
+enum ConsentType { PARTICIPATION DATA_USE FUTURE_RESEARCH MEDIA CONTACT }
+
+enum QaRuleType { DURATION_SHORT DURATION_LONG STRAIGHT_LINE GPS_OUTSIDE DUPLICATE OUTLIER SPEED VARIANCE LOGIC }
+enum QaFlagStatus { OPEN IN_REVIEW RESOLVED ESCALATED }
+enum BackCheckResult { PASS PARTIAL FAIL }
+
+enum PanelStatus { ACTIVE ATTRITED REPLACED WITHDRAWN }
+enum TreatmentGroupType { TREATMENT CONTROL PHASE_1 PHASE_2 COMPARISON }
+enum WaveDatasetStatus { BUILDING READY RELEASED ARCHIVED }
+
+enum AnonLevel { L0 L1 L2 L3 }
+enum DatasetFormat { CSV STATA SPSS R PARQUET EXCEL }
+enum ResearchDatasetStatus { DRAFT PUBLISHED DEPRECATED }
+enum DataRequestStatus { SUBMITTED UNDER_REVIEW APPROVED REJECTED EXPIRED }
+enum ResearchProjectStatus { REGISTERED ACTIVE COMPLETED PUBLISHED }
+
+enum NotificationChannel { IN_APP EMAIL SMS }
+enum NotificationStatus { PENDING SENT DELIVERED FAILED READ }
+enum SyncJobDirection { INBOUND OUTBOUND BIDIRECTIONAL }
+enum SyncJobStatus { RUNNING SUCCESS PARTIAL FAILED }
+enum AuditAction { CREATE UPDATE DELETE LOGIN LOGOUT APPROVE REJECT EXPORT DOWNLOAD }
+
+// ═══════════════════════════════════════════════════════════════════════════
+//  M1 — IDENTITY & ACCESS
+// ═══════════════════════════════════════════════════════════════════════════
+
+model Organization {
+  orgId   String     @id @default(uuid()) @db.Uuid
+  code    String     @unique @db.VarChar(20)
+  name    String     @db.VarChar(200)
+  nameAm  String?    @db.VarChar(200)
+  orgType OrgType
+  level   OrgLevel
+
+  parentOrgId String?      @db.Uuid
+  parent      Organization? @relation("OrgHierarchy", fields: [parentOrgId], references: [orgId], onDelete: SetNull)
+  children    Organization[] @relation("OrgHierarchy")
+
+  address      String? @db.Text
+  contactEmail String? @db.VarChar(120)
+  contactPhone String? @db.VarChar(20)
+
+  status        OrgStatus @default(ACTIVE)
+  effectiveFrom DateTime  @default(now())
+  effectiveTo   DateTime?
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  users                User[]
+  ownedProjects        Project[]
+  responsibleComponents Component[]
+  responsibleSubcomponents Subcomponent[]
+  milestoneOwners      Milestone[]
+  suppliers            Supplier[]
+  disbursementSources  Disbursement[]
+  notificationTemplates NotificationTemplate[]
+
+  @@index([orgType])
+  @@index([level])
+  @@index([parentOrgId])
+  @@index([status])
+  @@map("organizations")
+}
+
+model Role {
+  roleId      String  @id @default(uuid()) @db.Uuid
+  code        String  @unique @db.VarChar(30)
+  name        String  @db.VarChar(100)
+  description String? @db.Text
+  scope       String  @db.VarChar(20)
+  permissions Json    @default("[]")
+  isSystem    Boolean @default(false)
+  status      String  @default("ACTIVE") @db.VarChar(20)
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  users User[]
+
+  @@map("roles")
+}
+
+model User {
+  userId     String  @id @default(uuid()) @db.Uuid
+  username   String  @unique @db.VarChar(60)
+  email      String  @unique @db.VarChar(120)
+  fullName   String  @db.VarChar(200)
+  fullNameAm String? @db.VarChar(200)
+  phone      String? @db.VarChar(20)
+
+  orgId String       @db.Uuid
+  org   Organization @relation(fields: [orgId], references: [orgId], onDelete: Restrict)
+
+  roleId String @db.Uuid
+  role   Role   @relation(fields: [roleId], references: [roleId], onDelete: Restrict)
+
+  passwordHash      String    @db.VarChar(255)
+  mfaEnabled        Boolean   @default(false)
+  mfaSecret         String?   @db.VarChar(255)
+  status            UserStatus @default(ACTIVE)
+  lastLoginAt       DateTime?
+  failedLoginCount  Int       @default(0)
+  lockedUntil       DateTime?
+  passwordChangedAt DateTime?
+  locale            String    @default("en") @db.VarChar(10)
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  refreshTokens          RefreshToken[]
+  auditLogs              AuditLog[]
+  createdProjects        Project[]           @relation("ProjectCreatedBy")
+  updatedProjects        Project[]           @relation("ProjectUpdatedBy")
+  uploadedDocuments      Document[]          @relation("DocumentUploadedBy")
+  documentVersions       DocumentVersion[]
+  submittedReports       InceptionReport[]   @relation("ReportSubmittedBy")
+  reviewedReports        InceptionReport[]   @relation("ReportReviewedBy")
+  reportComments         ReviewComment[]
+  resolvedComments       ReviewComment[]     @relation("CommentResolvedBy")
+  verifiedIndicatorVals  IndicatorValue[]    @relation("IndicatorValueVerifiedBy")
+  verifiedBeneficiaries  Beneficiary[]       @relation("BeneficiaryVerifiedBy")
+  verifiedDeliveries     ServiceDelivery[]   @relation("DeliveryVerifiedBy")
+  assignedGrievances     Grievance[]         @relation("GrievanceAssignedTo")
+  escalatedGrievances    Grievance[]         @relation("GrievanceEscalatedTo")
+  grievanceActions       GrievanceAction[]
+  createdDocuments       Document[]          @relation("DocumentUploadedBy")
+  generatedReports       Report[]
+  createdImpactIndicators ImpactIndicator[]  @relation("ImpactIndicatorCreatedBy")
+  authoredTheoryOfChange TheoryOfChange[]
+  createdSurveys         Survey[]
+  publishedSurveyVersions SurveyVersion[]    @relation("SurveyVersionPublishedBy")
+  collectorProfile       Collector?
+  supervisorProfile      Supervisor?
+  reviewedFlags          QaFlag[]            @relation("QaFlagReviewedBy")
+  conductedBackChecks    BackCheck[]
+  requestsSubmitted      DataRequest[]
+  approvedDataRequests   DataRequest[]       @relation("DataRequestApprovedBy")
+  createdResearchProjects ResearchProject[]
+  notifications          Notification[]
+  createdMasterData      MasterData[]
+  syncJobTriggers        SyncJob[]           @relation("SyncJobTriggeredBy")
+
+  @@index([orgId])
+  @@index([roleId])
+  @@index([status])
+  @@index([email])
+  @@map("users")
+}
+
+model RefreshToken {
+  tokenId   String   @id @default(uuid()) @db.Uuid
+  userId    String   @db.Uuid
+  user      User     @relation(fields: [userId], references: [userId], onDelete: Cascade)
+  tokenHash String   @unique @db.VarChar(128)
+  expiresAt DateTime
+  revokedAt DateTime?
+  createdAt DateTime @default(now())
+  userAgent String?  @db.VarChar(255)
+  ipAddress String?  @db.VarChar(45)
+
+  @@index([userId])
+  @@index([expiresAt])
+  @@map("refresh_tokens")
+}
+
+model AuditLog {
+  logId         BigInt      @id @default(autoincrement())
+  userId        String?     @db.Uuid
+  user          User?       @relation(fields: [userId], references: [userId], onDelete: SetNull)
+  sessionId     String?     @db.Uuid
+  entity        String      @db.VarChar(60)
+  entityId      String?     @db.Uuid
+  action        AuditAction
+  oldValue      Json?
+  newValue      Json?
+  ipAddress     String?     @db.VarChar(45)
+  userAgent     String?     @db.VarChar(255)
+  correlationId String?     @db.Uuid
+  prevHash      String?     @db.VarChar(64)
+  recordHash    String      @db.VarChar(64)
+  createdAt     DateTime    @default(now())
+
+  @@index([userId, createdAt])
+  @@index([entity, entityId])
+  @@index([action])
+  @@index([createdAt])
+  @@map("audit_logs")
+}
+
+// ═══════════════════════════════════════════════════════════════════════════
+//  M2 — PROJECT REGISTRY
+// ═══════════════════════════════════════════════════════════════════════════
+
+model Project {
+  projectId     String        @id @default(uuid()) @db.Uuid
+  projectCode   String        @unique @db.VarChar(30)
+  name          String        @db.VarChar(300)
+  nameAm        String?       @db.VarChar(300)
+  description   String?       @db.Text
+  sector        ProjectSector
+  subsector     String?       @db.VarChar(100)
+  status        ProjectStatus @default(IDEA)
+  stageGate     String?       @db.VarChar(50)
+
+  ownerOrgId String       @db.Uuid
+  ownerOrg   Organization @relation(fields: [ownerOrgId], references: [ownerOrgId], onDelete: Restrict)
+
+  locationId String?   @db.Uuid
+  location   Location? @relation("ProjectPrimaryLocation", fields: [locationId], references: [locationId], onDelete: SetNull)
+
+  totalBudget Decimal    @db.Decimal(18, 2)
+  currency    String     @db.Char(3)
+  wbCreditNo  String?    @db.VarChar(50)
+
+  approvalDate              DateTime?          @db.Date
+  startDate                 DateTime?          @db.Date
+  endDate                   DateTime?          @db.Date
+  actualStart               DateTime?          @db.Date
+  actualEnd                 DateTime?          @db.Date
+  implementationArrangement ImplArrangement?
+
+  financingSource Json? // [{ source, amount, currency, referenceNo }]
+
+  createdById String? @db.Uuid
+  createdBy   User?   @relation("ProjectCreatedBy", fields: [createdById], references: [userId], onDelete: SetNull)
+  updatedById String? @db.Uuid
+  updatedBy   User?   @relation("ProjectUpdatedBy", fields: [updatedById], references: [userId], onDelete: SetNull)
+
+  deletedAt DateTime?
+
+  version Int @default(1)
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  components          Component[]
+  subcomponents       Subcomponent[]
+  milestones          Milestone[]
+  indicators          Indicator[]
+  budgets             Budget[]
+  disbursements       Disbursement[]
+  procurement         Procurement[]
+  contracts           Contract[]
+  serviceDeliveries   ServiceDelivery[]
+  grievances          Grievance[]
+  documents           Document[]
+  inceptionReports    InceptionReport[]
+  reports             Report[]
+  theoryOfChange      TheoryOfChange?
+  waves               Wave[]
+  assignments         Assignment[]
+  submissions         Submission[]
+  collectorScorecards CollectorScorecard[]
+  panelMembers        PanelMember[]
+  treatmentGroups     TreatmentGroup[]
+  waveDatasets        WaveDataset[]
+  researchDatasets    ResearchDataset[]
+  researchProjects    ResearchProject[]
+
+  @@index([status])
+  @@index([sector])
+  @@index([ownerOrgId])
+  @@index([locationId])
+  @@index([createdAt])
+  @@map("projects")
+}
+
+model Component {
+  componentId String @id @default(uuid()) @db.Uuid
+  projectId   String @db.Uuid
+  project     Project @relation(fields: [projectId], references: [projectId], onDelete: Cascade)
+
+  code        String @db.VarChar(20)
+  name        String @db.VarChar(200)
+  nameAm      String? @db.VarChar(200)
+  description String? @db.Text
+  budget      Decimal? @db.Decimal(18, 2)
+  responsibleOrgId String? @db.Uuid
+  responsibleOrg   Organization? @relation(fields: [responsibleOrgId], references: [responsibleOrgId], onDelete: SetNull)
+  orderNo     Int    @default(0)
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  subcomponents Subcomponent[]
+  milestones    Milestone[]
+  budgets       Budget[]
+  procurement   Procurement[]
+
+  @@unique([projectId, code])
+  @@index([projectId])
+  @@map("components")
+}
+
+model Subcomponent {
+  subcomponentId String    @id @default(uuid()) @db.Uuid
+  componentId    String    @db.Uuid
+  component      Component @relation(fields: [componentId], references: [componentId], onDelete: Cascade)
+
+  code        String  @db.VarChar(20)
+  name        String  @db.VarChar(200)
+  nameAm      String? @db.VarChar(200)
+  description String? @db.Text
+  budget      Decimal? @db.Decimal(18, 2)
+  responsibleOrgId String? @db.Uuid
+  responsibleOrg   Organization? @relation(fields: [responsibleOrgId], references: [responsibleOrgId], onDelete: SetNull)
+  orderNo     Int     @default(0)
+
+  projectId String  @db.Uuid
+  project   Project @relation(fields: [projectId], references: [projectId], onDelete: Cascade)
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  indicators Indicator[]
+
+  @@unique([componentId, code])
+  @@index([componentId])
+  @@index([projectId])
+  @@map("subcomponents")
+}
+
+model Milestone {
+  milestoneId String @id @default(uuid()) @db.Uuid
+  projectId   String @db.Uuid
+  project     Project @relation(fields: [projectId], references: [projectId], onDelete: Cascade)
+
+  componentId String?   @db.Uuid
+  component   Component? @relation(fields: [componentId], references: [componentId], onDelete: SetNull)
+
+  name        String    @db.VarChar(200)
+  description String?   @db.Text
+  plannedDate DateTime  @db.Date
+  actualDate  DateTime? @db.Date
+  status      String    @default("PENDING") @db.VarChar(20)
+
+  ownerOrgId String?      @db.Uuid
+  ownerOrg   Organization? @relation(fields: [ownerOrgId], references: [ownerOrgId], onDelete: SetNull)
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  @@index([projectId])
+  @@index([status])
+  @@index([plannedDate])
+  @@map("milestones")
+}
+
+model Location {
+  locationId String @id @default(uuid()) @db.Uuid
+  region     String @db.VarChar(100)
+  regionCode String? @db.VarChar(10)
+  zone       String? @db.VarChar(100)
+  woreda     String? @db.VarChar(100)
+  kebele     String? @db.VarChar(100)
+  latitude   Float?
+  longitude  Float?
+  altitude   Float?
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  projectPrimary Project[]     @relation("ProjectPrimaryLocation")
+  beneficiaries  Beneficiary[]
+
+  @@index([region])
+  @@index([zone])
+  @@index([woreda])
+  @@map("locations")
+}
+
+// ═══════════════════════════════════════════════════════════════════════════
+//  M4 — RESULTS FRAMEWORK
+// ═══════════════════════════════════════════════════════════════════════════
+
+model Indicator {
+  indicatorId    String     @id @default(uuid()) @db.Uuid
+  subcomponentId String     @db.Uuid
+  subcomponent   Subcomponent @relation(fields: [subcomponentId], references: [subcomponentId], onDelete: Cascade)
+
+  projectId String  @db.Uuid
+  project   Project @relation(fields: [projectId], references: [projectId], onDelete: Cascade)
+
+  code          String       @db.VarChar(30)
+  name          String       @db.VarChar(300)
+  nameAm        String?      @db.VarChar(300)
+  description   String?      @db.Text
+  indicatorType IndicatorType
+  unit          String       @db.VarChar(50)
+  baseline      Decimal?     @db.Decimal(18, 4)
+  baselineDate  DateTime?    @db.Date
+  target        Decimal?     @db.Decimal(18, 4)
+  targetDate    DateTime?    @db.Date
+  actual        Decimal?     @db.Decimal(18, 4)
+  frequency     IndicatorFrequency
+  direction     IndicatorDirection
+  method        String?      @db.Text
+  disaggregation Json?       @default("[]")
+  status        TrafficLight @default(NOT_STARTED)
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  values       IndicatorValue[]
+  costPerOutput CostPerOutputRow?
+
+  @@unique([subcomponentId, code])
+  @@index([projectId])
+  @@index([status])
+  @@map("indicators")
+}
+
+model IndicatorValue {
+  valueId     String    @id @default(uuid()) @db.Uuid
+  indicatorId String    @db.Uuid
+  indicator   Indicator @relation(fields: [indicatorId], references: [indicatorId], onDelete: Cascade)
+
+  period         String   @db.VarChar(20)
+  fiscalYear     Int
+  value          Decimal  @db.Decimal(18, 4)
+  target         Decimal? @db.Decimal(18, 4)
+  achievementPct Decimal? @db.Decimal(5, 2)
+  disaggregation Json?
+  dataSource     String?  @db.VarChar(100)
+  notes          String?  @db.Text
+
+  verifiedById String? @db.Uuid
+  verifiedBy   User?   @relation("IndicatorValueVerifiedBy", fields: [verifiedById], references: [userId], onDelete: SetNull)
+  verifiedAt   DateTime?
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  @@unique([indicatorId, period])
+  @@index([indicatorId])
+  @@index([fiscalYear])
+  @@map("indicator_values")
+}
+
+// ═══════════════════════════════════════════════════════════════════════════
+//  M5 — FINANCIAL & BUDGET
+// ═══════════════════════════════════════════════════════════════════════════
+
+model Budget {
+  budgetId    String  @id @default(uuid()) @db.Uuid
+  projectId   String  @db.Uuid
+  project     Project @relation(fields: [projectId], references: [projectId], onDelete: Cascade)
+
+  componentId String?   @db.Uuid
+  component   Component? @relation(fields: [componentId], references: [componentId], onDelete: SetNull)
+
+  fiscalYear    Int
+  currency      String   @db.Char(3)
+  appropriation Decimal  @db.Decimal(18, 2)
+  released      Decimal  @default(0) @db.Decimal(18, 2)
+  expended      Decimal  @default(0) @db.Decimal(18, 2)
+  committed     Decimal  @default(0) @db.Decimal(18, 2)
+  balance       Decimal  @default(0) @db.Decimal(18, 2)
+  fmisReference String?  @db.VarChar(50)
+  lastSyncAt    DateTime?
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  @@unique([projectId, componentId, fiscalYear, currency])
+  @@index([projectId])
+  @@index([fiscalYear])
+  @@map("budgets")
+}
+
+model Disbursement {
+  disbursementId String  @id @default(uuid()) @db.Uuid
+  projectId      String  @db.Uuid
+  project        Project @relation(fields: [projectId], references: [projectId], onDelete: Cascade)
+
+  sourceOrgId String       @db.Uuid
+  sourceOrg   Organization @relation(fields: [sourceOrgId], references: [sourceOrgId], onDelete: Restrict)
+
+  category   FinancingCategory
+  amount     Decimal           @db.Decimal(18, 2)
+  currency   String            @db.Char(3)
+  amountEtb  Decimal           @db.Decimal(18, 2)
+  valueDate  DateTime          @db.Date
+  referenceNo String?          @db.VarChar(50)
+  status     DisbursementStatus @default(APPROVED)
+  fmisReference String?        @db.VarChar(50)
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  @@unique([referenceNo])
+  @@index([projectId])
+  @@index([sourceOrgId])
+  @@index([status])
+  @@index([valueDate])
+  @@map("disbursements")
+}
+
+// ═══════════════════════════════════════════════════════════════════════════
+//  M6 — PROCUREMENT & CONTRACTS
+// ═══════════════════════════════════════════════════════════════════════════
+
+model Procurement {
+  procurementId String  @id @default(uuid()) @db.Uuid
+  projectId     String  @db.Uuid
+  project       Project @relation(fields: [projectId], references: [projectId], onDelete: Cascade)
+
+  componentId String?   @db.Uuid
+  component   Component? @relation(fields: [componentId], references: [componentId], onDelete: SetNull)
+
+  planRef          String            @db.VarChar(50)
+  description      String            @db.Text
+  method           ProcurementMethod
+  estimatedAmount  Decimal?          @db.Decimal(18, 2)
+  currency         String            @db.Char(3)
+  planDate         DateTime?         @db.Date
+  advertisementDate DateTime?        @db.Date
+  bidOpeningDate   DateTime?         @db.Date
+  evaluationDate   DateTime?         @db.Date
+  awardDate        DateTime?         @db.Date
+  status           ProcurementStatus @default(PLANNED)
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  contracts Contract[]
+
+  @@unique([projectId, planRef])
+  @@index([projectId])
+  @@index([status])
+  @@map("procurement")
+}
+
+model Supplier {
+  supplierId String  @id @default(uuid()) @db.Uuid
+  name       String  @db.VarChar(200)
+  nameAm     String? @db.VarChar(200)
+  tin        String? @unique @db.VarChar(20)
+  licenseNo  String? @db.VarChar(50)
+  category   SupplierCategory
+  contactPerson String? @db.VarChar(120)
+  contactEmail  String? @db.VarChar(120)
+  contactPhone  String? @db.VarChar(20)
+  address       String? @db.Text
+  status        SupplierStatus @default(ACTIVE)
+  performanceScore Decimal? @db.Decimal(5, 2)
+
+  orgId String?       @db.Uuid
+  org   Organization? @relation(fields: [orgId], references: [orgId], onDelete: SetNull)
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  contracts Contract[]
+  products  Product[]
+  serviceDeliveries ServiceDelivery[]
+
+  @@index([status])
+  @@index([category])
+  @@map("suppliers")
+}
+
+model Product {
+  productId  String  @id @default(uuid()) @db.Uuid
+  supplierId String  @db.Uuid
+  supplier   Supplier @relation(fields: [supplierId], references: [supplierId], onDelete: Restrict)
+
+  name           String      @db.VarChar(200)
+  productType    ProductType
+  capacity       String?     @db.VarChar(50)
+  unitPrice      Decimal?    @db.Decimal(18, 2)
+  currency       String?     @db.Char(3)
+  standardId     String?     @db.VarChar(50)
+  warrantyMonths Int?
+  status         ProductStatus @default(ACTIVE)
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  serviceDeliveries ServiceDelivery[]
+
+  @@index([supplierId])
+  @@index([productType])
+  @@map("products")
+}
+
+model Contract {
+  contractId    String  @id @default(uuid()) @db.Uuid
+  projectId     String  @db.Uuid
+  project       Project @relation(fields: [projectId], references: [projectId], onDelete: Cascade)
+
+  procurementId String?      @db.Uuid
+  procurement   Procurement? @relation(fields: [procurementId], references: [procurementId], onDelete: SetNull)
+
+  supplierId String   @db.Uuid
+  supplier   Supplier @relation(fields: [supplierId], references: [supplierId], onDelete: Restrict)
+
+  contractNo String         @unique @db.VarChar(50)
+  title      String         @db.VarChar(300)
+  amount     Decimal        @db.Decimal(18, 2)
+  currency   String         @db.Char(3)
+  signedDate DateTime?      @db.Date
+  startDate  DateTime?      @db.Date
+  endDate    DateTime?      @db.Date
+  status     ContractStatus @default(DRAFT)
+  amendmentNo Int           @default(0)
+
+  documentId String? @db.Uuid
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  @@index([projectId])
+  @@index([supplierId])
+  @@index([status])
+  @@map("contracts")
+}
+
+// ═══════════════════════════════════════════════════════════════════════════
+//  M8 — BENEFICIARY & SERVICE DELIVERY
+// ═══════════════════════════════════════════════════════════════════════════
+
+model Beneficiary {
+  beneficiaryId String  @id @default(uuid()) @db.Uuid
+  uniqueId      String  @unique @db.VarChar(50)
+  nationalId    String? @db.VarChar(50)
+  fullName      String  @db.VarChar(200)
+  fullNameAm    String? @db.VarChar(200)
+  gender        Gender
+  dateOfBirth   DateTime? @db.Date
+  ageYears      Int?
+  householdSize Int?
+  phone         String?  @db.VarChar(20)
+
+  locationId String    @db.Uuid
+  location   Location  @relation(fields: [locationId], references: [locationId], onDelete: Restrict)
+
+  region String? @db.VarChar(100)
+  woreda String? @db.VarChar(100)
+  kebele String? @db.VarChar(100)
+
+  householdHead Boolean  @default(false)
+  vulnerability Json?
+  registrationChannel RegistrationChannel
+  registrationDate    DateTime            @db.Date
+  verifiedById        String?             @db.Uuid
+  verifiedBy          User?               @relation("BeneficiaryVerifiedBy", fields: [verifiedById], references: [userId], onDelete: SetNull)
+  verifiedAt          DateTime?
+  status              BeneficiaryStatus   @default(REGISTERED)
+  dedupScore          Decimal?            @db.Decimal(5, 2)
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  serviceDeliveries ServiceDelivery[]
+  grievance         Grievance[]
+  consents          Consent[]
+  panelMember       PanelMember?
+
+  @@index([status])
+  @@index([registrationChannel])
+  @@index([locationId])
+  @@index([region, woreda])
+  @@map("beneficiaries")
+}
+
+model ServiceDelivery {
+  deliveryId    String      @id @default(uuid()) @db.Uuid
+  beneficiaryId String      @db.Uuid
+  beneficiary   Beneficiary @relation(fields: [beneficiaryId], references: [beneficiaryId], onDelete: Restrict)
+
+  projectId String  @db.Uuid
+  project   Project @relation(fields: [projectId], references: [projectId], onDelete: Cascade)
+
+  supplierId String?   @db.Uuid
+  supplier   Supplier? @relation(fields: [supplierId], references: [supplierId], onDelete: SetNull)
+
+  productId String?   @db.Uuid
+  product   Product?  @relation(fields: [productId], references: [productId], onDelete: SetNull)
+
+  serialNo  String?   @unique @db.VarChar(80)
+  quantity  Int       @default(1)
+  unit      String?   @db.VarChar(20)
+  installDate DateTime? @db.Date
+  installLat Float?
+  installLon Float?
+  installPhotoId String? @db.Uuid
+  warrantyStart DateTime? @db.Date
+  warrantyEnd   DateTime? @db.Date
+  status        DeliveryStatus @default(PLANNED)
+
+  verifiedById String?   @db.Uuid
+  verifiedBy   User?     @relation("DeliveryVerifiedBy", fields: [verifiedById], references: [userId], onDelete: SetNull)
+  verifiedAt   DateTime?
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  @@index([beneficiaryId])
+  @@index([projectId])
+  @@index([supplierId])
+  @@index([status])
+  @@map("service_deliveries")
+}
+
+model Grievance {
+  grievanceId String   @id @default(uuid()) @db.Uuid
+  ticketNo    String   @unique @db.VarChar(30)
+
+  projectId String?  @db.Uuid
+  project   Project? @relation(fields: [projectId], references: [projectId], onDelete: SetNull)
+
+  beneficiaryId String?      @db.Uuid
+  beneficiary   Beneficiary? @relation(fields: [beneficiaryId], references: [beneficiaryId], onDelete: SetNull)
+
+  category    GrievanceCategory
+  subcategory String?           @db.VarChar(100)
+  description String            @db.Text
+  channel     GrievanceChannel
+  submittedAt DateTime          @default(now())
+
+  locationId String?   @db.Uuid
+  location   Location? @relation(fields: [locationId], references: [locationId], onDelete: SetNull)
+
+  assignedToId String? @db.Uuid
+  assignedTo   User?   @relation("GrievanceAssignedTo", fields: [assignedToId], references: [userId], onDelete: SetNull)
+  assignedAt   DateTime?
+
+  slaDue    DateTime
+  severity  Severity
+  status    GrievanceStatus @default(OPEN)
+  resolution String?        @db.Text
+  resolvedAt DateTime?
+
+  escalatedToId String? @db.Uuid
+  escalatedTo   User?   @relation("GrievanceEscalatedTo", fields: [escalatedToId], references: [userId], onDelete: SetNull)
+
+  anonymous Boolean @default(false)
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  actions GrievanceAction[]
+
+  @@index([status])
+  @@index([severity])
+  @@index([category])
+  @@index([projectId])
+  @@index([slaDue])
+  @@map("grievances")
+}
+
+model GrievanceAction {
+  actionId    String    @id @default(uuid()) @db.Uuid
+  grievanceId String    @db.Uuid
+  grievance   Grievance @relation(fields: [grievanceId], references: [grievanceId], onDelete: Cascade)
+
+  actionType GrievanceActionType
+  actorId    String   @db.Uuid
+  actor      User     @relation(fields: [actorId], references: [userId], onDelete: Restrict)
+  notes      String   @db.Text
+  createdAt  DateTime @default(now())
+
+  @@index([grievanceId])
+  @@map("grievance_actions")
+}
+
+// ═══════════════════════════════════════════════════════════════════════════
+//  M10 — DOCUMENTS
+// ═══════════════════════════════════════════════════════════════════════════
+
+model Document {
+  docId     String  @id @default(uuid()) @db.Uuid
+  projectId String? @db.Uuid
+  project   Project? @relation(fields: [projectId], references: [projectId], onDelete: SetNull)
+
+  docType     DocType
+  title       String  @db.VarChar(300)
+  description String? @db.Text
+  version     Int     @default(1)
+  filePath    String  @db.VarChar(500)
+  fileSize    BigInt
+  mimeType    String  @db.VarChar(100)
+  checksum    String  @db.VarChar(64)
+  accessLevel AccessLevel @default(INTERNAL)
+  tags        String[] @default([])
+
+  uploadedById String @db.Uuid
+  uploadedBy   User   @relation("DocumentUploadedBy", fields: [uploadedById], references: [userId], onDelete: Restrict)
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  versions DocumentVersion[]
+
+  @@index([projectId])
+  @@index([docType])
+  @@index([uploadedById])
+  @@map("documents")
+}
+
+model DocumentVersion {
+  versionId  String   @id @default(uuid()) @db.Uuid
+  docId      String   @db.Uuid
+  document   Document @relation(fields: [docId], references: [docId], onDelete: Cascade)
+
+  version   Int
+  filePath  String    @db.VarChar(500)
+  fileSize  BigInt
+  checksum  String    @db.VarChar(64)
+  notes     String?   @db.Text
+
+  uploadedById String   @db.Uuid
+  uploadedBy   User     @relation(fields: [uploadedById], references: [userId], onDelete: Restrict)
+
+  createdAt DateTime @default(now())
+
+  @@unique([docId, version])
+  @@index([docId])
+  @@map("document_versions")
+}
+
+// ═══════════════════════════════════════════════════════════════════════════
+//  M3 — INCEPTION REPORTS
+// ═══════════════════════════════════════════════════════════════════════════
+
+model InceptionReport {
+  reportId  String  @id @default(uuid()) @db.Uuid
+  projectId String  @db.Uuid
+  project   Project @relation(fields: [projectId], references: [projectId], onDelete: Cascade)
+
+  version      Int
+  templateId   String?  @db.Uuid
+  submissionDate DateTime? @db.Date
+  dueDate      DateTime @db.Date
+  status       InceptionStatus @default(DRAFT)
+
+  submittedById String? @db.Uuid
+  submittedBy   User?   @relation("ReportSubmittedBy", fields: [submittedById], references: [userId], onDelete: SetNull)
+  reviewedById  String? @db.Uuid
+  reviewedBy    User?   @relation("ReportReviewedBy", fields: [reviewedById], references: [userId], onDelete: SetNull)
+  reviewedAt    DateTime?
+
+  noObjection     Boolean   @default(false)
+  noObjectionDate DateTime? @db.Date
+  documentId      String?   @db.Uuid
+  summary         String?   @db.Text
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  comments ReviewComment[]
+
+  @@unique([projectId, version])
+  @@index([projectId])
+  @@index([status])
+  @@index([dueDate])
+  @@map("inception_reports")
+}
+
+model ReviewComment {
+  commentId String          @id @default(uuid()) @db.Uuid
+  reportId  String          @db.Uuid
+  report    InceptionReport @relation(fields: [reportId], references: [reportId], onDelete: Cascade)
+
+  sectionId String? @db.VarChar(50)
+  authorId  String  @db.Uuid
+  author    User    @relation(fields: [authorId], references: [userId], onDelete: Restrict)
+  text      String  @db.Text
+  resolved  Boolean @default(false)
+  resolvedById String? @db.Uuid
+  resolvedBy   User?   @relation("CommentResolvedBy", fields: [resolvedById], references: [userId], onDelete: SetNull)
+  resolvedAt   DateTime?
+  parentId     String? @db.Uuid
+
+  createdAt DateTime @default(now())
+
+  @@index([reportId])
+  @@index([parentId])
+  @@map("review_comments")
+}
+
+// ═══════════════════════════════════════════════════════════════════════════
+//  M11 — REPORTING
+// ═══════════════════════════════════════════════════════════════════════════
+
+model Report {
+  reportId  String  @id @default(uuid()) @db.Uuid
+  projectId String? @db.Uuid
+  project   Project? @relation(fields: [projectId], references: [projectId], onDelete: SetNull)
+
+  reportType ReportType
+  period     String?    @db.VarChar(30)
+  format     ReportFormat
+  filePath   String?    @db.VarChar(500)
+  fileSize   BigInt?
+  parameters Json?
+  status     String     @default("QUEUED") @db.VarChar(20)
+  error      String?    @db.Text
+
+  generatedById String @db.Uuid
+  generatedBy   User   @relation(fields: [generatedById], references: [userId], onDelete: Restrict)
+  generatedAt   DateTime @default(now())
+
+  @@index([projectId])
+  @@index([reportType])
+  @@index([status])
+  @@index([generatedAt])
+  @@map("reports")
+}
+
+model ReportSchedule {
+  scheduleId String     @id @default(uuid()) @db.Uuid
+  reportType ReportType
+  cron       String     @db.VarChar(100)
+  recipients String[]   @default([])
+  format     ReportFormat
+  active     Boolean    @default(true)
+  lastRunAt  DateTime?
+  nextRunAt  DateTime?
+  createdAt  DateTime   @default(now())
+  updatedAt  DateTime   @updatedAt
+
+  @@index([active])
+  @@map("report_schedules")
+}
+
+// ═══════════════════════════════════════════════════════════════════════════
+//  M18 — IMPACT INDICATOR FRAMEWORK
+// ═══════════════════════════════════════════════════════════════════════════
+
+model ImpactDomain {
+  domainId    String          @id @default(uuid()) @db.Uuid
+  code        String          @unique @db.VarChar(20)
+  name        String          @db.VarChar(100)
+  nameAm      String?         @db.VarChar(100)
+  description String?         @db.Text
+  orderNo     Int             @default(0)
+  active      Boolean         @default(true)
+
+  indicators ImpactIndicator[]
+
+  @@map("impact_domains")
+}
+
+model ImpactIndicator {
+  indicatorId String       @id @default(uuid()) @db.Uuid
+  domainId    String       @db.Uuid
+  domain      ImpactDomain @relation(fields: [domainId], references: [domainId], onDelete: Restrict)
+
+  code          String          @unique @db.VarChar(30)
+  name          String          @db.VarChar(300)
+  nameAm        String?         @db.VarChar(300)
+  description   String?         @db.Text
+  unit          String          @db.VarChar(50)
+  direction     ImpactDirection
+  method        String?         @db.Text
+  disaggregation Json?          @default("[]")
+  isComposite   Boolean         @default(false)
+  compositeFormula Json?
+  standardRef   String?         @db.VarChar(100)
+  version       Int             @default(1)
+  effectiveFrom DateTime        @db.Date
+  effectiveTo   DateTime?       @db.Date
+  status        ImpactStatus    @default(ACTIVE)
+
+  createdById String @db.Uuid
+  createdBy   User   @relation("ImpactIndicatorCreatedBy", fields: [createdById], references: [userId], onDelete: Restrict)
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+
+  waveAssignments IndicatorWave[]
+  questions       Question[]
+
+  @@index([domainId])
+  @@index([status])
+  @@map("impact_indicators")
+}
+
+model IndicatorWave {
+  indicatorWaveId String @id @default(uuid()) @db.Uuid
+  indicatorId     String @db.Uuid
+  indicator       ImpactIndicator @relation(fields: [indicatorId], references: [indicatorId], onDelete: Cascade)
+
+  waveId String @db.Uuid
+  wave   Wave   @relation(fields: [waveId], references: [waveId], onDelete: Cascade)
+
+  targetValue            Decimal? @db.Decimal(18, 4)
+  collectionWindowStart  DateTime? @db.Date
+  collectionWindowEnd    DateTime? @db.Date
+  required               Boolean  @default(true)
+
+  @@unique([indicatorId, waveId])
+  @@index([waveId])
+  @@map("indicator_waves")
+}
+
+model TheoryOfChange {
+  tocId       String  @id @default(uuid()) @db.Uuid
+  projectId   String  @unique @db.Uuid
+  project     Project @relation(fields: [projectId], references: [projectId], onDelete: Cascade)
+
+  name        String  @db.VarChar(200)
+  description String? @db.Text
+  diagramUrl  String? @db.VarChar(500)
+  links       Json?
+
+  authorId String @db.Uuid
+  author   User   @relation(fields: [authorId], references: [userId], onDelete: Restrict)
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  @@map("theory_of_change")
+}
+
+// ═══════════════════════════════════════════════════════════════════════════
+//  M19 — SURVEY & QUESTIONNAIRE
+// ═══════════════════════════════════════════════════════════════════════════
+
+model Survey {
+  surveyId  String  @id @default(uuid()) @db.Uuid
+  code      String  @unique @db.VarChar(30)
+  name      String  @db.VarChar(300)
+  nameAm    String? @db.VarChar(300)
+  purpose   String? @db.Text
+  projectId String? @db.Uuid
+  status    SurveyStatus @default(DRAFT)
+
+  currentVersionId String? @db.Uuid
+
+  createdById String @db.Uuid
+  createdBy   User   @relation(fields: [createdById], references: [userId], onDelete: Restrict)
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  versions SurveyVersion[]
+
+  @@map("surveys")
+}
+
+model SurveyVersion {
+  versionId String @id @default(uuid()) @db.Uuid
+  surveyId  String @db.Uuid
+  survey    Survey @relation(fields: [surveyId], references: [surveyId], onDelete: Cascade)
+
+  versionNo   Int
+  publishedAt DateTime?
+  publishedById String? @db.Uuid
+  publishedBy User?   @relation("SurveyVersionPublishedBy", fields: [publishedById], references: [userId], onDelete: SetNull)
+  locked      Boolean @default(false)
+  lockedAt    DateTime?
+  xlsformRef  String? @db.VarChar(500)
+  languages   String[] @default(["en"])
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  sections    Section[]
+  assignments Assignment[]
+  submissions Submission[]
+
+  @@unique([surveyId, versionNo])
+  @@map("survey_versions")
+}
+
+model Section {
+  sectionId String        @id @default(uuid()) @db.Uuid
+  versionId String        @db.Uuid
+  version   SurveyVersion @relation(fields: [versionId], references: [versionId], onDelete: Cascade)
+
+  code        String  @db.VarChar(20)
+  title       String  @db.VarChar(300)
+  titleAm     String? @db.VarChar(300)
+  description String? @db.Text
+  orderNo     Int     @default(0)
+  repeatable  Boolean @default(false)
+  repeatMin   Int?
+  repeatMax   Int?
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  questions Question[]
+
+  @@unique([versionId, code])
+  @@map("sections")
+}
+
+model Question {
+  questionId String  @id @default(uuid()) @db.Uuid
+  sectionId  String  @db.Uuid
+  section    Section @relation(fields: [sectionId], references: [sectionId], onDelete: Cascade)
+
+  code     String       @db.VarChar(30)
+  type     QuestionType
+  text     String       @db.Text
+  textAm   String?      @db.Text
+  hint     String?      @db.Text
+  required Boolean      @default(false)
+  orderNo  Int          @default(0)
+  validation   Json?
+  calculation  String?  @db.Text
+  indicatorId  String?  @db.Uuid
+  indicator    ImpactIndicator? @relation(fields: [indicatorId], references: [indicatorId], onDelete: SetNull)
+  disaggregationKey String? @db.VarChar(50)
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  options    QuestionOption[]
+  skipLogic  SkipLogic[]      @relation("QuestionSource")
+  targetForLogic SkipLogic[]  @relation("QuestionTarget")
+  answers    SubmissionAnswer[]
+  paradata   Paradata[]
+
+  @@unique([sectionId, code])
+  @@index([indicatorId])
+  @@map("questions")
+}
+
+model QuestionOption {
+  optionId   String   @id @default(uuid()) @db.Uuid
+  questionId String   @db.Uuid
+  question   Question @relation(fields: [questionId], references: [questionId], onDelete: Cascade)
+
+  code    String  @db.VarChar(20)
+  label   String  @db.VarChar(300)
+  labelAm String? @db.VarChar(300)
+  value   String  @db.VarChar(50)
+  orderNo Int     @default(0)
+
+  @@unique([questionId, code])
+  @@map("question_options")
+}
+
+model SkipLogic {
+  logicId         String   @id @default(uuid()) @db.Uuid
+  questionId      String   @db.Uuid
+  question        Question @relation("QuestionSource", fields: [questionId], references: [questionId], onDelete: Cascade)
+
+  condition       String   @db.Text
+  action          SkipLogicAction
+  targetQuestionId String?  @db.Uuid
+  targetQuestion  Question? @relation("QuestionTarget", fields: [targetQuestionId], references: [questionId], onDelete: SetNull)
+
+  @@index([questionId])
+  @@map("skip_logic")
+}
+
+model Wave {
+  waveId    String  @id @default(uuid()) @db.Uuid
+  projectId String  @db.Uuid
+  project   Project @relation(fields: [projectId], references: [projectId], onDelete: Cascade)
+
+  code        String     @db.VarChar(20)
+  name        String     @db.VarChar(100)
+  waveType    WaveType
+  plannedStart DateTime? @db.Date
+  plannedEnd   DateTime? @db.Date
+  actualStart  DateTime? @db.Date
+  actualEnd    DateTime? @db.Date
+  status       WaveStatus @default(PLANNED)
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  indicatorWaves    IndicatorWave[]
+  assignments       Assignment[]
+  submissions       Submission[]
+  panelMembers      PanelMember[]
+  waveDatasets      WaveDataset[]
+  treatmentGroups   TreatmentGroup[]
+
+  @@unique([projectId, code])
+  @@index([status])
+  @@map("waves")
+}
+
+model Assignment {
+  assignmentId    String        @id @default(uuid()) @db.Uuid
+  waveId          String        @db.Uuid
+  wave            Wave          @relation(fields: [waveId], references: [waveId], onDelete: Cascade)
+  surveyVersionId String        @db.Uuid
+  surveyVersion   SurveyVersion @relation(fields: [surveyVersionId], references: [surveyVersionId], onDelete: Restrict)
+  collectorId     String        @db.Uuid
+  collector       Collector     @relation(fields: [collectorId], references: [collectorId], onDelete: Restrict)
+  supervisorId    String?       @db.Uuid
+  supervisor      Supervisor?   @relation(fields: [supervisorId], references: [supervisorId], onDelete: SetNull)
+
+  region       String? @db.VarChar(100)
+  woreda       String? @db.VarChar(100)
+  targetCount  Int     @default(0)
+  completedCount Int   @default(0)
+  status       AssignmentStatus @default(ASSIGNED)
+  assignedAt   DateTime @default(now())
+  dueDate      DateTime? @db.Date
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  submissions Submission[]
+
+  @@index([waveId])
+  @@index([collectorId])
+  @@index([status])
+  @@map("assignments")
+}
+
+// ═══════════════════════════════════════════════════════════════════════════
+//  M20 — FIELD DATA COLLECTION
+// ═══════════════════════════════════════════════════════════════════════════
+
+model Collector {
+  collectorId String @id @default(uuid()) @db.Uuid
+  userId      String @unique @db.Uuid
+  user        User   @relation(fields: [userId], references: [userId], onDelete: Cascade)
+  orgId       String @db.Uuid
+  employeeCode String? @db.VarChar(30)
+  region      String? @db.VarChar(100)
+  woreda      String? @db.VarChar(100)
+  deviceId    String? @db.VarChar(100)
+  trainingDate DateTime? @db.Date
+  status      CollectorStatus @default(ACTIVE)
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  assignments    Assignment[]
+  submissions    Submission[]
+  scorecards     CollectorScorecard[]
+
+  @@index([orgId])
+  @@index([status])
+  @@map("collectors")
+}
+
+model Supervisor {
+  supervisorId String @id @default(uuid()) @db.Uuid
+  userId       String @unique @db.Uuid
+  user         User   @relation(fields: [userId], references: [userId], onDelete: Cascade)
+  orgId        String @db.Uuid
+  teamId       String? @db.Uuid
+  region       String? @db.VarChar(100)
+  status       String  @default("ACTIVE") @db.VarChar(20)
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  assignments Assignment[]
+  backChecks  BackCheck[]
+
+  @@index([orgId])
+  @@map("supervisors")
+}
+
+model Submission {
+  submissionId    String        @id @default(uuid()) @db.Uuid
+  assignmentId    String        @db.Uuid
+  assignment      Assignment    @relation(fields: [assignmentId], references: [assignmentId], onDelete: Cascade)
+  collectorId     String        @db.Uuid
+  collector       Collector     @relation(fields: [collectorId], references: [collectorId], onDelete: Restrict)
+  beneficiaryId   String?       @db.Uuid
+  panelId         String?       @db.Uuid
+  panel           PanelMember?  @relation(fields: [panelId], references: [panelId], onDelete: SetNull)
+  waveId          String        @db.Uuid
+  wave            Wave          @relation(fields: [waveId], references: [waveId], onDelete: Restrict)
+  surveyVersionId String        @db.Uuid
+  surveyVersion   SurveyVersion @relation(fields: [surveyVersionId], references: [surveyVersionId], onDelete: Restrict)
+  projectId       String        @db.Uuid
+  project         Project       @relation(fields: [projectId], references: [projectId], onDelete: Restrict)
+
+  startedAt        DateTime
+  endedAt          DateTime?
+  durationSeconds  Int?
+  gpsStartLat      Float?
+  gpsStartLon      Float?
+  gpsEndLat        Float?
+  gpsEndLon        Float?
+  deviceId         String?   @db.VarChar(100)
+  consentGiven     Boolean   @default(false)
+  consentVersion   String?   @db.VarChar(20)
+  consentTypes     Json?
+  status           SubmissionStatus @default(DRAFT)
+  qaStatus         QaStatus  @default(PENDING)
+  syncedAt         DateTime?
+  checksum         String?   @db.VarChar(64)
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  answers SubmissionAnswer[]
+  paradata Paradata[]
+  media   MediaAttachment[]
+  consents Consent[]
+  qaFlags QaFlag[]
+  backChecks BackCheck[]
+
+  @@index([assignmentId])
+  @@index([collectorId])
+  @@index([waveId])
+  @@index([status, qaStatus])
+  @@index([panelId])
+  @@map("submissions")
+}
+
+model SubmissionAnswer {
+  answerId     String     @id @default(uuid()) @db.Uuid
+  submissionId String     @db.Uuid
+  submission   Submission @relation(fields: [submissionId], references: [submissionId], onDelete: Cascade)
+  questionId   String     @db.Uuid
+  question     Question   @relation(fields: [questionId], references: [questionId], onDelete: Restrict)
+
+  valueText    String?  @db.Text
+  valueNumeric Decimal? @db.Decimal(18, 4)
+  valueDate    DateTime? @db.Date
+  valueJson    Json?
+  valueGpsLat  Float?
+  valueGpsLon  Float?
+  answerType   AnswerType
+  answeredAt   DateTime?
+
+  @@unique([submissionId, questionId])
+  @@index([submissionId])
+  @@index([questionId])
+  @@map("submission_answers")
+}
+
+model Paradata {
+  paradataId   String     @id @default(uuid()) @db.Uuid
+  submissionId String     @db.Uuid
+  submission   Submission @relation(fields: [submissionId], references: [submissionId], onDelete: Cascade)
+  questionId   String?    @db.Uuid
+  question     Question?  @relation(fields: [questionId], references: [questionId], onDelete: SetNull)
+
+  timeSpentMs   Int?
+  editCount     Int?
+  firstAnswerAt DateTime?
+  lastAnswerAt  DateTime?
+  interrupted   Boolean?
+  deviceMeta    Json?
+
+  createdAt DateTime @default(now())
+
+  @@index([submissionId])
+  @@map("paradata")
+}
+
+model MediaAttachment {
+  mediaId      String     @id @default(uuid()) @db.Uuid
+  submissionId String?    @db.Uuid
+  submission   Submission? @relation(fields: [submissionId], references: [submissionId], onDelete: SetNull)
+
+  type       MediaType
+  filePath   String   @db.VarChar(500)
+  fileSize   BigInt
+  mimeType   String   @db.VarChar(100)
+  gpsLat     Float?
+  gpsLon     Float?
+  capturedAt DateTime
+  checksum   String   @db.VarChar(64)
+
+  createdAt DateTime @default(now())
+
+  @@index([submissionId])
+  @@map("media_attachments")
+}
+
+model Consent {
+  consentId     String       @id @default(uuid()) @db.Uuid
+  submissionId  String?      @db.Uuid
+  submission    Submission?  @relation(fields: [submissionId], references: [submissionId], onDelete: SetNull)
+  beneficiaryId String?      @db.Uuid
+  beneficiary   Beneficiary? @relation(fields: [beneficiaryId], references: [beneficiaryId], onDelete: SetNull)
+
+  consentType     ConsentType
+  consentGiven    Boolean
+  consentVersion  String     @db.VarChar(20)
+  consentText     String     @db.Text
+  language        String     @db.VarChar(10)
+  givenAt         DateTime   @default(now())
+  revokedAt       DateTime?
+  revocationReason String?   @db.Text
+  witnessName     String?    @db.VarChar(200)
+
+  @@index([submissionId])
+  @@index([beneficiaryId])
+  @@map("consents")
+}
+
+// ═══════════════════════════════════════════════════════════════════════════
+//  M21 — DATA QUALITY ASSURANCE
+// ═══════════════════════════════════════════════════════════════════════════
+
+model QaRule {
+  ruleId    String     @id @default(uuid()) @db.Uuid
+  code      String     @unique @db.VarChar(40)
+  name      String     @db.VarChar(200)
+  type      QaRuleType
+  threshold Json
+  severity  Severity
+  active    Boolean    @default(true)
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  flags QaFlag[]
+
+  @@map("qa_rules")
+}
+
+model QaFlag {
+  flagId       String     @id @default(uuid()) @db.Uuid
+  submissionId String     @db.Uuid
+  submission   Submission @relation(fields: [submissionId], references: [submissionId], onDelete: Cascade)
+  ruleId       String     @db.Uuid
+  rule         QaRule     @relation(fields: [ruleId], references: [ruleId], onDelete: Restrict)
+
+  severity  Severity
+  details   Json?
+  status    QaFlagStatus @default(OPEN)
+
+  reviewedById String?   @db.Uuid
+  reviewedBy   User?     @relation("QaFlagReviewedBy", fields: [reviewedById], references: [userId], onDelete: SetNull)
+  reviewedAt   DateTime?
+  resolution   String?   @db.Text
+
+  createdAt DateTime @default(now())
+
+  @@index([submissionId])
+  @@index([ruleId])
+  @@index([status])
+  @@index([severity])
+  @@map("qa_flags")
+}
+
+model BackCheck {
+  backcheckId  String         @id @default(uuid()) @db.Uuid
+  submissionId String         @db.Uuid
+  submission   Submission     @relation(fields: [submissionId], references: [submissionId], onDelete: Cascade)
+  supervisorId String         @db.Uuid
+  supervisor   Supervisor     @relation(fields: [supervisorId], references: [supervisorId], onDelete: Restrict)
+
+  date         DateTime       @db.Date
+  result       BackCheckResult
+  mismatchPct  Decimal?       @db.Decimal(5, 2)
+  notes        String?        @db.Text
+  evidenceId   String?        @db.Uuid
+
+  createdAt DateTime @default(now())
+
+  @@index([submissionId])
+  @@map("back_checks")
+}
+
+model CollectorScorecard {
+  scorecardId   String    @id @default(uuid()) @db.Uuid
+  collectorId   String    @db.Uuid
+  collector     Collector @relation(fields: [collectorId], references: [collectorId], onDelete: Cascade)
+  waveId        String    @db.Uuid
+  wave          Wave      @relation(fields: [waveId], references: [waveId], onDelete: Cascade)
+  projectId     String    @db.Uuid
+  project       Project   @relation(fields: [projectId], references: [projectId], onDelete: Cascade)
+
+  submissionsCount Int      @default(0)
+  flaggedCount     Int      @default(0)
+  backcheckPassRate Decimal? @db.Decimal(5, 2)
+  avgDurationSeconds Int?
+  compositeScore   Decimal? @db.Decimal(5, 2)
+
+  computedAt DateTime @default(now())
+
+  @@unique([collectorId, waveId])
+  @@index([waveId])
+  @@map("collector_scorecards")
+}
+
+// ═══════════════════════════════════════════════════════════════════════════
+//  M22 — LONGITUDINAL WAREHOUSE & RESEARCH ACCESS
+// ═══════════════════════════════════════════════════════════════════════════
+
+model TreatmentGroup {
+  groupId   String  @id @default(uuid()) @db.Uuid
+  projectId String  @db.Uuid
+  project   Project @relation(fields: [projectId], references: [projectId], onDelete: Cascade)
+
+  code        String @db.VarChar(20)
+  name        String @db.VarChar(100)
+  groupType   TreatmentGroupType
+  description String? @db.Text
+  assignedAt  DateTime @db.Date
+  immutable   Boolean  @default(true)
+
+  waveId String? @db.Uuid
+  wave   Wave?   @relation(fields: [waveId], references: [waveId], onDelete: SetNull)
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  panelMembers PanelMember[]
+
+  @@unique([projectId, code])
+  @@map("treatment_groups")
+}
+
+model PanelMember {
+  panelId   String  @id @default(uuid()) @db.Uuid
+  beneficiaryId String? @unique @db.Uuid
+  householdId   String? @db.Uuid
+
+  treatmentGroupId String         @db.Uuid
+  treatmentGroup   TreatmentGroup @relation(fields: [treatmentGroupId], references: [treatmentGroupId], onDelete: Restrict)
+
+  projectId String  @db.Uuid
+  project   Project @relation(fields: [projectId], references: [projectId], onDelete: Restrict)
+
+  enrolledAt     DateTime @db.Date
+  enrolledWaveId String   @db.Uuid
+  enrolledWave   Wave     @relation(fields: [enrolledWaveId], references: [waveId], onDelete: Restrict)
+
+  region String? @db.VarChar(100)
+  woreda String? @db.VarChar(100)
+  status PanelStatus @default(ACTIVE)
+  attritionReason String? @db.Text
+  replacedByPanelId String? @db.Uuid
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  submissions Submission[]
+
+  @@index([treatmentGroupId])
+  @@index([projectId])
+  @@index([status])
+  @@map("panel_members")
+}
+
+model WaveDataset {
+  datasetId       String   @id @default(uuid()) @db.Uuid
+  waveId          String   @db.Uuid
+  wave            Wave     @relation(fields: [waveId], references: [waveId], onDelete: Cascade)
+  version         Int
+  recordCount     Int
+  buildStartedAt  DateTime @default(now())
+  buildCompletedAt DateTime?
+  checksum        String?  @db.VarChar(64)
+  storagePath     String?  @db.VarChar(500)
+  status          WaveDatasetStatus @default(BUILDING)
+
+  @@unique([waveId, version])
+  @@index([waveId])
+  @@map("wave_datasets")
+}
+
+model AnonymizationMap {
+  mapId       String   @id @default(uuid()) @db.Uuid
+  originalId  String   @db.Uuid
+  anonymizedId String  @db.Uuid
+  level       AnonLevel
+  createdAt   DateTime @default(now())
+
+  @@unique([originalId, level])
+  @@index([anonymizedId])
+  @@map("anonymization_maps")
+}
+
+model ResearchDataset {
+  datasetId String  @id @default(uuid()) @db.Uuid
+  waveId    String  @db.Uuid
+  wave      Wave    @relation(fields: [waveId], references: [waveId], onDelete: Cascade)
+  projectId String  @db.Uuid
+  project   Project @relation(fields: [projectId], references: [projectId], onDelete: Cascade)
+
+  anonymizationLevel AnonLevel
+  version            Int
+  formats            String[] @default(["CSV"])
+  recordCount        Int
+  releasedAt         DateTime?
+  codebookRef        String?  @db.VarChar(500)
+  status             ResearchDatasetStatus @default(DRAFT)
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  requests DataRequest[]
+
+  @@unique([waveId, anonymizationLevel, version])
+  @@index([projectId])
+  @@index([status])
+  @@map("research_datasets")
+}
+
+model DataRequest {
+  requestId   String          @id @default(uuid()) @db.Uuid
+  datasetId   String          @db.Uuid
+  dataset     ResearchDataset @relation(fields: [datasetId], references: [datasetId], onDelete: Cascade)
+
+  researcherName  String @db.VarChar(200)
+  researcherEmail String @db.VarChar(120)
+  institution     String @db.VarChar(200)
+  purpose         String @db.Text
+
+  status          DataRequestStatus @default(SUBMITTED)
+  submittedAt     DateTime          @default(now())
+  approvedById    String?           @db.Uuid
+  approvedBy      User?             @relation("DataRequestApprovedBy", fields: [approvedById], references: [userId], onDelete: SetNull)
+  approvedAt      DateTime?
+  accessExpiresAt DateTime?
+
+  requesterId String? @db.Uuid
+  requester   User?   @relation(fields: [requesterId], references: [userId], onDelete: SetNull)
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  dua DataUseAgreement?
+
+  @@index([datasetId])
+  @@index([status])
+  @@map("data_requests")
+}
+
+model DataUseAgreement {
+  duaId     String      @id @default(uuid()) @db.Uuid
+  requestId String      @unique @db.Uuid
+  request   DataRequest @relation(fields: [requestId], references: [requestId], onDelete: Cascade)
+
+  signedAt              DateTime @default(now())
+  signedByResearcher    Boolean  @default(false)
+  signedByInstitution   Boolean  @default(false)
+  signedByDataManager   Boolean  @default(false)
+  filePath              String?  @db.VarChar(500)
+  expiryDate            DateTime? @db.Date
+
+  @@map("data_use_agreements")
+}
+
+model ResearchProject {
+  researchProjectId String  @id @default(uuid()) @db.Uuid
+  title             String  @db.VarChar(300)
+  leadResearcher    String  @db.VarChar(200)
+  institution       String? @db.VarChar(200)
+  status            ResearchProjectStatus @default(REGISTERED)
+  datasetIds        String[] @default([])
+  startDate         DateTime? @db.Date
+  endDate           DateTime? @db.Date
+
+  projectId String? @db.Uuid
+  project   Project? @relation(fields: [projectId], references: [projectId], onDelete: SetNull)
+
+  createdById String? @db.Uuid
+  createdBy   User?   @relation(fields: [createdById], references: [userId], onDelete: SetNull)
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  publications Publication[]
+
+  @@index([status])
+  @@map("research_projects")
+}
+
+model Publication {
+  publicationId String  @id @default(uuid()) @db.Uuid
+  researchProjectId String @db.Uuid
+  researchProject   ResearchProject @relation(fields: [researchProjectId], references: [researchProjectId], onDelete: Cascade)
+
+  title  String  @db.VarChar(500)
+  authors String @db.Text
+  journal String? @db.VarChar(300)
+  year   Int?
+  doi    String? @db.VarChar(100)
+  filePath String? @db.VarChar(500)
+  citation String? @db.Text
+
+  createdAt DateTime @default(now())
+
+  @@index([researchProjectId])
+  @@map("publications")
+}
+
+// ═══════════════════════════════════════════════════════════════════════════
+//  M14 — NOTIFICATIONS
+// ═══════════════════════════════════════════════════════════════════════════
+
+model Notification {
+  notificationId String     @id @default(uuid()) @db.Uuid
+  userId         String?    @db.Uuid
+  user           User?      @relation(fields: [userId], references: [userId], onDelete: Cascade)
+  beneficiaryId  String?    @db.Uuid
+  channel        NotificationChannel
+  templateId     String?    @db.Uuid
+  template       NotificationTemplate? @relation(fields: [templateId], references: [templateId], onDelete: SetNull)
+  subject        String?    @db.VarChar(300)
+  body           String     @db.Text
+  language       String     @default("en") @db.VarChar(10)
+  status         NotificationStatus @default(PENDING)
+  sentAt         DateTime?
+  deliveredAt    DateTime?
+  readAt         DateTime?
+  error          String?    @db.Text
+
+  createdAt DateTime @default(now())
+
+  @@index([userId])
+  @@index([status])
+  @@index([createdAt])
+  @@map("notifications")
+}
+
+model NotificationTemplate {
+  templateId  String    @id @default(uuid()) @db.Uuid
+  code        String    @unique @db.VarChar(50)
+  channel     NotificationChannel
+  subject     String?   @db.VarChar(300)
+  body        String    @db.Text
+  language    String    @db.VarChar(10)
+  description String?   @db.Text
+  active      Boolean   @default(true)
+
+  orgId String?       @db.Uuid
+  org   Organization? @relation(fields: [orgId], references: [orgId], onDelete: SetNull)
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  notifications Notification[]
+
+  @@map("notification_templates")
+}
+
+// ═══════════════════════════════════════════════════════════════════════════
+//  M15 — INTEGRATIONS
+// ═══════════════════════════════════════════════════════════════════════════
+
+model SyncJob {
+  jobId          String           @id @default(uuid()) @db.Uuid
+  integrationCode String          @db.VarChar(30)
+  direction      SyncJobDirection
+  kind           String           @db.VarChar(50)
+  startedAt      DateTime         @default(now())
+  completedAt    DateTime?
+  durationMs     Int?
+  status         SyncJobStatus    @default(RUNNING)
+  recordsProcessed Int            @default(0)
+  recordsFailed  Int              @default(0)
+  errorSummary   String?          @db.Text
+  triggeredById  String?          @db.Uuid
+  triggeredBy    User?            @relation("SyncJobTriggeredBy", fields: [triggeredById], references: [userId], onDelete: SetNull)
+
+  @@index([integrationCode])
+  @@index([status])
+  @@index([startedAt])
+  @@map("sync_jobs")
+}
+
+// ═══════════════════════════════════════════════════════════════════════════
+//  M16 — MASTER DATA & SETTINGS
+// ═══════════════════════════════════════════════════════════════════════════
+
+model MasterData {
+  masterId  String  @id @default(uuid()) @db.Uuid
+  category  String  @db.VarChar(50)
+  code      String  @db.VarChar(30)
+  name      String  @db.VarChar(200)
+  nameAm    String? @db.VarChar(200)
+  parentId  String? @db.Uuid
+  attributes Json?
+  orderNo   Int?
+  active    Boolean @default(true)
+
+  createdById String? @db.Uuid
+  createdBy   User?   @relation(fields: [createdById], references: [userId], onDelete: SetNull)
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  @@unique([category, code])
+  @@index([category])
+  @@map("master_data")
+}
+
+model SystemSetting {
+  settingId String  @id @default(uuid()) @db.Uuid
+  key       String  @unique @db.VarChar(100)
+  value     Json
+  category  String? @db.VarChar(50)
+  description String? @db.Text
+  isSecret  Boolean @default(false)
+  updatedAt DateTime @updatedAt
+
+  @@map("system_settings")
+}
+
+// ═══════════════════════════════════════════════════════════════════════════
+//  IMPACT ANALYTICS (M23) — supporting entity
+// ═══════════════════════════════════════════════════════════════════════════
+
+model CostPerOutputRow {
+  rowId        String    @id @default(uuid()) @db.Uuid
+  indicatorId  String    @unique @db.Uuid
+  indicator    Indicator @relation(fields: [indicatorId], references: [indicatorId], onDelete: Cascade)
+  expendedEtb  Decimal   @db.Decimal(18, 2)
+  costPerUnit  Decimal   @db.Decimal(18, 2)
+  computedAt   DateTime  @default(now())
+
+  @@map("cost_per_output_rows")
+}

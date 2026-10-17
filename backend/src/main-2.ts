@@ -1,0 +1,1 @@
+import { startReportWorker } from './workers/report.worker.js';

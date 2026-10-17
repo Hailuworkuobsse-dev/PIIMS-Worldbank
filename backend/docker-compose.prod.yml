@@ -1,0 +1,61 @@
+version: '3.9'
+
+services:
+  mysql:
+    image: mysql:8.4
+    restart: always
+    environment:
+      MYSQL_ROOT_PASSWORD: ${MYSQL_ROOT_PASSWORD}
+      MYSQL_DATABASE: piims
+      MYSQL_USER: ${MYSQL_USER}
+      MYSQL_PASSWORD: ${MYSQL_PASSWORD}
+    volumes:
+      - /opt/piims/data/mysql:/var/lib/mysql
+      - /opt/piims/backups/mysql:/backups
+    # No port exposed — internal network only
+    networks:
+      - piims
+
+  redis:
+    image: redis:7-alpine
+    restart: always
+    command: redis-server --appendonly yes --requirepass ${REDIS_PASSWORD}
+    volumes:
+      - /opt/piims/data/redis:/data
+    networks:
+      - piims
+
+  backend:
+    image: ghcr.io/piims/piims-backend:${VERSION:-latest}
+    restart: always
+    environment:
+      NODE_ENV: production
+      PORT: 3000
+      API_BASE_PATH: /v1
+      CORS_ORIGINS: ${CORS_ORIGINS}
+      DATABASE_URL: 'mysql://${MYSQL_USER}:${MYSQL_PASSWORD}@mysql:3306/piims'
+      REDIS_URL: 'redis://:${REDIS_PASSWORD}@redis:6379/0'
+      JWT_SECRET: ${JWT_SECRET}
+      JWT_REFRESH_SECRET: ${JWT_REFRESH_SECRET}
+      LOG_LEVEL: info
+      LOG_PRETTY: 'false'
+      S3_ENDPOINT: ${S3_ENDPOINT}
+      S3_ACCESS_KEY: ${S3_ACCESS_KEY}
+      S3_SECRET_KEY: ${S3_SECRET_KEY}
+      S3_BUCKET: ${S3_BUCKET}
+    depends_on:
+      mysql: { condition: service_healthy }
+      redis: { condition: service_healthy }
+    networks:
+      - piims
+      - traefik
+    labels:
+      - 'traefik.enable=true'
+      - 'traefik.http.routers.piims-api.rule=Host(`api.piims.gov.et`)'
+      - 'traefik.http.routers.piims-api.tls.certresolver=letsencrypt'
+
+networks:
+  piims:
+    internal: false
+  traefik:
+    external: true
