@@ -1,4 +1,4 @@
-{
+export default {
   "nav": {
     "projectsAll": "All Projects",
     "projectsNew": "New Project",
@@ -56,4 +56,4 @@
     "searchEmpty": "Type at least 2 characters to search.",
     "searchNoResults": "No results for “{{q}}”."
   }
-}
+};

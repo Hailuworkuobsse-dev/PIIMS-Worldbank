@@ -1,4 +1,4 @@
-{
+export default {
   "nav": {
     "projectsAll": "ሁሉም ፕሮጀክቶች",
     "projectsNew": "አዲስ ፕሮጀክት",
@@ -56,4 +56,4 @@
     "searchEmpty": "ለመፈለግ ቢያንስ 2 ቁምፊዎችን ያስገቡ።",
     "searchNoResults": "ለ“{{q}}” ውጤት አልተገኘም።"
   }
-}
+};
