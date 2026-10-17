@@ -5,7 +5,7 @@
 
 generator client {
   provider        = "prisma-client-js"
-  previewFeatures = ["postgresqlExtensions", "fullTextSearchPostgres"]
+  previewFeatures = ["postgresqlExtensions", "fullTextSearch"]
 }
 
 datasource db {
@@ -18,85 +18,455 @@ datasource db {
 //  ENUMS
 // ═══════════════════════════════════════════════════════════════════════════
 
-enum OrgType { WB GOV_MINISTRY GOV_AGENCY FIN_INST SUPPLIER LOCAL_GOV OTHER }
-enum OrgLevel { FEDERAL REGIONAL ZONAL WOREDA KEBELE }
-enum OrgStatus { ACTIVE INACTIVE SUSPENDED }
-enum UserStatus { ACTIVE INACTIVE LOCKED SUSPENDED }
+enum OrgType {
+  WB
+  GOV_MINISTRY
+  GOV_AGENCY
+  FIN_INST
+  SUPPLIER
+  LOCAL_GOV
+  OTHER
+}
+enum OrgLevel {
+  FEDERAL
+  REGIONAL
+  ZONAL
+  WOREDA
+  KEBELE
+}
+enum OrgStatus {
+  ACTIVE
+  INACTIVE
+  SUSPENDED
+}
+enum UserStatus {
+  ACTIVE
+  INACTIVE
+  LOCKED
+  SUSPENDED
+}
 
-enum ProjectStatus { IDEA PROFILE PRE_FEASIBILITY FEASIBILITY APPRAISAL APPROVED ACTIVE CLOSED CANCELLED }
-enum ProjectSector { WATER ENERGY BOTH OTHER }
-enum ImplArrangement { PIU LINE_MINISTRY REGIONAL OTHER }
+enum ProjectStatus {
+  IDEA
+  PROFILE
+  PRE_FEASIBILITY
+  FEASIBILITY
+  APPRAISAL
+  APPROVED
+  ACTIVE
+  CLOSED
+  CANCELLED
+}
+enum ProjectSector {
+  WATER
+  ENERGY
+  BOTH
+  OTHER
+}
+enum ImplArrangement {
+  PIU
+  LINE_MINISTRY
+  REGIONAL
+  OTHER
+}
 
-enum IndicatorType { OUTPUT OUTCOME IMPACT }
-enum IndicatorFrequency { MONTHLY QUARTERLY SEMI_ANNUAL ANNUAL }
-enum IndicatorDirection { INCREASE DECREASE }
-enum TrafficLight { ON_TRACK AT_RISK OFF_TRACK NOT_STARTED }
+enum IndicatorType {
+  OUTPUT
+  OUTCOME
+  IMPACT
+}
+enum IndicatorFrequency {
+  MONTHLY
+  QUARTERLY
+  SEMI_ANNUAL
+  ANNUAL
+}
+enum IndicatorDirection {
+  INCREASE
+  DECREASE
+}
+enum TrafficLight {
+  ON_TRACK
+  AT_RISK
+  OFF_TRACK
+  NOT_STARTED
+}
 
-enum DisbursementStatus { PLANNED REQUESTED APPROVED DISBURSED RECONCILED REJECTED }
-enum FinancingCategory { CATEGORY_1 CATEGORY_2 CATEGORY_3 OTHER }
+enum DisbursementStatus {
+  PLANNED
+  REQUESTED
+  APPROVED
+  DISBURSED
+  RECONCILED
+  REJECTED
+}
+enum FinancingCategory {
+  CATEGORY_1
+  CATEGORY_2
+  CATEGORY_3
+  OTHER
+}
 
-enum ProcurementMethod { ICB NCB SHOPPING DIRECT OTHER }
-enum ProcurementStatus { PLANNED ADVERTISED BID_OPEN EVALUATED AWARDED CANCELLED }
-enum ContractStatus { DRAFT SIGNED ACTIVE COMPLETED TERMINATED }
-enum SupplierCategory { MANUFACTURER IMPORTER INSTALLER DISTRIBUTOR OTHER }
-enum SupplierStatus { ACTIVE INACTIVE BLACKLISTED }
-enum ProductType { SHS MINI_GRID PUMP LANTERN OTHER }
-enum ProductStatus { ACTIVE INACTIVE }
+enum ProcurementMethod {
+  ICB
+  NCB
+  SHOPPING
+  DIRECT
+  OTHER
+}
+enum ProcurementStatus {
+  PLANNED
+  ADVERTISED
+  BID_OPEN
+  EVALUATED
+  AWARDED
+  CANCELLED
+}
+enum ContractStatus {
+  DRAFT
+  SIGNED
+  ACTIVE
+  COMPLETED
+  TERMINATED
+}
+enum SupplierCategory {
+  MANUFACTURER
+  IMPORTER
+  INSTALLER
+  DISTRIBUTOR
+  OTHER
+}
+enum SupplierStatus {
+  ACTIVE
+  INACTIVE
+  BLACKLISTED
+}
+enum ProductType {
+  SHS
+  MINI_GRID
+  PUMP
+  LANTERN
+  OTHER
+}
+enum ProductStatus {
+  ACTIVE
+  INACTIVE
+}
 
-enum Gender { MALE FEMALE OTHER }
-enum RegistrationChannel { WEB SMS USSD CAPI IMPORT SUPPLIER }
-enum BeneficiaryStatus { REGISTERED VERIFIED ACTIVE INACTIVE DUPLICATE }
-enum DeliveryStatus { PLANNED DELIVERED INSTALLED VERIFIED FAILED }
+enum Gender {
+  MALE
+  FEMALE
+  OTHER
+}
+enum RegistrationChannel {
+  WEB
+  SMS
+  USSD
+  CAPI
+  IMPORT
+  SUPPLIER
+}
+enum BeneficiaryStatus {
+  REGISTERED
+  VERIFIED
+  ACTIVE
+  INACTIVE
+  DUPLICATE
+}
+enum DeliveryStatus {
+  PLANNED
+  DELIVERED
+  INSTALLED
+  VERIFIED
+  FAILED
+}
 
-enum GrievanceCategory { SERVICE_QUALITY DELAY PAYMENT SAFEGUARDS CONDUCT OTHER }
-enum GrievanceChannel { WEB SMS USSD PHONE IN_PERSON LETTER }
-enum GrievanceStatus { OPEN IN_PROGRESS RESOLVED CLOSED ESCALATED }
-enum Severity { LOW MEDIUM HIGH CRITICAL }
-enum GrievanceActionType { ASSIGN RESPOND ESCALATE RESOLVE CLOSE REOPEN }
+enum GrievanceCategory {
+  SERVICE_QUALITY
+  DELAY
+  PAYMENT
+  SAFEGUARDS
+  CONDUCT
+  OTHER
+}
+enum GrievanceChannel {
+  WEB
+  SMS
+  USSD
+  PHONE
+  IN_PERSON
+  LETTER
+}
+enum GrievanceStatus {
+  OPEN
+  IN_PROGRESS
+  RESOLVED
+  CLOSED
+  ESCALATED
+}
+enum Severity {
+  LOW
+  MEDIUM
+  HIGH
+  CRITICAL
+}
+enum GrievanceActionType {
+  ASSIGN
+  RESPOND
+  ESCALATE
+  RESOLVE
+  CLOSE
+  REOPEN
+}
 
-enum DocType { APPRAISAL FEASIBILITY CONTRACT INVOICE REPORT INCEPTION PROCUREMENT LEGAL TECHNICAL OTHER }
-enum AccessLevel { PUBLIC INTERNAL RESTRICTED }
-enum ReportType { INCEPTION PPMR ISR FINANCIAL PROCUREMENT BENEFICIARY GRIEVANCE IMPACT AD_HOC }
-enum ReportFormat { PDF EXCEL CSV }
-enum InceptionStatus { DRAFT SUBMITTED UNDER_REVIEW REVISION_REQUIRED APPROVED REJECTED }
+enum DocType {
+  APPRAISAL
+  FEASIBILITY
+  CONTRACT
+  INVOICE
+  REPORT
+  INCEPTION
+  PROCUREMENT
+  LEGAL
+  TECHNICAL
+  OTHER
+}
+enum AccessLevel {
+  PUBLIC
+  INTERNAL
+  RESTRICTED
+}
+enum ReportType {
+  INCEPTION
+  PPMR
+  ISR
+  FINANCIAL
+  PROCUREMENT
+  BENEFICIARY
+  GRIEVANCE
+  IMPACT
+  AD_HOC
+}
+enum ReportFormat {
+  PDF
+  EXCEL
+  CSV
+}
+enum InceptionStatus {
+  DRAFT
+  SUBMITTED
+  UNDER_REVIEW
+  REVISION_REQUIRED
+  APPROVED
+  REJECTED
+}
 
-enum ImpactDomain { INCOME ENERGY WATER HEALTH EDUCATION GENDER ENVIRONMENT RESILIENCE SATISFACTION }
-enum ImpactDirection { INCREASE DECREASE }
-enum ImpactStatus { ACTIVE DEPRECATED }
+enum ImpactDirection {
+  INCREASE
+  DECREASE
+}
+enum ImpactStatus {
+  ACTIVE
+  DEPRECATED
+}
 
-enum SurveyStatus { DRAFT PUBLISHED LOCKED ARCHIVED }
-enum WaveType { BASELINE MIDLINE ENDLINE EX_POST }
-enum WaveStatus { PLANNED ACTIVE COMPLETED CANCELLED }
-enum QuestionType { SINGLE MULTI NUMERIC DECIMAL DATE TEXT GPS PHOTO AUDIO BARCODE MATRIX RANKING CALCULATED }
-enum SkipLogicAction { SKIP SHOW HIDE REQUIRE }
+enum SurveyStatus {
+  DRAFT
+  PUBLISHED
+  LOCKED
+  ARCHIVED
+}
+enum WaveType {
+  BASELINE
+  MIDLINE
+  ENDLINE
+  EX_POST
+}
+enum WaveStatus {
+  PLANNED
+  ACTIVE
+  COMPLETED
+  CANCELLED
+}
+enum QuestionType {
+  SINGLE
+  MULTI
+  NUMERIC
+  DECIMAL
+  DATE
+  TEXT
+  GPS
+  PHOTO
+  AUDIO
+  BARCODE
+  MATRIX
+  RANKING
+  CALCULATED
+}
+enum SkipLogicAction {
+  SKIP
+  SHOW
+  HIDE
+  REQUIRE
+}
 
-enum CollectorStatus { ACTIVE INACTIVE SUSPENDED }
-enum AssignmentStatus { ASSIGNED IN_PROGRESS COMPLETED CANCELLED }
-enum SubmissionStatus { DRAFT SUBMITTED SYNCED QA_REVIEW QA_CLEARED REJECTED }
-enum QaStatus { PENDING FLAGGED CLEARED REJECTED }
-enum AnswerType { TEXT NUMERIC DATE JSON GPS MEDIA }
-enum MediaType { PHOTO AUDIO VIDEO SIGNATURE }
-enum ConsentType { PARTICIPATION DATA_USE FUTURE_RESEARCH MEDIA CONTACT }
+enum CollectorStatus {
+  ACTIVE
+  INACTIVE
+  SUSPENDED
+}
+enum AssignmentStatus {
+  ASSIGNED
+  IN_PROGRESS
+  COMPLETED
+  CANCELLED
+}
+enum SubmissionStatus {
+  DRAFT
+  SUBMITTED
+  SYNCED
+  QA_REVIEW
+  QA_CLEARED
+  REJECTED
+}
+enum QaStatus {
+  PENDING
+  FLAGGED
+  CLEARED
+  REJECTED
+}
+enum AnswerType {
+  TEXT
+  NUMERIC
+  DATE
+  JSON
+  GPS
+  MEDIA
+}
+enum MediaType {
+  PHOTO
+  AUDIO
+  VIDEO
+  SIGNATURE
+}
+enum ConsentType {
+  PARTICIPATION
+  DATA_USE
+  FUTURE_RESEARCH
+  MEDIA
+  CONTACT
+}
 
-enum QaRuleType { DURATION_SHORT DURATION_LONG STRAIGHT_LINE GPS_OUTSIDE DUPLICATE OUTLIER SPEED VARIANCE LOGIC }
-enum QaFlagStatus { OPEN IN_REVIEW RESOLVED ESCALATED }
-enum BackCheckResult { PASS PARTIAL FAIL }
+enum QaRuleType {
+  DURATION_SHORT
+  DURATION_LONG
+  STRAIGHT_LINE
+  GPS_OUTSIDE
+  DUPLICATE
+  OUTLIER
+  SPEED
+  VARIANCE
+  LOGIC
+}
+enum QaFlagStatus {
+  OPEN
+  IN_REVIEW
+  RESOLVED
+  ESCALATED
+}
+enum BackCheckResult {
+  PASS
+  PARTIAL
+  FAIL
+}
 
-enum PanelStatus { ACTIVE ATTRITED REPLACED WITHDRAWN }
-enum TreatmentGroupType { TREATMENT CONTROL PHASE_1 PHASE_2 COMPARISON }
-enum WaveDatasetStatus { BUILDING READY RELEASED ARCHIVED }
+enum PanelStatus {
+  ACTIVE
+  ATTRITED
+  REPLACED
+  WITHDRAWN
+}
+enum TreatmentGroupType {
+  TREATMENT
+  CONTROL
+  PHASE_1
+  PHASE_2
+  COMPARISON
+}
+enum WaveDatasetStatus {
+  BUILDING
+  READY
+  RELEASED
+  ARCHIVED
+}
 
-enum AnonLevel { L0 L1 L2 L3 }
-enum DatasetFormat { CSV STATA SPSS R PARQUET EXCEL }
-enum ResearchDatasetStatus { DRAFT PUBLISHED DEPRECATED }
-enum DataRequestStatus { SUBMITTED UNDER_REVIEW APPROVED REJECTED EXPIRED }
-enum ResearchProjectStatus { REGISTERED ACTIVE COMPLETED PUBLISHED }
+enum AnonLevel {
+  L0
+  L1
+  L2
+  L3
+}
+enum DatasetFormat {
+  CSV
+  STATA
+  SPSS
+  R
+  PARQUET
+  EXCEL
+}
+enum ResearchDatasetStatus {
+  DRAFT
+  PUBLISHED
+  DEPRECATED
+}
+enum DataRequestStatus {
+  SUBMITTED
+  UNDER_REVIEW
+  APPROVED
+  REJECTED
+  EXPIRED
+}
+enum ResearchProjectStatus {
+  REGISTERED
+  ACTIVE
+  COMPLETED
+  PUBLISHED
+}
 
-enum NotificationChannel { IN_APP EMAIL SMS }
-enum NotificationStatus { PENDING SENT DELIVERED FAILED READ }
-enum SyncJobDirection { INBOUND OUTBOUND BIDIRECTIONAL }
-enum SyncJobStatus { RUNNING SUCCESS PARTIAL FAILED }
-enum AuditAction { CREATE UPDATE DELETE LOGIN LOGOUT APPROVE REJECT EXPORT DOWNLOAD }
+enum NotificationChannel {
+  IN_APP
+  EMAIL
+  SMS
+}
+enum NotificationStatus {
+  PENDING
+  SENT
+  DELIVERED
+  FAILED
+  READ
+}
+enum SyncJobDirection {
+  INBOUND
+  OUTBOUND
+  BIDIRECTIONAL
+}
+enum SyncJobStatus {
+  RUNNING
+  SUCCESS
+  PARTIAL
+  FAILED
+}
+enum AuditAction {
+  CREATE
+  UPDATE
+  DELETE
+  LOGIN
+  LOGOUT
+  APPROVE
+  REJECT
+  EXPORT
+  DOWNLOAD
+}
 
 // ═══════════════════════════════════════════════════════════════════════════
 //  M1 — IDENTITY & ACCESS
@@ -202,7 +572,6 @@ model User {
   assignedGrievances     Grievance[]         @relation("GrievanceAssignedTo")
   escalatedGrievances    Grievance[]         @relation("GrievanceEscalatedTo")
   grievanceActions       GrievanceAction[]
-  createdDocuments       Document[]          @relation("DocumentUploadedBy")
   generatedReports       Report[]
   createdImpactIndicators ImpactIndicator[]  @relation("ImpactIndicatorCreatedBy")
   authoredTheoryOfChange TheoryOfChange[]
@@ -211,7 +580,6 @@ model User {
   collectorProfile       Collector?
   supervisorProfile      Supervisor?
   reviewedFlags          QaFlag[]            @relation("QaFlagReviewedBy")
-  conductedBackChecks    BackCheck[]
   requestsSubmitted      DataRequest[]
   approvedDataRequests   DataRequest[]       @relation("DataRequestApprovedBy")
   createdResearchProjects ResearchProject[]
@@ -282,7 +650,7 @@ model Project {
   stageGate     String?       @db.VarChar(50)
 
   ownerOrgId String       @db.Uuid
-  ownerOrg   Organization @relation(fields: [ownerOrgId], references: [ownerOrgId], onDelete: Restrict)
+  ownerOrg   Organization @relation(fields: [ownerOrgId], references: [orgId], onDelete: Restrict)
 
   locationId String?   @db.Uuid
   location   Location? @relation("ProjectPrimaryLocation", fields: [locationId], references: [locationId], onDelete: SetNull)
@@ -327,12 +695,10 @@ model Project {
   reports             Report[]
   theoryOfChange      TheoryOfChange?
   waves               Wave[]
-  assignments         Assignment[]
   submissions         Submission[]
   collectorScorecards CollectorScorecard[]
   panelMembers        PanelMember[]
   treatmentGroups     TreatmentGroup[]
-  waveDatasets        WaveDataset[]
   researchDatasets    ResearchDataset[]
   researchProjects    ResearchProject[]
 
@@ -355,7 +721,7 @@ model Component {
   description String? @db.Text
   budget      Decimal? @db.Decimal(18, 2)
   responsibleOrgId String? @db.Uuid
-  responsibleOrg   Organization? @relation(fields: [responsibleOrgId], references: [responsibleOrgId], onDelete: SetNull)
+  responsibleOrg   Organization? @relation(fields: [responsibleOrgId], references: [orgId], onDelete: SetNull)
   orderNo     Int    @default(0)
 
   createdAt DateTime @default(now())
@@ -382,7 +748,7 @@ model Subcomponent {
   description String? @db.Text
   budget      Decimal? @db.Decimal(18, 2)
   responsibleOrgId String? @db.Uuid
-  responsibleOrg   Organization? @relation(fields: [responsibleOrgId], references: [responsibleOrgId], onDelete: SetNull)
+  responsibleOrg   Organization? @relation(fields: [responsibleOrgId], references: [orgId], onDelete: SetNull)
   orderNo     Int     @default(0)
 
   projectId String  @db.Uuid
@@ -414,7 +780,7 @@ model Milestone {
   status      String    @default("PENDING") @db.VarChar(20)
 
   ownerOrgId String?      @db.Uuid
-  ownerOrg   Organization? @relation(fields: [ownerOrgId], references: [ownerOrgId], onDelete: SetNull)
+  ownerOrg   Organization? @relation(fields: [ownerOrgId], references: [orgId], onDelete: SetNull)
 
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
@@ -441,6 +807,7 @@ model Location {
 
   projectPrimary Project[]     @relation("ProjectPrimaryLocation")
   beneficiaries  Beneficiary[]
+  grievances     Grievance[]
 
   @@index([region])
   @@index([zone])
@@ -553,7 +920,7 @@ model Disbursement {
   project        Project @relation(fields: [projectId], references: [projectId], onDelete: Cascade)
 
   sourceOrgId String       @db.Uuid
-  sourceOrg   Organization @relation(fields: [sourceOrgId], references: [sourceOrgId], onDelete: Restrict)
+  sourceOrg   Organization @relation(fields: [sourceOrgId], references: [orgId], onDelete: Restrict)
 
   category   FinancingCategory
   amount     Decimal           @db.Decimal(18, 2)
@@ -1251,6 +1618,8 @@ model Wave {
   panelMembers      PanelMember[]
   waveDatasets      WaveDataset[]
   treatmentGroups   TreatmentGroup[]
+  collectorScorecards CollectorScorecard[]
+  researchDatasets    ResearchDataset[]
 
   @@unique([projectId, code])
   @@index([status])
@@ -1262,7 +1631,7 @@ model Assignment {
   waveId          String        @db.Uuid
   wave            Wave          @relation(fields: [waveId], references: [waveId], onDelete: Cascade)
   surveyVersionId String        @db.Uuid
-  surveyVersion   SurveyVersion @relation(fields: [surveyVersionId], references: [surveyVersionId], onDelete: Restrict)
+  surveyVersion   SurveyVersion @relation(fields: [surveyVersionId], references: [versionId], onDelete: Restrict)
   collectorId     String        @db.Uuid
   collector       Collector     @relation(fields: [collectorId], references: [collectorId], onDelete: Restrict)
   supervisorId    String?       @db.Uuid
@@ -1346,7 +1715,7 @@ model Submission {
   waveId          String        @db.Uuid
   wave            Wave          @relation(fields: [waveId], references: [waveId], onDelete: Restrict)
   surveyVersionId String        @db.Uuid
-  surveyVersion   SurveyVersion @relation(fields: [surveyVersionId], references: [surveyVersionId], onDelete: Restrict)
+  surveyVersion   SurveyVersion @relation(fields: [surveyVersionId], references: [versionId], onDelete: Restrict)
   projectId       String        @db.Uuid
   project         Project       @relation(fields: [projectId], references: [projectId], onDelete: Restrict)
 
@@ -1589,7 +1958,9 @@ model PanelMember {
   householdId   String? @db.Uuid
 
   treatmentGroupId String         @db.Uuid
-  treatmentGroup   TreatmentGroup @relation(fields: [treatmentGroupId], references: [treatmentGroupId], onDelete: Restrict)
+  treatmentGroup   TreatmentGroup @relation(fields: [treatmentGroupId], references: [groupId], onDelete: Restrict)
+
+  beneficiary   Beneficiary? @relation(fields: [beneficiaryId], references: [beneficiaryId], onDelete: SetNull)
 
   projectId String  @db.Uuid
   project   Project @relation(fields: [projectId], references: [projectId], onDelete: Restrict)
