@@ -45,8 +45,6 @@ export function scoreDuplicateMatch(
     woreda?: string | null;
   }
 ): { score: number; reasons: string[] } {
-  const _reasons: string[] = [];
-
   // National ID exact
   if (existing.nationalId && incoming.nationalId && existing.nationalId === incoming.nationalId) {
     return { score: 1.0, reasons: ['national_id_exact'] };

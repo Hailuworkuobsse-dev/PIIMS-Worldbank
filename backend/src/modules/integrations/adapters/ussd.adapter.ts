@@ -1,7 +1,7 @@
 import { BaseAdapter } from './base.adapter.js';
 import type { AdapterHealth, IntegrationCode } from '../integration.types.js';
 
-interface UssdResponse {
+export interface UssdResponse {
   reply: string;
   action: 'CON' | 'END';
   nextStep?: number;

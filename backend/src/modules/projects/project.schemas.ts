@@ -17,7 +17,7 @@ const financingLineSchema = z.object({
   referenceNo: z.string().max(50).optional().or(z.literal(''))
 });
 
-const locationSchema = z.object({
+export const locationSchema = z.object({
   region: z.string().trim().min(1, 'Region is required').max(100),
   zone: z.string().trim().max(100).optional().or(z.literal('')),
   woreda: z.string().trim().max(100).optional().or(z.literal('')),
@@ -77,7 +77,7 @@ export const updateProjectSchema = z.object({
   // Optimistic lock — must match the current version
   version: z.number().int().min(1),
 
-  name: z.string().trim().min(3).max(300).optional(),
+  name: z.string().trim().min(1).max(300).optional(),
   nameAm: z.string().trim().max(300).optional().nullable(),
   description: z.string().trim().max(2000).optional().nullable(),
   subsector: z.string().trim().max(100).optional().nullable(),

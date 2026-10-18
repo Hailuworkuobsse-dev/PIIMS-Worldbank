@@ -5,7 +5,7 @@ import { getQueue, QUEUE_NAMES } from '@/config/queue.js';
 import { buildReportKey } from '@/lib/file-naming.js';
 import { writeAudit } from '@/lib/audit.js';
 import { parsePagination, decodeCursor, buildPaginationMeta } from '@/utils/pagination.js';
-import { NotFoundError, ForbiddenError, BadRequestError } from '@/lib/errors.js';
+import { NotFoundError, BadRequestError } from '@/lib/errors.js';
 import { logger } from '@/config/logger.js';
 import { renderPdf } from './renderers/pdf.renderer.js';
 import { renderExcel } from './renderers/excel.renderer.js';

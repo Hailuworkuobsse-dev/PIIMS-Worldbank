@@ -33,3 +33,18 @@ export async function saveIdempotencyKey<T>(
     logger.warn({ err: (err as Error).message, integrationCode, referenceId }, 'idempotency save failed');
   }
 }
+
+export async function checkAndSetIdempotency<T>(
+  integrationCode: string,
+  referenceId: string,
+  executor: () => Promise<T>,
+  ttl = DEFAULT_TTL
+): Promise<T> {
+  const cached = await getIdempotencyKey<T>(integrationCode, referenceId);
+  if (cached !== null) {
+    return cached;
+  }
+  const result = await executor();
+  await saveIdempotencyKey(integrationCode, referenceId, result, ttl);
+  return result;
+}

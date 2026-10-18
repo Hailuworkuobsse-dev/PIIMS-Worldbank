@@ -1,5 +1,5 @@
 import { z } from 'zod';
-import { ImpactDirection, ImpactStatus } from '@prisma/client';
+import { ImpactDirection } from '@prisma/client';
 
 const directionValues = Object.values(ImpactDirection) as [ImpactDirection, ...ImpactDirection[]];
 

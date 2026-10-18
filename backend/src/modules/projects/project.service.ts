@@ -108,7 +108,7 @@ function toProjectDTO(project: ProjectWithRelations): ProjectDTO {
     ...(project.financingSource
       ? {
           financingSource:
-            project.financingSource as unknown as ProjectDTO["financingSource"],
+            project.financingSource as unknown as FinancingLineDTO[],
         }
       : {}),
     createdAt: project.createdAt.toISOString(),

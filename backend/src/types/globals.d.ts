@@ -6,11 +6,11 @@
 declare global {
   namespace NodeJS {
     interface ProcessEnv {
-      readonly NODE_ENV?: "development" | "test" | "staging" | "production";
-      readonly DATABASE_URL?: string;
-      readonly REDIS_URL?: string;
-      readonly JWT_SECRET?: string;
-      readonly JWT_REFRESH_SECRET?: string;
+      NODE_ENV?: "development" | "test" | "staging" | "production";
+      DATABASE_URL?: string;
+      REDIS_URL?: string;
+      JWT_SECRET?: string;
+      JWT_REFRESH_SECRET?: string;
     }
   }
 }
