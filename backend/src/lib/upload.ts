@@ -43,7 +43,7 @@ export const uploadSingle = multer({
  * Call at the top of any handler that expects req.file.
  */
 export function requireUploadedFile(req: {
-  file?: { buffer: Buffer; size: number; originalname: string; mimetype: string };
+  file?: { buffer: Buffer; size: number; originalname: string; mimetype: string } | undefined;
 }): { buffer: Buffer; size: number; originalname: string; mimetype: string } {
   if (!req.file) {
     throw new BadRequestError('No file uploaded. Use field name "file".');
