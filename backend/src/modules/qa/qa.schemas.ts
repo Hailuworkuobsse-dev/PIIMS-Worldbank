@@ -1,5 +1,5 @@
 import { z } from 'zod';
-import { QaRuleType, Severity, QaFlagStatus } from '@prisma/client';
+import { QaRuleType, Severity } from '@prisma/client';
 
 const ruleTypeValues = Object.values(QaRuleType) as [QaRuleType, ...QaRuleType[]];
 const severityValues = Object.values(Severity) as [Severity, ...Severity[]];

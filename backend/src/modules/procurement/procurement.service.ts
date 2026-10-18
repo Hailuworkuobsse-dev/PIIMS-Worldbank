@@ -3,10 +3,9 @@ import { prisma } from '@/lib/prisma.js';
 import { writeAudit } from '@/lib/audit.js';
 import { canAccessProject } from '@/lib/scope.js';
 import {
-  BadRequestError, ConflictError, ForbiddenError, NotFoundError
+  ConflictError, ForbiddenError, NotFoundError
 } from '@/lib/errors.js';
 import type { ScopeClaim } from '@/lib/jwt.js';
-import { parsePagination } from '@/utils/pagination.js';
 import { computeDelaySeverity, computeSupplierScore } from './procurement.utils.js';
 import type {
   ProcurementDTO, ContractDTO, ProcurementDelayDTO, SupplierPerformanceDTO

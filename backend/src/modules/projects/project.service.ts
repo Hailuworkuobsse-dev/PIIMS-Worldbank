@@ -34,6 +34,8 @@ import {
   decodeCursor,
 } from "@/utils/pagination.js";
 
+import type { FinancingLineDTO } from "./project.types.js";
+
 /* ════════════════════════════════════════════════════════════════════
 Shared include shape
 ════════════════════════════════════════════════════════════════════ */
@@ -109,7 +111,7 @@ function toProjectDTO(project: ProjectWithRelations): ProjectDTO {
     ...(project.financingSource
       ? {
           financingSource:
-            project.financingSource as unknown as FinancingLineDTO[],
+            project.financingSource as unknown as ( FinancingLineDTO[] | undefined),
         }
       : {}),
     createdAt: project.createdAt.toISOString(),

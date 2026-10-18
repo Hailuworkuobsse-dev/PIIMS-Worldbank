@@ -4,7 +4,6 @@ import { writeAudit } from '@/lib/audit.js';
 import {
   BadRequestError, ConflictError, NotFoundError
 } from '@/lib/errors.js';
-import { parsePagination, decodeCursor } from '@/utils/pagination.js';
 import { computeSlaDue, isTerminalStatus } from './grievance.utils.js';
 import type { ScopeClaim } from '@/lib/jwt.js';
 import type { GrievanceDTO, GrievanceActionDTO, GrievanceStatsDTO } from './grievance.types.js';
@@ -99,8 +98,8 @@ export async function createGrievance(
 export async function listGrievances(
   query: ListGrievancesQuery,
   scope: ScopeClaim,
-  orgId: string,
-  userId: string
+  _orgId: string,
+  _userId: string
 ): Promise<{
   data: GrievanceDTO[];
   pagination: { limit: number; totalCount: number; hasMore: boolean };
