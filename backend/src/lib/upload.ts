@@ -1,4 +1,5 @@
-import multer from 'multer';
+import multer, { type FileFilterCallback } from 'multer';
+import type { Request } from 'express';
 import { BadRequestError } from './errors.js';
 
 /**
@@ -13,7 +14,7 @@ export const uploadSingle = multer({
     fileSize: MAX_SIZE_BYTES,
     files: 1
   },
-  fileFilter: (_req, file, cb) => {
+  fileFilter: (_req: Request, file: Express.Multer.File, cb: FileFilterCallback) => {
     const allowed = [
       'application/pdf',
       'application/msword',

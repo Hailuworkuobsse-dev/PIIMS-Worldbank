@@ -44,8 +44,8 @@ export class UnauthorizedError extends AppError {
 }
 
 export class ForbiddenError extends AppError {
-  constructor(message = 'Access denied') {
-    super(403, 'PIIMS-4030', message);
+  constructor(message = 'Access denied', details?: unknown) {
+    super(403, 'PIIMS-4030', message, details);
   }
 }
 

@@ -30,7 +30,7 @@ surveysRouter.get('/', requirePermission('survey:read'), validate({ query: listS
 });
 
 surveysRouter.get('/:id', requirePermission('survey:read'), async (req, res, next) => {
-  try { sendSuccess(res, await service.getSurvey(req.params.id)); } catch (err) { next(err); }
+  try { sendSuccess(res, await service.getSurvey(req.params.id!)); } catch (err) { next(err); }
 });
 
 surveysRouter.post('/', requirePermission('survey:write'), validate({ body: createSurveySchema }), async (req, res, next) => {
@@ -64,7 +64,7 @@ surveysRouter.post('/skip-logic', requirePermission('survey:write'), validate({ 
 surveysRouter.post('/:id/publish', requirePermission('survey:publish'), async (req, res, next) => {
   try {
     const user = getUser(req);
-    sendSuccess(res, await service.publishSurvey(req.params.id, user.userId, getCtx(req)));
+    sendSuccess(res, await service.publishSurvey(req.params.id!, user.userId, getCtx(req)));
   } catch (err) { next(err); }
 });
 

@@ -57,7 +57,7 @@ export interface ScopeClaim {
  * ════════════════════════════════════════════════════════════════════ */
 
 export function signAccessToken(
-  userId: string,
+  _userId: string,
   username: string,
   orgId: string,
   role: string,

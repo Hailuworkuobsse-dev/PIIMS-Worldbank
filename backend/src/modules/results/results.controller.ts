@@ -1,6 +1,6 @@
 import type { Request, Response, NextFunction } from 'express';
 import { UnauthorizedError } from '@/lib/errors.js';
-import { sendSuccess, sendCreated, sendNoContent } from '@/lib/response.js';
+import { sendSuccess, sendCreated } from '@/lib/response.js';
 import * as service from './results.service.js';
 import type {
   CreateComponentInput, UpdateComponentInput,

@@ -28,7 +28,6 @@ export function requireAuth(req: Request, _res: Response, next: NextFunction): v
       scope: payload.scope,
       mfa: payload.mfa
     };
-    req.correlationId = req.correlationId ?? undefined;
     next();
   } catch (err) {
     next(err);

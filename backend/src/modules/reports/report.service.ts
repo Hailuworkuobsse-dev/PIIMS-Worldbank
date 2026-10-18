@@ -1,4 +1,4 @@
-import { Prisma, ReportType, ReportFormat } from '@prisma/client';
+import { Prisma, ReportType } from '@prisma/client';
 import { prisma } from '@/lib/prisma.js';
 import { storage } from '@/config/storage.js';
 import { getQueue, QUEUE_NAMES } from '@/config/queue.js';

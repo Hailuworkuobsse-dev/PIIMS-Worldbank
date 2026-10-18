@@ -1,10 +1,9 @@
-import { Prisma, GrievanceStatus } from '@prisma/client';
+import { Prisma } from '@prisma/client';
 import { prisma } from '@/lib/prisma.js';
 import { writeAudit } from '@/lib/audit.js';
 import {
-  BadRequestError, ConflictError, ForbiddenError, NotFoundError
+  BadRequestError, ConflictError, NotFoundError
 } from '@/lib/errors.js';
-import { canAccessProject } from '@/lib/scope.js';
 import { parsePagination, decodeCursor } from '@/utils/pagination.js';
 import { computeSlaDue, isTerminalStatus } from './grievance.utils.js';
 import type { ScopeClaim } from '@/lib/jwt.js';

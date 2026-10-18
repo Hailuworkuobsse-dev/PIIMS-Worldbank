@@ -1,0 +1,93 @@
+src/modules/auth/auth.service.ts(226,9): error TS6133: 'scope' is declared but its value is never read.
+src/modules/auth/auth.service.ts(227,9): error TS6133: 'permissions' is declared but its value is never read.
+src/modules/beneficiaries/beneficiary.service.ts(210,3): error TS6133: 'orgId' is declared but its value is never read.
+src/modules/beneficiaries/beneficiary.utils.ts(48,9): error TS6133: 'reasons' is declared but its value is never read.
+src/modules/documents/document.controller.ts(3,36): error TS6133: 'sendNoContent' is declared but its value is never read.
+src/modules/documents/document.controller.ts(40,38): error TS2379: Argument of type 'Request<ParamsDictionary, any, any, ParsedQs, Record<string, any>>' is not assignable to parameter of type '{ file?: { buffer: Buffer<ArrayBufferLike>; size: number; originalname: string; mimetype: string; }; }' with 'exactOptionalPropertyTypes: true'. Consider adding 'undefined' to the types of the target's properties.
+  Types of property 'file' are incompatible.
+    Type 'File | undefined' is not assignable to type '{ buffer: Buffer<ArrayBufferLike>; size: number; originalname: string; mimetype: string; }'.
+      Type 'undefined' is not assignable to type '{ buffer: Buffer<ArrayBufferLike>; size: number; originalname: string; mimetype: string; }'.
+src/modules/field/field.routes.ts(31,56): error TS2345: Argument of type 'string | undefined' is not assignable to parameter of type 'string'.
+  Type 'undefined' is not assignable to type 'string'.
+src/modules/financial/financial.service.ts(5,1): error TS6192: All imports in import declaration are unused.
+src/modules/financial/financial.service.ts(7,3): error TS6133: 'BadRequestError' is declared but its value is never read.
+src/modules/grievances/grievance.schemas.ts(3,40): error TS6133: 'GrievanceStatus' is declared but its value is never read.
+src/modules/grievances/grievance.service.ts(1,18): error TS6133: 'GrievanceStatus' is declared but its value is never read.
+src/modules/grievances/grievance.service.ts(5,35): error TS6133: 'ForbiddenError' is declared but its value is never read.
+src/modules/grievances/grievance.service.ts(7,1): error TS6133: 'canAccessProject' is declared but its value is never read.
+src/modules/grievances/grievance.service.ts(8,1): error TS6192: All imports in import declaration are unused.
+src/modules/grievances/grievance.service.ts(103,3): error TS6133: 'orgId' is declared but its value is never read.
+src/modules/grievances/grievance.service.ts(104,3): error TS6133: 'userId' is declared but its value is never read.
+src/modules/impact-indicators/impactIndicator.routes.ts(26,91): error TS6133: 'req' is declared but its value is never read.
+src/modules/impact-indicators/impactIndicator.routes.ts(48,53): error TS2345: Argument of type 'string | undefined' is not assignable to parameter of type 'string'.
+  Type 'undefined' is not assignable to type 'string'.
+src/modules/impact-indicators/impactIndicator.routes.ts(63,49): error TS2345: Argument of type 'string | undefined' is not assignable to parameter of type 'string'.
+  Type 'undefined' is not assignable to type 'string'.
+src/modules/impact-indicators/impactIndicator.routes.ts(71,58): error TS2345: Argument of type 'string | undefined' is not assignable to parameter of type 'string'.
+  Type 'undefined' is not assignable to type 'string'.
+src/modules/impact-indicators/impactIndicator.routes.ts(80,50): error TS2345: Argument of type 'string | undefined' is not assignable to parameter of type 'string'.
+  Type 'undefined' is not assignable to type 'string'.
+src/modules/impact-indicators/impactIndicator.routes.ts(88,47): error TS2345: Argument of type 'string | undefined' is not assignable to parameter of type 'string'.
+  Type 'undefined' is not assignable to type 'string'.
+src/modules/impact-indicators/impactIndicator.schemas.ts(2,27): error TS6133: 'ImpactStatus' is declared but its value is never read.
+src/modules/inception/inception.controller.ts(49,38): error TS2379: Argument of type 'Request<ParamsDictionary, any, any, ParsedQs, Record<string, any>>' is not assignable to parameter of type '{ file?: { buffer: Buffer<ArrayBufferLike>; size: number; originalname: string; mimetype: string; }; }' with 'exactOptionalPropertyTypes: true'. Consider adding 'undefined' to the types of the target's properties.
+  Types of property 'file' are incompatible.
+    Type 'File | undefined' is not assignable to type '{ buffer: Buffer<ArrayBufferLike>; size: number; originalname: string; mimetype: string; }'.
+      Type 'undefined' is not assignable to type '{ buffer: Buffer<ArrayBufferLike>; size: number; originalname: string; mimetype: string; }'.
+src/modules/inception/inception.service.ts(276,9): error TS6133: 'report' is declared but its value is never read.
+src/modules/inception/inception.service.ts(522,7): error TS2561: Object literal may only specify known properties, but 'document' does not exist in type 'InceptionReportSelect<DefaultArgs>'. Did you mean to write 'documentId'?
+src/modules/inception/inception.service.ts(532,11): error TS2551: Property 'document' does not exist on type '{ status: InceptionStatus; version: number; createdAt: Date; projectId: string; updatedAt: Date; reportId: string; templateId: string | null; submissionDate: Date | null; ... 7 more ...; summary: string | null; }'. Did you mean 'documentId'?
+src/modules/inception/inception.service.ts(532,46): error TS2551: Property 'document' does not exist on type '{ status: InceptionStatus; version: number; createdAt: Date; projectId: string; updatedAt: Date; reportId: string; templateId: string | null; submissionDate: Date | null; ... 7 more ...; summary: string | null; }'. Did you mean 'documentId'?
+src/modules/inception/inception.service.ts(543,16): error TS2353: Object literal may only specify known properties, and 'document' does not exist in type 'InceptionReportInclude<DefaultArgs>'.
+src/modules/inception/inception.service.ts(546,15): error TS2551: Property 'document' does not exist on type '{ status: InceptionStatus; version: number; createdAt: Date; projectId: string; updatedAt: Date; reportId: string; templateId: string | null; submissionDate: Date | null; ... 7 more ...; summary: string | null; }'. Did you mean 'documentId'?
+src/modules/inception/inception.service.ts(548,46): error TS2551: Property 'document' does not exist on type '{ status: InceptionStatus; version: number; createdAt: Date; projectId: string; updatedAt: Date; reportId: string; templateId: string | null; submissionDate: Date | null; ... 7 more ...; summary: string | null; }'. Did you mean 'documentId'?
+src/modules/integrations/adapters/base.adapter.ts(1,68): error TS2307: Cannot find module 'axios' or its corresponding type declarations.
+src/modules/integrations/adapters/ussd.adapter.ts(4,11): error TS6196: 'UssdResponse' is declared but never used.
+src/modules/integrations/webhooks.routes.ts(76,7): error TS2375: Type '{ status: "FAILED" | "SENT" | "DELIVERED"; deliveredAt: Date | undefined; }' is not assignable to type '(Without<NotificationUpdateManyMutationInput, NotificationUncheckedUpdateManyInput> & NotificationUncheckedUpdateManyInput) | (Without<...> & NotificationUpdateManyMutationInput)' with 'exactOptionalPropertyTypes: true'. Consider adding 'undefined' to the types of the target's properties.
+  Type '{ status: "FAILED" | "SENT" | "DELIVERED"; deliveredAt: Date | undefined; }' is not assignable to type 'Without<NotificationUncheckedUpdateManyInput, NotificationUpdateManyMutationInput> & NotificationUpdateManyMutationInput' with 'exactOptionalPropertyTypes: true'. Consider adding 'undefined' to the types of the target's properties.
+    Type '{ status: "FAILED" | "SENT" | "DELIVERED"; deliveredAt: Date | undefined; }' is not assignable to type 'NotificationUpdateManyMutationInput' with 'exactOptionalPropertyTypes: true'. Consider adding 'undefined' to the types of the target's properties.
+      Types of property 'deliveredAt' are incompatible.
+        Type 'Date | undefined' is not assignable to type 'string | Date | NullableDateTimeFieldUpdateOperationsInput | null'.
+          Type 'undefined' is not assignable to type 'string | Date | NullableDateTimeFieldUpdateOperationsInput | null'.
+src/modules/integrations/workers/sync.worker.ts(20,3): error TS2375: Type 'Worker<SyncJobPayload, any, string>' is not assignable to type 'Worker<unknown, any, string>' with 'exactOptionalPropertyTypes: true'. Consider adding 'undefined' to the types of the target's properties.
+  Types of property 'processFn' are incompatible.
+    Type 'Processor<SyncJobPayload, any, string>' is not assignable to type 'Processor<unknown, any, string>'.
+      Types of parameters 'job' and 'job' are incompatible.
+        Type 'Job<unknown, any, string>' is not assignable to type 'Job<SyncJobPayload, any, string>' with 'exactOptionalPropertyTypes: true'. Consider adding 'undefined' to the types of the target's properties.
+          Type 'unknown' is not assignable to type 'SyncJobPayload'.
+src/modules/notifications/channels/email.channel.ts(1,46): error TS2307: Cannot find module 'nodemailer' or its corresponding type declarations.
+src/modules/notifications/notification.worker.ts(36,3): error TS2375: Type 'Worker<JobPayload, any, string>' is not assignable to type 'Worker<unknown, any, string>' with 'exactOptionalPropertyTypes: true'. Consider adding 'undefined' to the types of the target's properties.
+  Types of property 'processFn' are incompatible.
+    Type 'Processor<JobPayload, any, string>' is not assignable to type 'Processor<unknown, any, string>'.
+      Types of parameters 'job' and 'job' are incompatible.
+        Type 'Job<unknown, any, string>' is not assignable to type 'Job<JobPayload, any, string>' with 'exactOptionalPropertyTypes: true'. Consider adding 'undefined' to the types of the target's properties.
+          Type 'unknown' is not assignable to type 'JobPayload'.
+src/modules/procurement/procurement.service.ts(6,3): error TS6133: 'BadRequestError' is declared but its value is never read.
+src/modules/procurement/procurement.service.ts(9,1): error TS6133: 'parsePagination' is declared but its value is never read.
+src/modules/projects/project.schemas.ts(20,7): error TS6133: 'locationSchema' is declared but its value is never read.
+src/modules/projects/project.service.ts(455,5): error TS2561: Object literal may only specify known properties, but 'updatedById' does not exist in type 'ProjectUpdateInput'. Did you mean to write 'updatedBy'?
+src/modules/qa/qa.routes.ts(32,47): error TS2345: Argument of type 'string | undefined' is not assignable to parameter of type 'string'.
+  Type 'undefined' is not assignable to type 'string'.
+src/modules/qa/qa.routes.ts(80,47): error TS2345: Argument of type 'string | undefined' is not assignable to parameter of type 'string'.
+  Type 'undefined' is not assignable to type 'string'.
+src/modules/qa/qa.schemas.ts(2,32): error TS6133: 'QaFlagStatus' is declared but its value is never read.
+src/modules/reports/renderers/pdf.renderer.ts(1,25): error TS7016: Could not find a declaration file for module 'pdfkit'. 'c:/Users/HP/Documents/HILUX Apps/PIIMS-Worldbank/backend/node_modules/pdfkit/js/pdfkit.node.mjs' implicitly has an 'any' type.
+  Try `npm i --save-dev @types/pdfkit` if it exists or add a new declaration (.d.ts) file containing `declare module 'pdfkit';`
+src/modules/reports/report.service.ts(8,25): error TS6133: 'ForbiddenError' is declared but its value is never read.
+src/modules/results/results.service.ts(7,3): error TS6133: 'BadRequestError' is declared but its value is never read.
+src/modules/results/results.service.ts(625,33): error TS2345: Argument of type '({ project: { location: { region: string; } | null; }; subcomponent: { component: { code: string; name: string; }; componentId: string; }; } & { code: string; status: TrafficLight; method: string | null; ... 17 more ...; disaggregation: JsonValue; })[]' is not assignable to parameter of type '{ status: TrafficLight; achievementPct: unknown; subcomponent: { componentId: string; component: { name: string; code: string; }; }; }[]'.
+  Property 'achievementPct' is missing in type '{ project: { location: { region: string; } | null; }; subcomponent: { component: { code: string; name: string; }; componentId: string; }; } & { code: string; status: TrafficLight; method: string | null; ... 17 more ...; disaggregation: JsonValue; }' but required in type '{ status: TrafficLight; achievementPct: unknown; subcomponent: { componentId: string; component: { name: string; code: string; }; }; }'.
+src/modules/results/results.service.ts(628,30): error TS2345: Argument of type '({ project: { location: { region: string; } | null; }; subcomponent: { component: { code: string; name: string; }; componentId: string; }; } & { code: string; status: TrafficLight; method: string | null; ... 17 more ...; disaggregation: JsonValue; })[]' is not assignable to parameter of type '{ status: TrafficLight; achievementPct: unknown; subcomponent: { componentId: string; }; }[]'.
+  Property 'achievementPct' is missing in type '{ project: { location: { region: string; } | null; }; subcomponent: { component: { code: string; name: string; }; componentId: string; }; } & { code: string; status: TrafficLight; method: string | null; ... 17 more ...; disaggregation: JsonValue; }' but required in type '{ status: TrafficLight; achievementPct: unknown; subcomponent: { componentId: string; }; }'.
+src/modules/supplier/supplier.controller.ts(71,38): error TS2379: Argument of type 'Request<ParamsDictionary, any, any, ParsedQs, Record<string, any>>' is not assignable to parameter of type '{ file?: { buffer: Buffer<ArrayBufferLike>; size: number; originalname: string; mimetype: string; }; }' with 'exactOptionalPropertyTypes: true'. Consider adding 'undefined' to the types of the target's properties.
+  Types of property 'file' are incompatible.
+    Type 'File | undefined' is not assignable to type '{ buffer: Buffer<ArrayBufferLike>; size: number; originalname: string; mimetype: string; }'.
+      Type 'undefined' is not assignable to type '{ buffer: Buffer<ArrayBufferLike>; size: number; originalname: string; mimetype: string; }'.
+src/modules/supplier/supplier.service.ts(251,26): error TS2551: Property 'product' does not exist on type '{ status: DeliveryStatus; createdAt: Date; unit: string | null; projectId: string; updatedAt: Date; beneficiaryId: string; verifiedById: string | null; verifiedAt: Date | null; ... 10 more ...; installPhotoId: string | null; }'. Did you mean 'productId'?
+src/modules/supplier/supplier.service.ts(253,17): error TS2551: Property 'beneficiary' does not exist on type '{ status: DeliveryStatus; createdAt: Date; unit: string | null; projectId: string; updatedAt: Date; beneficiaryId: string; verifiedById: string | null; verifiedAt: Date | null; ... 10 more ...; installPhotoId: string | null; }'. Did you mean 'beneficiaryId'?
+src/modules/supplier/supplier.service.ts(253,58): error TS2551: Property 'beneficiary' does not exist on type '{ status: DeliveryStatus; createdAt: Date; unit: string | null; projectId: string; updatedAt: Date; beneficiaryId: string; verifiedById: string | null; verifiedAt: Date | null; ... 10 more ...; installPhotoId: string | null; }'. Did you mean 'beneficiaryId'?
+src/modules/supplier/supplier.service.ts(274,33): error TS2339: Property 'invoice' does not exist on type 'PrismaClient<PrismaClientOptions, never, DefaultArgs>'.
+src/modules/supplier/supplier.service.ts(280,24): error TS7006: Parameter 'inv' implicitly has an 'any' type.
+src/modules/supplier/supplier.service.ts(308,33): error TS2339: Property 'invoice' does not exist on type 'PrismaClient<PrismaClientOptions, never, DefaultArgs>'.
+src/modules/supplier/supplier.service.ts(323,32): error TS2339: Property 'invoice' does not exist on type 'PrismaClient<PrismaClientOptions, never, DefaultArgs>'.
+src/modules/supplier/supplier.service.ts(399,9): error TS6133: 'supplierId' is declared but its value is never read.

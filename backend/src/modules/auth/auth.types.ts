@@ -1,4 +1,4 @@
-import type { RoleCode } from '@/features/auth/auth.types.js';
+export type RoleCode = string;
 
 /**
  * Public user shape returned by the API.

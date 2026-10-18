@@ -1,4 +1,4 @@
-import { Prisma, SurveyStatus, QuestionType } from '@prisma/client';
+import { Prisma, QuestionType } from '@prisma/client';
 import { prisma } from '@/lib/prisma.js';
 import { writeAudit } from '@/lib/audit.js';
 import { ConflictError, NotFoundError, BadRequestError } from '@/lib/errors.js';

@@ -8,7 +8,7 @@ export const globalRateLimiter = rateLimit({
   max: env.RATE_LIMIT_MAX,
   standardHeaders: 'draft-7',
   legacyHeaders: false,
-  handler: (req, res) => {
+  handler: (_req, res) => {
     sendError(res, 429, 'https://api.piims.gov.et/errors/rate-limit', 'Too Many Requests',
       `Exceeded ${env.RATE_LIMIT_MAX} requests per ${env.RATE_LIMIT_WINDOW_MS / 1000}s window`);
   }
@@ -21,7 +21,7 @@ export const loginRateLimiter = rateLimit({
   standardHeaders: 'draft-7',
   legacyHeaders: false,
   skipSuccessfulRequests: true,
-  handler: (req, res) => {
+  handler: (_req, res) => {
     sendError(res, 429, 'https://api.piims.gov.et/errors/rate-limit', 'Too Many Login Attempts',
       'Please wait before trying again');
   }

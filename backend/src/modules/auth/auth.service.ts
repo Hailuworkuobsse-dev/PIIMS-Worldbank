@@ -1,5 +1,5 @@
 import { prisma } from '@/lib/prisma.js';
-import { hashPassword, verifyPassword, needsRehash } from '@/lib/password.js';
+import { hashPassword, verifyPassword } from '@/lib/password.js';
 import {
   signAccessToken, signRefreshToken, signMfaChallenge,
   verifyRefreshToken, verifyMfaChallenge,
@@ -115,7 +115,7 @@ export async function login(
     }
 
     // Issue short-lived MFA challenge token
-    const { token: mfaToken, expiresIn } = signMfaChallenge(user.userId);
+    const { token: mfaToken } = signMfaChallenge(user.userId);
 
     await writeAudit({
       userId: user.userId,
@@ -223,13 +223,6 @@ export async function refresh(refreshToken: string, context: LoginContext): Prom
     data: { revokedAt: new Date() }
   });
 
-  const scope = buildScopeClaim(user.role.scope, user.org.level);
-  const permissions = parsePermissions(user.role.permissions);
-
-  const access = signAccessToken(
-    user.userId, user.username, user.orgId, user.role.code,
-    permissions, scope as ScopeClaim, user.mfaEnabled
-  );
   const newRefresh = signRefreshToken(user.userId);
 
   await prisma.refreshToken.create({
@@ -237,15 +230,15 @@ export async function refresh(refreshToken: string, context: LoginContext): Prom
       userId: user.userId,
       tokenHash: sha256(newRefresh.token),
       expiresAt: new Date(Date.now() + newRefresh.expiresIn * 1000),
-      ipAddress: context.ipAddress ?? undefined,
-      userAgent: context.userAgent ?? undefined
+      ipAddress: context.ipAddress,
+      userAgent: context.userAgent
     }
   });
 
   return {
-    access_token: access.token,
+    access_token: newRefresh.token,
     refresh_token: newRefresh.token,
-    expires_in: access.expiresIn,
+    expires_in: newRefresh.expiresIn,
     refresh_expires_in: newRefresh.expiresIn
   };
 }
@@ -471,8 +464,8 @@ async function completeLogin(
         userId: user.userId,
         tokenHash: sha256(refresh.token),
         expiresAt: new Date(Date.now() + refresh.expiresIn * 1000),
-        ipAddress: context.ipAddress ?? undefined,
-        userAgent: context.userAgent ?? undefined
+        ipAddress: context.ipAddress,
+        userAgent: context.userAgent
       }
     })
   ]);

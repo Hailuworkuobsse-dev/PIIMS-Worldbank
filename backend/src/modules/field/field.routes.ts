@@ -28,7 +28,7 @@ fieldRouter.get('/assignments', requirePermission('collect:execute'), async (req
 fieldRouter.get('/assignments/:id/survey', requirePermission('collect:execute'), async (req, res, next) => {
   try {
     const user = getUser(req);
-    sendSuccess(res, await service.getAssignmentSurvey(req.params.id, user.userId));
+    sendSuccess(res, await service.getAssignmentSurvey(req.params.id!, user.userId));
   } catch (err) { next(err); }
 });
 

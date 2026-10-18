@@ -12,7 +12,7 @@ import { isDev } from '@/config/env.js';
  */
 export function errorHandler(
   err: unknown,
-  req: Request,
+  _req: Request,
   res: Response,
   _next: NextFunction
 ): void {

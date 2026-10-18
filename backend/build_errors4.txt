@@ -1,0 +1,5 @@
+src/modules/auth/auth.service.ts(254,18): error TS1005: ';' expected.
+src/modules/auth/auth.service.ts(255,15): error TS1005: ';' expected.
+src/modules/auth/auth.service.ts(256,23): error TS1005: ';' expected.
+src/modules/auth/auth.service.ts(257,3): error TS1128: Declaration or statement expected.
+src/modules/auth/auth.service.ts(258,1): error TS1128: Declaration or statement expected.

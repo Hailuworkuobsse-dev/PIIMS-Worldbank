@@ -12,7 +12,7 @@ healthRouter.get('/healthz', (_req, res) => {
 });
 
 /** Detailed — for monitoring dashboards */
-healthRouter.get('/readyz', async (req, res, next) => {
+healthRouter.get('/readyz', async (_req, res, next) => {
   try {
     const start = Date.now();
 

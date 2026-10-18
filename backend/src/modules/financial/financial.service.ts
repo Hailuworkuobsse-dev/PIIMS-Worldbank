@@ -1,11 +1,7 @@
-import { Prisma } from '@prisma/client';
 import { prisma } from '@/lib/prisma.js';
 import { writeAudit } from '@/lib/audit.js';
 import { canAccessProject } from '@/lib/scope.js';
 import { getQueue, QUEUE_NAMES } from '@/config/queue.js';
-import {
-  BadRequestError, ConflictError, ForbiddenError, NotFoundError
-} from '@/lib/errors.js';
 import type { ScopeClaim } from '@/lib/jwt.js';
 import { buildExecution, toEtb } from './financial.utils.js';
 import type {

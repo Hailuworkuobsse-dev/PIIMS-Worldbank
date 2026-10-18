@@ -1,1 +1,1 @@
-import { startReportWorker } from './workers/report.worker.js';
+// Fragment — not used in build

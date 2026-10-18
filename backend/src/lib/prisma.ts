@@ -20,14 +20,14 @@ if (isDev) globalForPrisma.prisma = prisma;
 
 // Log slow queries + errors via pino
 if (isDev) {
-  prisma.$on('query', (e) => {
+  (prisma as any).$on('query', (e: any) => {
     if (e.duration > 200) {
       logger.warn({ duration: e.duration, query: e.query.slice(0, 300) }, 'slow query');
     }
   });
 }
 
-prisma.$on('error', (e) => {
+(prisma as any).$on('error', (e: any) => {
   logger.error({ message: e.message }, 'prisma error');
 });
 

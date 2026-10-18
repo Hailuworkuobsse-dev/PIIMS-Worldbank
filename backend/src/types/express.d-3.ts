@@ -1,5 +1,4 @@
 import type { ScopeClaim } from '@/lib/jwt.js';
-import type { File as MulterFile } from 'multer';
 
 declare global {
   namespace Express {
@@ -14,8 +13,8 @@ declare global {
         scope: ScopeClaim;
         mfa: boolean;
       };
-      file?: MulterFile;
-      files?: MulterFile[] | { [fieldname: string]: MulterFile[] };
+      file?: Express.Multer.File;
+      files?: { [fieldname: string]: Express.Multer.File[] } | Express.Multer.File[] | undefined;
     }
   }
 }

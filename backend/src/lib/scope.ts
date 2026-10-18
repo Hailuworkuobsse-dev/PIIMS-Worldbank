@@ -52,7 +52,7 @@ export function projectScopeWhere(
  */
 export function beneficiaryScopeWhere(
   scope: ScopeClaim,
-  orgId: string,
+  _orgId: string,
   _userId: string
 ): Prisma.BeneficiaryWhereInput {
   if (scope.orgLevel === 'FEDERAL' && !scope.ownRecordsOnly) {

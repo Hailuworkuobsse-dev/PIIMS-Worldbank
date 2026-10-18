@@ -1,6 +1,6 @@
 import { z } from 'zod';
 import {
-  GrievanceCategory, GrievanceChannel, GrievanceStatus, Severity
+  GrievanceCategory, GrievanceChannel, Severity
 } from '@prisma/client';
 
 const catValues = Object.values(GrievanceCategory) as [GrievanceCategory, ...GrievanceCategory[]];

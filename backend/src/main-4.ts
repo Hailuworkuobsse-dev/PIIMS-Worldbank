@@ -1,1 +1,1 @@
-        await reportWorker.close();
+// Fragment — not used in build

@@ -112,10 +112,10 @@ export function anonymize(records: RawRecord[], config: AnonymizationConfig): Ra
       copy.incomeCapped = true;
     }
     const loc = generalizeLocation(copy, config.locationGranularity);
-    copy.region = loc.region;
-    copy.zone = loc.zone;
-    copy.woreda = loc.woreda;
-    copy.kebele = loc.kebele;
+    copy.region = loc.region ?? null;
+    copy.zone = loc.zone ?? null;
+    copy.woreda = loc.woreda ?? null;
+    copy.kebele = loc.kebele ?? null;
     return copy;
   });
 

@@ -1,4 +1,4 @@
-import type { SupplierCategory, ContractStatus, DeliveryStatus, InvoiceStatus } from '@prisma/client';
+import type { SupplierCategory, ContractStatus, DeliveryStatus } from '@prisma/client';
 
 export interface SupplierProfileDTO {
   supplierId: string;
@@ -55,7 +55,7 @@ export interface SupplierInvoiceDTO {
   amount: string;
   currency: string;
   submittedAt: string;
-  status: InvoiceStatus;
+  status: string;
   filePath: string;
 }
 

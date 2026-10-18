@@ -1,4 +1,4 @@
-import { Prisma, Gender, BeneficiaryStatus } from '@prisma/client';
+import { Prisma, BeneficiaryStatus } from '@prisma/client';
 import { prisma } from '@/lib/prisma.js';
 import { writeAudit } from '@/lib/audit.js';
 import { canAccessProject } from '@/lib/scope.js';
@@ -53,7 +53,7 @@ export async function checkDuplicates(input: DedupCheckInput): Promise<Duplicate
       OR: [
         ...(input.phone ? [{ phone: input.phone }] : []),
         ...(input.nationalId ? [{ nationalId: input.nationalId }] : []),
-        { woreda: input.location.woreda || undefined },
+        ...(input.location.woreda ? [{ woreda: input.location.woreda }] : []),
         { region: input.location.region }
       ]
     },
@@ -207,7 +207,7 @@ export async function registerBeneficiary(
 export async function listBeneficiaries(
   query: ListBeneficiariesQuery,
   scope: ScopeClaim,
-  orgId: string
+  _orgId: string
 ): Promise<{
   data: BeneficiaryDTO[];
   pagination: { nextCursor?: string; limit: number; totalCount: number; hasMore: boolean };

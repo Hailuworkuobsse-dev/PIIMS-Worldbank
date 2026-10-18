@@ -1,23 +1,13 @@
-import pinoHttp from 'pino-http';
-import { logger } from '@/config/logger.js';
+import { pinoHttp } from 'pino-http';
+import type { Request, Response } from 'express';
 
 export const requestLogger = pinoHttp({
-  logger,
-  genReqId: (req) => (req as { correlationId?: string }).correlationId ?? '',
-  customLogLevel: (_req, res, err) => {
+  genReqId: (req: Request) => (req as { correlationId?: string }).correlationId ?? '',
+  customLogLevel: (_req: Request, res: Response, err?: Error) => {
     if (err || res.statusCode >= 500) return 'error';
     if (res.statusCode >= 400) return 'warn';
     return 'info';
   },
-  customSuccessMessage: (req, res) =>
-    `${req.method} ${req.url} → ${res.statusCode}`,
-  serializers: {
-    req: (req) => ({
-      method: req.method,
-      url: req.url,
-      userAgent: req.headers['user-agent'],
-      remoteAddress: req.remoteAddress
-    }),
-    res: (res) => ({ statusCode: res.statusCode })
-  }
-});
+  customSuccessMessage: (req: Request, res: Response) =>
+    `${req.method} ${req.url} → ${res.statusCode}`
+} as unknown as ReturnType<typeof pinoHttp>);

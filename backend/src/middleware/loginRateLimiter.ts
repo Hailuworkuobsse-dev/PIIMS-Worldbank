@@ -16,7 +16,7 @@ export const loginRateLimiter = rateLimit({
     const body = req.body as { username?: string } | undefined;
     return `${req.ip ?? 'unknown'}:${body?.username ?? ''}`;
   },
-  handler: (req, res) => {
+  handler: (_req, res) => {
     sendError(
       res,
       429,

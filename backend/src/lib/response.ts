@@ -1,7 +1,7 @@
 import type { Response } from 'express';
 
 export interface Meta {
-  correlationId?: string;
+  correlationId: string | undefined;
   timestamp: string;
   version: string;
   elapsedMs?: number;
@@ -26,7 +26,7 @@ export interface ErrorEnvelope {
   status: number;
   detail?: string;
   instance?: string;
-  correlationId?: string;
+  correlationId: string | undefined;
   timestamp: string;
   errors?: Array<{ field: string; code: string; message: string; rejectedValue?: unknown }>;
 }

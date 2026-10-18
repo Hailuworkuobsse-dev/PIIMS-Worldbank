@@ -34,7 +34,7 @@ warehouseRouter.post('/wave-datasets/build', requirePermission('warehouse:manage
 warehouseRouter.get('/panel-links', requirePermission('warehouse:read'), async (req, res, next) => {
   try {
     const waveId = typeof req.query.wave_id === 'string' ? req.query.wave_id : undefined;
-    sendSuccess(res, await service.listPanelLinks(waveId));
+    sendSuccess(res, await service.listPanelLinks(waveId ?? undefined));
   } catch (err) { next(err); }
 });
 
@@ -60,7 +60,7 @@ researchRouter.post('/datasets/:id/release', requirePermission('warehouse:releas
   validate({ params: datasetIdParam }), async (req, res, next) => {
   try {
     const user = getUser(req);
-    sendSuccess(res, await service.releaseDataset(req.params.id, user.userId, getCtx(req)));
+    sendSuccess(res, await service.releaseDataset(req.params.id!, user.userId, getCtx(req)));
   } catch (err) { next(err); }
 });
 
@@ -68,7 +68,7 @@ researchRouter.post('/datasets/:id/request', requirePermission('research:request
   validate({ params: datasetIdParam, body: dataRequestSchema }), async (req, res, next) => {
   try {
     const user = getUser(req);
-    sendCreated(res, await service.createDataRequest(req.params.id, req.body, user.userId, getCtx(req)));
+    sendCreated(res, await service.createDataRequest(req.params.id!, req.body, user.userId, getCtx(req)));
   } catch (err) { next(err); }
 });
 
@@ -76,7 +76,7 @@ researchRouter.post('/datasets/:id/download', requirePermission('research:downlo
   validate({ params: datasetIdParam }), async (req, res, next) => {
   try {
     const user = getUser(req);
-    sendSuccess(res, await service.downloadResearchDataset(req.params.id, user.userId));
+    sendSuccess(res, await service.downloadResearchDataset(req.params.id!, user.userId));
   } catch (err) { next(err); }
 });
 
@@ -87,6 +87,6 @@ researchRouter.get('/requests', requirePermission('warehouse:read'), async (_req
 researchRouter.post('/requests/:id/approve', requirePermission('warehouse:release'), async (req, res, next) => {
   try {
     const user = getUser(req);
-    sendSuccess(res, await service.approveRequest(req.params.id, user.userId, getCtx(req)));
+    sendSuccess(res, await service.approveRequest(req.params.id!, user.userId, getCtx(req)));
   } catch (err) { next(err); }
 });

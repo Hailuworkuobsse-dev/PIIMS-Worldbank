@@ -29,7 +29,8 @@ export async function getSystemHealth(): Promise<SystemHealthDTO> {
   })();
 
   checks.push(checkPromise);
-  const [{ db, dbLatency, redisLatency, queueDepth }] = await Promise.all(checks);
+  const results = await Promise.all(checks);
+  const { db, redisLatency, queueDepth } = results[0]!;
 
   const since24h = new Date(Date.now() - 24 * 3600 * 1000);
 

@@ -10,7 +10,7 @@ export function startReportWorker(): ReturnType<typeof registerWorker> {
   const worker = registerWorker<{ reportId: string }>(
     QUEUE_NAMES.REPORTS,
     async (job) => {
-      const { reportId } = job.data;
+      const { reportId } = job.data as { reportId: string };
       logger.info({ reportId, jobId: job.id }, 'report job started');
       await processReportJob(reportId);
       return { reportId, ok: true };
@@ -19,5 +19,5 @@ export function startReportWorker(): ReturnType<typeof registerWorker> {
   );
 
   logger.info('report worker registered');
-  return worker;
+  return worker as ReturnType<typeof registerWorker>;
 }

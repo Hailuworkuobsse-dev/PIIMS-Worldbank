@@ -3,7 +3,6 @@ import { randomBytes } from 'node:crypto';
 import { prisma } from '@/lib/prisma.js';
 import { hashPassword } from '@/lib/password.js';
 import { writeAudit } from '@/lib/audit.js';
-import { sha256 } from '@/utils/crypto.js';
 import {
   BadRequestError, ConflictError, ForbiddenError, NotFoundError, ValidationError
 } from '@/lib/errors.js';

@@ -1,6 +1,6 @@
 import { Prisma } from '@prisma/client';
 import { prisma } from '@/lib/prisma.js';
-import { parsePagination, buildPaginationMeta, decodeCursor } from '@/utils/pagination.js';
+import { parsePagination, decodeCursor } from '@/utils/pagination.js';
 import type { AuditLogDTO } from './admin.types.js';
 import type { ListAuditQuery } from './admin.schemas.js';
 
@@ -27,8 +27,7 @@ export async function listAuditLogs(
   if (query.q) {
     filters.push({
       OR: [
-        { entity: { contains: query.q } },
-        { entityId: { contains: query.q } }
+        { entity: { contains: query.q } }
       ]
     });
   }

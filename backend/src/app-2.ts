@@ -1,3 +1,1 @@
-app.set('json replacer', (_key: string, value: unknown) =>
-  typeof value === 'bigint' ? value.toString() : value
-);
+// Fragment — not used in build

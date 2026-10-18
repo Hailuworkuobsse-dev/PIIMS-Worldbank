@@ -88,7 +88,7 @@ export const httpMetrics = {
   requestDuration(labels: { method: string; route: string; status: string }, durationMs: number) {
     metrics.histogram('piims_http_request_duration_ms', 'HTTP request duration in ms', durationMs, labels);
   },
-  activeRequests(delta: number) {
+  activeRequests(_delta: number) {
     // Simple gauge without labels — track with a shared counter
   }
 };

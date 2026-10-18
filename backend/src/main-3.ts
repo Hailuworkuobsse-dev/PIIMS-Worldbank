@@ -1,2 +1,1 @@
-  // Start BullMQ workers
-  const reportWorker = startReportWorker();
+// Fragment — not used in build

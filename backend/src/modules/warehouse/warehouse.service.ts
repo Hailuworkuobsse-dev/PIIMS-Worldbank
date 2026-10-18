@@ -144,7 +144,7 @@ export async function anonymizeWave(
   const headers = lines[0]!.split(',');
   const records: RawRecord[] = lines.slice(1).map((line) => {
     const values = parseCsvLine(line);
-    const record: RawRecord = {};
+    const record: RawRecord = { panelId: '' };
     headers.forEach((h, i) => { record[h] = values[i] ?? null; });
     return record as RawRecord;
   });
