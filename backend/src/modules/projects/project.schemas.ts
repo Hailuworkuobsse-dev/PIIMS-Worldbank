@@ -17,7 +17,7 @@ const financingLineSchema = z.object({
   referenceNo: z.string().max(50).optional().or(z.literal(''))
 });
 
-const locationSchema = z.object({
+export const locationSchema = z.object({
   region: z.string().trim().min(1, 'Region is required').max(100),
   zone: z.string().trim().max(100).optional().or(z.literal('')),
   woreda: z.string().trim().max(100).optional().or(z.literal('')),

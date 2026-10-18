@@ -3,6 +3,10 @@ import type { ProjectStatus, ProjectSector, ImplArrangement } from '@prisma/clie
 /**
  * API shapes — match the frontend `Project`, `ProjectSummary`,
  * `ProjectLocation`, `FinancingLine`, `Money` types exactly.
+ *
+ * NOTE: this project compiles with `exactOptionalPropertyTypes: true`, so any
+ * optional property that may be assigned a possibly-undefined value must
+ * explicitly include `| undefined` in its type (e.g. `foo?: T | undefined`).
  */
 
 export interface MoneyDTO {
@@ -11,44 +15,44 @@ export interface MoneyDTO {
 }
 
 export interface ProjectLocationDTO {
-  locationId?: string;
+  locationId?: string | undefined;
   region: string;
-  zone?: string;
-  woreda?: string;
-  kebele?: string;
-  latitude?: number;
-  longitude?: number;
+  zone?: string | undefined;
+  woreda?: string | undefined;
+  kebele?: string | undefined;
+  latitude?: number | undefined;
+  longitude?: number | undefined;
 }
 
 export interface FinancingLineDTO {
   source: 'WORLD_BANK' | 'GOVERNMENT' | 'DBE' | 'OTHER';
   amount: string;
   currency: string;
-  referenceNo?: string;
+  referenceNo?: string | undefined;
 }
 
 export interface ProjectDTO {
   projectId: string;
   projectCode: string;
   name: string;
-  nameAm?: string;
-  description?: string;
+  nameAm?: string | undefined;
+  description?: string | undefined;
   sector: ProjectSector;
-  subsector?: string;
+  subsector?: string | undefined;
   status: ProjectStatus;
-  stageGate?: string;
+  stageGate?: string | undefined;
   ownerOrgId: string;
-  ownerOrgName?: string;
-  location?: ProjectLocationDTO;
+  ownerOrgName?: string | undefined;
+  location?: ProjectLocationDTO | undefined;
   totalBudget: MoneyDTO;
-  wbCreditNo?: string;
-  approvalDate?: string;
-  startDate?: string;
-  endDate?: string;
-  actualStart?: string;
-  actualEnd?: string;
-  implementationArrangement?: ImplArrangement;
-  financingSource?: FinancingLineDTO[];
+  wbCreditNo?: string | undefined;
+  approvalDate?: string | undefined;
+  startDate?: string | undefined;
+  endDate?: string | undefined;
+  actualStart?: string | undefined;
+  actualEnd?: string | undefined;
+  implementationArrangement?: ImplArrangement | undefined;
+  financingSource?: FinancingLineDTO[] | undefined;
   createdAt: string;
   updatedAt: string;
   version: number;
@@ -61,13 +65,13 @@ export interface ProjectSummaryDTO {
   sector: ProjectSector;
   status: ProjectStatus;
   totalBudget: MoneyDTO;
-  startDate?: string;
-  endDate?: string;
+  startDate?: string | undefined;
+  endDate?: string | undefined;
   createdAt: string;
   updatedAt: string;
-  ownerOrgName?: string;
-  region?: string;
-  progressPct?: number;
+  ownerOrgName?: string | undefined;
+  region?: string | undefined;
+  progressPct?: number | undefined;
 }
 
 export interface StageAdvanceDTO {
