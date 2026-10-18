@@ -55,9 +55,16 @@ describe('updateProjectSchema', () => {
   });
 
   it('accepts partial updates with version', () => {
+    // name must satisfy the same min(3) rule as create (e.g. "Solar")
+    expect(
+      updateProjectSchema.safeParse({ version: 1, name: 'Solar' }).success
+    ).toBe(true);
+  });
+
+  it('rejects a too-short name on update', () => {
     expect(
       updateProjectSchema.safeParse({ version: 1, name: 'X' }).success
-    ).toBe(true);
+    ).toBe(false);
   });
 });
 
