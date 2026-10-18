@@ -2257,3 +2257,38 @@ model CostPerOutputRow {
 
   @@map("cost_per_output_rows")
 }
+// ═══════════════════════════════════════════════════════════════════════════
+//  INFRASTRUCTURE — MySQL-backed job queue & idempotency store
+//  (replaces the former Redis / BullMQ dependency)
+// ═══════════════════════════════════════════════════════════════════════════
+
+model Job {
+  jobId       String    @id @default(uuid()) @db.Char(36)
+  queue       String    @db.VarChar(50)
+  name        String    @db.VarChar(100)
+  payload     Json?
+  status      String    @default("WAITING") @db.VarChar(20) // WAITING | ACTIVE | DELAYED | COMPLETED | FAILED
+  attemptsMade Int      @default(0)
+  maxAttempts Int       @default(3)
+  runAfter    DateTime  @default(now())
+  startedAt   DateTime?
+  finishedAt  DateTime?
+  error       String?   @db.Text
+  externalId  String?   @unique @db.VarChar(191)
+
+  createdAt DateTime @default(now())
+
+  @@index([queue, status, runAfter])
+  @@map("jobs")
+}
+
+model IdempotencyKey {
+  key       String   @id @db.VarChar(191)
+  response  String   @db.LongText
+  expiresAt DateTime
+
+  createdAt DateTime @default(now())
+
+  @@index([expiresAt])
+  @@map("idempotency_keys")
+}
