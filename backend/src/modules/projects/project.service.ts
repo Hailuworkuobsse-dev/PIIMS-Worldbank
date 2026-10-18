@@ -8,7 +8,6 @@ import type {
   ListProjectsQuery,
 } from "./project.schemas.js";
 import type {
-  FinancingLineDTO,
   ProjectDTO,
   ProjectSummaryDTO,
   StageAdvanceDTO,
@@ -108,8 +107,12 @@ function toProjectDTO(project: ProjectWithRelations): ProjectDTO {
       : {}),
     ...(project.financingSource
       ? {
-          financingSource:
-            project.financingSource as unknown as FinancingLineDTO[],
+          // Derive the element type from ProjectDTO itself so this mapper
+          // never depends on a separately-imported DTO name (previously
+          // referenced an un-imported `FinancingLineDTO` → TS2304).
+          financingSource: project.financingSource as unknown as NonNullable<
+            ProjectDTO["financingSource"]
+          >,
         }
       : {}),
     createdAt: project.createdAt.toISOString(),
