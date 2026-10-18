@@ -8,6 +8,7 @@ import type {
   ListProjectsQuery,
 } from "./project.schemas.js";
 import type {
+  FinancingLineDTO,
   ProjectDTO,
   ProjectSummaryDTO,
   StageAdvanceDTO,
