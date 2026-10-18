@@ -1,8 +1,8 @@
 import { z } from 'zod';
-import { AnonLevel, DatasetFormat } from '@prisma/client';
+import { AnonLevel } from '@prisma/client';
 
 const anonValues = Object.values(AnonLevel) as [AnonLevel, ...AnonLevel[]];
-const formatValues = Object.values(DatasetFormat) as [DatasetFormat, ...DatasetFormat[]];
+const formatValues = ['CSV', 'STATA', 'SPSS', 'R', 'PARQUET', 'EXCEL'] as const;
 
 export const anonymizeSchema = z.object({
   waveId: z.string().uuid('Select a wave'),
