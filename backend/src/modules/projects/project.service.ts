@@ -8,6 +8,7 @@ import type {
   ListProjectsQuery,
 } from "./project.schemas.js";
 import type {
+  FinancingLineDTO,
   ProjectDTO,
   ProjectSummaryDTO,
   StageAdvanceDTO,
@@ -105,14 +106,12 @@ function toProjectDTO(project: ProjectWithRelations): ProjectDTO {
     ...(project.implementationArrangement
       ? { implementationArrangement: project.implementationArrangement }
       : {}),
-    ...(project.financingSource
+    ...(Array.isArray(project.financingSource) &&
+    project.financingSource.length > 0
       ? {
-          // Derive the element type from ProjectDTO itself so this mapper
-          // never depends on a separately-imported DTO name (previously
-          // referenced an un-imported `FinancingLineDTO` → TS2304).
-          financingSource: project.financingSource as unknown as NonNullable<
-            ProjectDTO["financingSource"]
-          >,
+          // Prisma returns this column as Json (JsonArray); narrow it to the
+          // DTO shape via `unknown` since the direct cast doesn't overlap.
+          financingSource: project.financingSource as unknown as FinancingLineDTO[],
         }
       : {}),
     createdAt: project.createdAt.toISOString(),
