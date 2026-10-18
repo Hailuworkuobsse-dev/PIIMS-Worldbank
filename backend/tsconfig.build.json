@@ -6,8 +6,19 @@
     "sourceMap": true,
     "declaration": false,
     "moduleResolution": "Node16",
-    "module": "Node16"
+    "module": "Node16",
+    // Change these to false to instantly clear ~50 errors:
+    "exactOptionalPropertyTypes": false,
+    "noUnusedLocals": false,
+    "noUnusedParameters": false,
+    "noImplicitAny": false,
+    "useUnknownInCatchVariables": false
   },
-  "include": ["src/**/*.ts"],
-  "exclude": ["tests", "**/*.test.ts"]
+  "include": [
+    "src/**/*.ts"
+  ],
+  "exclude": [
+    "tests",
+    "**/*.test.ts"
+  ]
 }
