@@ -9,8 +9,8 @@ export interface FileUploadProps {
   multiple?: boolean;
   onFiles: (files: File[]) => void;
   files?: File[];
-  error?: string;
-  hint?: string;
+  error?: string | undefined;
+  hint?: string | undefined;
   required?: boolean;
 }
 
