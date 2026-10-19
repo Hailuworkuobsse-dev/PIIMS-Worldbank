@@ -8,6 +8,8 @@ import { LoadingState } from "@/components/ui/LoadingState";
 const LoginPage = lazy(() => import("@/features/auth/LoginPage"));
 const LandingPage = lazy(() => import("@/pages/LandingPage"));
 const DashboardPage = lazy(() => import("@/pages/DashboardPage"));
+const RoleHomePage = lazy(() => import("@/pages/RoleHomePage"));
+const FirstLoginPage = lazy(() => import("@/features/auth/FirstLoginPage"));
 const NotFoundPage = lazy(() => import("@/pages/NotFoundPage"));
 
 /* Projects (M2) */
@@ -114,7 +116,9 @@ export function AppRouter() {
 
         {/* ---- Protected ---- */}
         <Route element={<RequireAuth />}>
-          <Route path="/dashboard" element={<DashboardPage />} />
+          <Route path="/home" element={<RoleHomePage />} />
+          <Route path="/first-login" element={<FirstLoginPage />} />
+          <Route path="/dashboard" element={<Navigate to="/home" replace />} />
 
           {/* Projects */}
           <Route element={<RequirePermission perm={PERMISSIONS.projectRead} />}>
