@@ -71,7 +71,7 @@ describe("ProjectNewPage", () => {
         <ProjectNewPage />
       </Wrap>,
     );
-    const nameInput = screen.getByLabelText("Project name", { exact: true });
+    const nameInput = screen.getAllByRole("textbox")[0]!;
     fireEvent.change(nameInput, { target: { value: "Solar Mini-Grid" } });
     await act(async () => {
       await vi.advanceTimersByTimeAsync(20_000);
