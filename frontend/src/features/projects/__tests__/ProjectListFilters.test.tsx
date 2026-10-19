@@ -17,9 +17,9 @@ describe("ProjectListFilters", () => {
         onChange={onChange}
       />,
     );
-    const input = screen.getByLabelText(/Search by code or name/i);
-    await userEvent.setup({ delay: null }).type(input, "solar");
-    vi.advanceTimersByTime(350);
+    const input = screen.getByLabelText(/Search/i);
+    await userEvent.setup({ delay: null, advanceTimers: vi.advanceTimersByTime }).type(input, "solar");
+    await vi.advanceTimersByTimeAsync(350);
     expect(onChange).toHaveBeenCalledWith({ q: "solar" });
     vi.useRealTimers();
   });
