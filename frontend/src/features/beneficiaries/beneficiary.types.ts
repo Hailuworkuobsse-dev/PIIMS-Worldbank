@@ -107,22 +107,22 @@ export interface ServiceDelivery {
 }
 
 export interface BeneficiaryFilters {
-  q?: string;
-  region?: string;
-  woreda?: string;
-  status?: BeneficiaryStatus[];
-  gender?: Gender[];
-  registeredFrom?: string;
-  registeredTo?: string;
-  limit?: number;
-  cursor?: string;
+  q?: string | undefined;
+  region?: string | undefined;
+  woreda?: string | undefined;
+  status?: BeneficiaryStatus[] | undefined;
+  gender?: Gender[] | undefined;
+  registeredFrom?: string | undefined;
+  registeredTo?: string | undefined;
+  limit?: number | undefined;
+  cursor?: string | undefined;
 }
 
 export interface ServiceDeliveryFilters {
-  projectId?: string;
-  supplierId?: string;
-  status?: DeliveryStatus[];
-  q?: string;
-  limit?: number;
-  cursor?: string;
+  projectId?: string | undefined;
+  supplierId?: string | undefined;
+  status?: DeliveryStatus[] | undefined;
+  q?: string | undefined;
+  limit?: number | undefined;
+  cursor?: string | undefined;
 }
