@@ -112,6 +112,14 @@ export const useAuthStore = create<AuthState>()(
             });
             return true;
           } catch {
+            set({
+              user: null,
+              accessToken: null,
+              refreshToken: null,
+              expiresAt: null,
+              refreshExpiresAt: null,
+            });
+            bc?.postMessage({ type: "session:clear", at: Date.now() });
             return false;
           } finally {
             set({ refreshing: null });
