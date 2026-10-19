@@ -204,9 +204,13 @@ export async function refresh(refreshToken: string, context: LoginContext): Prom
   const scope = buildScopeClaim(user.role.scope, user.org.level) as ScopeClaim;
   const access = signAccessToken(user.userId, user.username, user.orgId, user.role.code, permissions, scope, stored.mfaVerified);
   const newRefresh = signRefreshToken(user.userId);
-  await prisma.$transaction([
-    prisma.refreshToken.updateMany({ where: { tokenId: stored.tokenId, revokedAt: null }, data: { revokedAt: new Date() } }),
-    prisma.refreshToken.create({
+  await prisma.$transaction(async (tx) => {
+    const revoked = await tx.refreshToken.updateMany({
+      where: { tokenId: stored.tokenId, revokedAt: null },
+      data: { revokedAt: new Date() }
+    });
+    if (revoked.count !== 1) throw new UnauthorizedError('Refresh token has already been used');
+    await tx.refreshToken.create({
       data: {
         userId: user.userId,
         tokenHash: sha256(newRefresh.token),
@@ -215,8 +219,8 @@ export async function refresh(refreshToken: string, context: LoginContext): Prom
         ipAddress: context.ipAddress,
         userAgent: context.userAgent
       }
-    })
-  ]);
+    });
+  });
   return {
     access_token: access.token,
     refresh_token: newRefresh.token,
