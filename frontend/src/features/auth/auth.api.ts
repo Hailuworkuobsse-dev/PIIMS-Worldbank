@@ -29,9 +29,9 @@ export const authApi = {
 
   async refresh(
     refreshToken: string,
-  ): Promise<{ access_token: string; expires_in: number }> {
+  ): Promise<{ access_token: string; refresh_token: string; expires_in: number; refresh_expires_in: number }> {
     const { data } = await api.post<
-      ApiEnvelope<{ access_token: string; expires_in: number }>
+      ApiEnvelope<{ access_token: string; refresh_token: string; expires_in: number; refresh_expires_in: number }>
     >(
       "/auth/refresh",
       { refresh_token: refreshToken },
@@ -47,6 +47,23 @@ export const authApi = {
   async me(): Promise<AuthUser> {
     const { data } = await api.get<ApiEnvelope<AuthUser>>("/auth/me");
     return data.data;
+  },
+
+  async changePassword(oldPassword: string, newPassword: string): Promise<void> {
+    await api.post("/auth/change-password", { old_password: oldPassword, new_password: newPassword });
+  },
+
+  async setupMfa(): Promise<{ secret: string; qrUri: string }> {
+    const { data } = await api.post<ApiEnvelope<{ secret: string; qrUri: string }>>("/auth/mfa/setup");
+    return data.data;
+  },
+
+  async enableMfa(code: string): Promise<void> {
+    await api.post("/auth/mfa/enable", { mfa_code: code });
+  },
+
+  async acceptPolicy(policyVersion: string): Promise<void> {
+    await api.post("/auth/consent", { policy_version: policyVersion });
   },
 
   async requestPasswordReset(email: string): Promise<void> {
