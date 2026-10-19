@@ -71,7 +71,4 @@ export const authApi = {
     return data.data;
   },
 
-  async requestPasswordReset(email: string): Promise<void> {
-    await api.post("/auth/password-reset", { email });
-  },
 };
