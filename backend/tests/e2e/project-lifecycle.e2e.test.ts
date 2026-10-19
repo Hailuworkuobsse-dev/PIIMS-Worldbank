@@ -132,7 +132,7 @@ describe('E2E — Project Lifecycle', () => {
       .set('X-Idempotency-Key', idemKey)
       .send(body);
 
-    const res2 = await request(app)
+    await request(app)
       .post('/v1/projects')
       .set('Authorization', auth)
       .set('X-Idempotency-Key', idemKey)

@@ -1,6 +1,5 @@
 import { Router } from 'express';
 import { prisma } from '@/lib/prisma.js';
-import { redis } from '@/config/redis.js';
 import { sendSuccess } from '@/lib/response.js';
 import { env } from '@/config/env.js';
 
@@ -21,19 +20,13 @@ healthRouter.get('/readyz', async (_req, res, next) => {
     await prisma.$queryRaw`SELECT 1`;
     const dbLatency = Date.now() - dbStart;
 
-    // Redis ping
-    const redisStart = Date.now();
-    await redis.ping();
-    const redisLatency = Date.now() - redisStart;
-
     sendSuccess(res, {
       status: 'healthy',
       version: '2.0.0',
       env: env.NODE_ENV,
       uptime: process.uptime(),
       dependencies: {
-        database: { status: 'up', latencyMs: dbLatency },
-        redis: { status: 'up', latencyMs: redisLatency }
+        database: { status: 'up', latencyMs: dbLatency }
       },
       totalLatencyMs: Date.now() - start
     });

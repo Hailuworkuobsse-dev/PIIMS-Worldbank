@@ -1,16 +1,37 @@
-import { redis } from '@/config/redis.js';
+import { prisma } from '@/lib/prisma.js';
 import { logger } from '@/config/logger.js';
 
 const PREFIX = 'idem:ext:';
-const DEFAULT_TTL = 86_400 * 7; // 7 days
+const DEFAULT_TTL_MS = 86_400_000 * 7; // 7 days
+
+async function readKey<T>(key: string): Promise<T | null> {
+  const row = await prisma.idempotencyKey.findUnique({ where: { key: key } });
+  if (!row) return null;
+  if (row.expiresAt < new Date()) return null;
+  return JSON.parse(row.response) as T;
+}
+
+async function writeKey(key: string, value: unknown, ttlMs: number): Promise<void> {
+  await prisma.idempotencyKey.upsert({
+    where: { key: key },
+    create: {
+      key: key,
+      response: JSON.stringify(value),
+      expiresAt: new Date(Date.now() + ttlMs)
+    },
+    update: {
+      response: JSON.stringify(value),
+      expiresAt: new Date(Date.now() + ttlMs)
+    }
+  });
+}
 
 export async function getIdempotencyKey<T>(
   integrationCode: string,
   referenceId: string
 ): Promise<T | null> {
   try {
-    const raw = await redis.get(`${PREFIX}${integrationCode}:${referenceId}`);
-    return raw ? (JSON.parse(raw) as T) : null;
+    return await readKey<T>(`${PREFIX}${integrationCode}:${referenceId}`);
   } catch {
     return null;
   }
@@ -20,15 +41,10 @@ export async function saveIdempotencyKey<T>(
   integrationCode: string,
   referenceId: string,
   result: T,
-  ttl = DEFAULT_TTL
+  ttlMs = DEFAULT_TTL_MS
 ): Promise<void> {
   try {
-    await redis.set(
-      `${PREFIX}${integrationCode}:${referenceId}`,
-      JSON.stringify(result),
-      'EX',
-      ttl
-    );
+    await writeKey(`${PREFIX}${integrationCode}:${referenceId}`, result, ttlMs);
   } catch (err) {
     logger.warn({ err: (err as Error).message, integrationCode, referenceId }, 'idempotency save failed');
   }

@@ -63,7 +63,7 @@ describe('toCsv', () => {
   });
 
   it('escapes commas and quotes', () => {
-    const csv = toCsv([{ a: 'hello, world', b: 'she said "hi"' }]);
+    const csv = toCsv([{ panelId: 'p1', a: 'hello, world', b: 'she said "hi"' }]);
     expect(csv).toContain('"hello, world"');
     expect(csv).toContain('"she said ""hi"""');
   });

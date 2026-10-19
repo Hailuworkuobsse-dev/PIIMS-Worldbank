@@ -70,9 +70,15 @@ describe("canAccessProject", () => {
     ).toBe(false);
   });
 
-  it("creator can access even without matching geography", () => {
+  it('creator can access even without matching geography', () => {
     expect(
       canAccessProject({ orgLevel: "REGIONAL", regions: ["Amhara"] }, "org-x", "user-1", project)
     ).toBe(true);
+  });
+
+  it("non-creator in a non-matching geography cannot access", () => {
+    expect(
+      canAccessProject({ orgLevel: "REGIONAL", regions: ["Amhara"] }, "org-x", "user-x", project)
+    ).toBe(false);
   });
 });
