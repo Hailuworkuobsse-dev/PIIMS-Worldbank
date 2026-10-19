@@ -1,5 +1,4 @@
 import { useEffect, useMemo, useRef, useState } from "react";
-import { useNavigate } from "react-router-dom";
 import {
   ChevronLeft,
   ChevronRight,
@@ -48,7 +47,6 @@ export function CapiRenderer({
   onExit,
 }: CapiRendererProps) {
   const { t } = useTranslation();
-  const navigate = useNavigate();
   const { push } = useToast();
   const online = useSyncStore((s) => s.online);
   const submitMutation = useSubmitInterview();
@@ -334,6 +332,7 @@ export function CapiRenderer({
       consent,
       answers: submissionAnswers,
       paradata: Object.values(paradata),
+      status: "SUBMITTED",
     };
 
     try {
@@ -349,7 +348,7 @@ export function CapiRenderer({
     } catch {
       // Failsafe: still queue it locally
       await offlineStore.enqueue(submission);
-      push("warn", "Sync failed — saved to offline queue");
+      push("warning", "Sync failed — saved to offline queue");
       setPhase("complete");
       setTimeout(() => onExit(), 1500);
     }

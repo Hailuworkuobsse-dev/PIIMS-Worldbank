@@ -39,7 +39,13 @@ export function useRequestAccess() {
   const qc = useQueryClient();
   const { push } = useToast();
   return useMutation({
-    mutationFn: ({ datasetId, payload }: { datasetId: string; payload: any }) =>
+    mutationFn: ({
+      datasetId,
+      payload,
+    }: {
+      datasetId: string;
+      payload: Parameters<typeof warehouseApi.requestAccess>[1];
+    }) =>
       warehouseApi.requestAccess(datasetId, payload),
     onSuccess: () => {
       qc.invalidateQueries({ queryKey: warehouseKeys.requests() });

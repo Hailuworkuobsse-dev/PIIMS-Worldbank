@@ -1,9 +1,5 @@
 import { z } from "zod";
-import {
-  PROCUREMENT_METHODS,
-  PROCUREMENT_STATUSES,
-  CONTRACT_STATUSES,
-} from "./procurement.types";
+import { PROCUREMENT_METHODS, CONTRACT_STATUSES } from "./procurement.types";
 
 export const procurementFormSchema = z.object({
   projectId: z.string().uuid("Select a project"),

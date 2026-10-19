@@ -1,0 +1,59 @@
+{
+  "grievance": {
+    "title": "Grievances",
+    "records": "grievance records",
+    "intake": "New grievance",
+    "empty": "No grievances in this column",
+    "clear": "Clear filters",
+    "status": {
+      "open": "Open",
+      "in_progress": "In progress",
+      "resolved": "Resolved",
+      "closed": "Closed",
+      "escalated": "Escalated"
+    },
+    "category": {
+      "service_quality": "Service quality",
+      "delay": " التأخير",
+      "payment": "Payment",
+      "safeguards": "Safeguards",
+      "conduct": "Conduct",
+      "other": "Other"
+    },
+    "form": {
+      "title": "Record grievance",
+      "submit": "Submit",
+      "project": "Project",
+      "noProject": "No project",
+      "category": "Category",
+      "subcategory": "Subcategory",
+      "severity": "Severity",
+      "description": "Description",
+      "channel": "Channel",
+      "anonymous": "Anonymous complaint",
+      "beneficiaryId": "Beneficiary UUID (optional)"
+    },
+    "actions": {
+      "assign": "Assign",
+      "assignCta": "Assign grievance",
+      "resolve": "Resolve",
+      "resolveCta": "Resolve",
+      "resolution": "Resolution",
+      "escalate": "Escalate",
+      "escalateCta": "Escalate",
+      "history": "Action history",
+      "noHistory": "No actions recorded yet."
+    },
+    "sla": {
+      "title": "SLA at risk",
+      "subtitle": "{{count}} grievance(s) due within 3 days or overdue"
+    },
+    "analytics": {
+      "total": "Total",
+      "open": "Open",
+      "overdue": "Overdue",
+      "avgDays": "Avg resolution",
+      "byCategory": "By category"
+    }
+  }
+}

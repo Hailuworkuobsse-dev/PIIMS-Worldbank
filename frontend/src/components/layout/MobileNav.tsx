@@ -1,18 +1,7 @@
 import { useEffect } from "react";
 import { NavLink, useLocation } from "react-router-dom";
 import { useTranslation } from "react-i18next";
-import {
-  LayoutDashboard,
-  FolderKanban,
-  Target,
-  Menu as MenuIcon,
-  X,
-  TrendingUp,
-  Users,
-  BarChart3,
-  Wallet,
-  Search,
-} from "lucide-react";
+import { LayoutDashboard, FolderKanban, Menu as MenuIcon, X, TrendingUp, Users, Search } from "lucide-react";
 import { useUIStore } from "@/stores/ui.store";
 import { usePermissions } from "@/features/auth/usePermissions";
 import { PERMISSIONS } from "@/features/auth/auth.types";
@@ -116,14 +105,24 @@ export function MobileNav() {
       {mobileNavOpen && (
         <div
           className="md:hidden fixed inset-0 z-50 bg-neutral-900/55"
-          onClick={() => setMobileNavOpen(false)}
-          role="dialog"
-          aria-modal="true"
-          aria-label={t("shell.openMenu")}
+          role="presentation"
+          onClick={(e) => {
+            // close only when the backdrop itself is clicked
+            if (e.target === e.currentTarget) setMobileNavOpen(false);
+          }}
+          onKeyDown={(e) => {
+            if (e.key === "Escape") {
+              // document-level listener also handles Escape — avoid double-calling
+              e.stopPropagation();
+              setMobileNavOpen(false);
+            }
+          }}
         >
           <div
             className="absolute right-0 top-0 bottom-0 w-[88vw] max-w-sm bg-white shadow-lg flex flex-col"
-            onClick={(e) => e.stopPropagation()}
+            role="dialog"
+            aria-modal="true"
+            aria-label={t("shell.openMenu")}
           >
             <header className="flex items-center justify-between px-4 h-14 border-b border-neutral-300">
               <span className="text-h3 text-primary-900">PIIMS</span>

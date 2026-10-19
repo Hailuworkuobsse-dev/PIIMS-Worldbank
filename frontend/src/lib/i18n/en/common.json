@@ -34,13 +34,13 @@
     "results": "Results Framework",
     "financial": "Financial",
     "procurement": "Procurement",
-    "supplier": "Supplier Portal",
     "beneficiaries": "Beneficiaries",
     "impact": "Impact",
-    "research": "Research",
     "reports": "Reports",
     "admin": "Administration",
     "audit": "Audit",
+    "supplier": "Supplier Portal",
+    "research": "Research",
     "map": "Map",
     "documents": "Documents",
     "grievances": "Grievances",
@@ -109,5 +109,12 @@
   },
   "dashboard": {
     "greeting": "Welcome, {{name}}"
+  },
+  "syncConflict": {
+    "merge": "Merge",
+    "subtitle": "Subtitle",
+    "title": "Title",
+    "useLocal": "Use Local",
+    "useRemote": "Use Remote"
   }
 }

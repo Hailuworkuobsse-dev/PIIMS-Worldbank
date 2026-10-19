@@ -1,4 +1,3 @@
-import { useState } from "react";
 import { useTranslation } from "react-i18next";
 import { Download, History, RotateCcw } from "lucide-react";
 import { useDocumentVersions } from "./document.queries";

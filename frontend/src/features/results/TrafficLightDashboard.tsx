@@ -1,15 +1,12 @@
-import { useTranslation } from "react-i18next";
 import { Card, CardHeader } from "@/components/ui/Card";
 import { TrafficLight } from "@/components/ui/TrafficLight";
 import type { Indicator, TrafficLightStatus } from "./results.types";
-import { trafficLightLabelKey } from "./results.utils";
 
 export function TrafficLightDashboard({
   indicators,
 }: {
   indicators: Indicator[];
 }) {
-  const { t } = useTranslation();
   const counts: Record<TrafficLightStatus, number> = {
     ON_TRACK: 0,
     AT_RISK: 0,

@@ -1,24 +1,5 @@
 import type { LucideIcon } from "lucide-react";
-import {
-  LayoutDashboard,
-  FolderKanban,
-  Target,
-  Wallet,
-  ShoppingCart,
-  Users,
-  BarChart3,
-  FileText,
-  Settings,
-  ShieldCheck,
-  Bell,
-  Database,
-  ClipboardList,
-  Map,
-  Gavel,
-  TrendingUp,
-  Microscope,
-  Cog,
-} from "lucide-react";
+import { LayoutDashboard, FolderKanban, Target, Wallet, ShoppingCart, Users, BarChart3, FileText, ShieldCheck, Bell, Map, Gavel, TrendingUp, Microscope, Cog } from "lucide-react";
 import { PERMISSIONS, type Permission } from "@/features/auth/auth.types";
 
 export interface MenuItem {

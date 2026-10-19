@@ -4,6 +4,8 @@ import type {
   SurveyVersion,
 } from "@/features/survey/survey.types";
 
+export type { Question };
+
 export interface Collector {
   collectorId: string;
   userId: string;

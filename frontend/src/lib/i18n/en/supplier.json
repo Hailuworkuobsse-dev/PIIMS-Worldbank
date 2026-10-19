@@ -1,0 +1,81 @@
+{
+  "supplier": {
+    "title": "Supplier portal",
+    "subtitle": "Manage your contracts, deliveries, invoices, and payments",
+    "actions": {
+      "uploadInvoice": "Upload invoice"
+    },
+    "tabs": {
+      "contracts": "Contracts",
+      "deliveries": "Deliveries",
+      "warranties": "Warranties",
+      "payments": "Payments",
+      "profile": "Profile"
+    },
+    "kpi": {
+      "activeContracts": "Active contracts",
+      "totalValue": "Total value",
+      "pendingDeliveries": "Pending deliveries",
+      "paidAmount": "Paid"
+    },
+    "contracts": {
+      "title": "My contracts",
+      "empty": "No contracts assigned yet"
+    },
+    "deliveries": {
+      "title": "Deliveries",
+      "subtitle": "Submit delivery records against your contracts",
+      "add": "New delivery",
+      "empty": "No deliveries submitted yet",
+      "formTitle": "Submit delivery",
+      "formHint": "All fields are audited. Capture GPS at installation site for verification.",
+      "fields": {
+        "contract": "Contract",
+        "product": "Product",
+        "serialNo": "Serial number",
+        "quantity": "Quantity",
+        "installDate": "Install date",
+        "warrantyMonths": "Warranty (months)",
+        "gps": "GPS location"
+      },
+      "captureGps": "Capture GPS",
+      "gpsRecaptured": "Recapture GPS"
+    },
+    "invoices": {
+      "title": "Invoices",
+      "uploadTitle": "Upload invoice",
+      "upload": "Upload",
+      "fields": {
+        "contract": "Contract",
+        "invoiceNo": "Invoice number",
+        "amount": "Amount",
+        "currency": "Currency",
+        "file": "Invoice file"
+      }
+    },
+    "warranties": {
+      "title": "Warranty register",
+      "empty": "No warranty records"
+    },
+    "payments": {
+      "title": "Payment status",
+      "subtitle": "Read-only view of payments to your organization",
+      "empty": "No payments yet"
+    },
+    "profile": {
+      "title": "Company profile",
+      "subtitle": "Maintain your organization's details",
+      "fields": {
+        "name": "Company name",
+        "nameAm": "Company name (Amharic)",
+        "tin": "TIN",
+        "licenseNo": "Business licence",
+        "category": "Category",
+        "contactPerson": "Contact person",
+        "contactEmail": "Contact email",
+        "contactPhone": "Contact phone",
+        "address": "Address"
+      }
+    }
+  }
+}

@@ -12,7 +12,6 @@ import { Drawer } from "@/components/ui/Drawer";
 import { LoadingState } from "@/components/ui/LoadingState";
 import { EmptyState } from "@/components/ui/EmptyState";
 import { Progress } from "@/components/ui/Progress";
-import { useToast } from "@/components/ui/Toast";
 import { useReviewFlag } from "./qa.mutations";
 import { QA_SEVERITIES, type QAFlag, type QASeverity } from "./qa.types";
 import { formatDate } from "@/lib/utils/date";
@@ -27,7 +26,6 @@ const SEVERITY_TONE: Record<QASeverity, any> = {
 export default function QAPage() {
   const { t } = useTranslation();
   const { can } = usePermissions();
-  const { push } = useToast();
   const [severity, setSeverity] = useState<QASeverity | "ALL">("ALL");
   const [selected, setSelected] = useState<QAFlag | null>(null);
   const [notes, setNotes] = useState("");
@@ -271,13 +269,13 @@ export default function QAPage() {
                 <div>
                   <label className="block text-caption font-semibold text-primary-900 mb-1">
                     Notes
+                    <textarea
+                      className="mt-1 w-full rounded-md border border-neutral-300 p-2 text-body-sm font-normal"
+                      rows={2}
+                      value={notes}
+                      onChange={(e) => setNotes(e.target.value)}
+                    />
                   </label>
-                  <textarea
-                    className="w-full rounded-md border border-neutral-300 p-2 text-body-sm"
-                    rows={2}
-                    value={notes}
-                    onChange={(e) => setNotes(e.target.value)}
-                  />
                 </div>
                 <div className="grid grid-cols-3 gap-2">
                   <Button

@@ -1,0 +1,17 @@
+{
+  "survey": {
+    "form": {
+      "code": "Code",
+      "type": "Type",
+      "text": "Question text",
+      "textAm": "Question text (Amharic)",
+      "hint": "Hint / constraint",
+      "required": "Required"
+    },
+    "skipForm": {
+      "condition": "Condition",
+      "action": "Action",
+      "target": "Target question"
+    }
+  }
+}

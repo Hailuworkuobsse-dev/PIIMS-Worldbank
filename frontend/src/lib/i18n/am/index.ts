@@ -18,6 +18,7 @@ import warehouse from "./warehouse.json";
 import analytics from "./analytics.json";
 import admin from "./admin.json";
 import reports from "./reports.json";
+import research from "./research.json";
 
 export const am = {
   ...common,
@@ -40,4 +41,5 @@ export const am = {
   ...analytics,
   ...admin,
   ...reports,
+  ...research,
 };

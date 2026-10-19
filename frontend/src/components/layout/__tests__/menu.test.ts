@@ -11,9 +11,14 @@ describe("menu.config", () => {
   });
 
   it("every child route starts with parent path", () => {
+    // routes grouped under a menu parent for navigation but mounted top-level
+    const CROSS_LINKED = new Set(["/pipeline", "/services", "/inception"]);
     for (const item of MENU) {
       for (const c of item.children ?? []) {
-        expect(c.to.startsWith(item.to === "/" ? "/" : item.to)).toBe(true);
+        expect(
+          CROSS_LINKED.has(c.to) ||
+            c.to.startsWith(item.to === "/" ? "/" : item.to),
+        ).toBe(true);
       }
     }
   });

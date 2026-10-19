@@ -1,4 +1,5 @@
 import { forwardRef, type ButtonHTMLAttributes, type ReactNode } from "react";
+import { Loader2 } from "lucide-react";
 import { cn } from "./utils/cn";
 
 export interface IconButtonProps extends ButtonHTMLAttributes<HTMLButtonElement> {
@@ -6,6 +7,7 @@ export interface IconButtonProps extends ButtonHTMLAttributes<HTMLButtonElement>
   icon: ReactNode;
   size?: "sm" | "md" | "lg";
   variant?: "ghost" | "solid";
+  loading?: boolean;
 }
 
 const sizeCls = {
@@ -25,6 +27,8 @@ export const IconButton = forwardRef<HTMLButtonElement, IconButtonProps>(
       icon,
       size = "md",
       variant = "ghost",
+      loading = false,
+      disabled,
       className,
       type = "button",
       ...rest
@@ -37,6 +41,8 @@ export const IconButton = forwardRef<HTMLButtonElement, IconButtonProps>(
         type={type}
         aria-label={label}
         title={label}
+        aria-busy={loading || undefined}
+        disabled={disabled || loading}
         className={cn(
           "inline-flex items-center justify-center rounded-md transition-colors",
           "focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-info focus-visible:ring-offset-2",
@@ -47,7 +53,9 @@ export const IconButton = forwardRef<HTMLButtonElement, IconButtonProps>(
         )}
         {...rest}
       >
-        <span aria-hidden>{icon}</span>
+        <span aria-hidden>
+          {loading ? <Loader2 className="h-4 w-4 animate-spin" /> : icon}
+        </span>
       </button>
     );
   },

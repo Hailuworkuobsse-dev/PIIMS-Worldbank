@@ -1,11 +1,9 @@
 import { useState } from "react";
-import { useForm } from "react-hook-form";
 import { useTranslation } from "react-i18next";
 import { Shield, Eye } from "lucide-react";
 import { Card, CardHeader } from "@/components/ui/Card";
 import { Button } from "@/components/ui/Button";
 import { Select } from "@/components/ui/Select";
-import { Input } from "@/components/ui/Input";
 import { Checkbox } from "@/components/ui/Checkbox";
 import { Chip } from "@/components/ui/Chip";
 import { Modal } from "@/components/ui/Modal";
@@ -74,8 +72,6 @@ export function AnonymizationConfig() {
   const [waveId, setWaveId] = useState("");
   const [config, setConfig] = useState<AnonConfig>(DEFAULT_ANON_CONFIG);
   const [previewOpen, setPreviewOpen] = useState(false);
-
-  const { register } = useForm();
 
   const onRun = async () => {
     if (!waveId) return;

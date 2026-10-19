@@ -2,7 +2,6 @@
   "projects": {
     "title": "Projects",
     "subtitle": "{{count}} projects · {{active}} active · {{pipeline}} in pipeline",
-    "registered": "projects registered",
     "actions": {
       "new": "New project",
       "import": "Bulk import",
@@ -147,6 +146,7 @@
       "subtitle": "Projects by stage gate",
       "emptyColumn": "No projects",
       "columnCount": "{{count}} project(s)"
-    }
+    },
+    "registered": "projects registered"
   }
 }

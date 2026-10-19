@@ -8,7 +8,6 @@ import type {
   ReviewDecisionInput,
   NoObjectionInput,
   ReportVersionSummary,
-  ReportStatus,
 } from "./inception.types";
 
 interface Envelope<T> {

@@ -1,0 +1,9 @@
+{
+  "analytics": {
+    "did": {
+      "title": "Treatment vs control",
+      "subtitle": "Difference-in-differences analysis",
+      "noData": "Select an indicator to run DiD analysis"
+    }
+  }
+}

@@ -11,9 +11,8 @@ describe("Input", () => {
 
   it("marks required with asterisk", () => {
     render(<Input label="Email" required />);
-    expect(screen.getByLabelText(/Email/).closest("div")).toHaveTextContent(
-      "*",
-    );
+    // the required asterisk lives inside the <label>
+    expect(screen.getByText(/Email/)).toHaveTextContent("*");
   });
 
   it("associates hint text", () => {

@@ -1,5 +1,5 @@
-import { describe, it, expect, vi } from "vitest";
-import { render, screen, act } from "@testing-library/react";
+import { describe, it, expect, vi, afterEach } from "vitest";
+import { render, screen, act, fireEvent } from "@testing-library/react";
 import userEvent from "@testing-library/user-event";
 import { ToastProvider, useToast } from "../Toast";
 
@@ -25,6 +25,10 @@ function renderWithProvider() {
 }
 
 describe("Toast", () => {
+  afterEach(() => {
+    vi.useRealTimers();
+  });
+
   it("shows success toast", async () => {
     renderWithProvider();
     await userEvent.click(screen.getByRole("button", { name: "Save" }));
@@ -40,9 +44,8 @@ describe("Toast", () => {
   it("auto-dismisses after duration", async () => {
     vi.useFakeTimers();
     renderWithProvider();
-    await userEvent
-      .setup({ delay: null })
-      .click(screen.getByRole("button", { name: "Save" }));
+    // fireEvent is synchronous — userEvent's async internals deadlock on fake timers
+    fireEvent.click(screen.getByRole("button", { name: "Save" }));
     expect(screen.getByText("Saved successfully")).toBeVisible();
     act(() => {
       vi.advanceTimersByTime(5500);
@@ -54,9 +57,7 @@ describe("Toast", () => {
   it("does NOT auto-dismiss when duration is 0", async () => {
     vi.useFakeTimers();
     renderWithProvider();
-    await userEvent
-      .setup({ delay: null })
-      .click(screen.getByRole("button", { name: "Sticky" }));
+    fireEvent.click(screen.getByRole("button", { name: "Sticky" }));
     expect(screen.getByText("Loading")).toBeVisible();
     act(() => {
       vi.advanceTimersByTime(30000);

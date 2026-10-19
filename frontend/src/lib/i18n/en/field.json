@@ -1,0 +1,8 @@
+{
+  "field": {
+    "title": "Field collection",
+    "empty": "No assignments",
+    "emptyHint": "Your supervisor will assign interviews to you.",
+    "required": "This question is required"
+  }
+}

@@ -1,9 +1,6 @@
 import { useState } from "react";
 import { useTranslation } from "react-i18next";
 import {
-  FileText,
-  FileSpreadsheet,
-  FileDown,
   PlayCircle,
   Download,
   RefreshCw,
@@ -13,7 +10,7 @@ import {
   useReportInstances,
   useReportSchedules,
 } from "./report.queries";
-import { useGenerateReport, useDeleteSchedule } from "./report.mutations";
+import { useDeleteSchedule } from "./report.mutations";
 import { reportApi } from "./report.api";
 import { usePermissions } from "@/features/auth/usePermissions";
 import { PERMISSIONS } from "@/features/auth/auth.types";

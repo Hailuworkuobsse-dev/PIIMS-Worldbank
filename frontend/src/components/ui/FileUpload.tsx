@@ -1,5 +1,5 @@
 import { useId, useRef, useState, type DragEvent } from "react";
-import { UploadCloud, X } from "lucide-react";
+import { UploadCloud } from "lucide-react";
 import { cn } from "./utils/cn";
 
 export interface FileUploadProps {
@@ -7,7 +7,7 @@ export interface FileUploadProps {
   accept?: string;
   maxSizeMB?: number;
   multiple?: boolean;
-  onFiles: (files: File[]) => void;
+  onFiles?: (files: File[]) => void;
   files?: File[];
   error?: string;
   hint?: string;
@@ -42,7 +42,7 @@ export function FileUpload({
 
   const handle = (fs: File[]) => {
     const ok = validate(fs);
-    if (ok.length) onFiles(ok);
+    if (ok.length) onFiles?.(ok);
   };
 
   const onDrop = (e: DragEvent<HTMLLabelElement>) => {

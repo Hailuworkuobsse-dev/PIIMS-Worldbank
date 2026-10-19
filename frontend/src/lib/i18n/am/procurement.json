@@ -1,0 +1,15 @@
+{
+  "procurement": {
+    "title": "ግዥ",
+    "actions": {
+      "newLine": "አዲስ መስመር",
+      "newContract": "አዲስ ውል"
+    },
+    "tabs": {
+      "plan": "እቅድ",
+      "timeline": "የጊዜ መስመር",
+      "contracts": "ውሎች",
+      "performance": "አፈጻጸም"
+    }
+  }
+}

@@ -6,7 +6,6 @@ import type { Budget } from "./financial.types";
 
 export function BudgetRegister({
   budgets,
-  currency,
 }: {
   budgets: Budget[];
   currency: string;

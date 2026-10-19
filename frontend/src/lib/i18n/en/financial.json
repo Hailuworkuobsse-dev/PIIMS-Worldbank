@@ -1,0 +1,94 @@
+{
+  "financial": {
+    "title": "Financial",
+    "kpi": {
+      "appropriation": "Appropriation",
+      "released": "Released",
+      "expended": "Expended",
+      "executionRate": "Execution rate"
+    },
+    "burn": {
+      "title": "Burn rate",
+      "released": "Released",
+      "expended": "Expended",
+      "committed": "Committed"
+    },
+    "execution": {
+      "title": "Execution gauge",
+      "subtitle": "Expenditure vs appropriation"
+    },
+    "exceptions": {
+      "title": "Exceptions",
+      "none": "No exceptions"
+    },
+    "budget": {
+      "title": "Budget register",
+      "form": {
+        "title": "Add budget line",
+        "component": "Component",
+        "wholeProject": "Whole project",
+        "fiscalYear": "Fiscal year",
+        "currency": "Currency",
+        "appropriation": "Appropriation",
+        "notes": "Notes"
+      }
+    },
+    "tabs": {
+      "budget": "Budget",
+      "byComponent": "By component",
+      "costPerOutput": "Cost per output",
+      "disbursements": "Disbursements"
+    },
+    "byComponent": {
+      "title": "Execution by component"
+    },
+    "costPerOutput": {
+      "title": "Cost per output",
+      "subtitle": "Expenditure divided by indicator output"
+    },
+    "disbursements": {
+      "title": "Disbursements",
+      "hint": "View and manage all disbursements.",
+      "add": "Record disbursement",
+      "empty": "No disbursements yet",
+      "form": {
+        "title": "Record disbursement",
+        "project": "Project",
+        "source": "Source",
+        "category": "Category",
+        "amount": "Amount",
+        "currency": "Currency",
+        "valueDate": "Value date",
+        "referenceNo": "Reference number",
+        "status": "Status",
+        "warning": "Disbursements are audited. Ensure accuracy before saving."
+      },
+      "status": {
+        "planned": "Planned",
+        "requested": "Requested",
+        "approved": "Approved",
+        "disbursed": "Disbursed",
+        "reconciled": "Reconciled",
+        "rejected": "Rejected"
+      }
+    },
+    "fmis": {
+      "title": "FMIS synchronization",
+      "subtitle": "Integration with Ministry of Finance IFMIS",
+      "syncNow": "Sync now",
+      "lastSync": "Last sync",
+      "schedule": "Schedule",
+      "actions": "Manual actions",
+      "history": "Sync history"
+    },
+    "actions": {
+      "viewFmis": "View FMIS sync",
+      "export": "Export CSV",
+      "addBudget": "Add budget",
+      "viewAll": "View all"
+    },
+    "filters": {
+      "clear": "Clear filters"
+    }
+  }
+}

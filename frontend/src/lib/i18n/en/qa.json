@@ -1,0 +1,31 @@
+{
+  "qa": {
+    "title": "Data quality",
+    "subtitle": "Review flags, scorecards, and high-frequency checks",
+    "empty": "No flags to review",
+    "tabs": {
+      "flags": "Flag queue",
+      "scorecards": "Collector scorecards",
+      "hfc": "HFC dashboard"
+    },
+    "rules": {
+      "deleteConfirmMessage": "Delete Confirm Message",
+      "deleteConfirmTitle": "Delete Confirm Title",
+      "empty": "Empty",
+      "emptyHint": "Empty Hint",
+      "form": {
+        "active": "Active",
+        "code": "Code",
+        "createTitle": "Create Title",
+        "editTitle": "Edit Title",
+        "name": "Name",
+        "severity": "Severity",
+        "threshold": "Threshold",
+        "type": "Type"
+      },
+      "new": "New",
+      "subtitle": "Subtitle",
+      "title": "Title"
+    }
+  }
+}

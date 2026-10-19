@@ -92,8 +92,9 @@ describe("computeDiD", () => {
       [3050, 3150, 3050, 3150, 3050],
       [3800, 3900, 3700, 3800, 3800],
     );
+    // control mean: 3090 -> 3800 = +710; DiD = 2100 - 710 = 1390
     expect(result.treatmentChange).toBeCloseTo(2100, -1);
-    expect(result.controlChange).toBeCloseTo(700, -1);
-    expect(result.did).toBeCloseTo(1400, -1);
+    expect(result.controlChange).toBeCloseTo(710);
+    expect(result.did).toBeCloseTo(1390);
   });
 });

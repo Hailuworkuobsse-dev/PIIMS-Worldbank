@@ -38,8 +38,8 @@ describe("DataGrid", () => {
     const budgetHeader = screen.getByRole("button", { name: /Budget/i });
     await userEvent.click(budgetHeader);
     const cells = screen.getAllByRole("cell");
-    // first data cell should be Bravo (smallest) after asc sort
-    const firstRowFirstCell = cells[2]; // header row consumes cells[0..]
+    expect(cells.length).toBeGreaterThan(0);
+    // first data row should be Bravo (smallest) after asc sort
     expect(screen.getAllByRole("row")[1]).toHaveTextContent("Bravo");
   });
 

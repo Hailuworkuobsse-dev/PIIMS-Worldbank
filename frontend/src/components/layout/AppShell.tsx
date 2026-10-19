@@ -1,8 +1,9 @@
-import { useEffect } from "react";
+import { useEffect, useReducer } from "react";
 import { Outlet, useNavigate, useLocation } from "react-router-dom";
 import { useTranslation } from "react-i18next";
 import { useKeyboardShortcuts } from "@/features/auth/useKeyboardShortcut";
 import { useUIStore } from "@/stores/ui.store";
+import { useSyncStore } from "@/stores/sync.store";
 import { useAuthStore } from "@/stores/auth.store";
 import { PERMISSIONS } from "@/features/auth/auth.types";
 import { usePermissions } from "@/features/auth/usePermissions";
@@ -160,11 +161,11 @@ function OfflineBanner() {
 }
 
 function useSyncStoreOnline() {
-  // Local import to avoid a circular dependency in the layout folder
-  const { online } = require("@/stores/sync.store").useSyncStore.getState();
-  // Simple subscription via a re-render on window events (Step 1 already wires the store)
-  const [, force] = require("react").useReducer((n: number) => n + 1, 0);
-  require("react").useEffect(() => {
+  // Zustand subscription keeps `online` fresh; the window listeners below are
+  // a belt-and-braces re-render trigger for edge cases (e.g. tab restore).
+  const online = useSyncStore((s) => s.online);
+  const [, force] = useReducer((n: number) => n + 1, 0);
+  useEffect(() => {
     const on = () => force();
     window.addEventListener("online", on);
     window.addEventListener("offline", on);

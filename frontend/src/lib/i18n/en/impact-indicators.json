@@ -1,0 +1,37 @@
+{
+  "impactIndicators": {
+    "title": "Impact indicators",
+    "indicators": "indicators",
+    "new": "New indicator",
+    "composite": "Composite index",
+    "filterByDomain": "Filter by domain",
+    "empty": "No impact indicators yet",
+    "emptyHint": "Define the first impact indicator to begin.",
+    "form": {
+      "domain": "Domain",
+      "code": "Code",
+      "name": "Name",
+      "nameAm": "Name (Amharic)",
+      "description": "Description",
+      "unit": "Unit",
+      "direction": "Direction",
+      "method": "Measurement method",
+      "disagg": "Disaggregation dimensions",
+      "standardRef": "Standard reference",
+      "effectiveFrom": "Effective from"
+    },
+    "compositeForm": {
+      "name": "Index name",
+      "normalization": "Normalization",
+      "aggregation": "Aggregation",
+      "components": "Components",
+      "create": "Create composite"
+    },
+    "waveForm": {
+      "title": "Assign to wave",
+      "wave": "Wave",
+      "target": "Target value",
+      "required": "Required in this wave"
+    }
+  }
+}

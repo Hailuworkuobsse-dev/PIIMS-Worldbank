@@ -10,7 +10,6 @@
     "noUnusedParameters": true,
     "noFallthroughCasesInSwitch": true,
     "noImplicitOverride": true,
-    "exactOptionalPropertyTypes": true,
     "useDefineForClassFields": true,
     "resolveJsonModule": true,
     "isolatedModules": true,
@@ -27,5 +26,5 @@
       "vite-plugin-pwa/client"
     ]
   },
-  "include": ["src", "tests", "vite.config.ts", "tailwind.config.ts"]
+  "include": ["src", "tests", "vite.config.ts", "vitest.config.ts", "tailwind.config.ts"]
 }

@@ -1,0 +1,50 @@
+{
+  "procurement": {
+    "title": "Procurement",
+    "empty": "No procurement lines yet",
+    "actions": {
+      "newLine": "New plan line",
+      "newContract": "New contract"
+    },
+    "tabs": {
+      "plan": "Plan",
+      "timeline": "Timeline",
+      "contracts": "Contracts",
+      "performance": "Performance"
+    },
+    "timeline": {
+      "title": "Procurement timeline",
+      "subtitle": "Planned vs actual milestones"
+    },
+    "form": {
+      "title": "Add procurement line",
+      "component": "Component",
+      "wholeProject": "Whole project",
+      "planRef": "Plan reference",
+      "description": "Description",
+      "method": "Method",
+      "planDate": "Planned date",
+      "estimatedAmount": "Estimated amount",
+      "currency": "Currency"
+    },
+    "contracts": {
+      "title": "Contract register"
+    },
+    "contractForm": {
+      "title": "Title",
+      "procurement": "Procurement line",
+      "supplier": "Supplier",
+      "contractNo": "Contract number",
+      "amount": "Amount",
+      "currency": "Currency",
+      "status": "Status"
+    },
+    "delay": {
+      "title": "Procurement delays"
+    },
+    "performance": {
+      "title": "Supplier performance",
+      "subtitle": "Composite score from delivery timeliness and quality"
+    }
+  }
+}

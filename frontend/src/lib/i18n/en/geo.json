@@ -1,0 +1,34 @@
+{
+  "geo": {
+    "title": "Map",
+    "subtitle": "Geospatial view of beneficiaries and interventions",
+    "layers": {
+      "beneficiaries": "Beneficiaries",
+      "interventions": "Interventions",
+      "heatmap": "Heatmap"
+    },
+    "legend": {
+      "title": "Legend",
+      "registered": "Registered",
+      "verified": "Verified",
+      "intervention": "Intervention"
+    },
+    "stats": {
+      "title": "Statistics",
+      "beneficiaries": "Beneficiaries",
+      "interventions": "Interventions",
+      "view": "View bounds"
+    },
+    "picker": {
+      "useGps": "Use my current GPS"
+    },
+    "verify": {
+      "title": "Geo verification",
+      "subtitle": "Compare claimed location to mapped record",
+      "tolerance": "Tolerance (meters)",
+      "run": "Run verification",
+      "match": "Location verified (within {{distance}} m)",
+      "mismatch": "Outside tolerance ({{distance}} m)"
+    }
+  }
+}

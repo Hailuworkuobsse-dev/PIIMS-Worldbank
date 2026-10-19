@@ -36,13 +36,23 @@ export function Drawer({
   if (!open) return null;
 
   return createPortal(
-    <div className="fixed inset-0 z-50 flex" onClick={onClose}>
-      <div className="flex-1 bg-neutral-900/55" />
+    <div className="fixed inset-0 z-50 flex">
+      <div
+        className="flex-1 bg-neutral-900/55"
+        role="presentation"
+        onClick={onClose}
+        onKeyDown={(e) => {
+          if (e.key === "Escape") {
+            // document-level listener also handles Escape — avoid double-calling
+            e.stopPropagation();
+            onClose();
+          }
+        }}
+      />
       <aside
         role="dialog"
         aria-modal="true"
         aria-labelledby="drawer-title"
-        onClick={(e) => e.stopPropagation()}
         className={cn(
           "bg-white shadow-lg h-full w-full flex flex-col",
           width,

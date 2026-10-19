@@ -13,8 +13,7 @@ import { useAdvanceStage } from "./project.mutations";
 import { Modal } from "@/components/ui/Modal";
 import { Checkbox } from "@/components/ui/Checkbox";
 import { Textarea } from "@/components/ui/Textarea";
-import { Select } from "@/components/ui/Select";
-import { PROJECT_STATUSES, STAGE_ORDER, type Project } from "./project.types";
+import { STAGE_ORDER, type Project } from "./project.types";
 
 export function ProjectDetailHeader({ project }: { project: Project }) {
   const { t } = useTranslation();

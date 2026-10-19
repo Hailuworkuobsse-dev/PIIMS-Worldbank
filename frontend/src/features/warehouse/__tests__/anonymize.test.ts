@@ -83,6 +83,9 @@ describe("anonymize", () => {
       level: "L2",
       ageBracket: 5,
       locationGranularity: "ZONE",
+      // isolate bracketing/generalization from k-anonymity suppression
+      // (suppression is covered by its own tests below)
+      suppressionThreshold: 1,
     };
     const result = anonymize(sample, config);
     expect(result[0]!.age).toBeUndefined();
@@ -96,9 +99,13 @@ describe("anonymize", () => {
       ...DEFAULT_ANON_CONFIG,
       level: "L2",
       incomeTopCode: 50,
+      // isolate top-coding from k-anonymity suppression
+      suppressionThreshold: 1,
     };
     const result = anonymize(sample, config);
-    const sortedIncome = result.map((r) => r.income).sort((a, b) => a - b);
+    const sortedIncome = result
+      .map((r) => r.income ?? 0)
+      .sort((a, b) => a - b);
     // at least the highest value should be capped at some threshold
     expect(sortedIncome[sortedIncome.length - 1]).toBeLessThanOrEqual(8000);
   });

@@ -1,0 +1,25 @@
+{
+  "admin": {
+    "audit": {
+      "entries": "Entries",
+      "export": "Export",
+      "title": "Title"
+    },
+    "integrations": {
+      "subtitle": "Subtitle",
+      "title": "Title"
+    },
+    "manageIntegrations": "Manage Integrations",
+    "manageUsers": "Manage Users",
+    "openAuditLog": "Open Audit Log",
+    "subtitle": "Subtitle",
+    "title": "Title",
+    "users": {
+      "edit": "Edit",
+      "empty": "Empty",
+      "new": "New",
+      "title": "Title",
+      "total": "Total"
+    }
+  }
+}

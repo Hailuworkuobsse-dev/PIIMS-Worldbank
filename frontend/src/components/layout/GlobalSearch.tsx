@@ -140,13 +140,23 @@ export function GlobalSearch() {
   return createPortal(
     <div
       className="fixed inset-0 z-[400] flex items-start justify-center pt-[8vh] px-4 bg-neutral-900/55"
-      onClick={() => setSearchOpen(false)}
-      role="dialog"
-      aria-modal="true"
-      aria-label={t("shell.searchPlaceholder")}
+      role="presentation"
+      onClick={(e) => {
+        // close only when the backdrop itself is clicked
+        if (e.target === e.currentTarget) setSearchOpen(false);
+      }}
+      onKeyDown={(e) => {
+        if (e.key === "Escape") {
+          // document-level listener also handles Escape — avoid double-calling
+          e.stopPropagation();
+          setSearchOpen(false);
+        }
+      }}
     >
       <div
-        onClick={(e) => e.stopPropagation()}
+        role="dialog"
+        aria-modal="true"
+        aria-label={t("shell.searchPlaceholder")}
         className="w-full max-w-2xl rounded-lg bg-white shadow-lg border border-neutral-300 overflow-hidden"
       >
         {/* Search input */}

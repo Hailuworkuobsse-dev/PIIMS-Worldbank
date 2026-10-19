@@ -1,9 +1,4 @@
-import {
-  type HTMLAttributes,
-  type ReactNode,
-  type ThHTMLAttributes,
-  type TdHTMLAttributes,
-} from "react";
+import { type HTMLAttributes, type ThHTMLAttributes, type TdHTMLAttributes } from "react";
 import { cn } from "./utils/cn";
 
 export function Table({

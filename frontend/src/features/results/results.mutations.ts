@@ -45,7 +45,7 @@ export function useCreateSubcomponent(componentId: string) {
   });
 }
 
-export function useCreateIndicator(projectId: string) {
+export function useCreateIndicator() {
   const qc = useQueryClient();
   const { push } = useToast();
   return useMutation({

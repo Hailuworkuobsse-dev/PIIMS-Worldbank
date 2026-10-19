@@ -14,9 +14,10 @@ import { EmptyState } from "@/components/ui/EmptyState";
 import { LoadingState } from "@/components/ui/LoadingState";
 import { ConfirmDialog } from "@/components/ui/ConfirmDialog";
 import { QARuleFormModal } from "./QARuleFormModal";
-import { SEVERITIES, type QARule, type QASeverity } from "./qa.types";
+import type { ChipTone } from "@/components/ui/Chip";
+import { type QARule, type QASeverity } from "./qa.types";
 
-const SEVERITY_TONE: Record<QASeverity, any> = {
+const SEVERITY_TONE: Record<QASeverity, ChipTone> = {
   LOW: "grey",
   MEDIUM: "amber",
   HIGH: "red",

@@ -1,0 +1,37 @@
+{
+  "beneficiaries": {
+    "title": "ተጠቃሚዎች",
+    "register": "መዝግብ",
+    "filters": {
+      "search": "ፈልግ",
+      "region": "ክልል",
+      "status": "ሁኔታ"
+    },
+    "status": {
+      "registered": "ተመዝግቧል",
+      "verified": "ተረጋግጧል",
+      "active": "ንቁ",
+      "inactive": "የማይንቀሳቀስ",
+      "duplicate": "ተደጋጋሚ"
+    },
+    "form": {
+      "title": "ተጠቃሚ መዝግብ",
+      "section": {
+        "identity": "መለያ",
+        "location": "አካባቢ",
+        "consent": "ስምምነት"
+      },
+      "fullName": "ሙሉ ስም",
+      "gender": "ጾታ",
+      "phone": "ስልክ",
+      "consent": {
+        "participation": "በፕሮጀክቱ ለመሳተፍ ተስማምቷል",
+        "dataUse": "መረጃው ለክትትል እና ሪፖርት እንዲውል ተስማምቷል"
+      }
+    },
+    "deliveries": {
+      "title": "የአገልግሎት አቅርቦቶች",
+      "add": "አቅርቦት መዝግብ"
+    }
+  }
+}

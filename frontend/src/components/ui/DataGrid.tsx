@@ -3,7 +3,8 @@ import { ChevronDown, ChevronUp, ChevronsUpDown } from "lucide-react";
 import { cn } from "./utils/cn";
 
 export interface Column<T> {
-  id: keyof T & string;
+  /** Row field key, or a virtual id (e.g. "actions") for render-only columns */
+  id: (keyof T & string) | string;
   header: string;
   width?: string;
   align?: "left" | "right" | "center";

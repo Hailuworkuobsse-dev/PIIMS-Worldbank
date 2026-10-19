@@ -1,0 +1,33 @@
+{
+  "warehouse": {
+    "title": "Longitudinal warehouse",
+    "subtitle": "Panel-linked datasets across waves",
+    "anonymize": {
+      "addNoise": "Add Noise",
+      "ageBracket": "Age Bracket",
+      "ageBracketHint": "Age Bracket Hint",
+      "incomeTopCode": "Income Top Code",
+      "incomeTopCodeHint": "Income Top Code Hint",
+      "level": "Level",
+      "location": "Location",
+      "preview": "Preview",
+      "previewHint": "Preview Hint",
+      "previewTitle": "Preview Title",
+      "run": "Run",
+      "subtitle": "Subtitle",
+      "suppression": "Suppression",
+      "suppressionHint": "Suppression Hint",
+      "title": "Title",
+      "wave": "Wave"
+    },
+    "builder": {
+      "build": "Build",
+      "empty": "Empty",
+      "modalTitle": "Modal Title",
+      "subtitle": "Subtitle",
+      "title": "Title",
+      "warning": "Warning",
+      "wave": "Wave"
+    }
+  }
+}

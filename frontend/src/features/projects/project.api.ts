@@ -6,8 +6,8 @@ import type {
   ProjectFilters,
   StageAdvanceRequest,
   ProjectHistoryEntry,
-  CreateProjectInput,
 } from "./project.types";
+import type { CreateProjectInput } from "./project.schema";
 
 interface Envelope<T> {
   data: T;

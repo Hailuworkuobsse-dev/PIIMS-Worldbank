@@ -55,7 +55,6 @@ interface XlsForm {
 
 export function parseXlsForm(xls: XlsForm): Section[] {
   const sections: Section[] = [];
-  const questionsByGroup: Record<string, Question[]> = {};
   const choicesByList: Record<string, QuestionOption[]> = {};
 
   // Pre-index choices

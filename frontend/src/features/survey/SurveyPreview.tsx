@@ -41,6 +41,8 @@ export function SurveyPreview({ survey }: { survey: Survey }) {
                     q.type === "NUMERIC" ||
                     q.type === "DECIMAL" ? (
                       <Input
+                        label={q.text}
+                        hideLabel
                         value={String(answers[q.code] ?? "")}
                         onChange={(e) =>
                           setAnswers({ ...answers, [q.code]: e.target.value })
@@ -48,6 +50,8 @@ export function SurveyPreview({ survey }: { survey: Survey }) {
                       />
                     ) : q.type === "DATE" ? (
                       <Input
+                        label={q.text}
+                        hideLabel
                         type="date"
                         value={String(answers[q.code] ?? "")}
                         onChange={(e) =>
@@ -99,7 +103,12 @@ export function SurveyPreview({ survey }: { survey: Survey }) {
                         ))}
                       </div>
                     ) : (
-                      <Input disabled placeholder={q.type} />
+                      <Input
+                        label={q.text}
+                        hideLabel
+                        disabled
+                        placeholder={q.type}
+                      />
                     )}
                   </div>
                 ))}

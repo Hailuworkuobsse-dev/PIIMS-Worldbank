@@ -1,0 +1,20 @@
+{
+  "grievance": {
+    "title": "ቅሬታዎች",
+    "intake": "አዲስ ቅሬታ",
+    "status": {
+      "open": "ክፍት",
+      "in_progress": "በሂደት ላይ",
+      "resolved": "ተፈትቷል",
+      "closed": "ተዘግቷል",
+      "escalated": "ወደ ላይ ተላልፏል"
+    },
+    "category": {
+      "service_quality": "የአገልግሎት ጥራት",
+      "payment": "ክፍያ",
+      "safeguards": "ጥበቃ",
+      "conduct": "ምግባር",
+      "other": "ሌላ"
+    }
+  }
+}

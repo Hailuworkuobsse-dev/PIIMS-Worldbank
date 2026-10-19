@@ -69,14 +69,24 @@ export function Modal({
   return createPortal(
     <div
       className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-neutral-900/55"
-      onClick={onClose}
+      role="presentation"
+      onClick={(e) => {
+        // close only when the backdrop itself is clicked
+        if (e.target === e.currentTarget) onClose();
+      }}
+      onKeyDown={(e) => {
+        if (e.key === "Escape") {
+          // document-level listener also handles Escape — avoid double-calling
+          e.stopPropagation();
+          onClose();
+        }
+      }}
     >
       <div
         ref={dialogRef}
         role="dialog"
         aria-modal="true"
         aria-labelledby="modal-title"
-        onClick={(e) => e.stopPropagation()}
         className={cn(
           "w-full rounded-lg bg-white shadow-lg max-h-[90vh] flex flex-col",
           sizes[size],

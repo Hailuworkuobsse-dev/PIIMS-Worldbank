@@ -1,6 +1,6 @@
 import { useParams, useNavigate } from "react-router-dom";
 import { useTranslation } from "react-i18next";
-import { ArrowLeft, MapPin, Phone, User } from "lucide-react";
+import { ArrowLeft, MapPin, User } from "lucide-react";
 import { useBeneficiary } from "./beneficiary.queries";
 import { usePermissions } from "@/features/auth/usePermissions";
 import { PERMISSIONS } from "@/features/auth/auth.types";

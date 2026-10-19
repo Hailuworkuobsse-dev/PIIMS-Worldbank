@@ -1,5 +1,4 @@
-import { useEffect, useState } from "react";
-import { useTranslation } from "react-i18next";
+import { useCallback, useEffect, useState } from "react";
 import { RefreshCw } from "lucide-react";
 import { offlineStore } from "./offlineStore";
 import { fieldApi } from "./field.api";
@@ -10,7 +9,6 @@ import { Chip } from "@/components/ui/Chip";
 import { useToast } from "@/components/ui/Toast";
 
 export function SyncQueue() {
-  const { t } = useTranslation();
   const { push } = useToast();
   const online = useSyncStore((s) => s.online);
   const setPending = useSyncStore((s) => s.setPending);
@@ -20,18 +18,18 @@ export function SyncQueue() {
   >([]);
   const [syncing, setSyncing] = useState(false);
 
-  const refresh = async () => {
+  const refresh = useCallback(async () => {
     const q = await offlineStore.listQueue();
     setQueue(q);
     setPending(q.length);
-  };
+  }, [setPending]);
 
   useEffect(() => {
     void refresh();
-  }, []);
+  }, [refresh]);
   useEffect(() => {
     if (online) void refresh();
-  }, [online]);
+  }, [online, refresh]);
 
   const sync = async () => {
     setSyncing(true);

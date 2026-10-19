@@ -29,7 +29,6 @@ export function ReportGenerateModal({
   const {
     register,
     handleSubmit,
-    formState: { errors },
     reset,
   } = useForm<GenerateReportFormData>({
     resolver: zodResolver(generateReportSchema),

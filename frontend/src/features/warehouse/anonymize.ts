@@ -23,16 +23,8 @@ export interface RawRecord {
   kebele?: string;
   gpsLat?: number;
   gpsLon?: number;
-  [key: string]: any;
+  [key: string]: unknown;
 }
-
-const DIRECT_ID_FIELDS = [
-  "beneficiaryName",
-  "phone",
-  "nationalId",
-  "gpsLat",
-  "gpsLon",
-];
 
 /**
  * Deterministic pseudonym generator for L1+.

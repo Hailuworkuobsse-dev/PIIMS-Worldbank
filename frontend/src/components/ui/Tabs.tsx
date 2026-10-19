@@ -23,17 +23,20 @@ export function Tabs({
   const [active, setActive] = useState(defaultTab ?? tabs[0]?.id);
 
   const onKey = (e: React.KeyboardEvent, idx: number) => {
-    if (e.key === "ArrowRight") {
-      e.preventDefault();
-      const next = tabs[(idx + 1) % tabs.length]!;
-      setActive(next.id);
-      onChange?.(next.id);
-    } else if (e.key === "ArrowLeft") {
-      e.preventDefault();
-      const prev = tabs[(idx - 1 + tabs.length) % tabs.length]!;
-      setActive(prev.id);
-      onChange?.(prev.id);
+    if (e.key !== "ArrowRight" && e.key !== "ArrowLeft") return;
+    e.preventDefault();
+    const dir = e.key === "ArrowRight" ? 1 : -1;
+    let next = idx;
+    for (let i = 0; i < tabs.length; i++) {
+      next = (next + dir + tabs.length) % tabs.length;
+      if (!tabs[next]!.disabled) break;
     }
+    const nextTab = tabs[next]!;
+    if (nextTab.disabled) return;
+    setActive(nextTab.id);
+    onChange?.(nextTab.id);
+    // roving tabindex: focus follows selection (ARIA tabs pattern)
+    document.getElementById(`${uid}-tab-${nextTab.id}`)?.focus();
   };
 
   return (

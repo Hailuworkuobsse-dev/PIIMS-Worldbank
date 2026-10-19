@@ -1,14 +1,7 @@
 import { useMemo, useState } from "react";
 import { useSearchParams } from "react-router-dom";
 import { useTranslation } from "react-i18next";
-import {
-  Plus,
-  FileText,
-  FileSpreadsheet,
-  FileImage,
-  FileArchive,
-  Download,
-} from "lucide-react";
+import { Plus, FileText, FileSpreadsheet, FileImage, FileArchive } from "lucide-react";
 import { useDocuments } from "./document.queries";
 import { usePermissions } from "@/features/auth/usePermissions";
 import { PERMISSIONS } from "@/features/auth/auth.types";
