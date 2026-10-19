@@ -109,9 +109,8 @@ export async function login(
 
   if (requiresMfa) {
     if (!user.mfaEnabled) {
-      throw new ForbiddenError(
-        'MFA is required for your role but not yet enabled. Contact your administrator.'
-      );
+      // This short-lived onboarding session can only reach password/MFA setup endpoints.
+      return completeLogin(user, false, context, true);
     }
 
     // Issue short-lived MFA challenge token
@@ -191,59 +190,41 @@ export async function verifyMfaAndLogin(
 export async function refresh(refreshToken: string, context: LoginContext): Promise<RefreshResponse> {
   const payload = verifyRefreshToken(refreshToken);
   const tokenHash = sha256(refreshToken);
-
-  const stored = await prisma.refreshToken.findUnique({
-    where: { tokenHash }
-  });
-
-  if (!stored || stored.revokedAt) {
-    throw new UnauthorizedError('Refresh token has been revoked');
-  }
-
-  if (stored.expiresAt < new Date()) {
-    throw new UnauthorizedError('Refresh token expired');
-  }
-
-  if (stored.userId !== payload.sub) {
-    throw new UnauthorizedError('Token subject mismatch');
-  }
+  const stored = await prisma.refreshToken.findUnique({ where: { tokenHash } });
+  if (!stored || stored.revokedAt) throw new UnauthorizedError('Refresh token has been revoked');
+  if (stored.expiresAt < new Date()) throw new UnauthorizedError('Refresh token expired');
+  if (stored.userId !== payload.sub) throw new UnauthorizedError('Token subject mismatch');
 
   const user = await prisma.user.findUnique({
-    where: { userId: payload.sub },
-    include: { org: true, role: true }
+    where: { userId: payload.sub }, include: { org: true, role: true }
   });
+  if (!user || user.status !== 'ACTIVE') throw new UnauthorizedError('User not found or inactive');
 
-  if (!user || user.status !== 'ACTIVE') {
-    throw new UnauthorizedError('User not found or inactive');
-  }
-
-  // Rotate: revoke old, issue new
-  await prisma.refreshToken.update({
-    where: { tokenId: stored.tokenId },
-    data: { revokedAt: new Date() }
-  });
-
+  const permissions = parsePermissions(user.role.permissions);
+  const scope = buildScopeClaim(user.role.scope, user.org.level) as ScopeClaim;
+  const access = signAccessToken(user.userId, user.username, user.orgId, user.role.code, permissions, scope, user.mfaEnabled);
   const newRefresh = signRefreshToken(user.userId);
-
-  await prisma.refreshToken.create({
-    data: {
-      userId: user.userId,
-      tokenHash: sha256(newRefresh.token),
-      expiresAt: new Date(Date.now() + newRefresh.expiresIn * 1000),
-      ipAddress: context.ipAddress,
-      userAgent: context.userAgent
-    }
-  });
-
+  await prisma.$transaction([
+    prisma.refreshToken.updateMany({ where: { tokenId: stored.tokenId, revokedAt: null }, data: { revokedAt: new Date() } }),
+    prisma.refreshToken.create({
+      data: {
+        userId: user.userId,
+        tokenHash: sha256(newRefresh.token),
+        expiresAt: new Date(Date.now() + newRefresh.expiresIn * 1000),
+        ipAddress: context.ipAddress,
+        userAgent: context.userAgent
+      }
+    })
+  ]);
   return {
-    access_token: newRefresh.token,
+    access_token: access.token,
     refresh_token: newRefresh.token,
-    expires_in: newRefresh.expiresIn,
+    expires_in: access.expiresIn,
     refresh_expires_in: newRefresh.expiresIn
   };
 }
 
-/* ════════════════════════════════════════════════════════════════════
+══
  * Logout
  * ════════════════════════════════════════════════════════════════════ */
 
@@ -338,6 +319,18 @@ export async function changePassword(
   });
 }
 
+export async function acceptPolicy(userId: string, policyVersion: string, context: LoginContext): Promise<void> {
+  await prisma.user.update({
+    where: { userId },
+    data: { acceptedPolicyVersion: policyVersion, acceptedPolicyAt: new Date() }
+  });
+  await writeAudit({
+    userId, entity: 'USER', entityId: userId, action: 'UPDATE',
+    newValue: { acceptedPolicyVersion: policyVersion, acceptedPolicyAt: new Date().toISOString() },
+    ipAddress: context.ipAddress, userAgent: context.userAgent, correlationId: context.correlationId
+  });
+}
+
 /* ════════════════════════════════════════════════════════════════════
  * MFA setup / enable / disable
  * ════════════════════════════════════════════════════════════════════ */
@@ -375,10 +368,10 @@ export async function enableMfa(userId: string, code: string, context: LoginCont
     throw new BadRequestError('Invalid MFA code');
   }
 
-  await prisma.user.update({
-    where: { userId },
-    data: { mfaEnabled: true }
-  });
+  await prisma.$transaction([
+    prisma.user.update({ where: { userId }, data: { mfaEnabled: true } }),
+    prisma.refreshToken.updateMany({ where: { userId, revokedAt: null }, data: { revokedAt: new Date() } })
+  ]);
 
   await writeAudit({
     userId,
@@ -396,7 +389,7 @@ export async function disableMfa(userId: string, password: string, context: Logi
   const user = await prisma.user.findUnique({ where: { userId } });
   if (!user) throw new UnauthorizedError('User not found');
 
-  if (roleRequiresMfa(user.roleId)) {
+  if (roleRequiresMfa(user.role.code)) {
     throw new ForbiddenError('MFA is required for your role and cannot be disabled');
   }
 
@@ -435,6 +428,9 @@ type FullUser = {
   mfaEnabled: boolean;
   status: string;
   lastLoginAt: Date | null;
+  passwordChangedAt?: Date | null;
+  acceptedPolicyVersion?: string | null;
+  acceptedPolicyAt?: Date | null;
   locale: string;
   role: { code: string; name: string; scope: string; permissions: unknown };
   org: { orgId: string; name: string; level: string };
@@ -443,7 +439,8 @@ type FullUser = {
 async function completeLogin(
   user: FullUser,
   mfa: boolean,
-  context: LoginContext
+  context: LoginContext,
+  mfaSetupRequired = false
 ): Promise<LoginResponse> {
   const permissions = parsePermissions(user.role.permissions);
   const scope = buildScopeClaim(user.role.scope, user.org.level) as ScopeClaim;
@@ -486,7 +483,8 @@ async function completeLogin(
     access_token: access.token,
     refresh_token: refresh.token,
     expires_in: access.expiresIn,
-    refresh_expires_in: refresh.expiresIn
+    refresh_expires_in: refresh.expiresIn,
+    ...(mfaSetupRequired ? { mfa_setup_required: true } : {})
   };
 }
 
@@ -504,6 +502,9 @@ function toAuthUser(user: FullUser): AuthUser {
     permissions: parsePermissions(user.role.permissions),
     scope: buildScopeClaim(user.role.scope, user.org.level),
     mfaEnabled: user.mfaEnabled,
+    mfaSetupRequired: roleRequiresMfa(user.role.code) && !user.mfaEnabled,
+    mustChangePassword: !user.passwordChangedAt,
+    acceptedPolicyVersion: user.acceptedPolicyVersion ?? null,
     locale: (user.locale === 'am' ? 'am' : 'en'),
     lastLoginAt: user.lastLoginAt?.toISOString() ?? new Date().toISOString()
   };
