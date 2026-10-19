@@ -71,7 +71,7 @@ describe("ProjectNewPage", () => {
       </Wrap>,
     );
     const nameInput = screen.getByLabelText(/Project name/i);
-    await userEvent.setup({ delay: null }).type(nameInput, "Solar Mini-Grid");
+    await userEvent.setup({ delay: null, advanceTimers: vi.advanceTimersByTime }).type(nameInput, "Solar Mini-Grid");
     vi.advanceTimersByTime(20_000);
     const draft = JSON.parse(
       localStorage.getItem("piims.project.draft") ?? "{}",
