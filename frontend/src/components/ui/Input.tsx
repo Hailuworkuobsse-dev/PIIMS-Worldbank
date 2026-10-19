@@ -12,7 +12,7 @@ export interface InputProps extends Omit<
 > {
   label: string;
   hint?: string;
-  error?: string;
+  error?: string | undefined;
   required?: boolean;
   leftIcon?: ReactNode;
   rightSlot?: ReactNode;
