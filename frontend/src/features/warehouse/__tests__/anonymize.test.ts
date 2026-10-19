@@ -83,6 +83,7 @@ describe("anonymize", () => {
       level: "L2",
       ageBracket: 5,
       locationGranularity: "ZONE",
+      suppressionThreshold: 1,
     };
     const result = anonymize(sample, config);
     expect(result[0]!.age).toBeUndefined();
@@ -96,6 +97,7 @@ describe("anonymize", () => {
       ...DEFAULT_ANON_CONFIG,
       level: "L2",
       incomeTopCode: 50,
+      suppressionThreshold: 1,
     };
     const result = anonymize(sample, config);
     const sortedIncome = result
