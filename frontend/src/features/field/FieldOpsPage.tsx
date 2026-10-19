@@ -7,7 +7,7 @@ import {
   useCollectorProfile,
 } from "./field.queries";
 import { useSyncStore } from "@/stores/sync.store";
-import { Card, CardHeader } from "@/components/ui/Card";
+import { Card } from "@/components/ui/Card";
 import { Button } from "@/components/ui/Button";
 import { Chip } from "@/components/ui/Chip";
 import { Progress } from "@/components/ui/Progress";
