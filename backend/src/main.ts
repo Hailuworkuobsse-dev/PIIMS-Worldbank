@@ -19,6 +19,7 @@ async function bootstrap(): Promise<void> {
       {
         port: env.PORT,
         basePath: env.API_BASE_PATH,
+        aliasBase: env.API_BASE_PATH !== '/v1' ? '/v1' : 'none',
         health: `http://localhost:${env.PORT}/healthz`,
         ready: `http://localhost:${env.PORT}/readyz`
       },

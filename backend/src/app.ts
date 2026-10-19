@@ -35,6 +35,12 @@ export function buildApp(): Express {
 
   // ── 7. API routes ──
   app.use(env.API_BASE_PATH, apiRouter);
+  // Resilience alias: local clients (frontend dev default, curl probes,
+  // older .env files) target /v1 directly — keep serving it even when
+  // API_BASE_PATH is configured differently in a local .env.
+  if (env.API_BASE_PATH !== '/v1') {
+    app.use('/v1', apiRouter);
+  }
 
   // ── 8. 404 handler ──
   app.use(notFoundHandler);
