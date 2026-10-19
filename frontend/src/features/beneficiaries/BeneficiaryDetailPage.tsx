@@ -1,6 +1,6 @@
 import { useParams, useNavigate } from "react-router-dom";
 import { useTranslation } from "react-i18next";
-import { ArrowLeft, MapPin, Phone, User } from "lucide-react";
+import { ArrowLeft, MapPin, User } from "lucide-react";
 import { useBeneficiary } from "./beneficiary.queries";
 import { usePermissions } from "@/features/auth/usePermissions";
 import { PERMISSIONS } from "@/features/auth/auth.types";
@@ -14,7 +14,7 @@ import { VerificationPanel } from "./VerificationPanel";
 import {
   beneficiaryStatusTone,
   beneficiaryStatusKey,
-  maskPhone,
+  maskPhone
 } from "./beneficiary.utils";
 import { formatDate } from "@/lib/utils/date";
 

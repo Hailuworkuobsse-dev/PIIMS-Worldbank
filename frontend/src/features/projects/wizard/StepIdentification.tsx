@@ -1,3 +1,4 @@
+import { useEffect } from "react";
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useTranslation } from "react-i18next";
@@ -12,21 +13,29 @@ export function StepIdentification({
   defaultValues,
   onSubmit,
   formId,
+  onValuesChange,
 }: {
   defaultValues: Partial<StepIdentificationData>;
   onSubmit: (d: StepIdentificationData) => void;
+  onValuesChange?: (d: Partial<StepIdentificationData>) => void;
   formId: string;
 }) {
   const { t } = useTranslation();
   const {
     register,
     handleSubmit,
+    watch,
     formState: { errors },
   } = useForm<StepIdentificationData>({
     resolver: zodResolver(stepIdentificationSchema),
     defaultValues,
     mode: "onBlur",
   });
+
+  useEffect(() => {
+    const subscription = watch((values) => onValuesChange?.(values as Partial<StepIdentificationData>));
+    return () => subscription.unsubscribe();
+  }, [watch, onValuesChange]);
 
   return (
     <form

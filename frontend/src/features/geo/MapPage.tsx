@@ -14,8 +14,6 @@ import "leaflet/dist/leaflet.css";
 import { useGeoBeneficiaries, useGeoInterventions } from "./geo.queries";
 import { MapControls } from "./MapControls";
 import { Card, CardHeader } from "@/components/ui/Card";
-import { Chip } from "@/components/ui/Chip";
-import { formatDate } from "@/lib/utils/date";
 import type { GeoFilters, MapBounds } from "./geo.types";
 
 /* Fix Leaflet default marker icons under Vite */

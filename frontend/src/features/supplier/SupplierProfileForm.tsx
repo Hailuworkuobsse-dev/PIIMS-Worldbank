@@ -36,7 +36,17 @@ export function SupplierProfileForm() {
           contactPhone: data.contactPhone,
           address: data.address,
         }
-      : undefined,
+      : {
+          name: "",
+          nameAm: "",
+          tin: "",
+          licenseNo: "",
+          category: "OTHER",
+          contactPerson: "",
+          contactEmail: "",
+          contactPhone: "",
+          address: "",
+        },
   });
 
   if (isLoading) return <LoadingState />;

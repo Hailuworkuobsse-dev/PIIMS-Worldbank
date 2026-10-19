@@ -14,11 +14,9 @@ import { EmptyState } from "@/components/ui/EmptyState";
 import { Card, CardHeader } from "@/components/ui/Card";
 import { Button } from "@/components/ui/Button";
 import { Input } from "@/components/ui/Input";
-import { Select } from "@/components/ui/Select";
 import { Textarea } from "@/components/ui/Textarea";
 import { TrafficLight } from "@/components/ui/TrafficLight";
 import { Progress } from "@/components/ui/Progress";
-import { formatDate } from "@/lib/utils/date";
 import { computeAchievement, computeTrafficLight } from "./results.utils";
 
 const DISAGG_OPTIONS = ["Male", "Female", "Urban", "Rural"];

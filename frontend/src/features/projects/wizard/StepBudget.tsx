@@ -1,3 +1,4 @@
+import { useEffect } from "react";
 import { useFieldArray, useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useTranslation } from "react-i18next";
@@ -13,9 +14,11 @@ export function StepBudget({
   defaultValues,
   onSubmit,
   formId,
+  onValuesChange,
 }: {
   defaultValues: Partial<StepBudgetData>;
   onSubmit: (d: StepBudgetData) => void;
+  onValuesChange?: (d: Partial<StepBudgetData>) => void;
   formId: string;
 }) {
   const { t } = useTranslation();
@@ -37,6 +40,11 @@ export function StepBudget({
     },
     mode: "onBlur",
   });
+  useEffect(() => {
+    const subscription = watch((values) => onValuesChange?.(values as Partial<StepBudgetData>));
+    return () => subscription.unsubscribe();
+  }, [watch, onValuesChange]);
+
   const { fields, append, remove } = useFieldArray({
     control,
     name: "financingSource",

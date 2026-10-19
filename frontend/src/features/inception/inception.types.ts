@@ -55,14 +55,14 @@ export interface InceptionReport {
 }
 
 export interface InceptionReportListFilters {
-  projectId?: string;
-  status?: ReportStatus[];
-  from?: string;
-  to?: string;
-  overdue?: boolean;
-  q?: string;
-  limit?: number;
-  cursor?: string;
+  projectId?: string | undefined;
+  status?: ReportStatus[] | undefined;
+  from?: string | undefined;
+  to?: string | undefined;
+  overdue?: boolean | undefined;
+  q?: string | undefined;
+  limit?: number | undefined;
+  cursor?: string | undefined;
 }
 
 export interface SubmitInceptionInput {
@@ -82,7 +82,7 @@ export interface ReviewDecisionInput {
 export interface NoObjectionInput {
   noObjection: boolean;
   effectiveDate: string;
-  comments?: string;
+  comments?: string | undefined;
 }
 
 export interface ReportVersionSummary {

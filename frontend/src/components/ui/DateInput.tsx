@@ -7,8 +7,8 @@ export interface DateInputProps extends Omit<
   "type"
 > {
   label: string;
-  hint?: string;
-  error?: string;
+  hint?: string | undefined;
+  error?: string | undefined;
   required?: boolean;
 }
 

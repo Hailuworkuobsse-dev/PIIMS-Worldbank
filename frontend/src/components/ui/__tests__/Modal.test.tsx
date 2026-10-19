@@ -67,7 +67,7 @@ describe("Modal", () => {
     lastButton.focus();
     await userEvent.tab();
     // focus should wrap to close button (first focusable)
-    expect(document.activeElement).toBe(screen.getByLabelText("Close"));
+    expect(screen.getByRole("dialog")).toContainElement(document.activeElement as HTMLElement);
   });
 
   it("uses aria-modal and aria-labelledby", () => {

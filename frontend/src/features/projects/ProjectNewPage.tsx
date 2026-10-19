@@ -1,8 +1,6 @@
-import { useEffect, useRef, useState } from "react";
+import { useCallback, useEffect, useRef, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { useTranslation } from "react-i18next";
-import { useForm, FormProvider } from "react-hook-form";
-import { zodResolver } from "@hookform/resolvers/zod";
 import { WizardShell } from "./wizard/WizardShell";
 import { StepIdentification } from "./wizard/StepIdentification";
 import { StepClassification } from "./wizard/StepClassification";
@@ -50,6 +48,10 @@ export default function ProjectNewPage() {
   const [data, setData] = useState<
     CreateProjectInput | Partial<CreateProjectInput>
   >(initialDraft.current ?? {});
+  const updateDraftValues = useCallback((values: Partial<CreateProjectInput>) => {
+    setData((current) => ({ ...current, ...values }));
+  }, []);
+
   const [savedAt, setSavedAt] = useState<number | null>(
     initialDraft.current?.__savedAt ?? null,
   );
@@ -117,21 +119,25 @@ export default function ProjectNewPage() {
       defaultValues: data as any,
       onSubmit: onStepSubmit,
       formId: "wizard-form",
+      onValuesChange: updateDraftValues,
     },
     classification: {
       defaultValues: data as any,
       onSubmit: onStepSubmit,
       formId: "wizard-form",
+      onValuesChange: updateDraftValues,
     },
     location: {
       defaultValues: data as any,
       onSubmit: onStepSubmit,
       formId: "wizard-form",
+      onValuesChange: updateDraftValues,
     },
     budget: {
       defaultValues: data as any,
       onSubmit: onStepSubmit,
       formId: "wizard-form",
+      onValuesChange: updateDraftValues,
     },
     review: {
       data,

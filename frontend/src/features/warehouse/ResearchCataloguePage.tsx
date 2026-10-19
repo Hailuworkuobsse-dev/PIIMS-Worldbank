@@ -2,7 +2,7 @@ import { useState } from "react";
 import { useTranslation } from "react-i18next";
 import { useResearchDatasets } from "./warehouse.queries";
 import { useRequestAccess } from "./warehouse.mutations";
-import { Card, CardHeader } from "@/components/ui/Card";
+import { Card } from "@/components/ui/Card";
 import { Button } from "@/components/ui/Button";
 import { Chip } from "@/components/ui/Chip";
 import { EmptyState } from "@/components/ui/EmptyState";
@@ -34,7 +34,7 @@ export default function ResearchCataloguePage() {
       !form.institution ||
       !form.purpose
     ) {
-      push("warn", "All fields are required");
+      push("warning", "All fields are required");
       return;
     }
     await request.mutateAsync({ datasetId: selected.datasetId, payload: form });

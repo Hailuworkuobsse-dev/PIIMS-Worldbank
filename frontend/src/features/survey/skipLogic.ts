@@ -417,8 +417,8 @@ export function computeVisibility(
     skipLogic?: {
       condition: string;
       action: string;
-      targetQuestionId?: string;
-    }[];
+      targetQuestionId?: string | undefined;
+    }[] | undefined;
   }[],
   ctx: AnswerMap,
 ): { visible: Set<string>; required: Set<string> } {

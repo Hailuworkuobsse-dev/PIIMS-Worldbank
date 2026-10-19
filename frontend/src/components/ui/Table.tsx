@@ -1,6 +1,5 @@
 import {
   type HTMLAttributes,
-  type ReactNode,
   type ThHTMLAttributes,
   type TdHTMLAttributes,
 } from "react";

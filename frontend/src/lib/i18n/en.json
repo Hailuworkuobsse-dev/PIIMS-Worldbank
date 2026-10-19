@@ -39,5 +39,69 @@
     "generic": "Something went wrong. Please try again.",
     "network": "Network unavailable. Please check your connection.",
     "unauthorized": "Your session has expired. Please sign in again."
+  },
+  "projects": {
+    "actions": {
+      "filters": "Filters",
+      "clearFilters": "Clear filters"
+    },
+    "filters": {
+      "searchPlaceholder": "Search by code or name",
+      "region": "Region"
+    },
+    "status": {
+      "idea": "Idea",
+      "profile": "Profile",
+      "pre_feasibility": "Pre-feasibility",
+      "feasibility": "Feasibility",
+      "appraisal": "Appraisal",
+      "approved": "Approved",
+      "active": "Active",
+      "closed": "Closed",
+      "cancelled": "Cancelled"
+    },
+    "sectors": {
+      "water": "Water",
+      "energy": "Energy",
+      "both": "Water and energy",
+      "other": "Other"
+    },
+    "wizard": {
+      "steps": {
+        "identification": "Identification",
+        "classification": "Classification",
+        "location": "Location",
+        "budget": "Budget",
+        "review": "Review"
+      },
+      "fields": {
+        "name": "Project name",
+        "nameAm": "Project name (Amharic)",
+        "subsector": "Subsector",
+        "description": "Description"
+      },
+      "buttons": {
+        "discard": "Discard",
+        "back": "Back",
+        "continue": "Continue",
+        "next": "Continue",
+        "finish": "Create project"
+      }
+    }
+  },
+  "beneficiaries": {
+    "duplicate": {
+      "title": "Possible duplicate beneficiaries",
+      "message": "Potential duplicate records were found. Review them before continuing.",
+      "proceedAnyway": "Proceed anyway",
+      "merge": "Merge records"
+    }
+  },
+  "results": {
+    "entry": {
+      "achievement": "Achievement",
+      "period": "Reporting period",
+      "actualValue": "Actual value"
+    }
   }
 }

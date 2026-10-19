@@ -1,5 +1,5 @@
 import { describe, it, expect, vi, beforeEach } from "vitest";
-import { render, screen } from "@testing-library/react";
+import { render, screen, fireEvent, act } from "@testing-library/react";
 import userEvent from "@testing-library/user-event";
 import { MemoryRouter } from "react-router-dom";
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
@@ -35,8 +35,9 @@ function Wrap({ children }: { children: React.ReactNode }) {
 }
 
 describe("ProjectNewPage", () => {
-  beforeEach(() => {
+  beforeEach(async () => {
     localStorage.clear();
+    await i18n.changeLanguage("en");
   });
 
   it("renders wizard with step 1", () => {
@@ -46,7 +47,7 @@ describe("ProjectNewPage", () => {
       </Wrap>,
     );
     expect(screen.getByRole("heading", { level: 1 })).toBeInTheDocument();
-    expect(screen.getByText(/Identification/i)).toBeInTheDocument();
+    expect(screen.getByRole("heading", { level: 2, name: /Identification/i })).toBeInTheDocument();
   });
 
   it("shows validation error for short name", async () => {
@@ -55,7 +56,7 @@ describe("ProjectNewPage", () => {
         <ProjectNewPage />
       </Wrap>,
     );
-    const nameInput = screen.getByLabelText(/Project name/i);
+    const nameInput = screen.getAllByRole("textbox")[0]!;
     await userEvent.type(nameInput, "AB");
     await userEvent.click(screen.getByRole("button", { name: /Continue/i }));
     expect(
@@ -70,9 +71,11 @@ describe("ProjectNewPage", () => {
         <ProjectNewPage />
       </Wrap>,
     );
-    const nameInput = screen.getByLabelText(/Project name/i);
-    await userEvent.setup({ delay: null }).type(nameInput, "Solar Mini-Grid");
-    vi.advanceTimersByTime(20_000);
+    const nameInput = screen.getAllByRole("textbox")[0]!;
+    fireEvent.change(nameInput, { target: { value: "Solar Mini-Grid" } });
+    await act(async () => {
+      await vi.advanceTimersByTimeAsync(20_000);
+    });
     const draft = JSON.parse(
       localStorage.getItem("piims.project.draft") ?? "{}",
     );

@@ -7,8 +7,8 @@ export interface CheckboxProps extends Omit<
   "type"
 > {
   label: string;
-  hint?: string;
-  error?: string;
+  hint?: string | undefined;
+  error?: string | undefined;
 }
 
 export const Checkbox = forwardRef<HTMLInputElement, CheckboxProps>(

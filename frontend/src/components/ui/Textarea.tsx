@@ -4,7 +4,7 @@ import { cn } from "./utils/cn";
 export interface TextareaProps extends TextareaHTMLAttributes<HTMLTextAreaElement> {
   label: string;
   hint?: string;
-  error?: string;
+  error?: string | undefined;
   required?: boolean;
 }
 

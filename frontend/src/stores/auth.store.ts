@@ -1,64 +1,49 @@
 import { create } from "zustand";
 import { persist, createJSONStorage } from "zustand/middleware";
-
-export type RoleCode =
-  | "NA"
-  | "MW-PIU"
-  | "MW-ME"
-  | "MW-IE"
-  | "MW-DM"
-  | "MW-QA"
-  | "MW-FO"
-  | "MW-TL"
-  | "MW-PM"
-  | "MF-BO"
-  | "MF-FM"
-  | "MF-AUD"
-  | "DB-LO"
-  | "DB-DO"
-  | "DB-PM"
-  | "DB-AUD"
-  | "WB-TTL"
-  | "WB-IE"
-  | "WB-FM"
-  | "WB-PROC"
-  | "WB-ES"
-  | "WB-M&E"
-  | "SP-AD"
-  | "SP-OPS"
-  | "SP-SVC"
-  | "LG-RO"
-  | "LG-ZO"
-  | "LG-WO"
-  | "LG-KO"
-  | "DC-EN"
-  | "DC-SV"
-  | "RS-EX"
-  | "AU-EX"
-  | "AU-EV"
-  | "SC-MB"
-  | "BN-SR"
-  | "BN-REP";
-
-export interface AuthUser {
-  userId: string;
-  username: string;
-  fullName: string;
-  orgId: string;
-  role: RoleCode;
-  permissions: string[];
-}
+import { authApi } from "@/features/auth/auth.api";
+import {
+  roleHome,
+  type AuthUser,
+  type LoginRequest,
+  type Permission,
+} from "@/features/auth/auth.types";
 
 interface AuthState {
   user: AuthUser | null;
   accessToken: string | null;
   refreshToken: string | null;
-  expiresAt: number | null;
-  login: (username: string, password: string, mfa?: string) => Promise<void>;
+  expiresAt: number | null; // access token expiry (epoch ms)
+  refreshExpiresAt: number | null;
+  hydrated: boolean;
+  refreshing: Promise<boolean> | null; // single-flight guard
+
+  login: (
+    req: LoginRequest,
+  ) => Promise<{ mfaRequired: boolean; mfaToken?: string }>;
+  completeMFA: (
+    mfaToken: string,
+    code: string,
+    remember?: boolean,
+  ) => Promise<void>;
+  setSession: (
+    u: AuthUser,
+    access: string,
+    refresh: string,
+    expiresIn: number,
+    refreshExpiresIn: number,
+  ) => void;
   refresh: () => Promise<boolean>;
-  logout: () => void;
-  has: (permission: string) => boolean;
+  logout: (opts?: { silent?: boolean; broadcast?: boolean }) => void;
+  has: (p: Permission) => boolean;
+  homeRoute: () => string;
 }
+
+/* ---- Cross-tab broadcast ---- */
+const AUTH_CHANNEL = "piims.auth";
+const bc: BroadcastChannel | null =
+  typeof BroadcastChannel !== "undefined"
+    ? new BroadcastChannel(AUTH_CHANNEL)
+    : null;
 
 export const useAuthStore = create<AuthState>()(
   persist(
@@ -67,57 +52,106 @@ export const useAuthStore = create<AuthState>()(
       accessToken: null,
       refreshToken: null,
       expiresAt: null,
-      async login(username, password, mfa) {
-        const res = await fetch(
-          `${import.meta.env.VITE_API_BASE_URL ?? ""}/auth/login`,
-          {
-            method: "POST",
-            headers: { "Content-Type": "application/json" },
-            body: JSON.stringify({ username, password, mfa_code: mfa }),
-          },
-        );
-        if (!res.ok) throw new Error("Login failed");
-        const { data } = await res.json();
-        set({
-          user: data.user,
-          accessToken: data.access_token,
-          refreshToken: data.refresh_token,
-          expiresAt: Date.now() + data.expires_in * 1000,
-        });
-      },
-      async refresh() {
-        const { refreshToken } = get();
-        if (!refreshToken) return false;
-        try {
-          const res = await fetch(
-            `${import.meta.env.VITE_API_BASE_URL ?? ""}/auth/refresh`,
-            {
-              method: "POST",
-              headers: { "Content-Type": "application/json" },
-              body: JSON.stringify({ refresh_token: refreshToken }),
-            },
-          );
-          if (!res.ok) return false;
-          const { data } = await res.json();
-          set({
-            accessToken: data.access_token,
-            expiresAt: Date.now() + data.expires_in * 1000,
-          });
-          return true;
-        } catch {
-          return false;
+      refreshExpiresAt: null,
+      hydrated: false,
+      refreshing: null,
+
+      async login(req) {
+        const res = await authApi.login(req);
+        if (res.mfa_required && res.mfa_token) {
+          return { mfaRequired: true, mfaToken: res.mfa_token };
         }
+        get().setSession(
+          res.user,
+          res.access_token,
+          res.refresh_token,
+          res.expires_in,
+          res.refresh_expires_in,
+        );
+        return { mfaRequired: false };
       },
-      logout() {
+
+      async completeMFA(mfaToken, code, remember) {
+        const res = await authApi.completeMFA({
+          mfa_token: mfaToken,
+          mfa_code: code,
+          ...(remember === undefined ? {} : { remember_device: remember }),
+        });
+        get().setSession(
+          res.user,
+          res.access_token,
+          res.refresh_token,
+          res.expires_in,
+          res.refresh_expires_in,
+        );
+      },
+
+      setSession(user, access, refresh, expiresIn, refreshExpiresIn) {
+        const now = Date.now();
+        set({
+          user,
+          accessToken: access,
+          refreshToken: refresh,
+          expiresAt: now + expiresIn * 1000,
+          refreshExpiresAt: now + refreshExpiresIn * 1000,
+        });
+        bc?.postMessage({ type: "session:set", userId: user.userId, at: now });
+      },
+
+      async refresh() {
+        const state = get();
+        if (state.refreshing) return state.refreshing;
+        if (!state.refreshToken) return false;
+
+        const promise = (async () => {
+          try {
+            const res = await authApi.refresh(state.refreshToken!);
+            set({
+              accessToken: res.access_token,
+              expiresAt: Date.now() + res.expires_in * 1000,
+            });
+            return true;
+          } catch {
+            return false;
+          } finally {
+            set({ refreshing: null });
+          }
+        })();
+        set({ refreshing: promise });
+        return promise;
+      },
+
+      logout(opts = {}) {
+        const { refreshToken } = get();
+        if (refreshToken && !opts.silent) {
+          // Fire-and-forget server-side revocation
+          void Promise.resolve()
+            .then(() => authApi.logout(refreshToken))
+            .catch(() => {
+              /* ignore */
+            });
+        }
         set({
           user: null,
           accessToken: null,
           refreshToken: null,
           expiresAt: null,
+          refreshExpiresAt: null,
         });
+        if (opts.broadcast !== false) {
+          bc?.postMessage({ type: "session:clear", at: Date.now() });
+        }
       },
-      has(permission) {
-        return get().user?.permissions.includes(permission) ?? false;
+
+      has(p) {
+        const u = get().user;
+        if (!u) return false;
+        return u.permissions.includes(p);
+      },
+
+      homeRoute() {
+        const u = get().user;
+        return u ? roleHome(u.role) : "/login";
       },
     }),
     {
@@ -125,10 +159,40 @@ export const useAuthStore = create<AuthState>()(
       storage: createJSONStorage(() => localStorage),
       partialize: (s) => ({
         user: s.user,
-        refreshToken: s.refreshToken,
         accessToken: s.accessToken,
+        refreshToken: s.refreshToken,
         expiresAt: s.expiresAt,
+        refreshExpiresAt: s.refreshExpiresAt,
       }),
+      onRehydrateStorage: () => (state) => {
+        state?.hydrated === false && useAuthStore.setState({ hydrated: true });
+      },
     },
   ),
 );
+
+/* Cross-tab message handling */
+bc?.addEventListener("message", (ev) => {
+  const msg = ev.data;
+  if (msg?.type === "session:clear") {
+    useAuthStore.setState({
+      user: null,
+      accessToken: null,
+      refreshToken: null,
+      expiresAt: null,
+      refreshExpiresAt: null,
+    });
+  }
+  if (
+    msg?.type === "session:set" &&
+    msg.userId !== useAuthStore.getState().user?.userId
+  ) {
+    // Another tab logged in as a different user → force reload to sync
+    window.location.reload();
+  }
+});
+
+/* Expose for tests & debugging */
+if (import.meta.env.DEV) {
+  (window as any).__authStore = useAuthStore;
+}

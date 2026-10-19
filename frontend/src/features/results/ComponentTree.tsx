@@ -1,7 +1,6 @@
 import { useState } from "react";
 import { ChevronDown, ChevronRight, Plus, Pencil } from "lucide-react";
 import { IconButton } from "@/components/ui/IconButton";
-import { Button } from "@/components/ui/Button";
 import { useSubcomponents } from "./results.queries";
 import { usePermissions } from "@/features/auth/usePermissions";
 import { PERMISSIONS } from "@/features/auth/auth.types";
@@ -12,7 +11,7 @@ export interface ComponentTreeProps {
   projectId: string;
   components: Component[];
   onSelect: (id: string) => void;
-  selectedId?: string;
+  selectedId?: string | undefined;
   onChanged: () => void;
 }
 

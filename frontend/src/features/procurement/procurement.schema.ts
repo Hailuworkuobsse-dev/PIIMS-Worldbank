@@ -1,7 +1,6 @@
 import { z } from "zod";
 import {
   PROCUREMENT_METHODS,
-  PROCUREMENT_STATUSES,
   CONTRACT_STATUSES,
 } from "./procurement.types";
 

@@ -1,5 +1,5 @@
 import { useId, useRef, useState, type DragEvent } from "react";
-import { UploadCloud, X } from "lucide-react";
+import { UploadCloud } from "lucide-react";
 import { cn } from "./utils/cn";
 
 export interface FileUploadProps {
@@ -9,8 +9,8 @@ export interface FileUploadProps {
   multiple?: boolean;
   onFiles: (files: File[]) => void;
   files?: File[];
-  error?: string;
-  hint?: string;
+  error?: string | undefined;
+  hint?: string | undefined;
   required?: boolean;
 }
 

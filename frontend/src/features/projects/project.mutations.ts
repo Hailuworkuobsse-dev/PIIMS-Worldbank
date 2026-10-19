@@ -5,10 +5,10 @@ import { useToast } from "@/components/ui/Toast";
 import { useSyncStore } from "@/stores/sync.store";
 import { normalizeApiError } from "@/lib/api/errors";
 import type {
-  CreateProjectInput,
   Project,
   StageAdvanceRequest,
 } from "./project.types";
+import type { CreateProjectInput } from "./project.schema";
 
 /* -------------------------------------------------------------------------
  * Offline mutation queue (localStorage-backed; idb preferred in prod)

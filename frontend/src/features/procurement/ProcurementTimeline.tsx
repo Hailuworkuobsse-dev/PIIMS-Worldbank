@@ -132,7 +132,7 @@ function Marker({
   color,
   label,
 }: {
-  at?: string;
+  at?: string | undefined;
   min: number;
   span: number;
   color: string;

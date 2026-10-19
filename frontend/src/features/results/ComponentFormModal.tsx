@@ -12,7 +12,7 @@ export interface ComponentFormModalProps {
   open: boolean;
   onClose: () => void;
   projectId: string;
-  initial?: Component;
+  initial?: Component | undefined;
   onSuccess?: () => void;
 }
 

@@ -89,40 +89,40 @@ export interface ServiceDelivery {
   beneficiaryUniqueId: string;
   projectId: string;
   projectCode: string;
-  supplierId?: string;
-  supplierName?: string;
-  productId?: string;
+  supplierId?: string | undefined;
+  supplierName?: string | undefined;
+  productId?: string | undefined;
   productName: string;
-  serialNo?: string;
+  serialNo?: string | undefined;
   quantity: number;
-  installDate?: string;
+  installDate?: string | undefined;
   installGps?: { lat: number; lon: number };
-  installPhotoUrl?: string;
-  warrantyStart?: string;
-  warrantyEnd?: string;
+  installPhotoUrl?: string | undefined;
+  warrantyStart?: string | undefined;
+  warrantyEnd?: string | undefined;
   status: DeliveryStatus;
-  verifiedBy?: string;
-  verifiedAt?: string;
+  verifiedBy?: string | undefined;
+  verifiedAt?: string | undefined;
   createdAt: string;
 }
 
 export interface BeneficiaryFilters {
-  q?: string;
-  region?: string;
-  woreda?: string;
-  status?: BeneficiaryStatus[];
-  gender?: Gender[];
-  registeredFrom?: string;
-  registeredTo?: string;
-  limit?: number;
-  cursor?: string;
+  q?: string | undefined;
+  region?: string | undefined;
+  woreda?: string | undefined;
+  status?: BeneficiaryStatus[] | undefined;
+  gender?: Gender[] | undefined;
+  registeredFrom?: string | undefined;
+  registeredTo?: string | undefined;
+  limit?: number | undefined;
+  cursor?: string | undefined;
 }
 
 export interface ServiceDeliveryFilters {
-  projectId?: string;
-  supplierId?: string;
-  status?: DeliveryStatus[];
-  q?: string;
-  limit?: number;
-  cursor?: string;
+  projectId?: string | undefined;
+  supplierId?: string | undefined;
+  status?: DeliveryStatus[] | undefined;
+  q?: string | undefined;
+  limit?: number | undefined;
+  cursor?: string | undefined;
 }

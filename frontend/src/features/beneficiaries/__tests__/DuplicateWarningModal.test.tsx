@@ -32,7 +32,7 @@ describe("DuplicateWarningModal", () => {
     );
     expect(screen.getByText("Aster Bekele")).toBeInTheDocument();
     expect(screen.getByText("92% match")).toBeInTheDocument();
-    await userEvent.click(screen.getByText("Proceed anyway"));
+    await userEvent.click(screen.getByRole("button", { name: /Proceed anyway/i }));
     expect(onProceed).toHaveBeenCalled();
   });
 });

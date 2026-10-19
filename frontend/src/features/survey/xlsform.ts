@@ -28,20 +28,20 @@ import type {
 export interface XlsFormRow {
   type: string;
   name: string;
-  label?: string;
-  labelAm?: string;
-  required?: string;
-  relevant?: string;
-  constraint?: string;
-  appearance?: string;
-  calculation?: string;
+  label?: string | undefined;
+  labelAm?: string | undefined;
+  required?: string | undefined;
+  relevant?: string | undefined;
+  constraint?: string | undefined;
+  appearance?: string | undefined;
+  calculation?: string | undefined;
 }
 
 export interface XlsFormChoiceRow {
   list_name: string;
   name: string;
   label?: string;
-  labelAm?: string;
+  labelAm?: string | undefined;
 }
 
 interface XlsForm {
@@ -55,7 +55,7 @@ interface XlsForm {
 
 export function parseXlsForm(xls: XlsForm): Section[] {
   const sections: Section[] = [];
-  const questionsByGroup: Record<string, Question[]> = {};
+
   const choicesByList: Record<string, QuestionOption[]> = {};
 
   // Pre-index choices
@@ -78,7 +78,7 @@ export function parseXlsForm(xls: XlsForm): Section[] {
     const type = row.type.trim();
     if (type === "begin_group" || type === "begin_repeat") {
       const sectionId = crypto.randomUUID();
-      currentSection = {
+      const section: Section = {
         sectionId,
         versionId: "",
         code: row.name,
@@ -88,7 +88,8 @@ export function parseXlsForm(xls: XlsForm): Section[] {
         repeatable: type === "begin_repeat",
         questions: [],
       };
-      sections.push(currentSection);
+      currentSection = section;
+      sections.push(section);
       order = 0;
       continue;
     }

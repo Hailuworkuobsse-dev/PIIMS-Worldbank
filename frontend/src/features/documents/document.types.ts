@@ -47,11 +47,11 @@ export interface DocumentVersion {
 }
 
 export interface DocumentFilters {
-  projectId?: string;
-  docType?: DocType[];
-  q?: string;
-  from?: string;
-  to?: string;
-  limit?: number;
-  cursor?: string;
+  projectId?: string | undefined;
+  docType?: DocType[] | undefined;
+  q?: string | undefined;
+  from?: string | undefined;
+  to?: string | undefined;
+  limit?: number | undefined;
+  cursor?: string | undefined;
 }

@@ -1,5 +1,4 @@
 import { useSearchParams } from "react-router-dom";
-import { useTranslation } from "react-i18next";
 import { useImpactDashboard } from "./analytics.queries";
 import { Card, CardHeader } from "@/components/ui/Card";
 import { KPITile } from "@/components/ui/KPITile";
@@ -11,7 +10,6 @@ import { TreatmentVsControl } from "./TreatmentVsControl";
 import { formatDate } from "@/lib/utils/date";
 
 export default function ImpactDashboardPage() {
-  const { t } = useTranslation();
   const [params] = useSearchParams();
   const projectId = params.get("projectId") ?? "PIIMS-2026-0042";
   const { data, isLoading } = useImpactDashboard(projectId);

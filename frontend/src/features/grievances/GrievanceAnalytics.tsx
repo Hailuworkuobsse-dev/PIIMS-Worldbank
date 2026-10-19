@@ -5,7 +5,7 @@ import { KPITile } from "@/components/ui/KPITile";
 import { useGrievanceStats } from "./grievance.queries";
 import { categoryKey } from "./grievance.utils";
 
-export function GrievanceAnalytics({ projectId }: { projectId?: string }) {
+export function GrievanceAnalytics({ projectId }: { projectId?: string | undefined }) {
   const { t } = useTranslation();
   const { data, isLoading } = useGrievanceStats(projectId);
   if (isLoading || !data) return <LoadingState />;

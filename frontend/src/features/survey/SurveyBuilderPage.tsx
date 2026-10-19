@@ -1,6 +1,5 @@
 import { useState } from "react";
 import { useParams } from "react-router-dom";
-import { useTranslation } from "react-i18next";
 import { Plus, Rocket, Download, Lock } from "lucide-react";
 import { useSurvey } from "./survey.queries";
 import { usePublishSurvey } from "./survey.mutations";
@@ -15,13 +14,11 @@ import { Chip } from "@/components/ui/Chip";
 import { Modal } from "@/components/ui/Modal";
 import { ConfirmDialog } from "@/components/ui/ConfirmDialog";
 import { useToast } from "@/components/ui/Toast";
-import { SectionEditor } from "./SectionEditor";
 import { QuestionEditor } from "./QuestionEditor";
 import { SurveyPreview } from "./SurveyPreview";
 import { SkipLogicEditor } from "./SkipLogicEditor";
 
 export default function SurveyBuilderPage() {
-  const { t } = useTranslation();
   const { surveyId } = useParams<{ surveyId: string }>();
   const { can } = usePermissions();
   const { push } = useToast();

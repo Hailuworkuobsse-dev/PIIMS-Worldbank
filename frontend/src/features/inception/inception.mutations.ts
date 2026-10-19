@@ -76,8 +76,8 @@ export function useAddComment(reportId: string) {
       parentId,
     }: {
       text: string;
-      sectionId?: string;
-      parentId?: string;
+      sectionId?: string | undefined;
+      parentId?: string | undefined;
     }) => inceptionApi.addComment(reportId, text, sectionId, parentId),
     onSuccess: () =>
       qc.invalidateQueries({ queryKey: inceptionKeys.comments(reportId) }),

@@ -29,7 +29,6 @@ export function NoObjectionModal({
   } = useForm<NoObjectionFormData>({
     resolver: zodResolver(noObjectionSchema),
     defaultValues: {
-      noObjection: undefined,
       effectiveDate: new Date().toISOString().slice(0, 10),
       comments: "",
     },

@@ -50,8 +50,7 @@ const financingLineSchema = z.object({
   referenceNo: z.string().optional().or(z.literal("")),
 });
 
-export const stepBudgetSchema = z
-  .object({
+const stepBudgetBaseSchema = z.object({
     totalBudget: moneySchema,
     startDate: z
       .string()
@@ -61,8 +60,8 @@ export const stepBudgetSchema = z
     financingSource: z
       .array(financingLineSchema)
       .min(1, "At least one financing source is required"),
-  })
-  .refine(
+});
+export const stepBudgetSchema = stepBudgetBaseSchema.refine(
     (d) =>
       !d.startDate ||
       !d.endDate ||
@@ -71,11 +70,12 @@ export const stepBudgetSchema = z
   );
 export type StepBudgetData = z.infer<typeof stepBudgetSchema>;
 
-export const createProjectSchema = stepIdentificationSchema
+const createProjectBaseSchema = stepIdentificationSchema
   .merge(stepClassificationSchema)
   .merge(stepLocationSchema)
-  .merge(stepBudgetSchema)
-  .refine(
+  .merge(stepBudgetBaseSchema);
+
+export const createProjectSchema = createProjectBaseSchema.refine(
     (d) => {
       const declared = d.financingSource.reduce(
         (sum, l) => sum + Number(l.amount),
@@ -93,7 +93,7 @@ export type CreateProjectInput = z.infer<typeof createProjectSchema>;
 /* -------------------------------------------------------------------------
  * Update
  * ------------------------------------------------------------------------- */
-export const updateProjectSchema = createProjectSchema.partial();
+export const updateProjectSchema = createProjectBaseSchema.partial();
 export type UpdateProjectInput = z.infer<typeof updateProjectSchema>;
 
 /* -------------------------------------------------------------------------

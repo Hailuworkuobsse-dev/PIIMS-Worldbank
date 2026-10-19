@@ -1,6 +1,5 @@
 import { describe, it, expect, vi } from "vitest";
 import { render, screen } from "@testing-library/react";
-import userEvent from "@testing-library/user-event";
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import { I18nextProvider } from "react-i18next";
 import { MemoryRouter, Routes, Route } from "react-router-dom";
@@ -73,6 +72,6 @@ describe("IndicatorEntryPage", () => {
         <IndicatorEntryPage />
       </Wrap>,
     );
-    expect(screen.getByText(/Achievement/i)).toBeInTheDocument();
+    expect(screen.getAllByText(/Achievement/i).length).toBeGreaterThan(0);
   });
 });

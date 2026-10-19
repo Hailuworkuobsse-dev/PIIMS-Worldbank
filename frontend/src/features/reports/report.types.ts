@@ -37,11 +37,11 @@ export interface ReportInstance {
 
 export interface GenerateReportInput {
   reportCode: ReportType;
-  projectId?: string;
-  period?: string;
-  fiscalYear?: number;
+  projectId?: string | undefined;
+  period?: string | undefined;
+  fiscalYear?: number | undefined;
   format: "PDF" | "EXCEL" | "CSV";
-  parameters?: Record<string, unknown>;
+  parameters?: Record<string, unknown> | undefined;
 }
 
 export interface ReportSchedule {

@@ -1,5 +1,5 @@
 import { describe, it, expect, vi } from "vitest";
-import { render, screen } from "@testing-library/react";
+import { render, screen, fireEvent, act } from "@testing-library/react";
 import userEvent from "@testing-library/user-event";
 import { ProjectListFilters } from "../ProjectListFilters";
 import "@/lib/i18n";
@@ -17,9 +17,11 @@ describe("ProjectListFilters", () => {
         onChange={onChange}
       />,
     );
-    const input = screen.getByLabelText(/Search by code or name/i);
-    await userEvent.setup({ delay: null }).type(input, "solar");
-    vi.advanceTimersByTime(350);
+    const input = screen.getByLabelText(/Search/i);
+    fireEvent.change(input, { target: { value: "solar" } });
+    await act(async () => {
+      await vi.advanceTimersByTimeAsync(350);
+    });
     expect(onChange).toHaveBeenCalledWith({ q: "solar" });
     vi.useRealTimers();
   });

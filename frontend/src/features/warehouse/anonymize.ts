@@ -12,27 +12,19 @@ import type { AnonymizationConfig, AnonLevel } from "./warehouse.types";
 
 export interface RawRecord {
   panelId: string;
-  beneficiaryName?: string;
-  phone?: string;
-  nationalId?: string;
-  age?: number;
-  income?: number;
-  region?: string;
-  zone?: string;
-  woreda?: string;
-  kebele?: string;
-  gpsLat?: number;
-  gpsLon?: number;
+  beneficiaryName?: string | undefined;
+  phone?: string | undefined;
+  nationalId?: string | undefined;
+  age?: number | undefined;
+  income?: number | undefined;
+  region?: string | undefined;
+  zone?: string | undefined;
+  woreda?: string | undefined;
+  kebele?: string | undefined;
+  gpsLat?: number | undefined;
+  gpsLon?: number | undefined;
   [key: string]: any;
 }
-
-const DIRECT_ID_FIELDS = [
-  "beneficiaryName",
-  "phone",
-  "nationalId",
-  "gpsLat",
-  "gpsLon",
-];
 
 /**
  * Deterministic pseudonym generator for L1+.
