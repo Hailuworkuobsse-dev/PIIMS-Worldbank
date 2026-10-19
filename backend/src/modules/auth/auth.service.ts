@@ -202,7 +202,7 @@ export async function refresh(refreshToken: string, context: LoginContext): Prom
 
   const permissions = parsePermissions(user.role.permissions);
   const scope = buildScopeClaim(user.role.scope, user.org.level) as ScopeClaim;
-  const access = signAccessToken(user.userId, user.username, user.orgId, user.role.code, permissions, scope, user.mfaEnabled);
+  const access = signAccessToken(user.userId, user.username, user.orgId, user.role.code, permissions, scope, stored.mfaVerified);
   const newRefresh = signRefreshToken(user.userId);
   await prisma.$transaction([
     prisma.refreshToken.updateMany({ where: { tokenId: stored.tokenId, revokedAt: null }, data: { revokedAt: new Date() } }),
