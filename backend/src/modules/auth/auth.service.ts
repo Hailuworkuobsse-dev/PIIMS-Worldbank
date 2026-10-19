@@ -417,10 +417,16 @@ export async function disableMfa(userId: string, password: string, context: Logi
   const ok = await verifyPassword(user.passwordHash, password);
   if (!ok) throw new BadRequestError('Password is incorrect');
 
-  await prisma.user.update({
-    where: { userId },
-    data: { mfaEnabled: false, mfaSecret: null }
-  });
+  await prisma.$transaction([
+    prisma.user.update({
+      where: { userId },
+      data: { mfaEnabled: false, mfaSecret: null }
+    }),
+    prisma.refreshToken.updateMany({
+      where: { userId, revokedAt: null },
+      data: { revokedAt: new Date() }
+    })
+  ]);
 
   await writeAudit({
     userId,
