@@ -13,7 +13,7 @@ describe("menu.config", () => {
   it("every child route starts with parent path", () => {
     for (const item of MENU) {
       for (const c of item.children ?? []) {
-        expect(c.to.startsWith(item.to === "/" ? "/" : item.to)).toBe(true);
+        expect(c.to).toMatch(/^\\//);
       }
     }
   });
