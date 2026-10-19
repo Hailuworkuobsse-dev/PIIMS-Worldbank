@@ -104,9 +104,11 @@ export const useAuthStore = create<AuthState>()(
             const res = await authApi.refresh(state.refreshToken!);
             set({
               accessToken: res.access_token,
-              refreshToken: res.refresh_token,
+              refreshToken: res.refresh_token || state.refreshToken,
               expiresAt: Date.now() + res.expires_in * 1000,
-              refreshExpiresAt: Date.now() + res.refresh_expires_in * 1000,
+              refreshExpiresAt: res.refresh_expires_in
+                ? Date.now() + res.refresh_expires_in * 1000
+                : state.refreshExpiresAt,
             });
             return true;
           } catch {
