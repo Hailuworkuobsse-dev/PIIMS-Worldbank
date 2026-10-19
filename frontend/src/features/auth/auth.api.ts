@@ -66,6 +66,11 @@ export const authApi = {
     await api.post("/auth/consent", { policy_version: policyVersion });
   },
 
+  async ssoStatus(): Promise<{ enabled: boolean; provider: string | null }> {
+    const { data } = await api.get<ApiEnvelope<{ enabled: boolean; provider: string | null }>>("/auth/sso/status");
+    return data.data;
+  },
+
   async requestPasswordReset(email: string): Promise<void> {
     await api.post("/auth/password-reset", { email });
   },
