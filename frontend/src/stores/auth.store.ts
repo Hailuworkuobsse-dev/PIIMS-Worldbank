@@ -31,6 +31,7 @@ interface AuthState {
   logout: (opts?: { silent?: boolean; broadcast?: boolean }) => void;
   has: (p: Permission) => boolean;
   homeRoute: () => string;
+  updateUser: (patch: Partial<AuthUser>) => void;
 }
 
 /* ---- Cross-tab broadcast ---- */
@@ -63,7 +64,7 @@ export const useAuthStore = create<AuthState>()(
           res.expires_in,
           res.refresh_expires_in,
         );
-        return { mfaRequired: false };
+        return { mfaRequired: false, mfaSetupRequired: Boolean(res.mfa_setup_required || res.user.mfaSetupRequired) };
       },
 
       async completeMFA(mfaToken, code, remember) {
@@ -103,7 +104,9 @@ export const useAuthStore = create<AuthState>()(
             const res = await authApi.refresh(state.refreshToken!);
             set({
               accessToken: res.access_token,
+              refreshToken: res.refresh_token,
               expiresAt: Date.now() + res.expires_in * 1000,
+              refreshExpiresAt: Date.now() + res.refresh_expires_in * 1000,
             });
             return true;
           } catch {
@@ -148,6 +151,11 @@ export const useAuthStore = create<AuthState>()(
       homeRoute() {
         const u = get().user;
         return u ? roleHome(u.role) : "/login";
+      },
+
+      updateUser(patch) {
+        const current = get().user;
+        if (current) set({ user: { ...current, ...patch } });
       },
     }),
     {
