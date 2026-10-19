@@ -6,6 +6,7 @@ import { LoadingState } from "@/components/ui/LoadingState";
 
 /* ---- Lazy pages (only loaded when needed) ---- */
 const LoginPage = lazy(() => import("@/features/auth/LoginPage"));
+const SsoCallbackPage = lazy(() => import("@/features/auth/SsoCallbackPage"));
 const LandingPage = lazy(() => import("@/pages/LandingPage"));
 const DashboardPage = lazy(() => import("@/pages/DashboardPage"));
 const RoleHomePage = lazy(() => import("@/pages/RoleHomePage"));
@@ -113,6 +114,7 @@ export function AppRouter() {
         {/* ---- Public ---- */}
         <Route path="/" element={<LandingPage />} />
         <Route path="/login" element={<LoginPage />} />
+        <Route path="/auth/callback" element={<SsoCallbackPage />} />
 
         {/* ---- Protected ---- */}
         <Route element={<RequireAuth />}>
