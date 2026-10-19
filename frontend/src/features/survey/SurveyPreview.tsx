@@ -42,7 +42,7 @@ export function SurveyPreview({ survey }: { survey: Survey }) {
                     q.type === "DECIMAL" ? (
                       <Input
                         label={q.text}
-                        value={String(answers[q.code] ?? "")
+                        value={String(answers[q.code] ?? "")}
                         onChange={(e) =>
                           setAnswers({ ...answers, [q.code]: e.target.value })
                         }
