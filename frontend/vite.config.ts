@@ -1,6 +1,8 @@
 import { defineConfig } from "vite";
 import react from "@vitejs/plugin-react";
 import { VitePWA } from "vite-plugin-pwa";
+import tailwindcss from "tailwindcss";
+import autoprefixer from "autoprefixer";
 import path from "node:path";
 
 export default defineConfig({
@@ -119,6 +121,13 @@ export default defineConfig({
   ],
   resolve: {
     alias: { "@": path.resolve(__dirname, "src") },
+  },
+  css: {
+    // inline PostCSS pipeline — external postcss.config discovery proved
+    // unreliable in dev; this guarantees Tailwind runs in dev AND build
+    postcss: {
+      plugins: [tailwindcss(), autoprefixer()],
+    },
   },
   server: {
     port: 3414,
