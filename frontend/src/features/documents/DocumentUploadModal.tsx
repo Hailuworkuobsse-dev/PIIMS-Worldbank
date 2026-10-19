@@ -25,7 +25,7 @@ export function DocumentUploadModal({
 }: {
   open: boolean;
   onClose: () => void;
-  defaultProjectId?: string;
+  defaultProjectId?: string | undefined;
 }) {
   const { t } = useTranslation();
   const upload = useUploadDocument();
