@@ -12,6 +12,7 @@ type OidcMetadata = {
   jwks_uri: string;
 };
 type SsoState = { state: string; nonce: string; verifier: string; issuedAt: number };
+type SigningJwk = { kid?: string; use?: string; kty: string; n?: string; e?: string; crv?: string; x?: string; y?: string };
 let cachedMetadata: OidcMetadata | null = null;
 
 function configuration() {
@@ -145,10 +146,10 @@ export async function ssoCallbackHandler(req: Request, res: Response): Promise<v
     }
     const jwksResponse = await fetch(metadata.jwks_uri, { signal: AbortSignal.timeout(8000) });
     if (!jwksResponse.ok) throw new Error('Signing keys unavailable');
-    const jwks = await jwksResponse.json() as { keys: Array<JsonWebKey & { kid?: string; use?: string }> };
+    const jwks = await jwksResponse.json() as { keys: SigningJwk[] };
     const jwk = jwks.keys.find((key) => key.kid === decoded.header.kid && (!key.use || key.use === 'sig'));
     if (!jwk) throw new Error('ID token signing key not found');
-    const publicKey = createPublicKey({ key: jwk, format: 'jwk' });
+    const publicKey = createPublicKey({ key: jwk as never, format: 'jwk' });
     const claims = jwt.verify(tokenBody.id_token, publicKey, {
       issuer: metadata.issuer,
       audience: config.clientId,
