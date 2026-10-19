@@ -22,7 +22,7 @@ export function QARuleFormModal({
 }: {
   open: boolean;
   onClose: () => void;
-  rule?: QARule;
+  rule?: QARule | undefined;
 }) {
   const { t } = useTranslation();
   const create = useCreateQARule();
