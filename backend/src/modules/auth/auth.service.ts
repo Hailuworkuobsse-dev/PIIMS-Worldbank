@@ -263,13 +263,13 @@ export async function logout(userId: string, refreshToken: string | undefined, c
  * Me
  * ════════════════════════════════════════════════════════════════════ */
 
-export async function getMe(userId: string): Promise<AuthUser> {
+export async function getMe(userId: string, sessionMfaVerified = false): Promise<AuthUser> {
   const user = await prisma.user.findUnique({
     where: { userId },
     include: { org: true, role: true }
   });
   if (!user) throw new UnauthorizedError('User not found');
-  return toAuthUser(user);
+  return toAuthUser(user, sessionMfaVerified);
 }
 
 /* ════════════════════════════════════════════════════════════════════
@@ -516,7 +516,7 @@ async function completeLogin(
   };
 }
 
-function toAuthUser(user: FullUser): AuthUser {
+function toAuthUser(user: FullUser, sessionMfaVerified = false): AuthUser {
   return {
     userId: user.userId,
     username: user.username,
@@ -530,7 +530,7 @@ function toAuthUser(user: FullUser): AuthUser {
     permissions: parsePermissions(user.role.permissions),
     scope: buildScopeClaim(user.role.scope, user.org.level),
     mfaEnabled: user.mfaEnabled,
-    mfaSetupRequired: roleRequiresMfa(user.role.code) && !user.mfaEnabled,
+    mfaSetupRequired: roleRequiresMfa(user.role.code) && !user.mfaEnabled && !sessionMfaVerified,
     mustChangePassword: !user.passwordChangedAt,
     acceptedPolicyVersion: user.acceptedPolicyVersion ?? null,
     locale: (user.locale === 'am' ? 'am' : 'en'),
