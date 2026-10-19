@@ -63,10 +63,10 @@ export interface QAStats {
 }
 
 export interface QAFlagFilters {
-  waveId?: string;
-  severity?: QASeverity[];
-  status?: QAFlag["status"][];
-  collectorId?: string;
-  limit?: number;
-  cursor?: string;
+  waveId?: string | undefined;
+  severity?: QASeverity[] | undefined;
+  status?: QAFlag["status"][] | undefined;
+  collectorId?: string | undefined;
+  limit?: number | undefined;
+  cursor?: string | undefined;
 }
