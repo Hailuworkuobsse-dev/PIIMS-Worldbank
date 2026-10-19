@@ -8,7 +8,6 @@ import { PERMISSIONS } from "@/features/auth/auth.types";
 import { DataGrid, type Column } from "@/components/ui/DataGrid";
 import { Button } from "@/components/ui/Button";
 import { Chip } from "@/components/ui/Chip";
-import { Card, CardHeader } from "@/components/ui/Card";
 import { Pagination } from "@/components/ui/Pagination";
 import { EmptyState } from "@/components/ui/EmptyState";
 import { ErrorState } from "@/components/ui/ErrorState";
