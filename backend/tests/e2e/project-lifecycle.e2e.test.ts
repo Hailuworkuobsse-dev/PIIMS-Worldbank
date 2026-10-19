@@ -140,6 +140,7 @@ describe('E2E — Project Lifecycle', () => {
 
     // Either both succeed (no idempotency implemented yet) or second returns cached
     expect([201, 200].includes(res1.status)).toBe(true);
-    // Idempotency is a nice-to-have; skip strict assertion for MVP
+    expect([200, 201].includes(res2.status)).toBe(true);
+    // Idempotency is a nice-to-have; skip strict equality for MVP
   });
 });
