@@ -287,7 +287,7 @@ export default function LoginPage() {
             {stage === "credentials" && ssoEnabled && (
               <div className="mb-5">
                 <a
-                  href={`${APP_CONFIG.apiBaseUrl}/auth/sso/start`}
+                  href={`${APP_CONFIG.apiBaseUrl.replace(/\/$/, "")}/auth/sso/start`}
                   className="flex min-h-12 w-full items-center justify-center gap-2 rounded-lg bg-[#1455a0] px-4 py-3 text-sm font-extrabold text-white shadow-sm transition hover:bg-[#102747] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-sky-600 focus-visible:ring-offset-2"
                 >
                   <ShieldCheck className="h-4 w-4" aria-hidden />
