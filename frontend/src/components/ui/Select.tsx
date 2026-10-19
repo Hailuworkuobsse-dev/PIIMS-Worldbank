@@ -13,8 +13,8 @@ export interface SelectProps extends Omit<
 > {
   label: string;
   options: SelectOption[];
-  hint?: string;
-  error?: string;
+  hint?: string | undefined;
+  error?: string | undefined;
   required?: boolean;
   placeholder?: string;
 }
