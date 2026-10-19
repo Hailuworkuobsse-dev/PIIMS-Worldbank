@@ -320,6 +320,7 @@ export async function changePassword(
 }
 
 export async function acceptPolicy(userId: string, policyVersion: string, context: LoginContext): Promise<void> {
+  if (policyVersion !== '2026-10-v1') throw new BadRequestError('Unsupported policy version');
   await prisma.user.update({
     where: { userId },
     data: { acceptedPolicyVersion: policyVersion, acceptedPolicyAt: new Date() }
