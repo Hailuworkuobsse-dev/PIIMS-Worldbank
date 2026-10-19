@@ -112,12 +112,12 @@ export interface BudgetFilters {
 }
 
 export interface DisbursementFilters {
-  projectId?: string;
-  status?: DisbursementStatus[];
-  sourceOrgId?: string;
-  from?: string;
-  to?: string;
-  q?: string;
-  limit?: number;
-  cursor?: string;
+  projectId?: string | undefined;
+  status?: DisbursementStatus[] | undefined;
+  sourceOrgId?: string | undefined;
+  from?: string | undefined;
+  to?: string | undefined;
+  q?: string | undefined;
+  limit?: number | undefined;
+  cursor?: string | undefined;
 }
