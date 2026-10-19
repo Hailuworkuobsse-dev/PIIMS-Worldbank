@@ -1,6 +1,12 @@
 import { BaseAdapter } from './base.adapter.js';
 import type { AdapterHealth, IntegrationCode } from '../integration.types.js';
 
+export interface UssdResponse {
+  reply: string;
+  action: 'CON' | 'END';
+  nextStep?: number;
+}
+
 class UssdAdapter extends BaseAdapter {
   readonly code: IntegrationCode = 'USSD';
 

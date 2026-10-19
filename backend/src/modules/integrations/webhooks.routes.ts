@@ -75,7 +75,7 @@ webhooksRouter.post('/channels/sms/delivery-receipt', validate({ body: smsDelive
       },
       data: {
         status: status === 'DELIVERED' ? 'DELIVERED' : status === 'FAILED' ? 'FAILED' : 'SENT',
-        deliveredAt: status === 'DELIVERED' ? new Date() : null
+        ...(status === 'DELIVERED' ? { deliveredAt: new Date() } : {})
       }
     });
 

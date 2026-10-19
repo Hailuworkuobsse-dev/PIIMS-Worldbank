@@ -21,7 +21,7 @@ export abstract class BaseAdapter {
     protected readonly timeoutMs = 30_000
   ) {
     this.client = axios.create({
-      ...(baseUrl !== undefined ? { baseURL: baseUrl } : {}),
+      ...(baseUrl ? { baseURL: baseUrl } : {}),
       timeout: timeoutMs,
       headers: {
         'Content-Type': 'application/json',

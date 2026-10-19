@@ -34,6 +34,8 @@ import {
   decodeCursor,
 } from "@/utils/pagination.js";
 
+import type { FinancingLineDTO } from "./project.types.js";
+
 /* ════════════════════════════════════════════════════════════════════
 Shared include shape
 ════════════════════════════════════════════════════════════════════ */
@@ -109,9 +111,8 @@ function toProjectDTO(project: ProjectWithRelations): ProjectDTO {
     ...(Array.isArray(project.financingSource) &&
     project.financingSource.length > 0
       ? {
-          // Prisma returns this column as Json (JsonArray); narrow it to the
-          // DTO shape via `unknown` since the direct cast doesn't overlap.
-          financingSource: project.financingSource as unknown as FinancingLineDTO[],
+          financingSource:
+            project.financingSource as unknown as ( FinancingLineDTO[] | undefined),
         }
       : {}),
     createdAt: project.createdAt.toISOString(),
