@@ -1,9 +1,13 @@
 import { describe, it, expect } from 'vitest';
+import { isDatabaseAvailable } from '../utils/dbProbe.js';
 import request from 'supertest';
 import { getApp, login, bearer, DEMO_USERS } from './helpers.js';
 import { prisma } from '@/lib/prisma.js';
 
-describe('E2E — Field Interview (CAPI)', () => {
+const dbAvailable = await isDatabaseAvailable();
+const describeDb = dbAvailable ? describe : describe.skip;
+
+describeDb('E2E — Field Interview (CAPI)', () => {
   it('collector can list assignments', async () => {
     const app = getApp();
     const { accessToken } = await login(DEMO_USERS.dc);

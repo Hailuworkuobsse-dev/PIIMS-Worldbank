@@ -1,8 +1,12 @@
 import { describe, it, expect, beforeAll } from "vitest";
+import { isDatabaseAvailable } from '../../../tests/utils/dbProbe.js';
 import { writeAudit, verifyAuditChain } from "../audit.js";
 import { prisma } from "../prisma.js";
 
-describe("audit log", () => {
+const dbAvailable = await isDatabaseAvailable();
+const describeDb = dbAvailable ? describe : describe.skip;
+
+describeDb("audit log", () => {
   beforeAll(async () => {
     await prisma.$connect();
   });

@@ -106,7 +106,8 @@ function toProjectDTO(project: ProjectWithRelations): ProjectDTO {
     ...(project.implementationArrangement
       ? { implementationArrangement: project.implementationArrangement }
       : {}),
-    ...(project.financingSource
+    ...(Array.isArray(project.financingSource) &&
+    project.financingSource.length > 0
       ? {
           financingSource:
             project.financingSource as unknown as ( FinancingLineDTO[] | undefined),

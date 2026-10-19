@@ -46,7 +46,8 @@ describe('computeDiDFromRaw', () => {
       [3800, 3900, 3700, 3800, 3800]
     );
     expect(result.treatmentChange).toBeCloseTo(2100, -1);
-    expect(result.controlChange).toBeCloseTo(700, -1);
-    expect(result.did).toBeCloseTo(1400, -1);
+    // control: baseline mean 3090 → endline mean 3800 ⇒ change = 710
+    expect(result.controlChange).toBeCloseTo(710, -1);
+    expect(result.did).toBeCloseTo(1390, -1);
   });
 });

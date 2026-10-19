@@ -1,9 +1,13 @@
 import { describe, it, expect } from 'vitest';
+import { isDatabaseAvailable } from '../utils/dbProbe.js';
 import request from 'supertest';
 import { getApp, login, bearer, DEMO_USERS } from './helpers.js';
 import { prisma } from '@/lib/prisma.js';
 
-describe('E2E — Project Lifecycle', () => {
+const dbAvailable = await isDatabaseAvailable();
+const describeDb = dbAvailable ? describe : describe.skip;
+
+describeDb('E2E — Project Lifecycle', () => {
   it('full flow: create project → list → detail → advance stage', async () => {
     const app = getApp();
     const { accessToken } = await login(DEMO_USERS.piu);
