@@ -21,7 +21,7 @@ export default function FirstLoginPage() {
     : user?.mfaSetupRequired
       ? "mfa"
       : "consent";
-  const [step, setStep] = useState<Step>(initialStep);
+  const [step] = useState<Step>(initialStep);
   const [oldPassword, setOldPassword] = useState("");
   const [newPassword, setNewPassword] = useState("");
   const [confirmPassword, setConfirmPassword] = useState("");
@@ -30,7 +30,6 @@ export default function FirstLoginPage() {
   const [accepted, setAccepted] = useState(false);
   const [busy, setBusy] = useState(false);
   const [error, setError] = useState("");
-  const [notice, setNotice] = useState("");
 
   const showError = (err: unknown) => {
     const problem = normalizeApiError(err);
@@ -151,7 +150,6 @@ export default function FirstLoginPage() {
           </div>
 
           {error && <div role="alert" className="mt-5 flex gap-2 rounded-lg border border-red-200 bg-red-50 p-3 text-sm text-red-800"><AlertCircle className="h-5 w-5 shrink-0" />{error}</div>}
-          {notice && <div role="status" className="mt-5 flex gap-2 rounded-lg border border-emerald-200 bg-emerald-50 p-3 text-sm text-emerald-800"><CheckCircle2 className="h-5 w-5 shrink-0" />{notice}</div>}
 
           {step === "password" && (
             <form onSubmit={changePassword} className="mt-6 space-y-4">
