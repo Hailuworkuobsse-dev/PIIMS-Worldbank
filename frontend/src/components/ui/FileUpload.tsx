@@ -1,5 +1,5 @@
 import { useId, useRef, useState, type DragEvent } from "react";
-import { UploadCloud, X } from "lucide-react";
+import { UploadCloud } from "lucide-react";
 import { cn } from "./utils/cn";
 
 export interface FileUploadProps {
