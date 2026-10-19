@@ -48,6 +48,7 @@ export default function LoginPage() {
   const completeMFA = useAuthStore((s) => s.completeMFA);
   const user = useAuthStore((s) => s.user);
   const homeRoute = useAuthStore((s) => s.homeRoute);
+  const locationMessage = (location.state as LocationState & { message?: string } | null)?.message;
 
   const [stage, setStage] = useState<Stage>("credentials");
   const [username, setUsername] = useState("");
@@ -241,6 +242,12 @@ export default function LoginPage() {
                 {headings[stage].subtitle}
               </p>
             </header>
+
+            {locationMessage && !error && (
+              <Banner tone="success" className="mb-4">
+                <span>{locationMessage}</span>
+              </Banner>
+            )}
 
             {error && (
               <Banner
