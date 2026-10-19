@@ -7,10 +7,10 @@ type LogLevel = "debug" | "info" | "warn" | "error";
 interface LogEntry {
   level: LogLevel;
   message: string;
-  context?: Record<string, unknown>;
+  context?: Record<string, unknown> | undefined;
   timestamp: string;
-  userId?: string;
-  correlationId?: string;
+  userId?: string | undefined;
+  correlationId?: string | undefined;
 }
 
 const buffer: LogEntry[] = [];
