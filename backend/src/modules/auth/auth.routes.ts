@@ -2,6 +2,7 @@ import { Router } from 'express';
 import { validate } from '@/middleware/validate.js';
 import { requireAuth, requireAuthForOnboarding } from '@/middleware/requireAuth.js';
 import { loginRateLimiter } from '@/middleware/loginRateLimiter.js';
+import { ssoStatusHandler, ssoStartHandler, ssoCallbackHandler } from './sso.controller.js';
 import {
   loginSchema, mfaVerifySchema, refreshSchema,
   changePasswordSchema, mfaEnableSchema, mfaDisableSchema, policyAcceptanceSchema
@@ -16,6 +17,9 @@ export const authRouter: Router = Router();
 
 /* ─── Public ──────────────────────────────────────────────────── */
 authRouter.post('/login', loginRateLimiter, validate({ body: loginSchema }), loginHandler);
+authRouter.get('/sso/status', ssoStatusHandler);
+authRouter.get('/sso/start', ssoStartHandler);
+authRouter.get('/sso/callback', ssoCallbackHandler);
 authRouter.post('/mfa/verify', loginRateLimiter, validate({ body: mfaVerifySchema }), mfaVerifyHandler);
 authRouter.post('/refresh', validate({ body: refreshSchema }), refreshHandler);
 
