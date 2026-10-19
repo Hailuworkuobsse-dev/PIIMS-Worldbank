@@ -40,7 +40,6 @@ export default function FirstLoginPage() {
   const changePassword = async (event: React.FormEvent) => {
     event.preventDefault();
     setError("");
-    setNotice("");
     if (newPassword.length < 12) {
       setError("Choose a password with at least 12 characters.");
       return;
@@ -52,13 +51,9 @@ export default function FirstLoginPage() {
     setBusy(true);
     try {
       await authApi.changePassword(oldPassword, newPassword);
-      updateUser({ mustChangePassword: false });
-      setOldPassword("");
-      setNewPassword("");
-      setConfirmPassword("");
-      if (user?.mfaSetupRequired) setStep("mfa");
-      else setStep("consent");
-      setNotice("Password updated. Continue with the remaining required steps.");
+      // Password changes revoke refresh sessions; sign in again before proceeding.
+      logout();
+      navigate("/login", { replace: true, state: { message: "Password updated. Sign in again to continue first-login setup." } });
     } catch (err) {
       showError(err);
     } finally {
