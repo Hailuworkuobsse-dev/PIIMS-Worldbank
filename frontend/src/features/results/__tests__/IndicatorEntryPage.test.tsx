@@ -72,6 +72,6 @@ describe("IndicatorEntryPage", () => {
         <IndicatorEntryPage />
       </Wrap>,
     );
-    expect(screen.getByText(/Achievement/i)).toBeInTheDocument();
+    expect(screen.getAllByText(/Achievement/i).length).toBeGreaterThan(0);
   });
 });
