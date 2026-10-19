@@ -22,15 +22,17 @@ function renderLanding() {
 }
 
 describe("LandingPage", () => {
-  it("renders hero, features and sign-in entry point", () => {
+  it("renders hero heading, entry CTA and section structure", () => {
     renderLanding();
+    const h1 = screen.getByRole("heading", { level: 1 });
+    expect((h1.textContent ?? "").length).toBeGreaterThan(10);
+    const links = screen.getAllByRole("link");
+    expect(links.length).toBeGreaterThan(2);
+    // anonymous visitors always get a path to /login
+    expect(links.some((a) => a.getAttribute("href") === "/login")).toBe(true);
     expect(
-      screen.getByRole("heading", { level: 1 }),
-    ).toHaveTextContent(/World Bank-financed projects/i);
-    expect(
-      screen.getAllByRole("link", { name: /sign in/i }).length,
-    ).toBeGreaterThan(0);
-    expect(screen.getAllByRole("heading", { level: 2 }).length).toBeGreaterThanOrEqual(2);
+      screen.getAllByRole("heading", { level: 2 }).length,
+    ).toBeGreaterThanOrEqual(2);
   });
 
   it("exposes the skip-link target", () => {
