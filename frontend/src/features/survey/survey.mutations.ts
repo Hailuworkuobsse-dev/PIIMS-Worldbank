@@ -7,7 +7,6 @@ import { normalizeApiError } from "@/lib/api/errors";
 import type {
   SurveyFormData,
   QuestionFormData,
-  SectionFormData,
   SkipLogicFormData,
 } from "./survey.schema";
 
