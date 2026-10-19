@@ -66,11 +66,11 @@ export async function login(
       correlationId: context.correlationId,
       newValue: { success: false, reason: 'locked' }
     });
-    throw new ForbiddenError('Account is locked. Contact an administrator.');
+    throw new ForbiddenError('Account is locked. Contact support@piims.gov.et.');
   }
 
   if (user.status === 'SUSPENDED' || user.status === 'INACTIVE') {
-    throw new ForbiddenError('Account is not active');
+    throw new ForbiddenError('Account is not active. Contact support@piims.gov.et.');
   }
 
   // ── Password check ────────────────────────────────────────────
