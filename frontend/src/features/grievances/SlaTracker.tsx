@@ -6,7 +6,7 @@ import { slaDaysRemaining, slaTone } from "./grievance.utils";
 import { Chip } from "@/components/ui/Chip";
 import { formatDate } from "@/lib/utils/date";
 
-export function SlaTracker({ projectId }: { projectId?: string }) {
+export function SlaTracker({ projectId }: { projectId?: string | undefined }) {
   const { t } = useTranslation();
   const { data } = useGrievances({
     projectId,
