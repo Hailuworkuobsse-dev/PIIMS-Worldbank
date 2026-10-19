@@ -15,6 +15,8 @@ import {
   Lock,
 } from "lucide-react";
 import { useAuthStore } from "@/stores/auth.store";
+import { authApi } from "@/features/auth/auth.api";
+import { APP_CONFIG } from "@/app/config";
 import { CURRENT_POLICY_VERSION } from "@/features/auth/auth.types";
 import { normalizeApiError } from "@/lib/api/errors";
 import { Input } from "@/components/ui/Input";
@@ -58,9 +60,20 @@ export default function LoginPage() {
   const [mfaToken, setMfaToken] = useState<string | null>(null);
   const [error, setError] = useState<string | null>(null);
   const [submitting, setSubmitting] = useState(false);
+  const [ssoEnabled, setSsoEnabled] = useState(false);
 
   const firstFieldRef = useRef<HTMLInputElement>(null);
   const mfaRef = useRef<HTMLInputElement>(null);
+
+  useEffect(() => {
+    let active = true;
+    authApi.ssoStatus().then((status) => {
+      if (active) setSsoEnabled(status.enabled);
+    }).catch(() => {
+      if (active) setSsoEnabled(false);
+    });
+    return () => { active = false; };
+  }, []);
 
   /* Redirect if already signed in */
   useEffect(() => {
@@ -243,6 +256,11 @@ export default function LoginPage() {
               </p>
             </header>
 
+            {new URLSearchParams(location.search).get("sso_error") === "1" && !error && (
+              <Banner tone="error" className="mb-4">
+                Government sign-in could not be completed. Please try again or use your assigned PIIMS credentials.
+              </Banner>
+            )}
             {locationMessage && !error && (
               <Banner tone="success" className="mb-4">
                 <span>{locationMessage}</span>
@@ -260,6 +278,23 @@ export default function LoginPage() {
                   <span>{error}</span>
                 </div>
               </Banner>
+            )}
+
+            {stage === "credentials" && ssoEnabled && (
+              <div className="mb-5">
+                <a
+                  href={`${APP_CONFIG.apiBaseUrl}/auth/sso/start`}
+                  className="flex min-h-12 w-full items-center justify-center gap-2 rounded-lg bg-[#1455a0] px-4 py-3 text-sm font-extrabold text-white shadow-sm transition hover:bg-[#102747] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-sky-600 focus-visible:ring-offset-2"
+                >
+                  <ShieldCheck className="h-4 w-4" aria-hidden />
+                  Sign in with government SSO
+                </a>
+                <div className="my-4 flex items-center gap-3 text-xs text-neutral-500">
+                  <span className="h-px flex-1 bg-neutral-200" />
+                  <span>or use your assigned PIIMS credentials</span>
+                  <span className="h-px flex-1 bg-neutral-200" />
+                </div>
+              </div>
             )}
 
             {stage === "credentials" && (
