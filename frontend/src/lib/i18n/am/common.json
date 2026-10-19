@@ -39,5 +39,69 @@
     "generic": "የተሳሳተ ነገር ተከስቷል። እባክዎ እንደገና ይሞክሩ።",
     "network": "አውታረ መረብ አይገኝም። እባክዎ ግንኙነትዎን ያረጋግጡ።",
     "unauthorized": "ክፍለ ጊዜዎ አልቋል። እባክዎ እንደገና ይግቡ።"
+  },
+  "projects": {
+    "actions": {
+      "filters": "ማጣሪያዎች",
+      "clearFilters": "ማጣሪያዎችን አጽዳ"
+    },
+    "filters": {
+      "searchPlaceholder": "በኮድ ወይም በስም ፈልግ",
+      "region": "ክልል"
+    },
+    "status": {
+      "idea": "ሀሳብ",
+      "profile": "መገለጫ",
+      "pre_feasibility": "ቅድመ አዋጭነት",
+      "feasibility": "አዋጭነት",
+      "appraisal": "ግምገማ",
+      "approved": "ጸድቋል",
+      "active": "ንቁ",
+      "closed": "ተዘግቷል",
+      "cancelled": "ተሰርዟል"
+    },
+    "sectors": {
+      "water": "ውሃ",
+      "energy": "ኃይል",
+      "both": "ውሃ እና ኃይል",
+      "other": "ሌላ"
+    },
+    "wizard": {
+      "steps": {
+        "identification": "መለያ መረጃ",
+        "classification": "ምደባ",
+        "location": "አካባቢ",
+        "budget": "በጀት",
+        "review": "ግምገማ"
+      },
+      "fields": {
+        "name": "የፕሮጀክት ስም",
+        "nameAm": "የፕሮጀክት ስም (አማርኛ)",
+        "subsector": "ንዑስ ዘርፍ",
+        "description": "መግለጫ"
+      },
+      "buttons": {
+        "discard": "አቋርጥ",
+        "back": "ተመለስ",
+        "continue": "ቀጥል",
+        "next": "ቀጥል",
+        "finish": "ፕሮጀክት ፍጠር"
+      }
+    }
+  },
+  "beneficiaries": {
+    "duplicate": {
+      "title": "ሊደጋገሙ የሚችሉ ተጠቃሚዎች",
+      "message": "ሊደጋገሙ የሚችሉ መዝገቦች ተገኝተዋል። ከመቀጠልዎ በፊት ይመርምሩ።",
+      "proceedAnyway": "እንዲሁም ቀጥል",
+      "merge": "መዝገቦችን አዋህድ"
+    }
+  },
+  "results": {
+    "entry": {
+      "achievement": "ስኬት",
+      "period": "የሪፖርት ጊዜ",
+      "actualValue": "ትክክለኛ ዋጋ"
+    }
   }
 }

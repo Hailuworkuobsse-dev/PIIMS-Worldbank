@@ -12,7 +12,7 @@ export interface Collector {
   fullName: string;
   region?: string;
   woreda?: string;
-  deviceId?: string;
+  deviceId?: string | undefined;
   status: "ACTIVE" | "INACTIVE" | "SUSPENDED";
 }
 
@@ -71,9 +71,9 @@ export interface Submission {
   panelId?: string;
   startedAt: string;
   endedAt?: string;
-  gpsStart?: { lat: number; lon: number };
-  gpsEnd?: { lat: number; lon: number };
-  deviceId?: string;
+  gpsStart?: { lat: number; lon: number } | undefined;
+  gpsEnd?: { lat: number; lon: number } | undefined;
+  deviceId?: string | undefined;
   consent: ConsentPayload;
   answers: SubmissionAnswer[];
   paradata: ParadataEntry[];

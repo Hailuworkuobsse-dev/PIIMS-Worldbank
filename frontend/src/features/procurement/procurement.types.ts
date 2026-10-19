@@ -85,12 +85,12 @@ export interface ProcurementDelay {
 }
 
 export interface ProcurementFilters {
-  projectId?: string;
-  status?: ProcurementStatus[];
-  method?: ProcurementMethod[];
-  q?: string;
-  limit?: number;
-  cursor?: string;
+  projectId?: string | undefined;
+  status?: ProcurementStatus[] | undefined;
+  method?: ProcurementMethod[] | undefined;
+  q?: string | undefined;
+  limit?: number | undefined;
+  cursor?: string | undefined;
 }
 
 export interface ContractFilters {

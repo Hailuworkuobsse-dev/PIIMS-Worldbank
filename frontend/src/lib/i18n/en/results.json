@@ -6,6 +6,11 @@
       "at_risk": "At-risk",
       "off_track": "Off-track",
       "not_started": "Not started"
+    },
+    "entry": {
+      "achievement": "Achievement",
+      "period": "Reporting period",
+      "actualValue": "Actual value"
     }
   }
 }

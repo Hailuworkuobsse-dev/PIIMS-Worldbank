@@ -78,7 +78,7 @@ export function useCreateServiceDelivery() {
       photo,
     }: {
       input: ServiceDeliveryFormData;
-      photo?: File;
+      photo?: File | undefined;
     }) => beneficiaryApi.createDelivery(input, photo),
     onSuccess: (d) => {
       qc.invalidateQueries({ queryKey: beneficiaryKeys.all });

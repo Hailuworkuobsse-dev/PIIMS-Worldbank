@@ -35,11 +35,11 @@ export interface MapBounds {
 
 export interface GeoFilters {
   layer: "beneficiaries" | "interventions" | "heatmap";
-  bounds?: MapBounds;
-  region?: string;
-  woreda?: string;
-  projectId?: string;
-  status?: string[];
+  bounds?: MapBounds | undefined;
+  region?: string | undefined;
+  woreda?: string | undefined;
+  projectId?: string | undefined;
+  status?: string[] | undefined;
 }
 
 export interface GeoVerifyRequest {

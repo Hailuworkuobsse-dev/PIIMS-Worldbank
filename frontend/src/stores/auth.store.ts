@@ -70,7 +70,7 @@ export const useAuthStore = create<AuthState>()(
         const res = await authApi.completeMFA({
           mfa_token: mfaToken,
           mfa_code: code,
-          remember_device: remember,
+          ...(remember === undefined ? {} : { remember_device: remember }),
         });
         get().setSession(
           res.user,
@@ -119,10 +119,13 @@ export const useAuthStore = create<AuthState>()(
       logout(opts = {}) {
         const { refreshToken } = get();
         if (refreshToken && !opts.silent) {
-          // Fire-and-forget server-side revocation
-          authApi.logout(refreshToken).catch(() => {
-            /* ignore */
-          });
+          // Fire-and-forget server-side revocation (defensive: the api may be
+          // mocked or unavailable — never throw from logout)
+          void Promise.resolve()
+            .then(() => authApi.logout(refreshToken))
+            .catch(() => {
+              /* ignore */
+            });
         }
         set({
           user: null,

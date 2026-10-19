@@ -1,3 +1,4 @@
+import { useEffect } from "react";
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useTranslation } from "react-i18next";
@@ -25,21 +26,29 @@ export function StepLocation({
   defaultValues,
   onSubmit,
   formId,
+  onValuesChange,
 }: {
   defaultValues: Partial<StepLocationData>;
   onSubmit: (d: StepLocationData) => void;
+  onValuesChange?: (d: Partial<StepLocationData>) => void;
   formId: string;
 }) {
   const { t } = useTranslation();
   const {
     register,
     handleSubmit,
+    watch,
     formState: { errors },
   } = useForm<StepLocationData>({
     resolver: zodResolver(stepLocationSchema),
     defaultValues,
     mode: "onBlur",
   });
+
+  useEffect(() => {
+    const subscription = watch((values) => onValuesChange?.(values as Partial<StepLocationData>));
+    return () => subscription.unsubscribe();
+  }, [watch, onValuesChange]);
 
   return (
     <form

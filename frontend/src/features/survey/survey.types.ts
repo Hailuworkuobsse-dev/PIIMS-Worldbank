@@ -16,10 +16,10 @@ export const QUESTION_TYPES = [
 export type QuestionType = (typeof QUESTION_TYPES)[number];
 
 export interface QuestionOption {
-  optionId?: string;
+  optionId?: string | undefined;
   code: string;
   label: string;
-  labelAm?: string;
+  labelAm?: string | undefined;
   value: string;
   orderNo: number;
 }
@@ -30,16 +30,16 @@ export interface Question {
   code: string;
   type: QuestionType;
   text: string;
-  textAm?: string;
-  hint?: string;
+  textAm?: string | undefined;
+  hint?: string | undefined;
   required: boolean;
   orderNo: number;
-  validation?: Record<string, unknown>;
-  calculation?: string;
-  indicatorId?: string;
-  disaggregationKey?: string;
-  options?: QuestionOption[];
-  skipLogic?: SkipLogic[];
+  validation?: Record<string, unknown> | undefined;
+  calculation?: string | undefined;
+  indicatorId?: string | undefined;
+  disaggregationKey?: string | undefined;
+  options?: QuestionOption[] | undefined;
+  skipLogic?: SkipLogic[] | undefined;
 }
 
 export interface SkipLogic {
@@ -55,12 +55,12 @@ export interface Section {
   versionId: string;
   code: string;
   title: string;
-  titleAm?: string;
-  description?: string;
+  titleAm?: string | undefined;
+  description?: string | undefined;
   orderNo: number;
   repeatable: boolean;
-  repeatMin?: number;
-  repeatMax?: number;
+  repeatMin?: number | undefined;
+  repeatMax?: number | undefined;
   questions: Question[];
 }
 

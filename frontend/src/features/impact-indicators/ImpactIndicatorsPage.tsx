@@ -115,7 +115,7 @@ export default function ImpactIndicatorsPage() {
       ),
     },
     {
-      id: "actions",
+      id: "actions" as keyof ImpactIndicator,
       header: "",
       render: (r) => (
         <Button

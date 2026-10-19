@@ -63,9 +63,9 @@
       }
     },
     "duplicate": {
-      "title": "Possible duplicate found",
-      "message": "We found {{count}} possible matching beneficiary record(s).",
-      "merge": "Merge",
+      "title": "Possible duplicate beneficiaries",
+      "message": "Potential duplicate records were found. Review them before continuing.",
+      "merge": "Merge records",
       "proceedAnyway": "Proceed anyway"
     },
     "detail": {

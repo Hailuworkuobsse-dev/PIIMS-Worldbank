@@ -1,16 +1,32 @@
 import type { LucideIcon } from "lucide-react";
-import { LayoutDashboard, FolderKanban, Target, Wallet, ShoppingCart, Users, BarChart3, FileText, ShieldCheck, Bell, Map, Gavel, TrendingUp, Microscope, Cog } from "lucide-react";
+import {
+  LayoutDashboard,
+  FolderKanban,
+  Target,
+  Wallet,
+  ShoppingCart,
+  Users,
+  BarChart3,
+  FileText,
+  ShieldCheck,
+  Bell,
+  Map,
+  Gavel,
+  TrendingUp,
+  Microscope,
+  Cog,
+} from "lucide-react";
 import { PERMISSIONS, type Permission } from "@/features/auth/auth.types";
 
 export interface MenuItem {
   id: string;
   label: string; // i18n key
   to: string;
-  icon?: LucideIcon;
-  anyOf?: Permission[];
-  children?: MenuItem[];
+  icon?: LucideIcon | undefined;
+  anyOf?: Permission[] | undefined;
+  children?: MenuItem[] | undefined;
   /** Section under which this item appears. */
-  section?: "main" | "operations" | "impact" | "outputs" | "admin";
+  section?: "main" | "operations" | "impact" | "outputs" | "admin" | undefined;
 }
 
 export interface MenuSection {

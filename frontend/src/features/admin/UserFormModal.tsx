@@ -40,7 +40,7 @@ export function UserFormModal({
 }: {
   open: boolean;
   onClose: () => void;
-  user?: AdminUser;
+  user?: AdminUser | undefined;
 }) {
   const { t } = useTranslation();
   const create = useCreateUser();

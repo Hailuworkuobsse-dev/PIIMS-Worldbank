@@ -19,15 +19,8 @@ import { useSyncStore } from "@/stores/sync.store";
 import { computeVisibility } from "@/features/survey/skipLogic";
 import { offlineStore } from "./offlineStore";
 import { useSubmitInterview } from "./field.mutations";
-import type {
-  Assignment,
-  ConsentPayload,
-  ParadataEntry,
-  Question,
-  Submission,
-  SubmissionAnswer,
-  SurveyView,
-} from "./field.types";
+import type { Assignment, ConsentPayload, ParadataEntry, Submission, SubmissionAnswer, SurveyView } from "./field.types";
+import type { Question } from "@/features/survey/survey.types";
 
 const CONSENT_VERSION = "v1.2";
 
@@ -35,7 +28,7 @@ export interface CapiRendererProps {
   assignment: Assignment;
   surveyView: SurveyView;
   collectorId: string;
-  deviceId?: string;
+  deviceId?: string | undefined;
   onExit: () => void;
 }
 

@@ -50,41 +50,32 @@ const financingLineSchema = z.object({
   referenceNo: z.string().optional().or(z.literal("")),
 });
 
-const stepBudgetObjectSchema = z.object({
-  totalBudget: moneySchema,
-  startDate: z
-    .string()
-    .refine((s) => !s || !Number.isNaN(Date.parse(s)), "Invalid date")
-    .optional(),
-  endDate: z.string().optional(),
-  financingSource: z
-    .array(financingLineSchema)
-    .min(1, "At least one financing source is required"),
+const stepBudgetBaseSchema = z.object({
+    totalBudget: moneySchema,
+    startDate: z
+      .string()
+      .refine((s) => !s || !Number.isNaN(Date.parse(s)), "Invalid date")
+      .optional(),
+    endDate: z.string().optional(),
+    financingSource: z
+      .array(financingLineSchema)
+      .min(1, "At least one financing source is required"),
 });
-
-const budgetDatesInOrder = (d: { startDate?: string; endDate?: string }) =>
-  !d.startDate ||
-  !d.endDate ||
-  Date.parse(d.endDate) > Date.parse(d.startDate);
-
-export const stepBudgetSchema = stepBudgetObjectSchema.refine(
-  budgetDatesInOrder,
-  { path: ["endDate"], message: "End date must be after start date" },
-);
+export const stepBudgetSchema = stepBudgetBaseSchema.refine(
+    (d) =>
+      !d.startDate ||
+      !d.endDate ||
+      Date.parse(d.endDate) > Date.parse(d.startDate),
+    { path: ["endDate"], message: "End date must be after start date" },
+  );
 export type StepBudgetData = z.infer<typeof stepBudgetSchema>;
 
-/* Merged object schema (no refinements) — needed for .merge()/.partial() */
-const createProjectObjectSchema = stepIdentificationSchema
+const createProjectBaseSchema = stepIdentificationSchema
   .merge(stepClassificationSchema)
   .merge(stepLocationSchema)
-  .merge(stepBudgetObjectSchema);
+  .merge(stepBudgetBaseSchema);
 
-export const createProjectSchema = createProjectObjectSchema
-  .refine(budgetDatesInOrder, {
-    path: ["endDate"],
-    message: "End date must be after start date",
-  })
-  .refine(
+export const createProjectSchema = createProjectBaseSchema.refine(
     (d) => {
       const declared = d.financingSource.reduce(
         (sum, l) => sum + Number(l.amount),
@@ -102,7 +93,7 @@ export type CreateProjectInput = z.infer<typeof createProjectSchema>;
 /* -------------------------------------------------------------------------
  * Update
  * ------------------------------------------------------------------------- */
-export const updateProjectSchema = createProjectObjectSchema.partial();
+export const updateProjectSchema = createProjectBaseSchema.partial();
 export type UpdateProjectInput = z.infer<typeof updateProjectSchema>;
 
 /* -------------------------------------------------------------------------

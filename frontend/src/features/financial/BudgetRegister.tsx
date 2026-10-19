@@ -55,16 +55,16 @@ export function BudgetRegister({
                   {b.componentId?.slice(0, 8) ?? "—"}
                 </td>
                 <td className="py-2 text-right">
-                  {formatMoney(b.appropriation, b.currency as any)}
+                  {formatMoney(b.appropriation, (b.currency || currency) as any)}
                 </td>
                 <td className="py-2 text-right">
-                  {formatMoney(b.released, b.currency as any)}
+                  {formatMoney(b.released, (b.currency || currency) as any)}
                 </td>
                 <td className="py-2 text-right">
-                  {formatMoney(b.expended, b.currency as any)}
+                  {formatMoney(b.expended, (b.currency || currency) as any)}
                 </td>
                 <td className="py-2 text-right font-bold">
-                  {formatMoney(b.balance, b.currency as any)}
+                  {formatMoney(b.balance, (b.currency || currency) as any)}
                 </td>
               </tr>
             ))}

@@ -23,7 +23,7 @@ export function IndicatorRegister({
 }: {
   indicators: Indicator[];
   loading: boolean;
-  selectedComponentId?: string;
+  selectedComponentId?: string | undefined;
 }) {
   const { t } = useTranslation();
   const navigate = useNavigate();

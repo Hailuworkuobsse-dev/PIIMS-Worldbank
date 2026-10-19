@@ -11,7 +11,7 @@ export function Breadcrumbs() {
   const segments = location.pathname.split("/").filter(Boolean);
 
   // Build cumulative paths
-  const crumbs: { label: string; to?: string }[] = [
+  const crumbs: { label: string; to?: string | undefined }[] = [
     { label: t("nav.dashboard"), to: "/dashboard" },
   ];
 

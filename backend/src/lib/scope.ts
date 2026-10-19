@@ -98,6 +98,9 @@ export function canAccessProject(
     return project.ownerOrgId === orgId || project.createdById === userId;
   }
   if (project.ownerOrgId === orgId) return true;
+  // Creators always retain access to the projects they created, even when
+  // their geographic scope doesn't match the project location.
+  if (project.createdById && project.createdById === userId) return true;
   if (scope.orgLevel === 'REGIONAL' && scope.regions?.length) {
     return !!project.location?.region && scope.regions.includes(project.location.region);
   }

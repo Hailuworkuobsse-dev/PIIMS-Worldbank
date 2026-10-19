@@ -6,7 +6,7 @@ export interface RadioProps extends Omit<
   "type"
 > {
   label: string;
-  hint?: string;
+  hint?: string | undefined;
 }
 
 export const Radio = forwardRef<HTMLInputElement, RadioProps>(function Radio(
@@ -65,8 +65,8 @@ export interface RadioGroupProps {
   options: {
     value: string;
     label: string;
-    hint?: string;
-    disabled?: boolean;
+    hint?: string | undefined;
+    disabled?: boolean | undefined;
   }[];
   className?: string;
 }

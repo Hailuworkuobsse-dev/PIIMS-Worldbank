@@ -70,7 +70,7 @@ export interface ToCLink {
 }
 
 export interface ImpactIndicatorFilters {
-  domain?: ImpactDomain[];
-  q?: string;
-  status?: "ACTIVE" | "DEPRECATED";
+  domain?: ImpactDomain[] | undefined;
+  q?: string | undefined;
+  status?: "ACTIVE" | "DEPRECATED" | undefined;
 }

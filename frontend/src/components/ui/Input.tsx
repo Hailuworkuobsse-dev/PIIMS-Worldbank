@@ -14,7 +14,7 @@ export interface InputProps extends Omit<
   /** Visually hide the label (still exposed to screen readers) */
   hideLabel?: boolean;
   hint?: string;
-  error?: string;
+  error?: string | undefined;
   required?: boolean;
   leftIcon?: ReactNode;
   rightSlot?: ReactNode;

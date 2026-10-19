@@ -24,20 +24,20 @@ export interface AdminUser {
 }
 
 export interface AdminUserFilters {
-  q?: string;
-  status?: UserStatus[];
-  orgId?: string;
-  role?: string;
-  limit?: number;
-  cursor?: string;
+  q?: string | undefined;
+  status?: UserStatus[] | undefined;
+  orgId?: string | undefined;
+  role?: string | undefined;
+  limit?: number | undefined;
+  cursor?: string | undefined;
 }
 
 export interface CreateUserInput {
   username: string;
   email: string;
   fullName: string;
-  fullNameAm?: string;
-  phone?: string;
+  fullNameAm?: string | undefined;
+  phone?: string | undefined;
   orgId: string;
   role: string;
   mfaEnabled: boolean;
@@ -45,14 +45,14 @@ export interface CreateUserInput {
 }
 
 export interface UpdateUserInput {
-  fullName?: string;
-  fullNameAm?: string;
-  email?: string;
-  phone?: string;
-  orgId?: string;
-  role?: string;
-  status?: UserStatus;
-  mfaEnabled?: boolean;
+  fullName?: string | undefined;
+  fullNameAm?: string | undefined;
+  email?: string | undefined;
+  phone?: string | undefined;
+  orgId?: string | undefined;
+  role?: string | undefined;
+  status?: UserStatus | undefined;
+  mfaEnabled?: boolean | undefined;
 }
 
 export const INTEGRATION_CODES = [
@@ -119,14 +119,14 @@ export interface AuditLogEntry {
 }
 
 export interface AuditFilters {
-  userId?: string;
-  entity?: string;
-  action?: string;
-  from?: string;
-  to?: string;
-  q?: string;
-  limit?: number;
-  cursor?: string;
+  userId?: string | undefined;
+  entity?: string | undefined;
+  action?: string | undefined;
+  from?: string | undefined;
+  to?: string | undefined;
+  q?: string | undefined;
+  limit?: number | undefined;
+  cursor?: string | undefined;
 }
 
 export interface SystemHealth {
