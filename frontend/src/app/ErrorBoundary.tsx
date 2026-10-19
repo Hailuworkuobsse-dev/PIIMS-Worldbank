@@ -12,13 +12,13 @@ interface State {
 }
 
 export class ErrorBoundary extends Component<Props, State> {
-  state: State = { error: null, errorInfo: null };
+  override state: State = { error: null, errorInfo: null };
 
   static getDerivedStateFromError(error: Error): Partial<State> {
     return { error };
   }
 
-  componentDidCatch(error: Error, errorInfo: ErrorInfo) {
+  override componentDidCatch(error: Error, errorInfo: ErrorInfo) {
     this.setState({ errorInfo });
     // In production: forward to Sentry / logging service
     if (import.meta.env.PROD) {
@@ -31,7 +31,7 @@ export class ErrorBoundary extends Component<Props, State> {
     this.setState({ error: null, errorInfo: null });
   };
 
-  render() {
+  override render() {
     if (!this.state.error) return this.props.children;
 
     if (this.props.fallback) {
