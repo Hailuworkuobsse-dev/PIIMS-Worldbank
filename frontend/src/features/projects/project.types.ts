@@ -120,16 +120,16 @@ export interface ProjectSummary extends Pick<
  * Filters
  * ========================================================================= */
 export interface ProjectFilters {
-  q?: string;
-  status?: ProjectStatus[];
-  sector?: ProjectSector[];
-  region?: string;
-  ownerOrgId?: string;
-  createdAfter?: string;
-  createdBefore?: string;
+  q?: string | undefined;
+  status?: ProjectStatus[] | undefined;
+  sector?: ProjectSector[] | undefined;
+  region?: string | undefined;
+  ownerOrgId?: string | undefined;
+  createdAfter?: string | undefined;
+  createdBefore?: string | undefined;
   sort?: string; // e.g. '-updatedAt,name'
-  cursor?: string;
-  limit?: number;
+  cursor?: string | undefined;
+  limit?: number | undefined;
 }
 
 export interface Paginated<T> {
