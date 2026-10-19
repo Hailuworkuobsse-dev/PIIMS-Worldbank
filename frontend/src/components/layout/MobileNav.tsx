@@ -4,13 +4,10 @@ import { useTranslation } from "react-i18next";
 import {
   LayoutDashboard,
   FolderKanban,
-  Target,
   Menu as MenuIcon,
   X,
   TrendingUp,
   Users,
-  BarChart3,
-  Wallet,
   Search,
 } from "lucide-react";
 import { useUIStore } from "@/stores/ui.store";
