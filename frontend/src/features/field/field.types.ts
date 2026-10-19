@@ -71,7 +71,7 @@ export interface Submission {
   endedAt?: string;
   gpsStart?: { lat: number; lon: number } | undefined;
   gpsEnd?: { lat: number; lon: number } | undefined;
-  deviceId?: string;
+  deviceId?: string | undefined;
   consent: ConsentPayload;
   answers: SubmissionAnswer[];
   paradata: ParadataEntry[];
