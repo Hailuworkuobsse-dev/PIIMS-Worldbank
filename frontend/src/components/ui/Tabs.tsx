@@ -23,16 +23,19 @@ export function Tabs({
   const [active, setActive] = useState(defaultTab ?? tabs[0]?.id);
 
   const onKey = (e: React.KeyboardEvent, idx: number) => {
-    if (e.key === "ArrowRight") {
-      e.preventDefault();
-      const next = tabs[(idx + 1) % tabs.length]!;
-      setActive(next.id);
-      onChange?.(next.id);
-    } else if (e.key === "ArrowLeft") {
-      e.preventDefault();
-      const prev = tabs[(idx - 1 + tabs.length) % tabs.length]!;
-      setActive(prev.id);
-      onChange?.(prev.id);
+    if (e.key !== "ArrowRight" && e.key !== "ArrowLeft") return;
+    e.preventDefault();
+    const step = e.key === "ArrowRight" ? 1 : -1;
+    let nextIndex = idx;
+    for (let attempt = 0; attempt < tabs.length; attempt++) {
+      nextIndex = (nextIndex + step + tabs.length) % tabs.length;
+      if (!tabs[nextIndex]?.disabled) {
+        const next = tabs[nextIndex]!;
+        setActive(next.id);
+        onChange?.(next.id);
+        document.getElementById(`${uid}-tab-${next.id}`)?.focus();
+        return;
+      }
     }
   };
 
