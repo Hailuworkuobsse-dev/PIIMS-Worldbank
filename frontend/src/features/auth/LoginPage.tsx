@@ -20,7 +20,6 @@ import { APP_CONFIG } from "@/app/config";
 import { CURRENT_POLICY_VERSION } from "@/features/auth/auth.types";
 import { normalizeApiError } from "@/lib/api/errors";
 import { Input } from "@/components/ui/Input";
-import { Checkbox } from "@/components/ui/Checkbox";
 import { Button } from "@/components/ui/Button";
 import { Banner } from "@/components/ui/Banner";
 import pkg from "../../../package.json";
@@ -55,7 +54,6 @@ export default function LoginPage() {
   const [stage, setStage] = useState<Stage>("credentials");
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
-  const [remember, setRemember] = useState(false);
   const [mfaCode, setMfaCode] = useState("");
   const [mfaToken, setMfaToken] = useState<string | null>(null);
   const [error, setError] = useState<string | null>(null);
@@ -95,7 +93,7 @@ export default function LoginPage() {
     setError(null);
     setSubmitting(true);
     try {
-      const res = await login({ username, password, rememberDevice: remember });
+      const res = await login({ username, password });
       if (res.mfaRequired && res.mfaToken) {
         setMfaToken(res.mfaToken);
         setStage("mfa");
@@ -128,7 +126,7 @@ export default function LoginPage() {
     setError(null);
     setSubmitting(true);
     try {
-      await completeMFA(mfaToken, mfaCode, remember);
+      await completeMFA(mfaToken, mfaCode);
       const signedIn = useAuthStore.getState().user;
       const onboardingRequired = Boolean(
         signedIn?.mustChangePassword ||
@@ -321,11 +319,6 @@ export default function LoginPage() {
                   value={password}
                   onChange={(e) => setPassword(e.target.value)}
                 />
-                <Checkbox
-                  label={t("auth.login.rememberDevice")}
-                  checked={remember}
-                  onChange={(e) => setRemember(e.target.checked)}
-                />
                 <Button
                   type="submit"
                   fullWidth
@@ -374,11 +367,6 @@ export default function LoginPage() {
                     setMfaCode(e.target.value.replace(/\D/g, "").slice(0, 6))
                   }
                   className="text-center text-lg tracking-[0.4em]"
-                />
-                <Checkbox
-                  label={t("auth.login.trustDevice")}
-                  checked={remember}
-                  onChange={(e) => setRemember(e.target.checked)}
                 />
                 <Button type="submit" fullWidth size="lg" loading={submitting}>
                   {submitting
