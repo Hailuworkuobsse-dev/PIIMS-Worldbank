@@ -2,7 +2,6 @@ import { api } from "@/lib/api/client";
 import type {
   ImpactIndicator,
   ImpactIndicatorFilters,
-  CompositeFormula,
   TheoryOfChange,
 } from "./impactIndicator.types";
 import type {
