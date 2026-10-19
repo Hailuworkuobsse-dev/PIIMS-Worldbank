@@ -224,6 +224,9 @@ export interface AuthUser {
   permissions: Permission[];
   scope: AuthScope;
   mfaEnabled: boolean;
+  mfaSetupRequired?: boolean;
+  mustChangePassword?: boolean;
+  acceptedPolicyVersion?: string | null;
   locale: "en" | "am";
   lastLoginAt: string;
 }
@@ -253,6 +256,7 @@ export interface LoginResponse {
   refresh_expires_in: number;
   mfa_required?: boolean;
   mfa_token?: string; // short-lived, for MFA challenge
+  mfa_setup_required?: boolean;
 }
 
 export interface MFAChallengeRequest {
@@ -656,49 +660,9 @@ export const ROLE_PERMISSIONS: Record<RoleCode, Permission[]> = {
 /* =========================================================================
  * Role → Default home route
  * ========================================================================= */
-export const ROLE_HOME: Record<RoleCode, string> = {
-  "WB-TTL": "/dashboard",
-  "WB-IE": "/impact",
-  "WB-FM": "/financial",
-  "WB-PROC": "/procurement",
-  "WB-ES": "/grievances",
-  "WB-M&E": "/results",
-  "MW-SA": "/admin",
-  "MW-PIU": "/dashboard",
-  "MW-ME": "/results",
-  "MW-TL": "/projects",
-  "MW-PM": "/projects",
-  "MW-IE": "/impact",
-  "MW-DM": "/impact/warehouse",
-  "MW-QA": "/impact/qa",
-  "MW-FO": "/impact/field",
-  "MF-BO": "/financial",
-  "MF-FM": "/financial",
-  "MF-AUD": "/audit",
-  "DB-LO": "/financial",
-  "DB-DO": "/financial",
-  "DB-PM": "/financial",
-  "DB-AUD": "/audit",
-  "SP-AD": "/supplier",
-  "SP-OPS": "/supplier",
-  "SP-SVC": "/supplier",
-  "BN-SR": "/",
-  "BN-REP": "/",
-  "LG-RO": "/beneficiaries",
-  "LG-ZO": "/beneficiaries",
-  "LG-WO": "/beneficiaries",
-  "LG-KO": "/beneficiaries",
-  "DC-EN": "/impact/field",
-  "DC-SV": "/impact/field",
-  "RS-EX": "/research",
-  "SC-MB": "/dashboard",
-  "AU-EX": "/audit",
-  "AU-EV": "/dashboard",
-  "SYS-DBA": "/admin",
-  "SYS-OPS": "/admin",
-  "SYS-SEC": "/admin",
-  "SYS-HELP": "/admin",
-};
+export const ROLE_HOME: Record<RoleCode, string> = Object.fromEntries(
+  ROLE_CODES.map((role) => [role, "/home"]),
+) as Record<RoleCode, string>;
 
 /* =========================================================================
  * Helpers
