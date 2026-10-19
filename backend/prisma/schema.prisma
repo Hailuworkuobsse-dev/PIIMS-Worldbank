@@ -551,6 +551,8 @@ model User {
   failedLoginCount  Int       @default(0)
   lockedUntil       DateTime?
   passwordChangedAt DateTime?
+  acceptedPolicyVersion String? @db.VarChar(40)
+  acceptedPolicyAt DateTime?
   locale            String    @default("en") @db.VarChar(10)
 
   createdAt DateTime @default(now())
