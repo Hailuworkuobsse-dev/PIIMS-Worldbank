@@ -12,7 +12,7 @@ export interface ComponentTreeProps {
   projectId: string;
   components: Component[];
   onSelect: (id: string) => void;
-  selectedId?: string;
+  selectedId?: string | undefined;
   onChanged: () => void;
 }
 
