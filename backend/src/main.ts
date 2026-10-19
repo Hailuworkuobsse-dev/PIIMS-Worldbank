@@ -2,13 +2,14 @@ import { buildApp } from './app.js';
 import { env } from './config/env.js';
 import { logger } from './config/logger.js';
 import { connectPrisma, disconnectPrisma } from './lib/prisma.js';
-import { disconnectRedis } from './config/redis.js';
+import { connectRedis, disconnectRedis } from './config/redis.js';
 import { closeQueues } from './config/queue.js';
 
 async function bootstrap(): Promise<void> {
   logger.info({ env: env.NODE_ENV, node: process.version }, 'PIIMS backend starting');
 
-  // ── Connect dependencies ──
+  // ── Connect dependencies before reporting the API as ready ──
+  await connectRedis();
   await connectPrisma();
 
   // ── Build Express app ──
