@@ -89,20 +89,20 @@ export interface ServiceDelivery {
   beneficiaryUniqueId: string;
   projectId: string;
   projectCode: string;
-  supplierId?: string;
-  supplierName?: string;
-  productId?: string;
+  supplierId?: string | undefined;
+  supplierName?: string | undefined;
+  productId?: string | undefined;
   productName: string;
-  serialNo?: string;
+  serialNo?: string | undefined;
   quantity: number;
-  installDate?: string;
+  installDate?: string | undefined;
   installGps?: { lat: number; lon: number };
-  installPhotoUrl?: string;
-  warrantyStart?: string;
-  warrantyEnd?: string;
+  installPhotoUrl?: string | undefined;
+  warrantyStart?: string | undefined;
+  warrantyEnd?: string | undefined;
   status: DeliveryStatus;
-  verifiedBy?: string;
-  verifiedAt?: string;
+  verifiedBy?: string | undefined;
+  verifiedAt?: string | undefined;
   createdAt: string;
 }
 
