@@ -40,3 +40,5 @@ export const mfaDisableSchema = z.object({
   password: z.string().min(1, 'Password is required')
 });
 export type MfaDisableInput = z.infer<typeof mfaDisableSchema>;
+export const policyAcceptanceSchema = z.object({ policy_version: z.string().trim().min(1).max(40) });
+export type PolicyAcceptanceInput = z.infer<typeof policyAcceptanceSchema>;
