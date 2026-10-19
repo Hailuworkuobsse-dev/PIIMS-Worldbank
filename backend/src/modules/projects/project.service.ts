@@ -34,8 +34,6 @@ import {
   decodeCursor,
 } from "@/utils/pagination.js";
 
-import type { FinancingLineDTO } from "./project.types.js";
-
 /* ════════════════════════════════════════════════════════════════════
 Shared include shape
 ════════════════════════════════════════════════════════════════════ */

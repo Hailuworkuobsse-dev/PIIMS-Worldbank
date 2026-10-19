@@ -54,7 +54,7 @@ export async function checkAndSetIdempotency<T>(
   integrationCode: string,
   referenceId: string,
   executor: () => Promise<T>,
-  ttl = DEFAULT_TTL
+  ttl = DEFAULT_TTL_MS
 ): Promise<T> {
   const cached = await getIdempotencyKey<T>(integrationCode, referenceId);
   if (cached !== null) {

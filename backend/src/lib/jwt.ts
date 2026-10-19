@@ -57,7 +57,7 @@ export interface ScopeClaim {
  * ════════════════════════════════════════════════════════════════════ */
 
 export function signAccessToken(
-  _userId: string,
+  userId: string,
   username: string,
   orgId: string,
   role: string,
@@ -70,6 +70,7 @@ export function signAccessToken(
     expiresIn: authConfig.accessTokenTtlSeconds,
     issuer: authConfig.issuer,
     audience: authConfig.audience,
+    subject: userId,
     jwtid: jti,
     algorithm: 'HS256'
   };

@@ -1,8 +1,12 @@
 import { describe, it, expect } from 'vitest';
+import { isDatabaseAvailable } from '../utils/dbProbe.js';
 import request from 'supertest';
 import { getApp, login, bearer, DEMO_USERS } from './helpers.js';
 
-describe('E2E — Authentication', () => {
+const dbAvailable = await isDatabaseAvailable();
+const describeDb = dbAvailable ? describe : describe.skip;
+
+describeDb('E2E — Authentication', () => {
   it('health check responds', async () => {
     const app = getApp();
     const res = await request(app).get('/healthz');

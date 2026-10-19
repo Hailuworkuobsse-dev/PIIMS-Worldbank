@@ -1,9 +1,13 @@
 import { describe, it, expect } from 'vitest';
+import { isDatabaseAvailable } from '../utils/dbProbe.js';
 import request from 'supertest';
 import { getApp, login, bearer, DEMO_USERS } from './helpers.js';
 import { prisma } from '@/lib/prisma.js';
 
-describe('E2E — Project Lifecycle', () => {
+const dbAvailable = await isDatabaseAvailable();
+const describeDb = dbAvailable ? describe : describe.skip;
+
+describeDb('E2E — Project Lifecycle', () => {
   it('full flow: create project → list → detail → advance stage', async () => {
     const app = getApp();
     const { accessToken } = await login(DEMO_USERS.piu);
@@ -132,7 +136,7 @@ describe('E2E — Project Lifecycle', () => {
       .set('X-Idempotency-Key', idemKey)
       .send(body);
 
-    await request(app)
+    const res2 = await request(app)
       .post('/v1/projects')
       .set('Authorization', auth)
       .set('X-Idempotency-Key', idemKey)
@@ -140,6 +144,7 @@ describe('E2E — Project Lifecycle', () => {
 
     // Either both succeed (no idempotency implemented yet) or second returns cached
     expect([201, 200].includes(res1.status)).toBe(true);
-    // Idempotency is a nice-to-have; skip strict assertion for MVP
+    expect([200, 201].includes(res2.status)).toBe(true);
+    // Idempotency is a nice-to-have; skip strict equality for MVP
   });
 });
