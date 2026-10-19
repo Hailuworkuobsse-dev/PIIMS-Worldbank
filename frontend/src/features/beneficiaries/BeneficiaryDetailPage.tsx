@@ -14,7 +14,7 @@ import { VerificationPanel } from "./VerificationPanel";
 import {
   beneficiaryStatusTone,
   beneficiaryStatusKey,
-  maskPhone,
+  mask
 } from "./beneficiary.utils";
 import { formatDate } from "@/lib/utils/date";
 
