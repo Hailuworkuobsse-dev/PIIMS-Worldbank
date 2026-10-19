@@ -13,7 +13,6 @@ import { Drawer } from "@/components/ui/Drawer";
 import { Card, CardHeader } from "@/components/ui/Card";
 import { EmptyState } from "@/components/ui/EmptyState";
 import { SkeletonTable } from "@/components/ui/Skeleton";
-import { formatDate } from "@/lib/utils/date";
 import type { AuditLogEntry } from "./admin.types";
 
 const ACTIONS = [
