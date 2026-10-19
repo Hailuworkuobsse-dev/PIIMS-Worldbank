@@ -1,5 +1,4 @@
 import { useState } from "react";
-import { useTranslation } from "react-i18next";
 import type { IndicatorSeries } from "./analytics.types";
 
 /** CSS-based bar chart across waves for a selected indicator. */
@@ -8,7 +7,6 @@ export function WaveComparisonChart({
 }: {
   indicators: IndicatorSeries[];
 }) {
-  const { t } = useTranslation();
   const [selectedId, setSelectedId] = useState(indicators[0]?.indicatorId);
   const selected =
     indicators.find((i) => i.indicatorId === selectedId) ?? indicators[0];
