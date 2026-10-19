@@ -21,7 +21,7 @@ describe("Tabs", () => {
       "false",
     );
     expect(screen.getByText("Content A")).toBeVisible();
-    expect(screen.queryByText("Content B")).not.toBeInTheDocument();
+    expect(screen.getByText("Content B")).not.toBeVisible();
   });
 
   it("switches active tab on click", async () => {
