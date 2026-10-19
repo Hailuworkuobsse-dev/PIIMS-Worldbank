@@ -76,8 +76,14 @@ export default function LoginPage() {
   /* Redirect if already signed in */
   useEffect(() => {
     if (user) {
-      const dest =
-        (location.state as LocationState | null)?.from ?? homeRoute();
+      const onboardingRequired = Boolean(
+        user.mustChangePassword ||
+        user.mfaSetupRequired ||
+        user.acceptedPolicyVersion !== CURRENT_POLICY_VERSION
+      );
+      const dest = onboardingRequired
+        ? "/first-login"
+        : (location.state as LocationState | null)?.from ?? homeRoute();
       navigate(dest, { replace: true });
     }
   }, [user, location.state, navigate, homeRoute]);
