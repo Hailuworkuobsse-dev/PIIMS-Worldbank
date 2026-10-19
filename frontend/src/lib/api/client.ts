@@ -28,6 +28,7 @@ api.interceptors.response.use(
         "/auth/login",
         "/auth/mfa/verify",
         "/auth/refresh",
+        "/auth/logout",
         "/auth/password-reset",
       ].some((path) => url.includes(path));
       const original = config as typeof config & { _piimsRetried?: boolean };
