@@ -12,7 +12,6 @@ import { Drawer } from "@/components/ui/Drawer";
 import { LoadingState } from "@/components/ui/LoadingState";
 import { EmptyState } from "@/components/ui/EmptyState";
 import { Progress } from "@/components/ui/Progress";
-import { useToast } from "@/components/ui/Toast";
 import { useReviewFlag } from "./qa.mutations";
 import { QA_SEVERITIES, type QAFlag, type QASeverity } from "./qa.types";
 import { formatDate } from "@/lib/utils/date";
@@ -27,7 +26,6 @@ const SEVERITY_TONE: Record<QASeverity, any> = {
 export default function QAPage() {
   const { t } = useTranslation();
   const { can } = usePermissions();
-  const { push } = useToast();
   const [severity, setSeverity] = useState<QASeverity | "ALL">("ALL");
   const [selected, setSelected] = useState<QAFlag | null>(null);
   const [notes, setNotes] = useState("");
