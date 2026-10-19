@@ -6,6 +6,7 @@ import { LoadingState } from "@/components/ui/LoadingState";
 
 /* ---- Lazy pages (only loaded when needed) ---- */
 const LoginPage = lazy(() => import("@/features/auth/LoginPage"));
+const LandingPage = lazy(() => import("@/pages/LandingPage"));
 const DashboardPage = lazy(() => import("@/pages/DashboardPage"));
 const NotFoundPage = lazy(() => import("@/pages/NotFoundPage"));
 
@@ -108,11 +109,11 @@ export function AppRouter() {
     <Suspense fallback={<LoadingState message="Loading…" />}>
       <Routes>
         {/* ---- Public ---- */}
+        <Route path="/" element={<LandingPage />} />
         <Route path="/login" element={<LoginPage />} />
 
         {/* ---- Protected ---- */}
         <Route element={<RequireAuth />}>
-          <Route path="/" element={<Navigate to="/dashboard" replace />} />
           <Route path="/dashboard" element={<DashboardPage />} />
 
           {/* Projects */}

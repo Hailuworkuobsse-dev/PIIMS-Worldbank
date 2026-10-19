@@ -19,6 +19,7 @@ import analytics from "./analytics.json";
 import admin from "./admin.json";
 import reports from "./reports.json";
 import research from "./research.json";
+import landing from "./landing.json";
 
 export const am = {
   ...common,
@@ -42,4 +43,5 @@ export const am = {
   ...admin,
   ...reports,
   ...research,
+  ...landing,
 };

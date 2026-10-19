@@ -1,0 +1,41 @@
+{
+  "landing": {
+    "hero": {
+      "title": "Manage World Bank-financed projects from inception to impact",
+      "subtitle": "PIIMS unifies project registry, inception stage-gates, results framework, financing, procurement and impact measurement in one bilingual, offline-capable system.",
+      "signIn": "Sign in",
+      "openDashboard": "Open dashboard",
+      "explore": "Explore the platform"
+    },
+    "stats": {
+      "modules": "Modules",
+      "roles": "Roles",
+      "stakeholders": "Stakeholder groups",
+      "languages": "Languages"
+    },
+    "features": {
+      "title": "One platform for the full project cycle",
+      "subtitle": "From project idea to measurable impact — bilingual, offline-capable and auditable by design.",
+      "m1t": "Project registry & pipeline",
+      "m1d": "Idea to approval with stage gates, components and a full audit trail.",
+      "m2t": "Inception & results framework",
+      "m2d": "Stage-gated inception reports, indicators and achievement tracking.",
+      "m3t": "Financing & procurement",
+      "m3d": "Budgets, disbursements, FMIS reconciliation and contract monitoring.",
+      "m4t": "Beneficiaries & services",
+      "m4d": "Registration, duplicate checks, verification and service delivery.",
+      "m5t": "Impact & field data",
+      "m5d": "Surveys, CAPI field collection, QA review and an anonymized data warehouse.",
+      "m6t": "Governance & access",
+      "m6d": "43 roles with fine-grained permissions, MFA and complete auditability."
+    },
+    "about": {
+      "title": "Ownership & financing",
+      "body": "PIIMS is owned by the Ministry of Water and Energy of the Federal Democratic Republic of Ethiopia and financed by the World Bank.",
+      "classification": "Restricted · Official use only"
+    },
+    "footer": {
+      "rights": "© 2026 Ministry of Water and Energy. All rights reserved."
+    }
+  }
+}

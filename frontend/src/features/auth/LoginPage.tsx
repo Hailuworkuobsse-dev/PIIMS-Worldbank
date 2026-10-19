@@ -15,35 +15,19 @@ import {
   Lock,
 } from "lucide-react";
 import { useAuthStore } from "@/stores/auth.store";
-import { useUIStore } from "@/stores/ui.store";
 import { normalizeApiError } from "@/lib/api/errors";
 import { Input } from "@/components/ui/Input";
 import { Checkbox } from "@/components/ui/Checkbox";
 import { Button } from "@/components/ui/Button";
 import { Banner } from "@/components/ui/Banner";
-import { cn } from "@/components/ui/utils/cn";
 import pkg from "../../../package.json";
+import { BrandMark } from "@/components/brand/BrandMark";
+import { LanguageToggle } from "@/components/ui/LanguageToggle";
 
 type Stage = "credentials" | "mfa" | "reset";
 
 interface LocationState {
   from?: string;
-}
-
-/** Brand mark — mirrors public/icons/favicon.svg */
-function BrandMark({ className }: { className?: string }) {
-  return (
-    <svg viewBox="0 0 64 64" className={className} aria-hidden focusable="false">
-      <rect width="64" height="64" rx="14" fill="#14315E" />
-      <path
-        d="M32 11 C32 11 47 29.5 47 38.5 a15 15 0 1 1 -30 0 C17 29.5 32 11 32 11 Z"
-        fill="#D4A017"
-      />
-      <rect x="24.5" y="38" width="4" height="8.5" rx="1.2" fill="#fff" opacity=".92" />
-      <rect x="30" y="34" width="4" height="12.5" rx="1.2" fill="#fff" opacity=".92" />
-      <rect x="35.5" y="30" width="4" height="16.5" rx="1.2" fill="#fff" opacity=".92" />
-    </svg>
-  );
 }
 
 const FEATURES = [
@@ -63,7 +47,6 @@ export default function LoginPage() {
   const completeMFA = useAuthStore((s) => s.completeMFA);
   const user = useAuthStore((s) => s.user);
   const homeRoute = useAuthStore((s) => s.homeRoute);
-  const { locale, setLocale } = useUIStore();
 
   const [stage, setStage] = useState<Stage>("credentials");
   const [username, setUsername] = useState("");
@@ -163,7 +146,7 @@ export default function LoginPage() {
       >
         <div className="flex items-center justify-between">
           <div className="flex items-center gap-3">
-            <BrandMark className="h-12 w-12 rounded-xl shadow-lg shadow-black/30" />
+            <BrandMark className="h-14 w-14 drop-shadow-lg" />
             <div>
               <div className="text-lg font-extrabold tracking-wide">PIIMS</div>
               <div className="text-[11px] uppercase tracking-[0.18em] opacity-75">
@@ -214,7 +197,7 @@ export default function LoginPage() {
         <div className="w-full max-w-md">
           {/* Mobile brand */}
           <div className="lg:hidden flex items-center gap-3 mb-8">
-            <BrandMark className="h-11 w-11 rounded-lg shadow" />
+            <BrandMark className="h-11 w-11" />
             <div>
               <div className="text-base font-extrabold text-primary-900">
                 PIIMS
@@ -227,38 +210,7 @@ export default function LoginPage() {
 
           {/* Language toggle */}
           <div className="flex justify-end mb-4">
-            <div
-              role="group"
-              aria-label="Language / ቋንቋ"
-              className="inline-flex overflow-hidden rounded-md border border-neutral-300 text-caption shadow-sm"
-            >
-              <button
-                type="button"
-                aria-pressed={locale === "en"}
-                className={cn(
-                  "px-3 py-1.5 font-semibold transition-colors",
-                  locale === "en"
-                    ? "bg-primary-700 text-white"
-                    : "bg-white text-neutral-600 hover:bg-neutral-100",
-                )}
-                onClick={() => setLocale("en")}
-              >
-                English
-              </button>
-              <button
-                type="button"
-                aria-pressed={locale === "am"}
-                className={cn(
-                  "px-3 py-1.5 font-semibold transition-colors",
-                  locale === "am"
-                    ? "bg-primary-700 text-white"
-                    : "bg-white text-neutral-600 hover:bg-neutral-100",
-                )}
-                onClick={() => setLocale("am")}
-              >
-                አማርኛ
-              </button>
-            </div>
+            <LanguageToggle />
           </div>
 
           <div className="bg-white rounded-xl border border-neutral-200 shadow-lg shadow-neutral-900/5 p-6 sm:p-8">

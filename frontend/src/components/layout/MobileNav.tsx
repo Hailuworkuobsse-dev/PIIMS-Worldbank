@@ -3,6 +3,7 @@ import { NavLink, useLocation } from "react-router-dom";
 import { useTranslation } from "react-i18next";
 import { LayoutDashboard, FolderKanban, Menu as MenuIcon, X, TrendingUp, Users, Search } from "lucide-react";
 import { useUIStore } from "@/stores/ui.store";
+import { BrandMark } from "@/components/brand/BrandMark";
 import { usePermissions } from "@/features/auth/usePermissions";
 import { PERMISSIONS } from "@/features/auth/auth.types";
 import { MENU, MENU_SECTIONS } from "./menu.config";
@@ -125,7 +126,10 @@ export function MobileNav() {
             aria-label={t("shell.openMenu")}
           >
             <header className="flex items-center justify-between px-4 h-14 border-b border-neutral-300">
-              <span className="text-h3 text-primary-900">PIIMS</span>
+              <span className="flex items-center gap-2.5">
+                <BrandMark className="h-8 w-8" />
+                <span className="text-h3 text-primary-900">PIIMS</span>
+              </span>
               <button
                 type="button"
                 onClick={() => setMobileNavOpen(false)}

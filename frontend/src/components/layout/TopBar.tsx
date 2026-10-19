@@ -1,6 +1,7 @@
 import { Menu, Search as SearchIcon, Languages } from "lucide-react";
 import { useTranslation } from "react-i18next";
 import { useUIStore } from "@/stores/ui.store";
+import { BrandMark } from "@/components/brand/BrandMark";
 import { NotificationBell } from "./NotificationBell";
 import { UserMenu } from "./UserMenu";
 import { cn } from "@/components/ui/utils/cn";
@@ -26,14 +27,7 @@ export function TopBar() {
 
       {/* Brand */}
       <div className="flex items-center gap-3 shrink-0">
-        <div
-          aria-hidden
-          className="h-7 w-7 rounded-md"
-          style={{
-            background:
-              "conic-gradient(from 210deg,#38bdf8,#818cf8,#f472b6,#38bdf8)",
-          }}
-        />
+        <BrandMark className="h-8 w-8" />
         <div className="leading-tight">
           <div className="text-body-sm font-extrabold tracking-wide">PIIMS</div>
           <div className="hidden md:block text-[10px] uppercase tracking-[0.16em] opacity-70">
