@@ -1,8 +1,6 @@
 import { useEffect, useRef, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { useTranslation } from "react-i18next";
-import { useForm, FormProvider } from "react-hook-form";
-import { zodResolver } from "@hookform/resolvers/zod";
 import { WizardShell } from "./wizard/WizardShell";
 import { StepIdentification } from "./wizard/StepIdentification";
 import { StepClassification } from "./wizard/StepClassification";
