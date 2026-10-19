@@ -167,6 +167,7 @@ export default function DesignSystemPage() {
             label="Attach document"
             accept=".pdf,.docx"
             maxSizeMB={10}
+            onFiles={() => undefined}
           />
         </div>
         <div className="flex flex-wrap gap-6">
