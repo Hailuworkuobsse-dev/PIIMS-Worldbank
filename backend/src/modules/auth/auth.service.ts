@@ -407,7 +407,7 @@ export async function enableMfa(userId: string, code: string, context: LoginCont
 }
 
 export async function disableMfa(userId: string, password: string, context: LoginContext): Promise<void> {
-  const user = await prisma.user.findUnique({ where: { userId } });
+  const user = await prisma.user.findUnique({ where: { userId }, include: { role: true } });
   if (!user) throw new UnauthorizedError('User not found');
 
   if (roleRequiresMfa(user.role.code)) {
