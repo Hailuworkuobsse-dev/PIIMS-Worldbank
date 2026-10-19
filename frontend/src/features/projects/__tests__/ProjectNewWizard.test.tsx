@@ -46,7 +46,7 @@ describe("ProjectNewPage", () => {
       </Wrap>,
     );
     expect(screen.getByRole("heading", { level: 1 })).toBeInTheDocument();
-    expect(screen.getByText(/Identification/i)).toBeInTheDocument();
+    expect(screen.getByRole("heading", { level: 2, name: /Identification/i })).toBeInTheDocument();
   });
 
   it("shows validation error for short name", async () => {
