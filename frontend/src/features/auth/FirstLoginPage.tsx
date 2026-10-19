@@ -52,7 +52,7 @@ export default function FirstLoginPage() {
     try {
       await authApi.changePassword(oldPassword, newPassword);
       // Password changes revoke refresh sessions; sign in again before proceeding.
-      logout();
+      logout({ silent: true });
       navigate("/login", { replace: true, state: { message: "Password updated. Sign in again to continue first-login setup." } });
     } catch (err) {
       showError(err);
@@ -85,7 +85,7 @@ export default function FirstLoginPage() {
     try {
       await authApi.enableMfa(mfaCode);
       // MFA changes invalidate refresh sessions. Re-authentication must prove MFA.
-      logout();
+      logout({ silent: true });
       navigate("/login", { replace: true, state: { message: "MFA is enabled. Sign in again and enter your authenticator code to continue." } });
     } catch (err) {
       showError(err);
