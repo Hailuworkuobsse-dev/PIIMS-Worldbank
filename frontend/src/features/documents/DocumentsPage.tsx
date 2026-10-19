@@ -7,7 +7,6 @@ import {
   FileSpreadsheet,
   FileImage,
   FileArchive,
-  Download,
 } from "lucide-react";
 import { useDocuments } from "./document.queries";
 import { usePermissions } from "@/features/auth/usePermissions";
