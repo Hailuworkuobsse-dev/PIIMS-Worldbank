@@ -2,7 +2,6 @@ import { AlertTriangle } from "lucide-react";
 import { useTranslation } from "react-i18next";
 import { Card, CardHeader } from "@/components/ui/Card";
 import { Chip } from "@/components/ui/Chip";
-import { EmptyState } from "@/components/ui/EmptyState";
 import { useProcurementDelays } from "./procurement.queries";
 import { delaySeverityTone } from "./procurement.utils";
 import { formatDate } from "@/lib/utils/date";
