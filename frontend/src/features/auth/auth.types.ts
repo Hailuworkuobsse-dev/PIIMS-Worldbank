@@ -59,6 +59,8 @@ export const ROLE_CODES = [
 
 export type RoleCode = (typeof ROLE_CODES)[number];
 
+export const CURRENT_POLICY_VERSION = "2026-10-v1";
+
 /* =========================================================================
  * Permissions — dotted action strings, grouped by domain
  * ========================================================================= */
