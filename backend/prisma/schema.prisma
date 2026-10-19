@@ -601,6 +601,7 @@ model RefreshToken {
   userId    String   @db.Char(36)
   user      User     @relation(fields: [userId], references: [userId], onDelete: Cascade)
   tokenHash String   @unique @db.VarChar(128)
+  mfaVerified Boolean @default(false)
   expiresAt DateTime
   revokedAt DateTime?
   createdAt DateTime @default(now())
