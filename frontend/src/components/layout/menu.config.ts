@@ -22,11 +22,11 @@ export interface MenuItem {
   id: string;
   label: string; // i18n key
   to: string;
-  icon?: LucideIcon;
-  anyOf?: Permission[];
-  children?: MenuItem[];
+  icon?: LucideIcon | undefined;
+  anyOf?: Permission[] | undefined;
+  children?: MenuItem[] | undefined;
   /** Section under which this item appears. */
-  section?: "main" | "operations" | "impact" | "outputs" | "admin";
+  section?: "main" | "operations" | "impact" | "outputs" | "admin" | undefined;
 }
 
 export interface MenuSection {
