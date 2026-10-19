@@ -30,24 +30,26 @@ export function SurveyPreview({ survey }: { survey: Survey }) {
               <div className="space-y-3">
                 {visibleQs.map((q) => (
                   <div key={q.questionId}>
-                    <label className="block text-caption font-semibold text-neutral-900 mb-1">
+                    <div className="block text-caption font-semibold text-neutral-900 mb-1">
                       <code className="text-primary-700 mr-1">{q.code}</code>
                       {q.text}
                       {q.required && (
                         <span className="text-danger ml-0.5">*</span>
                       )}
-                    </label>
+                    </div>
                     {q.type === "TEXT" ||
                     q.type === "NUMERIC" ||
                     q.type === "DECIMAL" ? (
                       <Input
-                        value={String(answers[q.code] ?? "")}
+                        label={q.text}
+                        value={String(answers[q.code] ?? "")
                         onChange={(e) =>
                           setAnswers({ ...answers, [q.code]: e.target.value })
                         }
                       />
                     ) : q.type === "DATE" ? (
                       <Input
+                        label={q.text}
                         type="date"
                         value={String(answers[q.code] ?? "")}
                         onChange={(e) =>
@@ -99,7 +101,7 @@ export function SurveyPreview({ survey }: { survey: Survey }) {
                         ))}
                       </div>
                     ) : (
-                      <Input disabled placeholder={q.type} />
+                      <Input label={q.text} disabled placeholder={q.type} />
                     )}
                   </div>
                 ))}
