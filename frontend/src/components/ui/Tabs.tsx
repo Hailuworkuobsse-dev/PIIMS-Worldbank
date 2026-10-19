@@ -25,18 +25,18 @@ export function Tabs({
   const onKey = (e: React.KeyboardEvent, idx: number) => {
     if (e.key !== "ArrowRight" && e.key !== "ArrowLeft") return;
     e.preventDefault();
-    const step = e.key === "ArrowRight" ? 1 : -1;
-    let nextIndex = idx;
-    for (let attempt = 0; attempt < tabs.length; attempt++) {
-      nextIndex = (nextIndex + step + tabs.length) % tabs.length;
-      if (!tabs[nextIndex]?.disabled) {
-        const next = tabs[nextIndex]!;
-        setActive(next.id);
-        onChange?.(next.id);
-        document.getElementById(`${uid}-tab-${next.id}`)?.focus();
-        return;
-      }
+    const dir = e.key === "ArrowRight" ? 1 : -1;
+    let next = idx;
+    for (let i = 0; i < tabs.length; i++) {
+      next = (next + dir + tabs.length) % tabs.length;
+      if (!tabs[next]!.disabled) break;
     }
+    const nextTab = tabs[next]!;
+    if (nextTab.disabled) return;
+    setActive(nextTab.id);
+    onChange?.(nextTab.id);
+    // roving tabindex: focus follows selection (ARIA tabs pattern)
+    document.getElementById(`${uid}-tab-${nextTab.id}`)?.focus();
   };
 
   return (

@@ -1,12 +1,7 @@
 import { create } from "zustand";
 import { persist, createJSONStorage } from "zustand/middleware";
 import { authApi } from "@/features/auth/auth.api";
-import {
-  roleHome,
-  type AuthUser,
-  type LoginRequest,
-  type Permission,
-} from "@/features/auth/auth.types";
+import { roleHome, type AuthUser, type LoginRequest, type Permission } from "@/features/auth/auth.types";
 
 interface AuthState {
   user: AuthUser | null;
@@ -124,7 +119,8 @@ export const useAuthStore = create<AuthState>()(
       logout(opts = {}) {
         const { refreshToken } = get();
         if (refreshToken && !opts.silent) {
-          // Fire-and-forget server-side revocation
+          // Fire-and-forget server-side revocation (defensive: the api may be
+          // mocked or unavailable — never throw from logout)
           void Promise.resolve()
             .then(() => authApi.logout(refreshToken))
             .catch(() => {
@@ -165,7 +161,9 @@ export const useAuthStore = create<AuthState>()(
         refreshExpiresAt: s.refreshExpiresAt,
       }),
       onRehydrateStorage: () => (state) => {
-        state?.hydrated === false && useAuthStore.setState({ hydrated: true });
+        if (state && !state.hydrated) {
+          useAuthStore.setState({ hydrated: true });
+        }
       },
     },
   ),
@@ -194,5 +192,5 @@ bc?.addEventListener("message", (ev) => {
 
 /* Expose for tests & debugging */
 if (import.meta.env.DEV) {
-  (window as any).__authStore = useAuthStore;
+  (window as unknown as Record<string, unknown>).__authStore = useAuthStore;
 }

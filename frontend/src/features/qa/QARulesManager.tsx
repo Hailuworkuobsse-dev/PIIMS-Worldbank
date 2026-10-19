@@ -14,9 +14,10 @@ import { EmptyState } from "@/components/ui/EmptyState";
 import { LoadingState } from "@/components/ui/LoadingState";
 import { ConfirmDialog } from "@/components/ui/ConfirmDialog";
 import { QARuleFormModal } from "./QARuleFormModal";
+import type { ChipTone } from "@/components/ui/Chip";
 import { type QARule, type QASeverity } from "./qa.types";
 
-const SEVERITY_TONE: Record<QASeverity, any> = {
+const SEVERITY_TONE: Record<QASeverity, ChipTone> = {
   LOW: "grey",
   MEDIUM: "amber",
   HIGH: "red",
@@ -125,7 +126,7 @@ export function QARulesManager() {
                         icon={<Power className="h-3.5 w-3.5" />}
                         size="sm"
                         variant="ghost"
-                        disabled={toggle.isPending}
+                        loading={toggle.isPending}
                         onClick={() =>
                           toggle.mutate({ ruleId: r.ruleId, active: !r.active })
                         }

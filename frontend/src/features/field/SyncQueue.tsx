@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { useCallback, useEffect, useState } from "react";
 import { RefreshCw } from "lucide-react";
 import { offlineStore } from "./offlineStore";
 import { fieldApi } from "./field.api";
@@ -18,18 +18,18 @@ export function SyncQueue() {
   >([]);
   const [syncing, setSyncing] = useState(false);
 
-  const refresh = async () => {
+  const refresh = useCallback(async () => {
     const q = await offlineStore.listQueue();
     setQueue(q);
     setPending(q.length);
-  };
+  }, [setPending]);
 
   useEffect(() => {
     void refresh();
-  }, []);
+  }, [refresh]);
   useEffect(() => {
     if (online) void refresh();
-  }, [online]);
+  }, [online, refresh]);
 
   const sync = async () => {
     setSyncing(true);

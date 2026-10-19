@@ -1,5 +1,5 @@
 import { describe, it, expect, vi } from "vitest";
-import { render, screen } from "@testing-library/react";
+import { render, screen, waitFor } from "@testing-library/react";
 import userEvent from "@testing-library/user-event";
 import { Modal } from "../Modal";
 
@@ -62,6 +62,8 @@ describe("Modal", () => {
         <input aria-label="field" />
       </Modal>,
     );
+    // let the modal's initial auto-focus settle before manipulating focus
+    await waitFor(() => expect(screen.getByLabelText("Close")).toHaveFocus());
     const buttons = screen.getAllByRole("button");
     const lastButton = buttons[buttons.length - 1]!;
     lastButton.focus();

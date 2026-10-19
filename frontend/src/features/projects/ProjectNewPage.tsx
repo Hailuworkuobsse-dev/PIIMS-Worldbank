@@ -67,15 +67,17 @@ export default function ProjectNewPage() {
     return () => window.clearInterval(id);
   }, [data, step]);
 
-  const persistNow = () => {
-    saveDraft({ ...data, __step: step, __savedAt: Date.now() });
+  const persistNow = (override?: Partial<CreateProjectInput>) => {
+    // `override` lets callers persist values that were just merged into state
+    // (the `data` closure is stale until the next render).
+    saveDraft({ ...(override ?? data), __step: step, __savedAt: Date.now() });
     setSavedAt(Date.now());
   };
 
   const onStepSubmit = (values: any) => {
     const merged = { ...data, ...values };
     setData(merged);
-    persistNow();
+    persistNow(merged);
     const next = Math.min(step + 1, WIZARD_STEPS.length - 1);
     setStep(next);
     setMaxVisited((m) => Math.max(m, next));
@@ -176,7 +178,7 @@ export default function ProjectNewPage() {
       </Button>
 
       <div className="flex items-center gap-2">
-        <Button variant="secondary" onClick={persistNow}>
+        <Button variant="secondary" onClick={() => persistNow()}>
           {t("projects.wizard.buttons.saveDraft")}
         </Button>
         {step < WIZARD_STEPS.length - 1 ? (

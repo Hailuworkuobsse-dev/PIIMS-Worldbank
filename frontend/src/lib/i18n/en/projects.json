@@ -2,14 +2,13 @@
   "projects": {
     "title": "Projects",
     "subtitle": "{{count}} projects · {{active}} active · {{pipeline}} in pipeline",
-    "registered": "projects registered",
     "actions": {
       "new": "New project",
       "import": "Bulk import",
       "export": "Export CSV",
       "columns": "Columns",
       "filters": "Filters",
-      "clearFilters": "Clear all",
+      "clearFilters": "Clear filters",
       "view": "View",
       "edit": "Edit",
       "advance": "Advance stage",
@@ -44,7 +43,7 @@
       "other": "Other"
     },
     "filters": {
-      "searchPlaceholder": "Search by code or name…",
+      "searchPlaceholder": "Search by code or name",
       "status": "Status",
       "sector": "Sector",
       "region": "Region",
@@ -64,20 +63,22 @@
         "identification": "Identification",
         "classification": "Classification",
         "location": "Location",
-        "budget": "Budget & financing",
-        "review": "Review & submit"
+        "budget": "Budget",
+        "review": "Review"
       },
       "buttons": {
         "back": "Back",
         "next": "Continue",
         "submit": "Create project",
         "saveDraft": "Save draft",
-        "discard": "Discard draft"
+        "discard": "Discard",
+        "continue": "Continue",
+        "finish": "Create project"
       },
       "fields": {
         "name": "Project name",
         "nameAm": "Project name (Amharic)",
-        "description": "Brief description",
+        "description": "Description",
         "subsector": "Subsector",
         "sector": "Sector",
         "ownerOrgId": "Lead organization",
@@ -147,6 +148,13 @@
       "subtitle": "Projects by stage gate",
       "emptyColumn": "No projects",
       "columnCount": "{{count}} project(s)"
+    },
+    "registered": "projects registered",
+    "sectors": {
+      "water": "Water",
+      "energy": "Energy",
+      "both": "Water and energy",
+      "other": "Other"
     }
   }
 }

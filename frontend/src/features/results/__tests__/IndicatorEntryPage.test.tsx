@@ -72,6 +72,8 @@ describe("IndicatorEntryPage", () => {
         <IndicatorEntryPage />
       </Wrap>,
     );
-    expect(screen.getAllByText(/Achievement/i).length).toBeGreaterThan(0);
+    expect(
+      screen.getByRole("heading", { name: /Achievement/i }),
+    ).toBeInTheDocument();
   });
 });

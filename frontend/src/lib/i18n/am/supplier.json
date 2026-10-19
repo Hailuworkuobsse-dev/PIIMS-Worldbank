@@ -1,0 +1,22 @@
+{
+  "supplier": {
+    "title": "የአቅራቢ ፖርታል",
+    "subtitle": "ውሎችዎን፣ አቅርቦቶችዎን፣ ደረሰኞችዎን እና ክፍያዎችዎን ያስተዳድሩ",
+    "actions": {
+      "uploadInvoice": "ደረሰኝ ስቀል"
+    },
+    "tabs": {
+      "contracts": "ውሎች",
+      "deliveries": "አቅርቦቶች",
+      "warranties": "ዋራንቲዎች",
+      "payments": "ክፍያዎች",
+      "profile": "መገለጫ"
+    },
+    "deliveries": {
+      "title": "አቅርቦቶች",
+      "add": "አዲስ አቅርቦት",
+      "formTitle": "አቅርቦት አስገባ",
+      "captureGps": "GPS ያንሱ"
+    }
+  }
+}

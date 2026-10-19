@@ -31,6 +31,8 @@ export interface RequirePermissionProps {
   allOf?: Permission[];
   fallback?: React.ReactNode;
   redirectTo?: string;
+  /** When provided, rendered instead of <Outlet /> (inline wrapper usage). */
+  children?: React.ReactNode;
 }
 
 export function RequirePermission({
@@ -39,6 +41,7 @@ export function RequirePermission({
   allOf,
   fallback,
   redirectTo,
+  children,
 }: RequirePermissionProps) {
   const { can, canAny, canAll } = usePermissions();
 
@@ -52,7 +55,7 @@ export function RequirePermission({
     if (redirectTo) return <Navigate to={redirectTo} replace />;
     return <ForbiddenPage />;
   }
-  return <Outlet />;
+  return children ? <>{children}</> : <Outlet />;
 }
 
 /* -------------------------------------------------------------------------

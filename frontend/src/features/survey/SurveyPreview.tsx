@@ -30,18 +30,19 @@ export function SurveyPreview({ survey }: { survey: Survey }) {
               <div className="space-y-3">
                 {visibleQs.map((q) => (
                   <div key={q.questionId}>
-                    <div className="block text-caption font-semibold text-neutral-900 mb-1">
+                    <label className="block text-caption font-semibold text-neutral-900 mb-1">
                       <code className="text-primary-700 mr-1">{q.code}</code>
                       {q.text}
                       {q.required && (
                         <span className="text-danger ml-0.5">*</span>
                       )}
-                    </div>
+                    </label>
                     {q.type === "TEXT" ||
                     q.type === "NUMERIC" ||
                     q.type === "DECIMAL" ? (
                       <Input
                         label={q.text}
+                        hideLabel
                         value={String(answers[q.code] ?? "")}
                         onChange={(e) =>
                           setAnswers({ ...answers, [q.code]: e.target.value })
@@ -50,6 +51,7 @@ export function SurveyPreview({ survey }: { survey: Survey }) {
                     ) : q.type === "DATE" ? (
                       <Input
                         label={q.text}
+                        hideLabel
                         type="date"
                         value={String(answers[q.code] ?? "")}
                         onChange={(e) =>
@@ -101,7 +103,12 @@ export function SurveyPreview({ survey }: { survey: Survey }) {
                         ))}
                       </div>
                     ) : (
-                      <Input label={q.text} disabled placeholder={q.type} />
+                      <Input
+                        label={q.text}
+                        hideLabel
+                        disabled
+                        placeholder={q.type}
+                      />
                     )}
                   </div>
                 ))}

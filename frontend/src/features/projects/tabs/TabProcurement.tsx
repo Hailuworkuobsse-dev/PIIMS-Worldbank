@@ -1,10 +1,11 @@
-import { EmptyState } from "@/components/ui/EmptyState";
+import { ContractRegister } from "@/features/procurement/ContractRegister";
+import { DelayAlerts } from "@/features/procurement/DelayAlerts";
 
 export function TabProcurement({ projectId }: { projectId: string }) {
   return (
-    <EmptyState
-      title="Project procurement details are not available yet"
-      description={`Procurement records for project ${projectId} are not connected to this project view yet.`}
-    />
+    <div className="space-y-4">
+      <DelayAlerts projectId={projectId} />
+      <ContractRegister projectId={projectId} />
+    </div>
   );
 }

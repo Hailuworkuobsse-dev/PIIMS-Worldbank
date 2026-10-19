@@ -1,0 +1,130 @@
+{
+  "beneficiaries": {
+    "title": "Beneficiaries",
+    "registered": "beneficiaries registered",
+    "register": "Register",
+    "export": "Export",
+    "import": "Bulk import",
+    "viewMap": "View map",
+    "filters": {
+      "title": "Filters",
+      "search": "Search",
+      "searchPlaceholder": "Search by name, ID, phone…",
+      "region": "Region",
+      "status": "Status",
+      "clear": "Clear",
+      "clearAll": "Clear all"
+    },
+    "status": {
+      "registered": "Registered",
+      "verified": "Verified",
+      "active": "Active",
+      "inactive": "Inactive",
+      "duplicate": "Duplicate"
+    },
+    "gender": {
+      "female": "Female",
+      "male": "Male",
+      "other": "Other"
+    },
+    "empty": {
+      "title": "No beneficiaries yet",
+      "description": "Register the first beneficiary to get started.",
+      "searchTitle": "No results for “{{q}}”"
+    },
+    "form": {
+      "title": "Register beneficiary",
+      "register": "Register",
+      "section": {
+        "identity": "Identity",
+        "location": "Location",
+        "consent": "Consent"
+      },
+      "fullName": "Full name",
+      "fullNameAm": "Full name (Amharic)",
+      "gender": "Gender",
+      "dob": "Date of birth",
+      "householdSize": "Household size",
+      "phone": "Phone",
+      "nationalId": "National ID",
+      "region": "Region",
+      "zone": "Zone",
+      "woreda": "Woreda",
+      "kebele": "Kebele",
+      "captureGps": "Capture GPS",
+      "recapture": "Recapture GPS",
+      "consentInfo": "Beneficiary consent is required. Capture in the beneficiary's preferred language.",
+      "consent": {
+        "participation": "Agrees to participate in this project",
+        "dataUse": "Agrees to data being used for M&E and reporting",
+        "futureResearch": "Agrees to anonymized data use in future research",
+        "media": "Agrees to photo/audio capture",
+        "contact": "Agrees to follow-up contact in future waves"
+      }
+    },
+    "duplicate": {
+      "title": "Possible duplicate beneficiaries",
+      "message": "Potential duplicate records were found. Review them before continuing.",
+      "merge": "Merge records",
+      "proceedAnyway": "Proceed anyway"
+    },
+    "detail": {
+      "back": "Back to beneficiaries",
+      "notFound": "Beneficiary not found",
+      "tabs": {
+        "profile": "Profile",
+        "deliveries": "Deliveries",
+        "grievances": "Grievances"
+      },
+      "profile": "Profile",
+      "deliveries": "Service deliveries",
+      "deliveriesHint": "Deliveries to this beneficiary",
+      "deliveriesEmpty": "No deliveries recorded yet.",
+      "grievances": "Grievances",
+      "grievancesEmpty": "No grievances recorded yet."
+    },
+    "verify": {
+      "title": "Verification",
+      "subtitle": "Verify or reject this record",
+      "notes": "Notes",
+      "notesPlaceholder": "Optional verification notes",
+      "verify": "Verify",
+      "verified": "Verified",
+      "reject": "Reject",
+      "verifiedBy": "Verified by {{name}} on {{date}}"
+    },
+    "deliveries": {
+      "title": "Service deliveries",
+      "recorded": "deliveries recorded",
+      "add": "Record delivery",
+      "empty": "No service deliveries yet",
+      "emptyHint": "Record the first delivery to get started.",
+      "formTitle": "Record service delivery",
+      "form": {
+        "beneficiary": "Beneficiary",
+        "project": "Project",
+        "product": "Product",
+        "serial": "Serial number",
+        "quantity": "Quantity",
+        "installDate": "Install date",
+        "warrantyStart": "Warranty start",
+        "warrantyEnd": "Warranty end",
+        "captureGps": "Capture install GPS",
+        "recaptureGps": "Recapture GPS",
+        "photo": "Photo evidence"
+      },
+      "status": {
+        "planned": "Planned",
+        "delivered": "Delivered",
+        "installed": "Installed",
+        "verified": "Verified",
+        "failed": "Failed"
+      }
+    },
+    "sms": {
+      "title": "SMS/USSD intake",
+      "subtitle": "Recent self-registrations via SMS or USSD",
+      "empty": "No recent SMS/USSD registrations"
+    }
+  }
+}

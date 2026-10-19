@@ -1,0 +1,38 @@
+{
+  "documents": {
+    "title": "Documents",
+    "files": "files",
+    "upload": "Upload",
+    "uploadTitle": "Upload document",
+    "uploadButton": "Upload",
+    "clear": "Clear filters",
+    "empty": "No documents yet",
+    "emptyHint": "Upload the first document.",
+    "columns": {
+      "title": "Title",
+      "type": "Type",
+      "version": "Version",
+      "size": "Size",
+      "uploaded": "Uploaded",
+      "uploader": "Uploader",
+      "access": "Access"
+    },
+    "form": {
+      "project": "Project",
+      "noProject": "No project (general)",
+      "type": "Document type",
+      "title": "Title",
+      "description": "Description",
+      "access": "Access level",
+      "file": "File"
+    },
+    "preview": {
+      "download": "Download",
+      "unsupported": "Preview not available for this file type."
+    },
+    "versions": {
+      "title": "Version history",
+      "restore": "Restore"
+    }
+  }
+}

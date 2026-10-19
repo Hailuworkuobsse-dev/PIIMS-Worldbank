@@ -73,7 +73,6 @@ export function AnonymizationConfig() {
   const [config, setConfig] = useState<AnonConfig>(DEFAULT_ANON_CONFIG);
   const [previewOpen, setPreviewOpen] = useState(false);
 
-
   const onRun = async () => {
     if (!waveId) return;
     await anonymize.mutateAsync({ waveId, config });

@@ -1,8 +1,8 @@
 import i18n from "i18next";
 import { initReactI18next } from "react-i18next";
 import LanguageDetector from "i18next-browser-languagedetector";
-import en from "./en.json";
-import am from "./am.json";
+import { en } from "./en";
+import { am } from "./am";
 
 export const defaultNS = "common";
 export const resources = {

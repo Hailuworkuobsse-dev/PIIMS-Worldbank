@@ -1,0 +1,16 @@
+{
+  "reports": {
+    "exportWB": "Export W B",
+    "generate": "Generate",
+    "schedule": {
+      "save": "Save"
+    },
+    "subtitle": "Subtitle",
+    "tabs": {
+      "catalogue": "Catalogue",
+      "instances": "Instances",
+      "schedules": "Schedules"
+    },
+    "title": "Title"
+  }
+}

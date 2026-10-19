@@ -23,7 +23,7 @@ export interface RawRecord {
   kebele?: string | undefined;
   gpsLat?: number | undefined;
   gpsLon?: number | undefined;
-  [key: string]: any;
+  [key: string]: unknown;
 }
 
 /**

@@ -226,7 +226,7 @@ export default function DesignSystemPage() {
             <Button variant="ghost">Hover me</Button>
           </Tooltip>
           <Popover
-            trigger={({ toggle, open, ...aria }) => (
+            trigger={({ toggle, open: _open, ...aria }) => (
               <Button variant="secondary" onClick={toggle} {...aria}>
                 Popover
               </Button>

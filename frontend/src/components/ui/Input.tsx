@@ -11,6 +11,8 @@ export interface InputProps extends Omit<
   "size"
 > {
   label: string;
+  /** Visually hide the label (still exposed to screen readers) */
+  hideLabel?: boolean;
   hint?: string;
   error?: string | undefined;
   required?: boolean;
@@ -21,6 +23,7 @@ export interface InputProps extends Omit<
 export const Input = forwardRef<HTMLInputElement, InputProps>(function Input(
   {
     label,
+    hideLabel = false,
     hint,
     error,
     required,
@@ -44,7 +47,10 @@ export const Input = forwardRef<HTMLInputElement, InputProps>(function Input(
     <div className="w-full">
       <label
         htmlFor={inputId}
-        className="block text-caption font-semibold text-primary-900 mb-1.5"
+        className={cn(
+          "block text-caption font-semibold text-primary-900 mb-1.5",
+          hideLabel && "sr-only",
+        )}
       >
         {label}
         {required && (

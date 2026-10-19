@@ -1,0 +1,14 @@
+{
+  "research": {
+    "title": "Research datasets",
+    "subtitle": "Anonymized data available for approved research",
+    "requests": {
+      "empty": {
+        "description": "Description",
+        "title": "Title"
+      },
+      "subtitle": "Subtitle",
+      "title": "Title"
+    }
+  }
+}

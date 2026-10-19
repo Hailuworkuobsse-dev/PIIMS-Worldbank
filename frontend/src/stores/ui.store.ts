@@ -8,12 +8,12 @@ interface UIState {
   mobileNavOpen: boolean;
   searchOpen: boolean;
   keyboardHelpOpen: boolean;
-  setSidebarCollapsed: (value: boolean) => void;
+  setSidebarCollapsed: (v: boolean) => void;
   toggleSidebar: () => void;
-  setLocale: (locale: Locale) => void;
-  setMobileNavOpen: (value: boolean) => void;
-  setSearchOpen: (value: boolean) => void;
-  setKeyboardHelpOpen: (value: boolean) => void;
+  setLocale: (l: Locale) => void;
+  setMobileNavOpen: (v: boolean) => void;
+  setSearchOpen: (v: boolean) => void;
+  setKeyboardHelpOpen: (v: boolean) => void;
 }
 
 export const useUIStore = create<UIState>()(
@@ -33,10 +33,10 @@ export const useUIStore = create<UIState>()(
     }),
     {
       name: "piims.ui",
-      // Only persist preferences, not transient open/closed UI state.
-      partialize: (state) => ({
-        sidebarCollapsed: state.sidebarCollapsed,
-        locale: state.locale,
+      // Only persist these two
+      partialize: (s) => ({
+        sidebarCollapsed: s.sidebarCollapsed,
+        locale: s.locale,
       }),
     },
   ),

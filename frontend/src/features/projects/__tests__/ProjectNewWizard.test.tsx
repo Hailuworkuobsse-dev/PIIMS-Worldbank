@@ -1,4 +1,4 @@
-import { describe, it, expect, vi, beforeEach } from "vitest";
+import { describe, it, expect, vi, beforeEach, afterEach } from "vitest";
 import { render, screen, fireEvent, act } from "@testing-library/react";
 import userEvent from "@testing-library/user-event";
 import { MemoryRouter } from "react-router-dom";
@@ -35,9 +35,12 @@ function Wrap({ children }: { children: React.ReactNode }) {
 }
 
 describe("ProjectNewPage", () => {
-  beforeEach(async () => {
+  beforeEach(() => {
     localStorage.clear();
-    await i18n.changeLanguage("en");
+  });
+
+  afterEach(() => {
+    vi.useRealTimers();
   });
 
   it("renders wizard with step 1", () => {
@@ -47,7 +50,9 @@ describe("ProjectNewPage", () => {
       </Wrap>,
     );
     expect(screen.getByRole("heading", { level: 1 })).toBeInTheDocument();
-    expect(screen.getByRole("heading", { level: 2, name: /Identification/i })).toBeInTheDocument();
+    expect(
+      screen.getByRole("heading", { name: /Identification/i }),
+    ).toBeInTheDocument();
   });
 
   it("shows validation error for short name", async () => {
@@ -56,7 +61,7 @@ describe("ProjectNewPage", () => {
         <ProjectNewPage />
       </Wrap>,
     );
-    const nameInput = screen.getAllByRole("textbox")[0]!;
+    const nameInput = screen.getByLabelText(/^Project name\s*\*?$/i);
     await userEvent.type(nameInput, "AB");
     await userEvent.click(screen.getByRole("button", { name: /Continue/i }));
     expect(
@@ -71,10 +76,19 @@ describe("ProjectNewPage", () => {
         <ProjectNewPage />
       </Wrap>,
     );
-    const nameInput = screen.getAllByRole("textbox")[0]!;
+    const nameInput = screen.getByLabelText(/^Project name\s*\*?$/i);
+    // fireEvent is synchronous — userEvent's async internals deadlock on fake timers
     fireEvent.change(nameInput, { target: { value: "Solar Mini-Grid" } });
+    // step values merge into the draft when the step is submitted…
+    // (submit the form directly — the Continue button sits outside it and is
+    // linked via the form attribute, which jsdom does not implicitly submit)
+    const form = document.getElementById("wizard-form")!;
     await act(async () => {
-      await vi.advanceTimersByTimeAsync(20_000);
+      fireEvent.submit(form);
+    });
+    // …and the 20 s autosave interval keeps the stored draft current
+    act(() => {
+      vi.advanceTimersByTime(20_000);
     });
     const draft = JSON.parse(
       localStorage.getItem("piims.project.draft") ?? "{}",

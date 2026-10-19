@@ -1,1 +1,0 @@
-npx tsx scripts/split-i18n.ts

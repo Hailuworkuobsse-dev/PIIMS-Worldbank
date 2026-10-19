@@ -1,11 +1,15 @@
-import { describe, it, expect, vi } from "vitest";
+import { describe, it, expect, vi, afterEach } from "vitest";
 import { render, screen, fireEvent, act } from "@testing-library/react";
 import userEvent from "@testing-library/user-event";
 import { ProjectListFilters } from "../ProjectListFilters";
 import "@/lib/i18n";
 
 describe("ProjectListFilters", () => {
-  it("fires onChange after debounce on search", async () => {
+  afterEach(() => {
+    vi.useRealTimers();
+  });
+
+  it("fires onChange after debounce on search", () => {
     vi.useFakeTimers();
     const onChange = vi.fn();
     render(
@@ -17,13 +21,13 @@ describe("ProjectListFilters", () => {
         onChange={onChange}
       />,
     );
-    const input = screen.getByLabelText(/Search/i);
+    const input = screen.getByLabelText(/Search by code or name/i);
+    // fireEvent is synchronous — userEvent's async internals deadlock on fake timers
     fireEvent.change(input, { target: { value: "solar" } });
-    await act(async () => {
-      await vi.advanceTimersByTimeAsync(350);
+    act(() => {
+      vi.advanceTimersByTime(350);
     });
     expect(onChange).toHaveBeenCalledWith({ q: "solar" });
-    vi.useRealTimers();
   });
 
   it("toggles status chip", async () => {
@@ -52,7 +56,7 @@ describe("ProjectListFilters", () => {
         onChange={onChange}
       />,
     );
-    await userEvent.click(screen.getByRole("button", { name: /Energy/i }));
+    await userEvent.click(screen.getByRole("button", { name: "Energy" }));
     expect(onChange).toHaveBeenCalledWith({ sector: undefined });
   });
 });

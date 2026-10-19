@@ -269,13 +269,13 @@ export default function QAPage() {
                 <div>
                   <label className="block text-caption font-semibold text-primary-900 mb-1">
                     Notes
+                    <textarea
+                      className="mt-1 w-full rounded-md border border-neutral-300 p-2 text-body-sm font-normal"
+                      rows={2}
+                      value={notes}
+                      onChange={(e) => setNotes(e.target.value)}
+                    />
                   </label>
-                  <textarea
-                    className="w-full rounded-md border border-neutral-300 p-2 text-body-sm"
-                    rows={2}
-                    value={notes}
-                    onChange={(e) => setNotes(e.target.value)}
-                  />
                 </div>
                 <div className="grid grid-cols-3 gap-2">
                   <Button

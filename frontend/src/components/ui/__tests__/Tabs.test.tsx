@@ -21,7 +21,10 @@ describe("Tabs", () => {
       "false",
     );
     expect(screen.getByText("Content A")).toBeVisible();
-    expect(screen.getByText("Content B")).not.toBeVisible();
+    // inactive panels stay mounted (ARIA keeps panels in the DOM) but hidden
+    expect(
+      screen.getByText("Content B").closest('[role="tabpanel"]'),
+    ).not.toBeVisible();
   });
 
   it("switches active tab on click", async () => {
