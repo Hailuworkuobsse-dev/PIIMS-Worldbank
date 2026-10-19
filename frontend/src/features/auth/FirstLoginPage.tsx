@@ -1,6 +1,6 @@
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
-import { AlertCircle, CheckCircle2, KeyRound, LockKeyhole, ShieldCheck } from "lucide-react";
+import { AlertCircle, KeyRound, LockKeyhole, ShieldCheck } from "lucide-react";
 import { authApi } from "@/features/auth/auth.api";
 import { CURRENT_POLICY_VERSION } from "@/features/auth/auth.types";
 import { normalizeApiError } from "@/lib/api/errors";
