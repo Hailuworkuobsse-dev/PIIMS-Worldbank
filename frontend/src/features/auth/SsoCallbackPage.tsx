@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { Loader2, ShieldCheck } from "lucide-react";
 import { useAuthStore } from "@/stores/auth.store";
@@ -8,8 +8,11 @@ export default function SsoCallbackPage() {
   const navigate = useNavigate();
   const setSession = useAuthStore((s) => s.setSession);
   const [error, setError] = useState("");
+  const handled = useRef(false);
 
   useEffect(() => {
+    if (handled.current) return;
+    handled.current = true;
     const fragment = new URLSearchParams(window.location.hash.replace(/^#/, ""));
     const accessToken = fragment.get("access_token");
     const refreshToken = fragment.get("refresh_token");
