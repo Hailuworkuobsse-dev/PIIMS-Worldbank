@@ -1,4 +1,3 @@
-import { useTranslation } from "react-i18next";
 import { Card, CardHeader } from "@/components/ui/Card";
 import { useProjectHistory } from "../project.queries";
 import { LoadingState } from "@/components/ui/LoadingState";
@@ -6,7 +5,6 @@ import { EmptyState } from "@/components/ui/EmptyState";
 import { Badge } from "@/components/ui/Badge";
 
 export function TabHistory({ projectId }: { projectId: string }) {
-  const { t } = useTranslation();
   const { data, isLoading } = useProjectHistory(projectId);
 
   if (isLoading) return <LoadingState message="Loading history…" />;
