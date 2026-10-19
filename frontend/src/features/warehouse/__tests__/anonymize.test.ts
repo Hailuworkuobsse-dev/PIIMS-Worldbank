@@ -98,7 +98,10 @@ describe("anonymize", () => {
       incomeTopCode: 50,
     };
     const result = anonymize(sample, config);
-    const sortedIncome = result.map((r) => r.income).sort((a, b) => a - b);
+    const sortedIncome = result
+      .map((r) => r.income)
+      .filter((value): value is number => typeof value === "number")
+      .sort((a, b) => a - b);
     // at least the highest value should be capped at some threshold
     expect(sortedIncome[sortedIncome.length - 1]).toBeLessThanOrEqual(8000);
   });
