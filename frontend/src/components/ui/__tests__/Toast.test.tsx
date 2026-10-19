@@ -40,9 +40,7 @@ describe("Toast", () => {
   it("auto-dismisses after duration", async () => {
     vi.useFakeTimers();
     renderWithProvider();
-    await userEvent
-      .setup({ delay: null })
-      .click(screen.getByRole("button", { name: "Save" }));
+    fireEvent.click(screen.getByRole("button", { name: "Save" }));
     expect(screen.getByText("Saved successfully")).toBeVisible();
     act(() => {
       vi.advanceTimersByTime(5500);
@@ -54,9 +52,7 @@ describe("Toast", () => {
   it("does NOT auto-dismiss when duration is 0", async () => {
     vi.useFakeTimers();
     renderWithProvider();
-    await userEvent
-      .setup({ delay: null })
-      .click(screen.getByRole("button", { name: "Sticky" }));
+    fireEvent.click(screen.getByRole("button", { name: "Sticky" }));
     expect(screen.getByText("Loading")).toBeVisible();
     act(() => {
       vi.advanceTimersByTime(30000);
