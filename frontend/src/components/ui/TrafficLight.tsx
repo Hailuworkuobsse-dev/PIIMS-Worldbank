@@ -19,8 +19,8 @@ export function TrafficLight({
   className,
 }: {
   status: TLStatus;
-  percent?: number;
-  className?: string;
+  percent?: number | undefined;
+  className?: string | undefined;
 }) {
   const c = cfg[status];
   return (
