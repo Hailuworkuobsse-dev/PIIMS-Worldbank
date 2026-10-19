@@ -2,7 +2,7 @@ import type { Request, Response, NextFunction } from 'express';
 import * as authService from './auth.service.js';
 import { sendSuccess, sendNoContent } from '@/lib/response.js';
 import { UnauthorizedError } from '@/lib/errors.js';
-import type { LoginInput, MfaVerifyInput, RefreshInput, ChangePasswordInput, MfaEnableInput, MfaDisableInput } from './auth.schemas.js';
+import type { LoginInput, MfaVerifyInput, RefreshInput, ChangePasswordInput, MfaEnableInput, MfaDisableInput, PolicyAcceptanceInput } from './auth.schemas.js';
 
 function contextFrom(req: Request) {
   return {
@@ -185,4 +185,12 @@ export async function mfaDisableHandler(
   } catch (err) {
     next(err);
   }
+}
+export async function acceptPolicyHandler(req: Request, res: Response, next: NextFunction): Promise<void> {
+  try {
+    const user = requireUser(req);
+    const { policy_version } = req.body as PolicyAcceptanceInput;
+    await authService.acceptPolicy(user.userId, policy_version, contextFrom(req));
+    sendSuccess(res, { accepted: true, policy_version });
+  } catch (err) { next(err); }
 }
