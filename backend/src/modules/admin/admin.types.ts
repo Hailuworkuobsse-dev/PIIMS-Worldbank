@@ -72,7 +72,6 @@ export interface SystemHealthDTO {
   uptime: number;
   api: { status: 'HEALTHY' | 'DEGRADED' | 'DOWN'; p95LatencyMs: number };
   database: { status: 'HEALTHY' | 'DEGRADED' | 'DOWN'; connections: number; maxConnections: number };
-  redis: { status: 'HEALTHY' | 'DEGRADED' | 'DOWN'; latencyMs: number };
   queue: { status: 'HEALTHY' | 'DEGRADED' | 'DOWN'; depth: number };
   storage: { usedGb: number; totalGb: number };
   activeUsers24h: number;
