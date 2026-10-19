@@ -1,5 +1,4 @@
 import { useState } from "react";
-import { useForm } from "react-hook-form";
 import { useTranslation } from "react-i18next";
 import { Shield, Eye } from "lucide-react";
 import { Card, CardHeader } from "@/components/ui/Card";
@@ -74,7 +73,6 @@ export function AnonymizationConfig() {
   const [config, setConfig] = useState<AnonConfig>(DEFAULT_ANON_CONFIG);
   const [previewOpen, setPreviewOpen] = useState(false);
 
-  const { register } = useForm();
 
   const onRun = async () => {
     if (!waveId) return;
