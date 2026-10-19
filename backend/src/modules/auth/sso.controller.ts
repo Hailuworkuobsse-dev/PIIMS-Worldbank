@@ -55,7 +55,7 @@ function readStateCookie(req: Request): SsoState | null {
   if (supplied.length !== expected.length || !timingSafeEqual(supplied, expected)) return null;
   try {
     const parsed = JSON.parse(Buffer.from(payload, 'base64url').toString('utf8')) as SsoState;
-    if (!parsed.state || !parsed.nonce || !parsed.verifier || Date.now() - parsed.issuedAt > 5 * 60_000) return null;
+    if (!parsed.state || !parsed.nonce || !parsed.verifier || parsed.issuedAt > Date.now() + 30_000 || Date.now() - parsed.issuedAt > 5 * 60_000) return null;
     return parsed;
   } catch {
     return null;
