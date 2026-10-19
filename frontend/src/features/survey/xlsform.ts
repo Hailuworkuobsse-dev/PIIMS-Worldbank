@@ -41,7 +41,7 @@ export interface XlsFormChoiceRow {
   list_name: string;
   name: string;
   label?: string;
-  labelAm?: string;
+  labelAm?: string | undefined;
 }
 
 interface XlsForm {
