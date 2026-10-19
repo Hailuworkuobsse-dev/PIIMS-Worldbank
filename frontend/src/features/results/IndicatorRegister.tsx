@@ -4,7 +4,6 @@ import { useTranslation } from "react-i18next";
 import { DataGrid, type Column } from "@/components/ui/DataGrid";
 import { Chip } from "@/components/ui/Chip";
 import { TrafficLight } from "@/components/ui/TrafficLight";
-import { Button } from "@/components/ui/Button";
 import { LoadingState } from "@/components/ui/LoadingState";
 import { EmptyState } from "@/components/ui/EmptyState";
 import { trafficLightLabelKey, trafficLightTone } from "./results.utils";
@@ -24,7 +23,7 @@ export function IndicatorRegister({
 }: {
   indicators: Indicator[];
   loading: boolean;
-  selectedComponentId?: string;
+  selectedComponentId?: string | undefined;
 }) {
   const { t } = useTranslation();
   const navigate = useNavigate();
