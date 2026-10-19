@@ -4,7 +4,9 @@ const envSchema = z.object({
   NODE_ENV: z.enum(['development', 'test', 'staging', 'production']).default('development'),
   PORT: z.coerce.number().int().positive().default(3000),
   API_BASE_PATH: z.string().startsWith('/').default('/v1'),
-  CORS_ORIGINS: z.string().default('http://localhost:5173'),
+  CORS_ORIGINS: z.string().default(
+    'http://localhost:5173,http://localhost:3414,http://localhost:4173,http://127.0.0.1:5173,http://127.0.0.1:3414'
+  ),
   TRUST_PROXY: z.coerce.boolean().default(false),
 
   DATABASE_URL: z.string().min(1, 'DATABASE_URL is required'),
