@@ -3,7 +3,6 @@ import { createHmac, createHash, createPublicKey, randomBytes, timingSafeEqual }
 import jwt from 'jsonwebtoken';
 import { env, corsOrigins } from '@/config/env.js';
 import { sendSuccess } from '@/lib/response.js';
-import { UnauthorizedError } from '@/lib/errors.js';
 import * as authService from './auth.service.js';
 
 type OidcMetadata = {
