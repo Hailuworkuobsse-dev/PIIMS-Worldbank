@@ -398,39 +398,26 @@ export default function LoginPage() {
             )}
 
             {stage === "reset" && (
-              <form
-                onSubmit={(e) => {
-                  e.preventDefault();
-                  setStage("credentials");
-                }}
-                className="space-y-4"
-                noValidate
-              >
+              <div className="space-y-4" role="region" aria-labelledby="reset-help-title">
                 <div className="flex justify-center">
-                  <div className="h-12 w-12 rounded-full bg-primary-100 flex items-center justify-center">
+                  <div className="flex h-12 w-12 items-center justify-center rounded-full bg-primary-100">
                     <Mail className="h-6 w-6 text-primary-700" aria-hidden />
                   </div>
                 </div>
-                <Input
-                  label={t("auth.login.email")}
-                  type="email"
-                  autoComplete="email"
-                  required
-                />
-                <Button type="submit" fullWidth size="lg">
-                  {t("auth.login.sendResetLink")}
-                </Button>
+                <h2 id="reset-help-title" className="text-center font-bold text-primary-900">Password assistance</h2>
+                <p className="text-sm leading-6 text-neutral-600">
+                  PIIMS password recovery must be handled through your authorized administrator or institutional help desk. For security, this page does not send credentials or reset links to an unverified address.
+                </p>
+                <a href="mailto:support@piims.gov.et?subject=PIIMS%20Password%20Assistance" className="flex min-h-11 items-center justify-center rounded-lg border border-primary-200 px-4 py-2 font-semibold text-primary-800 hover:bg-primary-50">
+                  Contact PIIMS support
+                </a>
                 <div className="text-center text-caption text-neutral-600">
-                  <button
-                    type="button"
-                    className="hover:underline focus-visible:underline"
-                    onClick={() => setStage("credentials")}
-                  >
+                  <button type="button" className="hover:underline focus-visible:underline" onClick={() => setStage("credentials")}>
                     {t("auth.login.backToSignIn")}
                   </button>
                 </div>
-              </form>
-            )}
+              </div>
+            )})}
           </div>
 
           <p className="text-caption text-neutral-600 mt-6 text-center">
