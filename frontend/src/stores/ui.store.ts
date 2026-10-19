@@ -1,6 +1,7 @@
 import { create } from "zustand";
 import { persist } from "zustand/middleware";
 import type { Locale } from "@/app/config";
+import { i18n } from "@/lib/i18n";
 
 interface UIState {
   sidebarCollapsed: boolean;
@@ -26,7 +27,11 @@ export const useUIStore = create<UIState>()(
       keyboardHelpOpen: false,
       setSidebarCollapsed: (sidebarCollapsed) => set({ sidebarCollapsed }),
       toggleSidebar: () => set({ sidebarCollapsed: !get().sidebarCollapsed }),
-      setLocale: (locale) => set({ locale }),
+      setLocale: (locale) => {
+        set({ locale });
+        // keep react-i18next in sync with the stored UI locale
+        void i18n.changeLanguage(locale);
+      },
       setMobileNavOpen: (mobileNavOpen) => set({ mobileNavOpen }),
       setSearchOpen: (searchOpen) => set({ searchOpen }),
       setKeyboardHelpOpen: (keyboardHelpOpen) => set({ keyboardHelpOpen }),

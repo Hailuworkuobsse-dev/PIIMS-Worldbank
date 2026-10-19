@@ -111,7 +111,10 @@ export default defineConfig({
           },
         ],
       },
-      devOptions: { enabled: false },
+      // serve manifest.webmanifest in dev too — index.html links to it
+      // unconditionally, and the SPA fallback would otherwise return HTML
+      // and trip the browser's manifest parser
+      devOptions: { enabled: true },
     }),
   ],
   resolve: {

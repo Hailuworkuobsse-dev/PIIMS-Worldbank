@@ -1,41 +1,43 @@
-import { useEffect, useState } from "react";
-import { useNavigation } from "react-router-dom";
+import { useEffect, useRef, useState } from "react";
+import { useLocation } from "react-router-dom";
 
 /**
- * Combined loading indicator:
- * - Shows for React Router navigations (`useNavigation`)
- * - Shows for slow Suspense boundaries (> 150ms)
+ * Global top loading bar.
+ *
+ * The app uses <BrowserRouter> (not a data router), so there is no
+ * `useNavigation` state to observe. Instead the bar animates on every
+ * location change — covering both eager and lazy-loaded routes — and
+ * stands in for the previous per-shell RouteProgress indicator.
  *
  * Uses the `accent-500` gold token from the design system.
  */
 export function GlobalLoadingBar() {
-  const navigation = useNavigation();
+  const location = useLocation();
   const [progress, setProgress] = useState(0);
   const [visible, setVisible] = useState(false);
+  const first = useRef(true);
 
   useEffect(() => {
-    const loading = navigation.state === "loading";
-    if (!loading) {
-      // fade out
-      setProgress(100);
-      const t = setTimeout(() => {
-        setVisible(false);
-        setProgress(0);
-      }, 300);
-      return () => clearTimeout(t);
+    // Don't animate on the very first mount
+    if (first.current) {
+      first.current = false;
+      return;
     }
 
-    // show with slow start, then ease
     setVisible(true);
-    const t1 = setTimeout(() => setProgress(30), 30);
-    const t2 = setTimeout(() => setProgress(65), 300);
-    const t3 = setTimeout(() => setProgress(85), 900);
+    setProgress(25);
+    const t1 = window.setTimeout(() => setProgress(70), 80);
+    const t2 = window.setTimeout(() => setProgress(100), 260);
+    const t3 = window.setTimeout(() => {
+      setVisible(false);
+      setProgress(0);
+    }, 480);
     return () => {
-      clearTimeout(t1);
-      clearTimeout(t2);
-      clearTimeout(t3);
+      window.clearTimeout(t1);
+      window.clearTimeout(t2);
+      window.clearTimeout(t3);
     };
-  }, [navigation.state]);
+  }, [location.pathname]);
 
   return (
     <div

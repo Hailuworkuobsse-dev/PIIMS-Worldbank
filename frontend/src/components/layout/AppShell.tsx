@@ -13,7 +13,6 @@ import { SideNav } from "./SideNav";
 import { MobileNav } from "./MobileNav";
 import { GlobalSearch } from "./GlobalSearch";
 import { KeyboardHelp } from "./KeyboardHelp";
-import { RouteProgress } from "./RouteProgress";
 import { Breadcrumbs } from "./Breadcrumbs";
 import { Banner } from "@/components/ui/Banner";
 
@@ -94,7 +93,6 @@ export function AppShell() {
 
   return (
     <div className="min-h-screen flex flex-col bg-neutral-50">
-      <RouteProgress />
 
       <TopBar />
 
