@@ -1,7 +1,7 @@
 import { useMemo, useState } from "react";
 import { useNavigate, useSearchParams } from "react-router-dom";
 import { useTranslation } from "react-i18next";
-import { Plus, Download, Filter, CheckCircle2 } from "lucide-react";
+import { Plus, Filter, CheckCircle2 } from "lucide-react";
 import { useInceptionReports } from "./inception.queries";
 import { usePermissions } from "@/features/auth/usePermissions";
 import { PERMISSIONS } from "@/features/auth/auth.types";
@@ -15,12 +15,6 @@ import { ErrorState } from "@/components/ui/ErrorState";
 import { SkeletonTable } from "@/components/ui/Skeleton";
 import { InceptionSubmitModal } from "./InceptionSubmitModal";
 import { DeadlineTracker } from "./DeadlineTracker";
-import {
-  reportStatusTone,
-  reportStatusKey,
-  daysUntil,
-  deadlineTone,
-} from "./inception.utils";
 import { formatDate } from "@/lib/utils/date";
 import type { InceptionReport, ReportStatus } from "./inception.types";
 
