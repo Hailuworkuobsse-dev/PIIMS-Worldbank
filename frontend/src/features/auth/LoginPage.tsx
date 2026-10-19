@@ -15,6 +15,7 @@ import {
   Lock,
 } from "lucide-react";
 import { useAuthStore } from "@/stores/auth.store";
+import { CURRENT_POLICY_VERSION } from "@/features/auth/auth.types";
 import { normalizeApiError } from "@/lib/api/errors";
 import { Input } from "@/components/ui/Input";
 import { Checkbox } from "@/components/ui/Checkbox";
@@ -85,8 +86,17 @@ export default function LoginPage() {
         setMfaToken(res.mfaToken);
         setStage("mfa");
       } else {
+        const signedIn = useAuthStore.getState().user;
+        const onboardingRequired = Boolean(
+          res.mfaSetupRequired ||
+          signedIn?.mustChangePassword ||
+          signedIn?.mfaSetupRequired ||
+          signedIn?.acceptedPolicyVersion !== CURRENT_POLICY_VERSION
+        );
         navigate(
-          (location.state as LocationState | null)?.from ?? homeRoute(),
+          onboardingRequired
+            ? "/first-login"
+            : (location.state as LocationState | null)?.from ?? homeRoute(),
           { replace: true },
         );
       }
@@ -105,9 +115,18 @@ export default function LoginPage() {
     setSubmitting(true);
     try {
       await completeMFA(mfaToken, mfaCode, remember);
-      navigate((location.state as LocationState | null)?.from ?? homeRoute(), {
-        replace: true,
-      });
+      const signedIn = useAuthStore.getState().user;
+      const onboardingRequired = Boolean(
+        signedIn?.mustChangePassword ||
+        signedIn?.mfaSetupRequired ||
+        signedIn?.acceptedPolicyVersion !== CURRENT_POLICY_VERSION
+      );
+      navigate(
+        onboardingRequired
+          ? "/first-login"
+          : (location.state as LocationState | null)?.from ?? homeRoute(),
+        { replace: true },
+      );
     } catch (err) {
       const problem = normalizeApiError(err);
       setError(problem.detail ?? problem.title ?? t("errors.generic"));
