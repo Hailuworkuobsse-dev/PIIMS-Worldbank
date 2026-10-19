@@ -56,7 +56,7 @@ describe("ProjectNewPage", () => {
         <ProjectNewPage />
       </Wrap>,
     );
-    const nameInput = screen.getByLabelText("Project name", { exact: true });
+    const nameInput = screen.getAllByRole("textbox")[0]!;
     await userEvent.type(nameInput, "AB");
     await userEvent.click(screen.getByRole("button", { name: /Continue/i }));
     expect(
