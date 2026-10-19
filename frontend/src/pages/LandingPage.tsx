@@ -84,9 +84,10 @@ const ACCESS_LINKS = [
 export default function LandingPage() {
   const { t } = useTranslation();
   const user = useAuthStore((s) => s.user);
+  const homeRoute = useAuthStore((s) => s.homeRoute);
 
   // Returning users should not have to pass through the public entry page.
-  if (user) return <Navigate to="/dashboard" replace />;
+  if (user) return <Navigate to={homeRoute()} replace />;
 
   return (
     <div className="min-h-screen bg-[#f4f7fb] text-slate-900">
