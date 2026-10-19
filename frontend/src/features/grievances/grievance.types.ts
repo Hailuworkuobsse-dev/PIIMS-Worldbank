@@ -77,17 +77,17 @@ export interface Grievance {
 }
 
 export interface GrievanceFilters {
-  projectId?: string;
-  category?: GrievanceCategory[];
-  status?: GrievanceStatus[];
-  severity?: Severity[];
-  assignedTo?: string;
-  overdueOnly?: boolean;
-  q?: string;
-  from?: string;
-  to?: string;
-  limit?: number;
-  cursor?: string;
+  projectId?: string | undefined;
+  category?: GrievanceCategory[] | undefined;
+  status?: GrievanceStatus[] | undefined;
+  severity?: Severity[] | undefined;
+  assignedTo?: string | undefined;
+  overdueOnly?: boolean | undefined;
+  q?: string | undefined;
+  from?: string | undefined;
+  to?: string | undefined;
+  limit?: number | undefined;
+  cursor?: string | undefined;
 }
 
 export interface GrievanceStats {
