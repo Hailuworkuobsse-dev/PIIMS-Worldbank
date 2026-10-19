@@ -52,6 +52,7 @@ export function useCreateIndicator(projectId: string) {
     mutationFn: (input: IndicatorInput) => resultsApi.createIndicator(input),
     onSuccess: () => {
       qc.invalidateQueries({ queryKey: resultsKeys.all });
+      qc.invalidateQueries({ queryKey: resultsKeys.components(projectId) });
       push("success", "Indicator added");
     },
     onError: (err) =>
