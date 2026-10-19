@@ -210,6 +210,7 @@ export async function refresh(refreshToken: string, context: LoginContext): Prom
       data: {
         userId: user.userId,
         tokenHash: sha256(newRefresh.token),
+        mfaVerified: stored.mfaVerified,
         expiresAt: new Date(Date.now() + newRefresh.expiresIn * 1000),
         ipAddress: context.ipAddress,
         userAgent: context.userAgent
@@ -317,6 +318,21 @@ export async function changePassword(
     userAgent: context.userAgent,
     correlationId: context.correlationId
   });
+}
+
+export async function ssoLogin(email: string, mfaVerified: boolean, context: LoginContext): Promise<LoginResponse> {
+  const user = await prisma.user.findUnique({
+    where: { email }, include: { org: true, role: true }
+  });
+  // SSO never provisions users. The identity must map to an active, pre-provisioned PIIMS account.
+  if (!user || user.status !== 'ACTIVE') throw new UnauthorizedError('This identity is not linked to an active PIIMS account.');
+  if ((user.mfaEnabled || roleRequiresMfa(user.role.code)) && !mfaVerified) {
+    throw new ForbiddenError('Your organization identity provider did not confirm multi-factor authentication.');
+  }
+  const result = await completeLogin(user, mfaVerified, context);
+  // Government SSO is responsible for password policy and MFA; PIIMS still requires policy acknowledgement.
+  result.user = { ...result.user, mustChangePassword: false, mfaSetupRequired: false };
+  return result;
 }
 
 export async function acceptPolicy(userId: string, policyVersion: string, context: LoginContext): Promise<void> {
@@ -461,6 +477,7 @@ async function completeLogin(
       data: {
         userId: user.userId,
         tokenHash: sha256(refresh.token),
+        mfaVerified: mfa,
         expiresAt: new Date(Date.now() + refresh.expiresIn * 1000),
         ipAddress: context.ipAddress,
         userAgent: context.userAgent
