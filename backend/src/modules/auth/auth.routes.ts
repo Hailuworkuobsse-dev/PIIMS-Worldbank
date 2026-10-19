@@ -24,7 +24,7 @@ authRouter.post('/mfa/verify', loginRateLimiter, validate({ body: mfaVerifySchem
 authRouter.post('/refresh', validate({ body: refreshSchema }), refreshHandler);
 
 /* ─── Authenticated ───────────────────────────────────────────── */
-authRouter.post('/logout', requireAuth, logoutHandler);
+authRouter.post('/logout', requireAuthForOnboarding, logoutHandler);
 authRouter.get('/me', requireAuth, meHandler);
 authRouter.post(
   '/change-password',
