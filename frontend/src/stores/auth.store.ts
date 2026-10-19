@@ -125,9 +125,11 @@ export const useAuthStore = create<AuthState>()(
         const { refreshToken } = get();
         if (refreshToken && !opts.silent) {
           // Fire-and-forget server-side revocation
-          authApi.logout(refreshToken).catch(() => {
-            /* ignore */
-          });
+          void Promise.resolve()
+            .then(() => authApi.logout(refreshToken))
+            .catch(() => {
+              /* ignore */
+            });
         }
         set({
           user: null,
