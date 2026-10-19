@@ -1,315 +1,345 @@
-import { Link } from "react-router-dom";
+import { Navigate, Link } from "react-router-dom";
 import { useTranslation } from "react-i18next";
 import {
-  Activity,
   ArrowRight,
-  BarChart3,
-  CheckCircle2,
+  BadgeCheck,
+  Building2,
   ClipboardCheck,
-  FileCheck2,
-  Layers,
-  LineChart,
+  Database,
+  FileText,
+  Handshake,
+  HelpCircle,
   LockKeyhole,
+  Mail,
   MapPinned,
   ShieldCheck,
   Users,
-  WifiOff,
 } from "lucide-react";
 import { BrandMark } from "@/components/brand/BrandMark";
 import { LanguageToggle } from "@/components/ui/LanguageToggle";
 import { useAuthStore } from "@/stores/auth.store";
 import pkg from "../../package.json";
 
-const FEATURES = [
-  { icon: Layers, t: "landing.features.m1t", d: "landing.features.m1d" },
-  { icon: LineChart, t: "landing.features.m2t", d: "landing.features.m2d" },
-  { icon: ClipboardCheck, t: "landing.features.m3t", d: "landing.features.m3d" },
-  { icon: Users, t: "landing.features.m4t", d: "landing.features.m4d" },
-  { icon: WifiOff, t: "landing.features.m5t", d: "landing.features.m5d" },
-  { icon: LockKeyhole, t: "landing.features.m6t", d: "landing.features.m6d" },
-] as const;
-
-const DELIVERY_STEPS = [
+const AUDIENCES = [
   {
-    number: "01",
-    icon: FileCheck2,
-    title: "Plan with clarity",
-    description:
-      "Organize project concepts, appraisal, approvals, and implementation milestones in one workflow.",
+    icon: Building2,
+    title: "Government institutions",
+    audience: "MoWE, MoF and implementing agencies",
+    detail:
+      "Coordinate project planning, approvals, implementation responsibilities, monitoring, and formal reporting through controlled workspaces.",
   },
   {
-    number: "02",
+    icon: BadgeCheck,
+    title: "World Bank teams",
+    audience: "Task teams and fiduciary / safeguards specialists",
+    detail:
+      "Review authorized project evidence, implementation progress, results indicators, issues, and submissions relevant to your assigned responsibilities.",
+  },
+  {
+    icon: ClipboardCheck,
+    title: "Bank and finance officials",
+    audience: "DBE, financial management and audit teams",
+    detail:
+      "Work with permitted financial, disbursement, loan, compliance, and audit information. Access is limited by role and authorization.",
+  },
+  {
+    icon: Handshake,
+    title: "Suppliers and contractors",
+    audience: "Registered vendors and delivery partners",
+    detail:
+      "Use the approved supplier access process to follow contract requirements, submit delivery information, and track assigned actions.",
+  },
+  {
     icon: MapPinned,
-    title: "Track delivery",
-    description:
-      "Connect field progress, implementation issues, documents, and stakeholder follow-up.",
+    title: "Local and field teams",
+    audience: "Regional, zonal, woreda, kebele and field users",
+    detail:
+      "Support assigned verifications, field updates, service-delivery confirmation, and data-quality follow-up within your jurisdiction.",
   },
   {
-    number: "03",
-    icon: BarChart3,
-    title: "Measure results",
-    description:
-      "Bring indicators, reporting, and oversight together to support timely, evidence-led decisions.",
+    icon: Database,
+    title: "Researchers and evaluators",
+    audience: "Authorized research and evaluation users",
+    detail:
+      "Request access to approved datasets through the designated review process and comply with applicable data-use conditions.",
   },
 ] as const;
 
-const PRINCIPLES = [
-  { icon: ShieldCheck, title: "Accountable by design", detail: "Role-aware access and traceable work" },
-  { icon: Activity, title: "Operational visibility", detail: "Progress, risks, and actions in one view" },
-  { icon: Users, title: "Connected teams", detail: "A shared view across project stakeholders" },
-  { icon: CheckCircle2, title: "Results focused", detail: "Keep delivery connected to intended outcomes" },
+const ACCESS_LINKS = [
+  {
+    title: "Supplier access",
+    detail: "Request vendor portal access",
+    href: "mailto:support@piims.gov.et?subject=PIIMS%20Supplier%20Access%20Request",
+    icon: Handshake,
+  },
+  {
+    title: "Research access",
+    detail: "Request anonymized dataset access",
+    href: "mailto:support@piims.gov.et?subject=PIIMS%20Research%20Dataset%20Access",
+    icon: Database,
+  },
 ] as const;
 
-/** Public entry point for PIIMS. Protected application workspaces begin after sign-in. */
+/** Public institutional entry point. Protected workspaces remain behind authentication. */
 export default function LandingPage() {
   const { t } = useTranslation();
   const user = useAuthStore((s) => s.user);
-  const entryPath = user ? "/dashboard" : "/login";
-  const entryLabel = user
-    ? t("landing.hero.openDashboard")
-    : t("landing.hero.signIn");
+
+  // Returning users should not have to pass through the public entry page.
+  if (user) return <Navigate to="/dashboard" replace />;
 
   return (
-    <div className="min-h-screen overflow-hidden bg-white text-neutral-900">
-      <header className="sticky top-0 z-40 border-b border-slate-200/80 bg-white/95 shadow-sm shadow-slate-900/[0.02] backdrop-blur">
-        <div className="mx-auto flex min-h-[76px] max-w-7xl items-center justify-between gap-4 px-4 sm:px-6 lg:px-8">
-          <Link to="/" aria-label="PIIMS home" className="flex min-w-0 items-center gap-3 rounded-md focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-info">
-            <BrandMark className="h-11 w-11 shrink-0" />
+    <div className="min-h-screen bg-[#f4f7fb] text-slate-900">
+      <a
+        href="#main"
+        className="sr-only z-50 rounded-md bg-white p-3 text-[#102747] focus:not-sr-only focus:fixed focus:left-4 focus:top-4 focus:ring-2 focus:ring-sky-600"
+      >
+        Skip to main content
+      </a>
+
+      <header className="border-b border-slate-200 bg-white">
+        <div className="mx-auto flex max-w-7xl flex-wrap items-center justify-between gap-4 px-4 py-4 sm:px-6 lg:px-8">
+          <Link to="/" aria-label="PIIMS entry page" className="flex min-w-0 items-center gap-3 rounded-md focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-sky-600">
+            <BrandMark className="h-12 w-12 shrink-0" />
             <span className="min-w-0 leading-tight">
-              <span className="block text-lg font-extrabold tracking-[0.12em] text-primary-900">PIIMS</span>
-              <span className="hidden text-[10px] font-semibold uppercase tracking-[0.12em] text-slate-500 sm:block">
-                Project Implementation Information Management System
+              <span className="block text-lg font-black tracking-[0.12em] text-[#102747]">PIIMS</span>
+              <span className="mt-1 block max-w-[35rem] text-xs font-semibold leading-4 text-slate-600 sm:text-sm">
+                Project Inception Information Management System
               </span>
             </span>
           </Link>
-
-          <nav aria-label="Main navigation" className="hidden items-center gap-7 lg:flex">
-            <a href="#capabilities" className="text-sm font-semibold text-slate-600 transition hover:text-primary-900">Capabilities</a>
-            <a href="#delivery-cycle" className="text-sm font-semibold text-slate-600 transition hover:text-primary-900">How it works</a>
-            <a href="#about" className="text-sm font-semibold text-slate-600 transition hover:text-primary-900">About PIIMS</a>
-          </nav>
-
-          <div className="flex shrink-0 items-center gap-2 sm:gap-3">
+          <div className="flex items-center gap-3">
+            <div className="hidden text-right md:block">
+              <p className="text-xs font-bold uppercase tracking-wide text-slate-500">Federal Democratic Republic of Ethiopia</p>
+              <p className="text-sm font-semibold text-[#102747]">Ministry of Water and Energy</p>
+            </div>
+            <div className="hidden h-10 w-px bg-slate-200 md:block" aria-hidden="true" />
             <LanguageToggle />
-            <Link
-              to={entryPath}
-              className="inline-flex min-h-10 items-center justify-center gap-2 rounded-lg bg-primary-700 px-3 text-sm font-bold text-white shadow-sm transition hover:bg-primary-900 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-info focus-visible:ring-offset-2 sm:px-5"
-            >
-              {entryLabel}
-              <ArrowRight className="hidden h-4 w-4 sm:block" aria-hidden />
-            </Link>
           </div>
         </div>
       </header>
 
       <main id="main">
         <section className="relative isolate overflow-hidden bg-[#0b1e3d] text-white">
-          <div aria-hidden className="absolute inset-0 -z-10">
-            <div className="absolute -right-32 -top-40 h-[34rem] w-[34rem] rounded-full bg-sky-400/10 blur-3xl" />
-            <div className="absolute -bottom-56 left-1/4 h-[34rem] w-[34rem] rounded-full bg-amber-400/[0.08] blur-3xl" />
-            <div className="absolute inset-0 opacity-[0.08]" style={{ backgroundImage: "linear-gradient(rgba(255,255,255,.45) 1px, transparent 1px), linear-gradient(90deg, rgba(255,255,255,.45) 1px, transparent 1px)", backgroundSize: "44px 44px" }} />
+          <div aria-hidden="true" className="absolute inset-0 -z-10 overflow-hidden">
+            <div className="absolute -right-24 -top-36 h-96 w-96 rounded-full bg-sky-400/10 blur-3xl" />
+            <div className="absolute -bottom-48 left-1/4 h-96 w-96 rounded-full bg-amber-400/[0.08] blur-3xl" />
+            <div className="absolute inset-0 opacity-[0.07]" style={{ backgroundImage: "linear-gradient(rgba(255,255,255,.45) 1px, transparent 1px), linear-gradient(90deg, rgba(255,255,255,.45) 1px, transparent 1px)", backgroundSize: "44px 44px" }} />
           </div>
 
-          <div className="mx-auto grid max-w-7xl items-center gap-12 px-4 py-16 sm:px-6 sm:py-20 lg:grid-cols-[1.02fr_.98fr] lg:gap-14 lg:px-8 lg:py-24">
+          <div className="mx-auto grid max-w-7xl items-center gap-10 px-4 py-10 sm:px-6 sm:py-14 lg:grid-cols-[1.05fr_.95fr] lg:gap-16 lg:px-8 lg:py-16">
             <div className="max-w-2xl">
-              <div className="inline-flex items-center gap-2 rounded-full border border-white/15 bg-white/[0.07] px-3.5 py-2 text-xs font-bold tracking-wide text-sky-100">
-                <span className="h-2 w-2 rounded-full bg-amber-400" />
-                PROJECT DELIVERY · OVERSIGHT · RESULTS
+              <div className="inline-flex items-center gap-2 rounded-full border border-white/15 bg-white/[0.07] px-3 py-2 text-xs font-bold text-sky-100">
+                <ShieldCheck className="h-4 w-4 text-amber-300" aria-hidden="true" />
+                Official project information workspace
               </div>
-              <h1 className="mt-6 text-4xl font-extrabold leading-[1.08] tracking-tight sm:text-5xl lg:text-[3.65rem]">
-                Turn project plans into <span className="text-amber-300">measurable impact.</span>
+              <h1 className="mt-5 text-3xl font-extrabold leading-tight tracking-tight sm:text-4xl lg:text-5xl">
+                Project Inception Information Management System
               </h1>
-              <p className="mt-6 max-w-xl text-base leading-7 text-slate-200 sm:text-lg sm:leading-8">
-                PIIMS brings project planning, implementation tracking, financial oversight, field delivery, and results reporting into one coordinated workspace.
+              <p className="mt-5 max-w-xl text-base leading-7 text-slate-200 sm:text-lg sm:leading-8">
+                Ministry of Water and Energy, Federal Democratic Republic of Ethiopia.
               </p>
-              <div className="mt-8 flex flex-col gap-3 sm:flex-row">
+              <p className="mt-4 max-w-xl text-sm leading-6 text-slate-300 sm:text-base">
+                A controlled workspace for authorized project stakeholders to coordinate implementation, review evidence, follow delivery and results, and carry out their assigned responsibilities.
+              </p>
+
+              <div className="mt-8 grid gap-3 sm:grid-cols-2">
+                <div className="flex gap-3 rounded-xl border border-white/10 bg-white/[0.06] p-4">
+                  <LockKeyhole className="mt-0.5 h-5 w-5 shrink-0 text-amber-300" aria-hidden="true" />
+                  <div>
+                    <h2 className="text-sm font-bold">Controlled access</h2>
+                    <p className="mt-1 text-xs leading-5 text-slate-300">Use only an account provisioned for your role.</p>
+                  </div>
+                </div>
+                <div className="flex gap-3 rounded-xl border border-white/10 bg-white/[0.06] p-4">
+                  <FileText className="mt-0.5 h-5 w-5 shrink-0 text-sky-300" aria-hidden="true" />
+                  <div>
+                    <h2 className="text-sm font-bold">Traceable work</h2>
+                    <p className="mt-1 text-xs leading-5 text-slate-300">Use assigned workflows and approved records.</p>
+                  </div>
+                </div>
+              </div>
+              <p className="mt-6 text-xs leading-5 text-slate-400">
+                Developed by HWO Software Development &amp; ICT Consultancy.
+              </p>
+            </div>
+
+            <div className="mx-auto w-full max-w-lg">
+              <div className="rounded-2xl border border-white/15 bg-white p-5 text-slate-900 shadow-2xl shadow-black/30 sm:p-7">
+                <div className="flex items-start gap-3">
+                  <div className="flex h-12 w-12 shrink-0 items-center justify-center rounded-xl bg-[#102747]">
+                    <LockKeyhole className="h-6 w-6 text-amber-300" aria-hidden="true" />
+                  </div>
+                  <div>
+                    <h2 className="text-xl font-extrabold text-[#102747] sm:text-2xl">Secure sign-in</h2>
+                    <p className="mt-1 text-sm leading-5 text-slate-600">For authorized PIIMS users</p>
+                  </div>
+                </div>
+
+                <div className="mt-6 rounded-xl border border-sky-100 bg-sky-50 p-4">
+                  <p className="text-sm font-bold text-[#102747]">Use your assigned account</p>
+                  <p className="mt-1 text-sm leading-6 text-slate-600">
+                    Sign-in credentials are issued by your organization or PIIMS administrator. Government, finance, oversight, and field users must not create their own accounts here.
+                  </p>
+                </div>
+
                 <Link
-                  to={entryPath}
-                  className="inline-flex min-h-12 items-center justify-center gap-2 rounded-lg bg-amber-400 px-6 py-3 font-extrabold text-[#102747] shadow-lg shadow-black/10 transition hover:bg-amber-300 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-white focus-visible:ring-offset-2 focus-visible:ring-offset-[#0b1e3d]"
+                  to="/login"
+                  className="mt-5 inline-flex min-h-12 w-full items-center justify-center gap-2 rounded-lg bg-[#1455a0] px-5 py-3 text-sm font-extrabold text-white shadow-sm transition hover:bg-[#102747] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-sky-600 focus-visible:ring-offset-2"
                 >
-                  {entryLabel}
-                  <ArrowRight className="h-4 w-4" aria-hidden />
+                  Continue to secure sign-in
+                  <ArrowRight className="h-4 w-4" aria-hidden="true" />
                 </Link>
-                <a
-                  href="#capabilities"
-                  className="inline-flex min-h-12 items-center justify-center gap-2 rounded-lg border border-white/25 bg-white/[0.04] px-6 py-3 font-bold text-white transition hover:bg-white/10 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-white"
-                >
-                  Explore capabilities
-                </a>
-              </div>
-              <div className="mt-8 flex flex-wrap gap-x-5 gap-y-2 text-sm text-slate-300">
-                <span className="inline-flex items-center gap-2"><CheckCircle2 className="h-4 w-4 text-amber-300" /> Lifecycle-oriented workflows</span>
-                <span className="inline-flex items-center gap-2"><CheckCircle2 className="h-4 w-4 text-amber-300" /> Role-aware access</span>
-              </div>
-            </div>
 
-            <div className="relative mx-auto w-full max-w-xl lg:ml-auto">
-              <div aria-hidden className="absolute -inset-4 rounded-[2rem] bg-gradient-to-br from-sky-300/15 via-transparent to-amber-300/10 blur-2xl" />
-              <div className="relative overflow-hidden rounded-2xl border border-white/15 bg-white p-4 text-slate-900 shadow-2xl shadow-black/30 sm:p-6">
-                <div className="flex items-center justify-between gap-3 border-b border-slate-100 pb-4">
-                  <div className="flex items-center gap-3">
-                    <div className="flex h-10 w-10 items-center justify-center rounded-xl bg-[#102747]">
-                      <BrandMark className="h-8 w-8" />
-                    </div>
-                    <div>
-                      <p className="font-extrabold text-slate-900">Project overview</p>
-                      <p className="text-xs text-slate-500">Illustrative workspace preview</p>
-                    </div>
-                  </div>
-                  <span className="rounded-full bg-emerald-50 px-3 py-1 text-xs font-bold text-emerald-700">Delivery view</span>
-                </div>
-
-                <div className="mt-5 grid grid-cols-2 gap-3">
-                  <div className="rounded-xl border border-slate-100 bg-slate-50 p-4">
-                    <p className="text-xs font-semibold text-slate-500">Implementation</p>
-                    <div className="mt-2 flex items-end justify-between gap-2">
-                      <span className="text-xl font-extrabold text-[#102747]">Progress</span>
-                      <Activity className="h-5 w-5 text-sky-700" />
-                    </div>
-                    <div className="mt-3 h-2 overflow-hidden rounded-full bg-slate-200"><div className="h-full w-3/5 rounded-full bg-sky-700" /></div>
-                    <p className="mt-2 text-xs text-slate-500">Milestones and field updates</p>
-                  </div>
-                  <div className="rounded-xl border border-slate-100 bg-slate-50 p-4">
-                    <p className="text-xs font-semibold text-slate-500">Results framework</p>
-                    <div className="mt-2 flex items-end justify-between gap-2">
-                      <span className="text-xl font-extrabold text-[#102747]">Indicators</span>
-                      <LineChart className="h-5 w-5 text-amber-600" />
-                    </div>
-                    <div className="mt-3 flex h-8 items-end gap-1.5">
-                      <span className="h-3 w-1/5 rounded-t bg-amber-200" />
-                      <span className="h-5 w-1/5 rounded-t bg-amber-300" />
-                      <span className="h-4 w-1/5 rounded-t bg-amber-400" />
-                      <span className="h-7 w-1/5 rounded-t bg-amber-500" />
-                      <span className="h-6 w-1/5 rounded-t bg-amber-600" />
-                    </div>
-                    <p className="mt-2 text-xs text-slate-500">Evidence linked to outcomes</p>
-                  </div>
-                </div>
-
-                <div className="mt-4 rounded-xl border border-slate-100 p-4">
-                  <div className="flex items-center justify-between gap-3">
-                    <p className="font-bold text-slate-800">Delivery workstreams</p>
-                    <span className="text-xs font-semibold text-slate-500">One coordinated view</span>
-                  </div>
-                  <div className="mt-4 space-y-3">
-                    {[
-                      { label: "Planning & approvals", width: "w-[88%]", color: "bg-sky-700" },
-                      { label: "Field implementation", width: "w-[68%]", color: "bg-amber-500" },
-                      { label: "Monitoring & reporting", width: "w-[78%]", color: "bg-emerald-600" },
-                    ].map((item) => (
-                      <div key={item.label}>
-                        <div className="mb-1.5 flex justify-between text-xs font-semibold text-slate-600"><span>{item.label}</span><span>Workstream</span></div>
-                        <div className="h-2 overflow-hidden rounded-full bg-slate-100"><div className={`h-full rounded-full ${item.width} ${item.color}`} /></div>
-                      </div>
-                    ))}
-                  </div>
-                </div>
-                <div className="mt-4 flex items-center gap-2 rounded-lg bg-[#102747] px-4 py-3 text-sm font-semibold text-white">
-                  <ShieldCheck className="h-4 w-4 shrink-0 text-amber-300" />
-                  Clear ownership. Traceable actions. Better decisions.
+                <p className="mt-4 text-center text-xs leading-5 text-slate-500">
+                  If your organization uses single sign-on, follow the approved sign-in instructions supplied by your administrator.
+                </p>
+                <div className="mt-5 flex items-start gap-2 border-t border-slate-100 pt-4 text-xs leading-5 text-slate-500">
+                  <ShieldCheck className="mt-0.5 h-4 w-4 shrink-0 text-emerald-700" aria-hidden="true" />
+                  Never share your password or one-time verification code. PIIMS support will not ask you to disclose them.
                 </div>
               </div>
-            </div>
-          </div>
-        </section>
-
-        <section id="capabilities" className="scroll-mt-24 bg-slate-50 py-16 sm:py-20">
-          <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
-            <div className="mx-auto max-w-3xl text-center">
-              <p className="text-xs font-extrabold uppercase tracking-[0.2em] text-sky-800">One connected platform</p>
-              <h2 className="mt-3 text-3xl font-extrabold tracking-tight text-[#102747] sm:text-4xl">
-                {t("landing.features.title")}
-              </h2>
-              <p className="mt-4 text-base leading-7 text-slate-600">
-                {t("landing.features.subtitle")}
+              <p className="mt-4 text-center text-xs leading-5 text-slate-400">
+                Access is subject to your assigned role, authorization, and applicable data-protection requirements.
               </p>
             </div>
-            <div className="mt-10 grid gap-5 sm:grid-cols-2 lg:grid-cols-3">
-              {FEATURES.map(({ icon: Icon, t: tk, d: dk }, index) => (
-                <article key={tk} className="group rounded-2xl border border-slate-200 bg-white p-6 shadow-sm transition duration-200 hover:-translate-y-1 hover:border-sky-200 hover:shadow-lg">
-                  <div className="flex items-center justify-between">
-                    <span className="flex h-12 w-12 items-center justify-center rounded-xl bg-sky-50 text-sky-800 transition group-hover:bg-[#102747] group-hover:text-white">
-                      <Icon className="h-6 w-6" aria-hidden />
-                    </span>
-                    <span className="text-xs font-extrabold tracking-widest text-slate-300">0{index + 1}</span>
-                  </div>
-                  <h3 className="mt-5 text-base font-extrabold text-[#102747]">{t(tk)}</h3>
-                  <p className="mt-2 text-sm leading-6 text-slate-600">{t(dk)}</p>
-                </article>
-              ))}
-            </div>
           </div>
         </section>
 
-        <section id="delivery-cycle" className="scroll-mt-24 bg-white py-16 sm:py-20">
+        <section aria-labelledby="access-lanes-heading" className="border-b border-slate-200 bg-white py-8 sm:py-10">
           <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
-            <div className="max-w-2xl">
-              <p className="text-xs font-extrabold uppercase tracking-[0.2em] text-sky-800">From start to outcomes</p>
-              <h2 className="mt-3 text-3xl font-extrabold tracking-tight text-[#102747] sm:text-4xl">Designed around the project delivery cycle</h2>
-              <p className="mt-4 text-base leading-7 text-slate-600">Keep the work connected from the first project concept through implementation, monitoring, and results reporting.</p>
-            </div>
-            <div className="mt-10 grid gap-5 md:grid-cols-3">
-              {DELIVERY_STEPS.map(({ number, icon: Icon, title, description }) => (
-                <article key={number} className="relative rounded-2xl border border-slate-200 p-6 sm:p-7">
-                  <div className="flex items-center justify-between">
-                    <span className="flex h-12 w-12 items-center justify-center rounded-xl bg-[#102747] text-white"><Icon className="h-6 w-6" aria-hidden /></span>
-                    <span className="text-4xl font-black tracking-tight text-slate-100">{number}</span>
-                  </div>
-                  <h3 className="mt-6 text-lg font-extrabold text-[#102747]">{title}</h3>
-                  <p className="mt-2 text-sm leading-6 text-slate-600">{description}</p>
-                </article>
-              ))}
-            </div>
-          </div>
-        </section>
-
-        <section id="about" className="scroll-mt-24 border-y border-slate-200 bg-[#f5f8fc] py-14 sm:py-16">
-          <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
-            <div className="grid gap-10 lg:grid-cols-[.8fr_1.2fr] lg:items-center">
+            <div className="grid gap-6 lg:grid-cols-[.8fr_1.2fr] lg:items-start">
               <div>
-                <p className="text-xs font-extrabold uppercase tracking-[0.2em] text-sky-800">A shared operational picture</p>
-                <h2 className="mt-3 text-3xl font-extrabold tracking-tight text-[#102747]">{t("landing.about.title")}</h2>
-                <p className="mt-4 text-base leading-7 text-slate-600">{t("landing.about.body")}</p>
-                <div className="mt-5 inline-flex items-center rounded-full border border-slate-200 bg-white px-4 py-2 text-xs font-bold text-slate-600">
-                  {t("landing.about.classification")}
+                <p className="text-xs font-extrabold uppercase tracking-[0.18em] text-sky-800">Need a different type of access?</p>
+                <h2 id="access-lanes-heading" className="mt-2 text-xl font-extrabold text-[#102747]">Choose the appropriate access route</h2>
+                <p className="mt-2 text-sm leading-6 text-slate-600">These routes do not grant immediate access. Requests are reviewed through the responsible team.</p>
+              </div>
+              <div className="grid gap-3 sm:grid-cols-2">
+                {ACCESS_LINKS.map(({ title, detail, href, icon: Icon }) => (
+                  <a key={title} href={href} className="group flex items-start gap-3 rounded-xl border border-slate-200 bg-white p-4 transition hover:border-sky-300 hover:shadow-sm focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-sky-600">
+                    <span className="flex h-10 w-10 shrink-0 items-center justify-center rounded-lg bg-sky-50 text-sky-800 group-hover:bg-[#102747] group-hover:text-white">
+                      <Icon className="h-5 w-5" aria-hidden="true" />
+                    </span>
+                    <span>
+                      <span className="block text-sm font-extrabold text-[#102747]">{title}</span>
+                      <span className="mt-1 block text-sm leading-5 text-slate-600">{detail}</span>
+                      <span className="mt-2 inline-flex items-center gap-1 text-xs font-bold text-sky-800">Contact support <ArrowRight className="h-3 w-3" aria-hidden="true" /></span>
+                    </span>
+                  </a>
+                ))}
+                <div className="flex items-start gap-3 rounded-xl border border-slate-200 bg-slate-50 p-4 sm:col-span-2">
+                  <Users className="mt-1 h-5 w-5 shrink-0 text-[#1455a0]" aria-hidden="true" />
+                  <div>
+                    <h3 className="text-sm font-extrabold text-[#102747]">Beneficiaries and members of the public</h3>
+                    <p className="mt-1 text-sm leading-6 text-slate-600">
+                      Beneficiary registration, verification, service-delivery questions, and grievances should use the officially announced public channels for the relevant programme. If your programme has published a USSD or SMS code, use that verified code; do not send personal information to unverified numbers.
+                    </p>
+                  </div>
                 </div>
               </div>
-              <div className="grid gap-4 sm:grid-cols-2">
-                {PRINCIPLES.map(({ icon: Icon, title, detail }) => (
-                  <div key={title} className="flex gap-4 rounded-xl border border-slate-200 bg-white p-5">
-                    <span className="flex h-10 w-10 shrink-0 items-center justify-center rounded-lg bg-amber-50 text-amber-700"><Icon className="h-5 w-5" aria-hidden /></span>
-                    <div><h3 className="font-extrabold text-[#102747]">{title}</h3><p className="mt-1 text-sm leading-5 text-slate-600">{detail}</p></div>
-                  </div>
-                ))}
-              </div>
             </div>
           </div>
         </section>
 
-        <section className="bg-[#0b1e3d] py-12 text-white sm:py-14">
-          <div className="mx-auto flex max-w-7xl flex-col gap-6 px-4 sm:px-6 md:flex-row md:items-center md:justify-between lg:px-8">
-            <div className="max-w-2xl">
-              <h2 className="text-2xl font-extrabold sm:text-3xl">Bring project information together.</h2>
-              <p className="mt-2 text-sm leading-6 text-slate-300 sm:text-base">Sign in to continue to your PIIMS workspace and role-specific tools.</p>
+        <section aria-labelledby="stakeholders-heading" className="bg-[#f4f7fb] py-12 sm:py-16">
+          <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
+            <div className="max-w-3xl">
+              <p className="text-xs font-extrabold uppercase tracking-[0.18em] text-sky-800">One platform · role-based workspaces</p>
+              <h2 id="stakeholders-heading" className="mt-2 text-2xl font-extrabold tracking-tight text-[#102747] sm:text-3xl">Designed for the people responsible for delivery and oversight</h2>
+              <p className="mt-3 text-sm leading-6 text-slate-600 sm:text-base sm:leading-7">
+                PIIMS supports different responsibilities without presenting every user with the same information. Your workspace and available actions should be determined by your assigned role and permissions.
+              </p>
             </div>
-            <Link to={entryPath} className="inline-flex min-h-12 shrink-0 items-center justify-center gap-2 rounded-lg bg-amber-400 px-6 py-3 font-extrabold text-[#102747] transition hover:bg-amber-300 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-white focus-visible:ring-offset-2 focus-visible:ring-offset-[#0b1e3d]">
-              {entryLabel}<ArrowRight className="h-4 w-4" aria-hidden />
-            </Link>
+            <div className="mt-8 grid gap-4 sm:grid-cols-2 xl:grid-cols-3">
+              {AUDIENCES.map(({ icon: Icon, title, audience, detail }) => (
+                <article key={title} className="rounded-xl border border-slate-200 bg-white p-5 shadow-sm transition hover:border-sky-200 hover:shadow-md sm:p-6">
+                  <div className="flex h-11 w-11 items-center justify-center rounded-xl bg-sky-50 text-sky-800">
+                    <Icon className="h-5 w-5" aria-hidden="true" />
+                  </div>
+                  <h3 className="mt-4 text-base font-extrabold text-[#102747]">{title}</h3>
+                  <p className="mt-1 text-xs font-bold uppercase tracking-wide text-sky-800">{audience}</p>
+                  <p className="mt-3 text-sm leading-6 text-slate-600">{detail}</p>
+                </article>
+              ))}
+            </div>
+          </div>
+        </section>
+
+        <section aria-labelledby="principles-heading" className="border-y border-slate-200 bg-white py-10 sm:py-12">
+          <div className="mx-auto grid max-w-7xl gap-8 px-4 sm:px-6 lg:grid-cols-[.75fr_1.25fr] lg:items-center lg:px-8">
+            <div>
+              <h2 id="principles-heading" className="text-xl font-extrabold text-[#102747]">Access with accountability</h2>
+              <p className="mt-2 text-sm leading-6 text-slate-600">Project and personal information must be handled carefully, with access limited to legitimate responsibilities.</p>
+            </div>
+            <div className="grid gap-3 sm:grid-cols-3">
+              <div className="rounded-lg bg-slate-50 p-4">
+                <ShieldCheck className="h-5 w-5 text-emerald-700" aria-hidden="true" />
+                <h3 className="mt-2 text-sm font-extrabold text-[#102747]">Least privilege</h3>
+                <p className="mt-1 text-xs leading-5 text-slate-600">Only access records required for your work.</p>
+              </div>
+              <div className="rounded-lg bg-slate-50 p-4">
+                <LockKeyhole className="h-5 w-5 text-sky-800" aria-hidden="true" />
+                <h3 className="mt-2 text-sm font-extrabold text-[#102747]">Protect information</h3>
+                <p className="mt-1 text-xs leading-5 text-slate-600">Do not share credentials or export data without authorization.</p>
+              </div>
+              <div className="rounded-lg bg-slate-50 p-4">
+                <HelpCircle className="h-5 w-5 text-amber-700" aria-hidden="true" />
+                <h3 className="mt-2 text-sm font-extrabold text-[#102747]">Need assistance?</h3>
+                <p className="mt-1 text-xs leading-5 text-slate-600">Contact support through your approved organizational channel.</p>
+              </div>
+            </div>
           </div>
         </section>
       </main>
 
       <footer className="bg-[#07162d] text-white">
-        <div className="mx-auto flex max-w-7xl flex-col gap-5 px-4 py-7 sm:px-6 md:flex-row md:items-center md:justify-between lg:px-8">
-          <Link to="/" className="flex items-center gap-3 rounded-md focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-info">
-            <BrandMark className="h-9 w-9 shrink-0" />
-            <span><span className="block font-extrabold tracking-[0.12em]">PIIMS</span><span className="block text-xs text-slate-400">Project delivery and results</span></span>
-          </Link>
-          <div className="text-sm text-slate-300">
-            {t("auth.login.needHelp")}{" "}
-            <a href="mailto:support@piims.gov.et" className="font-semibold text-white underline-offset-4 hover:underline">support@piims.gov.et</a>
+        <div className="mx-auto max-w-7xl px-4 py-10 sm:px-6 lg:px-8">
+          <div className="grid gap-8 sm:grid-cols-2 lg:grid-cols-[1.3fr_1fr_1fr_1fr]">
+            <div>
+              <div className="flex items-center gap-3">
+                <BrandMark className="h-10 w-10 shrink-0" />
+                <div>
+                  <p className="font-extrabold tracking-[0.12em]">PIIMS</p>
+                  <p className="mt-1 text-xs text-slate-400">Project Inception Information Management System</p>
+                </div>
+              </div>
+              <p className="mt-4 max-w-sm text-sm leading-6 text-slate-300">
+                An institutional workspace for project coordination, implementation monitoring, financial oversight, evaluation, and results reporting.
+              </p>
+              <p className="mt-3 text-xs leading-5 text-slate-400">Developed by HWO Software Development &amp; ICT Consultancy.</p>
+            </div>
+
+            <div>
+              <h2 className="text-sm font-extrabold text-white">Institutional context</h2>
+              <p className="mt-3 text-sm leading-6 text-slate-300">Ministry of Water and Energy</p>
+              <p className="text-sm leading-6 text-slate-300">Federal Democratic Republic of Ethiopia</p>
+              <p className="mt-3 text-xs leading-5 text-slate-400">World Bank, government, finance, implementing-partner, and oversight users should access only the functions assigned to them.</p>
+            </div>
+
+            <div>
+              <h2 className="text-sm font-extrabold text-white">Access and support</h2>
+              <a href="mailto:support@piims.gov.et" className="mt-3 inline-flex items-center gap-2 text-sm font-semibold text-sky-200 underline-offset-4 hover:underline focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-sky-300">
+                <Mail className="h-4 w-4" aria-hidden="true" /> support@piims.gov.et
+              </a>
+              <p className="mt-3 text-sm leading-6 text-slate-300">For account provisioning, locked accounts, supplier access, or dataset requests, contact your authorized institutional focal person or PIIMS support.</p>
+              <Link to="/login" className="mt-3 inline-flex items-center gap-1 text-sm font-bold text-white underline-offset-4 hover:underline focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-sky-300">
+                Secure sign-in <ArrowRight className="h-4 w-4" aria-hidden="true" />
+              </Link>
+            </div>
+
+            <div>
+              <h2 className="text-sm font-extrabold text-white">Security and responsible use</h2>
+              <p className="mt-3 text-sm leading-6 text-slate-300">Restricted system. Access is for authorized users only. Activity may be logged and reviewed in accordance with applicable policies.</p>
+              <p className="mt-3 text-sm font-extrabold text-amber-300">Unauthorized access is prohibited.</p>
+              <p className="mt-3 text-xs leading-5 text-slate-400">Do not submit passwords, beneficiary details, financial records, or other sensitive information through general support email.</p>
+            </div>
           </div>
-          <div className="text-xs text-slate-400">{t("landing.footer.rights")} · {t("auth.login.version")} {pkg.version}</div>
+
+          <div className="mt-8 flex flex-col gap-3 border-t border-white/10 pt-5 text-xs leading-5 text-slate-400 sm:flex-row sm:items-center sm:justify-between">
+            <p>© {new Date().getFullYear()} PIIMS · {t("landing.footer.rights")}</p>
+            <p>Version {pkg.version} · English / Amharic interface</p>
+            <p>Accessible navigation · Role-based access · Restricted information</p>
+          </div>
         </div>
       </footer>
     </div>
