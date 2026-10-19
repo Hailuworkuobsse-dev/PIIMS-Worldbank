@@ -54,16 +54,48 @@ function profileFor(role: RoleCode): HomeProfile {
   if (role === "DC-EN") return { title: "My field assignments", description: "Start with assigned collection work and synchronization tools. Follow your approved field procedures.", cards: [field, card("Survey assignments", "Open survey tools permitted to your account.", "/impact/surveys", ClipboardCheck)] };
   if (role === "DC-SV") return { title: "Field team supervision", description: "Review team progress, quality follow-up, and collection activity.", cards: [field, card("Quality assurance", "Review quality checks available to supervisors.", "/impact/qa", ClipboardCheck), impact] };
   if (role === "RS-EX") return { title: "Research dataset catalogue", description: "Browse published datasets, review request status, and follow applicable data-use agreements.", cards: [research, card("My data requests", "Review your dataset access requests.", "/research/requests", Database), warehouse] };
-  if (role === "SC-MB") return { title: "Executive oversight", description: "Read the authorized portfolio summary and approved reporting available to the Steering Committee.", cards: [card("Portfolio overview", "Review the portfolio dashboard.", "/dashboard", BarChart3), reports, project] };
+  if (role === "SC-MB") return { title: "Executive oversight", description: "Read the authorized portfolio summary and approved reporting available to the Steering Committee.", cards: [card("Portfolio reporting", "Review approved portfolio reports.", "/reports", BarChart3), reports, project] };
   if (role.startsWith("AU-")) return { title: "Audit and independent evaluation", description: "Review traceable activity, authorized evidence, and approved reports.", cards: [audit, reports, project, results] };
   if (role.startsWith("SYS-")) return { title: "System operations", description: "Use administrative and assurance tools according to your operational responsibilities.", cards: [admin, audit, card("Integration management", "Review configured integrations.", "/admin/integrations", Activity)] };
   return { title: "My work", description: "Open the modules available to your assigned role.", cards: [project, results, reports] };
+}
+
+const PATH_PERMISSIONS: Record<string, string[]> = {
+  "/projects": ["project:read"],
+  "/pipeline": ["project:read"],
+  "/inception": ["inception:read"],
+  "/results": ["result:read"],
+  "/financial": ["budget:read", "disbursement:read"],
+  "/procurement": ["procurement:read"],
+  "/supplier": ["supplier:self:read"],
+  "/beneficiaries": ["beneficiary:read"],
+  "/services": ["service:read"],
+  "/impact": ["impact:analytics:read", "impact:indicator:read"],
+  "/impact/field": ["field:capture", "field:supervise", "collect:execute", "collect:supervise"],
+  "/impact/warehouse": ["warehouse:read"],
+  "/research": ["research:request"],
+  "/research/requests": ["research:request"],
+  "/audit": ["audit:read"],
+  "/admin": ["admin:users", "admin:settings"],
+  "/admin/integrations": ["integration:read", "integration:manage"],
+  "/reports": ["report:read"],
+  "/grievances": ["grievance:read"],
+  "/map": ["geo:read"],
+  "/impact/qa": ["qa:read"],
+  "/impact/surveys": ["survey:write"],
+};
+
+function canOpenPath(userPermissions: string[], href: string): boolean {
+  if (userPermissions.includes("*")) return true;
+  const required = PATH_PERMISSIONS[href];
+  return !required || required.some((permission) => userPermissions.includes(permission));
 }
 
 export default function RoleHomePage() {
   const user = useAuthStore((s) => s.user);
   if (!user) return <Navigate to="/login" replace />;
   const profile = profileFor(user.role);
+  const visibleCards = profile.cards.filter(({ href }) => canOpenPath(user.permissions, href));
   const displayName = user.fullName || user.username;
 
   return (
@@ -101,7 +133,7 @@ export default function RoleHomePage() {
         </div>
 
         <div className="mt-4 grid gap-4 sm:grid-cols-2 xl:grid-cols-3">
-          {profile.cards.map(({ title, detail, href, icon: Icon }) => (
+          {visibleCards.map(({ title, detail, href, icon: Icon }) => (
             <Link key={title} to={href} className="group rounded-xl border border-slate-200 bg-white p-5 shadow-sm transition hover:-translate-y-0.5 hover:border-sky-300 hover:shadow-md focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-sky-600 sm:p-6">
               <div className="flex items-start justify-between gap-3"><span className="flex h-11 w-11 items-center justify-center rounded-xl bg-sky-50 text-sky-800"><Icon className="h-5 w-5" /></span><ArrowUpRight className="h-5 w-5 text-slate-400 transition group-hover:text-sky-800" /></div>
               <h3 className="mt-4 font-extrabold text-[#102747]">{title}</h3>
@@ -109,6 +141,11 @@ export default function RoleHomePage() {
               <span className="mt-4 inline-flex items-center gap-2 text-sm font-bold text-sky-800">Open workspace <ArrowUpRight className="h-4 w-4" /></span>
             </Link>
           ))}
+          {visibleCards.length === 0 && (
+            <div className="rounded-xl border border-dashed border-slate-300 bg-white p-6 text-sm leading-6 text-slate-600 sm:col-span-2 xl:col-span-3">
+              No workspace shortcuts are available for the permissions currently assigned to your account. Contact your PIIMS administrator if you believe this is incorrect.
+            </div>
+          )}
         </div>
 
         <div className="mt-8 flex flex-col gap-3 rounded-xl border border-slate-200 bg-white p-4 text-xs leading-5 text-slate-500 sm:flex-row sm:items-center sm:justify-between">
