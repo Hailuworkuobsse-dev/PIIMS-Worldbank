@@ -35,8 +35,9 @@ function Wrap({ children }: { children: React.ReactNode }) {
 }
 
 describe("ProjectNewPage", () => {
-  beforeEach(() => {
+  beforeEach(async () => {
     localStorage.clear();
+    await i18n.changeLanguage("en");
   });
 
   it("renders wizard with step 1", () => {
@@ -70,7 +71,7 @@ describe("ProjectNewPage", () => {
         <ProjectNewPage />
       </Wrap>,
     );
-    const nameInput = screen.getByLabelText(/Project name/i);
+    const nameInput = screen.getByLabelText("Project name", { exact: true });
     fireEvent.change(nameInput, { target: { value: "Solar Mini-Grid" } });
     await act(async () => {
       await vi.advanceTimersByTimeAsync(20_000);
