@@ -1,5 +1,4 @@
 import { useEffect, useMemo, useRef, useState } from "react";
-import { useNavigate } from "react-router-dom";
 import {
   ChevronLeft,
   ChevronRight,
@@ -20,15 +19,8 @@ import { useSyncStore } from "@/stores/sync.store";
 import { computeVisibility } from "@/features/survey/skipLogic";
 import { offlineStore } from "./offlineStore";
 import { useSubmitInterview } from "./field.mutations";
-import type {
-  Assignment,
-  ConsentPayload,
-  ParadataEntry,
-  Question,
-  Submission,
-  SubmissionAnswer,
-  SurveyView,
-} from "./field.types";
+import type { Assignment, ConsentPayload, ParadataEntry, Submission, SubmissionAnswer, SurveyView } from "./field.types";
+import type { Question } from "@/features/survey/survey.types";
 
 const CONSENT_VERSION = "v1.2";
 
@@ -36,7 +28,7 @@ export interface CapiRendererProps {
   assignment: Assignment;
   surveyView: SurveyView;
   collectorId: string;
-  deviceId?: string;
+  deviceId?: string | undefined;
   onExit: () => void;
 }
 
@@ -48,7 +40,6 @@ export function CapiRenderer({
   onExit,
 }: CapiRendererProps) {
   const { t } = useTranslation();
-  const navigate = useNavigate();
   const { push } = useToast();
   const online = useSyncStore((s) => s.online);
   const submitMutation = useSubmitInterview();
@@ -334,6 +325,7 @@ export function CapiRenderer({
       consent,
       answers: submissionAnswers,
       paradata: Object.values(paradata),
+      status: "SUBMITTED",
     };
 
     try {
@@ -349,7 +341,7 @@ export function CapiRenderer({
     } catch {
       // Failsafe: still queue it locally
       await offlineStore.enqueue(submission);
-      push("warn", "Sync failed — saved to offline queue");
+      push("warning", "Sync failed — saved to offline queue");
       setPhase("complete");
       setTimeout(() => onExit(), 1500);
     }
