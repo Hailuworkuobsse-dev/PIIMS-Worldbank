@@ -17,6 +17,9 @@ export interface AuthUser {
   permissions: string[];
   scope: AuthScope;
   mfaEnabled: boolean;
+  mfaSetupRequired?: boolean;
+  mustChangePassword?: boolean;
+  acceptedPolicyVersion?: string | null;
   locale: 'en' | 'am';
   lastLoginAt: string;
 }
@@ -38,6 +41,7 @@ export interface LoginResponse {
   refresh_expires_in: number;
   mfa_required?: boolean;
   mfa_token?: string;
+  mfa_setup_required?: boolean;
 }
 
 export interface RefreshResponse {

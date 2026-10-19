@@ -14,9 +14,12 @@ export function AppBootstrap({ children }: { children: React.ReactNode }) {
     const expiresAt = useAuthStore.getState().expiresAt;
     if (!expiresAt) return;
     const ms = expiresAt - Date.now() - 60_000;
-    if (ms <= 0) return;
+    if (ms <= 0) {
+      void useAuthStore.getState().refresh();
+      return;
+    }
     const id = window.setTimeout(() => {
-      useAuthStore.getState().refresh();
+      void useAuthStore.getState().refresh();
     }, ms);
     return () => window.clearTimeout(id);
   }, [user]);

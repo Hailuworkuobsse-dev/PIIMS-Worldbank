@@ -14,7 +14,7 @@ interface AuthState {
 
   login: (
     req: LoginRequest,
-  ) => Promise<{ mfaRequired: boolean; mfaToken?: string }>;
+  ) => Promise<{ mfaRequired: boolean; mfaToken?: string; mfaSetupRequired?: boolean }>;
   completeMFA: (
     mfaToken: string,
     code: string,
@@ -31,6 +31,7 @@ interface AuthState {
   logout: (opts?: { silent?: boolean; broadcast?: boolean }) => void;
   has: (p: Permission) => boolean;
   homeRoute: () => string;
+  updateUser: (patch: Partial<AuthUser>) => void;
 }
 
 /* ---- Cross-tab broadcast ---- */
@@ -63,7 +64,7 @@ export const useAuthStore = create<AuthState>()(
           res.expires_in,
           res.refresh_expires_in,
         );
-        return { mfaRequired: false };
+        return { mfaRequired: false, mfaSetupRequired: Boolean(res.mfa_setup_required || res.user.mfaSetupRequired) };
       },
 
       async completeMFA(mfaToken, code, remember) {
@@ -103,10 +104,22 @@ export const useAuthStore = create<AuthState>()(
             const res = await authApi.refresh(state.refreshToken!);
             set({
               accessToken: res.access_token,
+              refreshToken: res.refresh_token || state.refreshToken,
               expiresAt: Date.now() + res.expires_in * 1000,
+              refreshExpiresAt: res.refresh_expires_in
+                ? Date.now() + res.refresh_expires_in * 1000
+                : state.refreshExpiresAt,
             });
             return true;
           } catch {
+            set({
+              user: null,
+              accessToken: null,
+              refreshToken: null,
+              expiresAt: null,
+              refreshExpiresAt: null,
+            });
+            bc?.postMessage({ type: "session:clear", at: Date.now() });
             return false;
           } finally {
             set({ refreshing: null });
@@ -148,6 +161,11 @@ export const useAuthStore = create<AuthState>()(
       homeRoute() {
         const u = get().user;
         return u ? roleHome(u.role) : "/login";
+      },
+
+      updateUser(patch) {
+        const current = get().user;
+        if (current) set({ user: { ...current, ...patch } });
       },
     }),
     {

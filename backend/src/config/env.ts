@@ -17,7 +17,7 @@ const envSchema = z.object({
   JWT_REFRESH_EXPIRES_IN: z.string().default('8h'),
 
   MFA_ISSUER: z.string().default('PIIMS'),
-  MFA_REQUIRED_ROLES: z.string().default(''),
+  MFA_REQUIRED_ROLES: z.string().default('WB-TTL,WB-IE,WB-FM,WB-PROC,WB-ES,WB-M&E,MW-SA,MW-PIU,MW-ME,MW-TL,MW-PM,MW-IE,MW-DM,MW-QA,MW-FO,MF-BO,MF-FM,MF-AUD,DB-LO,DB-DO,DB-PM,DB-AUD,RS-EX,AU-EX,AU-EV,SYS-DBA,SYS-OPS,SYS-SEC,SYS-HELP'),
 
   RATE_LIMIT_WINDOW_MS: z.coerce.number().int().positive().default(60_000),
   RATE_LIMIT_MAX: z.coerce.number().int().positive().default(1000),
@@ -53,6 +53,8 @@ const envSchema = z.object({
   ODK_API_KEY: z.string().optional(),
   SAFE_ROOM_URL: z.string().url().optional(),
   IDP_ISSUER_URL: z.string().url().optional(),
+  API_PUBLIC_URL: z.string().url().optional(),
+  FRONTEND_URL: z.string().url().optional(),
   IDP_CLIENT_ID: z.string().optional(),
   IDP_CLIENT_SECRET: z.string().optional()
 });

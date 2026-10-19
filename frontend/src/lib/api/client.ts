@@ -21,11 +21,23 @@ api.interceptors.request.use((config) => {
 api.interceptors.response.use(
   (r) => r,
   async (error: AxiosError) => {
-    const { response } = error;
-    if (response?.status === 401) {
-      const refreshed = await useAuthStore.getState().refresh();
-      if (refreshed && error.config) return api.request(error.config);
-      useAuthStore.getState().logout();
+    const { response, config } = error;
+    if (response?.status === 401 && config) {
+      const url = config.url ?? "";
+      const isAuthEntry = [
+        "/auth/login",
+        "/auth/mfa/verify",
+        "/auth/refresh",
+        "/auth/logout",
+        "/auth/password-reset",
+      ].some((path) => url.includes(path));
+      const original = config as typeof config & { _piimsRetried?: boolean };
+      if (!isAuthEntry && !original._piimsRetried && useAuthStore.getState().refreshToken) {
+        original._piimsRetried = true;
+        const refreshed = await useAuthStore.getState().refresh();
+        if (refreshed) return api.request(original);
+        useAuthStore.getState().logout({ silent: true });
+      }
     }
     return Promise.reject(error);
   },

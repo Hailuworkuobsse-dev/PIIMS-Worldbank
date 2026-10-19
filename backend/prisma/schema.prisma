@@ -551,6 +551,8 @@ model User {
   failedLoginCount  Int       @default(0)
   lockedUntil       DateTime?
   passwordChangedAt DateTime?
+  acceptedPolicyVersion String? @db.VarChar(40)
+  acceptedPolicyAt DateTime?
   locale            String    @default("en") @db.VarChar(10)
 
   createdAt DateTime @default(now())
@@ -599,6 +601,7 @@ model RefreshToken {
   userId    String   @db.Char(36)
   user      User     @relation(fields: [userId], references: [userId], onDelete: Cascade)
   tokenHash String   @unique @db.VarChar(128)
+  mfaVerified Boolean @default(false)
   expiresAt DateTime
   revokedAt DateTime?
   createdAt DateTime @default(now())

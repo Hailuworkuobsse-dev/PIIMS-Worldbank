@@ -6,8 +6,10 @@ import { LoadingState } from "@/components/ui/LoadingState";
 
 /* ---- Lazy pages (only loaded when needed) ---- */
 const LoginPage = lazy(() => import("@/features/auth/LoginPage"));
+const SsoCallbackPage = lazy(() => import("@/features/auth/SsoCallbackPage"));
 const LandingPage = lazy(() => import("@/pages/LandingPage"));
-const DashboardPage = lazy(() => import("@/pages/DashboardPage"));
+const RoleHomePage = lazy(() => import("@/pages/RoleHomePage"));
+const FirstLoginPage = lazy(() => import("@/features/auth/FirstLoginPage"));
 const NotFoundPage = lazy(() => import("@/pages/NotFoundPage"));
 
 /* Projects (M2) */
@@ -111,10 +113,13 @@ export function AppRouter() {
         {/* ---- Public ---- */}
         <Route path="/" element={<LandingPage />} />
         <Route path="/login" element={<LoginPage />} />
+        <Route path="/auth/callback" element={<SsoCallbackPage />} />
 
         {/* ---- Protected ---- */}
         <Route element={<RequireAuth />}>
-          <Route path="/dashboard" element={<DashboardPage />} />
+          <Route path="/home" element={<RoleHomePage />} />
+          <Route path="/first-login" element={<FirstLoginPage />} />
+          <Route path="/dashboard" element={<Navigate to="/home" replace />} />
 
           {/* Projects */}
           <Route element={<RequirePermission perm={PERMISSIONS.projectRead} />}>

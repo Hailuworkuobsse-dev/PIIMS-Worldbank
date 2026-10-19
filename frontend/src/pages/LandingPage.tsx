@@ -18,6 +18,7 @@ import {
 import { BrandMark } from "@/components/brand/BrandMark";
 import { LanguageToggle } from "@/components/ui/LanguageToggle";
 import { useAuthStore } from "@/stores/auth.store";
+import { CURRENT_POLICY_VERSION } from "@/features/auth/auth.types";
 import pkg from "../../package.json";
 
 const AUDIENCES = [
@@ -84,9 +85,10 @@ const ACCESS_LINKS = [
 export default function LandingPage() {
   const { t } = useTranslation();
   const user = useAuthStore((s) => s.user);
+  const homeRoute = useAuthStore((s) => s.homeRoute);
 
   // Returning users should not have to pass through the public entry page.
-  if (user) return <Navigate to="/dashboard" replace />;
+  if (user) return <Navigate to={user.mustChangePassword || user.mfaSetupRequired || user.acceptedPolicyVersion !== CURRENT_POLICY_VERSION ? "/first-login" : homeRoute()} replace />;
 
   return (
     <div className="min-h-screen bg-[#f4f7fb] text-slate-900">

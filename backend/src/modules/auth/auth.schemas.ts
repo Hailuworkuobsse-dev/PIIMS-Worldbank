@@ -27,7 +27,7 @@ export type LogoutInput = z.infer<typeof logoutSchema>;
 
 export const changePasswordSchema = z.object({
   old_password: z.string().min(1, 'Current password is required'),
-  new_password: z.string().min(8, 'New password must be at least 8 characters').max(128)
+  new_password: z.string().min(12, 'New password must be at least 12 characters').max(128)
 });
 export type ChangePasswordInput = z.infer<typeof changePasswordSchema>;
 
@@ -40,3 +40,5 @@ export const mfaDisableSchema = z.object({
   password: z.string().min(1, 'Password is required')
 });
 export type MfaDisableInput = z.infer<typeof mfaDisableSchema>;
+export const policyAcceptanceSchema = z.object({ policy_version: z.string().trim().min(1).max(40) });
+export type PolicyAcceptanceInput = z.infer<typeof policyAcceptanceSchema>;

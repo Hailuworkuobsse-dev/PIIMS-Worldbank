@@ -15,9 +15,11 @@ import {
   Lock,
 } from "lucide-react";
 import { useAuthStore } from "@/stores/auth.store";
+import { authApi } from "@/features/auth/auth.api";
+import { APP_CONFIG } from "@/app/config";
+import { CURRENT_POLICY_VERSION } from "@/features/auth/auth.types";
 import { normalizeApiError } from "@/lib/api/errors";
 import { Input } from "@/components/ui/Input";
-import { Checkbox } from "@/components/ui/Checkbox";
 import { Button } from "@/components/ui/Button";
 import { Banner } from "@/components/ui/Banner";
 import pkg from "../../../package.json";
@@ -47,24 +49,41 @@ export default function LoginPage() {
   const completeMFA = useAuthStore((s) => s.completeMFA);
   const user = useAuthStore((s) => s.user);
   const homeRoute = useAuthStore((s) => s.homeRoute);
+  const locationMessage = (location.state as LocationState & { message?: string } | null)?.message;
 
   const [stage, setStage] = useState<Stage>("credentials");
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
-  const [remember, setRemember] = useState(false);
   const [mfaCode, setMfaCode] = useState("");
   const [mfaToken, setMfaToken] = useState<string | null>(null);
   const [error, setError] = useState<string | null>(null);
   const [submitting, setSubmitting] = useState(false);
+  const [ssoEnabled, setSsoEnabled] = useState(false);
 
   const firstFieldRef = useRef<HTMLInputElement>(null);
   const mfaRef = useRef<HTMLInputElement>(null);
 
+  useEffect(() => {
+    let active = true;
+    authApi.ssoStatus().then((status) => {
+      if (active) setSsoEnabled(status.enabled);
+    }).catch(() => {
+      if (active) setSsoEnabled(false);
+    });
+    return () => { active = false; };
+  }, []);
+
   /* Redirect if already signed in */
   useEffect(() => {
     if (user) {
-      const dest =
-        (location.state as LocationState | null)?.from ?? homeRoute();
+      const onboardingRequired = Boolean(
+        user.mustChangePassword ||
+        user.mfaSetupRequired ||
+        user.acceptedPolicyVersion !== CURRENT_POLICY_VERSION
+      );
+      const dest = onboardingRequired
+        ? "/first-login"
+        : (location.state as LocationState | null)?.from ?? homeRoute();
       navigate(dest, { replace: true });
     }
   }, [user, location.state, navigate, homeRoute]);
@@ -80,13 +99,22 @@ export default function LoginPage() {
     setError(null);
     setSubmitting(true);
     try {
-      const res = await login({ username, password, rememberDevice: remember });
+      const res = await login({ username, password });
       if (res.mfaRequired && res.mfaToken) {
         setMfaToken(res.mfaToken);
         setStage("mfa");
       } else {
+        const signedIn = useAuthStore.getState().user;
+        const onboardingRequired = Boolean(
+          res.mfaSetupRequired ||
+          signedIn?.mustChangePassword ||
+          signedIn?.mfaSetupRequired ||
+          signedIn?.acceptedPolicyVersion !== CURRENT_POLICY_VERSION
+        );
         navigate(
-          (location.state as LocationState | null)?.from ?? homeRoute(),
+          onboardingRequired
+            ? "/first-login"
+            : (location.state as LocationState | null)?.from ?? homeRoute(),
           { replace: true },
         );
       }
@@ -104,10 +132,19 @@ export default function LoginPage() {
     setError(null);
     setSubmitting(true);
     try {
-      await completeMFA(mfaToken, mfaCode, remember);
-      navigate((location.state as LocationState | null)?.from ?? homeRoute(), {
-        replace: true,
-      });
+      await completeMFA(mfaToken, mfaCode);
+      const signedIn = useAuthStore.getState().user;
+      const onboardingRequired = Boolean(
+        signedIn?.mustChangePassword ||
+        signedIn?.mfaSetupRequired ||
+        signedIn?.acceptedPolicyVersion !== CURRENT_POLICY_VERSION
+      );
+      navigate(
+        onboardingRequired
+          ? "/first-login"
+          : (location.state as LocationState | null)?.from ?? homeRoute(),
+        { replace: true },
+      );
     } catch (err) {
       const problem = normalizeApiError(err);
       setError(problem.detail ?? problem.title ?? t("errors.generic"));
@@ -223,6 +260,17 @@ export default function LoginPage() {
               </p>
             </header>
 
+            {new URLSearchParams(location.search).get("sso_error") === "1" && !error && (
+              <Banner tone="error" className="mb-4">
+                Government sign-in could not be completed. Please try again or use your assigned PIIMS credentials.
+              </Banner>
+            )}
+            {locationMessage && !error && (
+              <Banner tone="success" className="mb-4">
+                <span>{locationMessage}</span>
+              </Banner>
+            )}
+
             {error && (
               <Banner
                 tone="error"
@@ -234,6 +282,23 @@ export default function LoginPage() {
                   <span>{error}</span>
                 </div>
               </Banner>
+            )}
+
+            {stage === "credentials" && ssoEnabled && (
+              <div className="mb-5">
+                <a
+                  href={`${APP_CONFIG.apiBaseUrl.replace(/\/$/, "")}/auth/sso/start`}
+                  className="flex min-h-12 w-full items-center justify-center gap-2 rounded-lg bg-[#1455a0] px-4 py-3 text-sm font-extrabold text-white shadow-sm transition hover:bg-[#102747] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-sky-600 focus-visible:ring-offset-2"
+                >
+                  <ShieldCheck className="h-4 w-4" aria-hidden />
+                  Sign in with government SSO
+                </a>
+                <div className="my-4 flex items-center gap-3 text-xs text-neutral-500">
+                  <span className="h-px flex-1 bg-neutral-200" />
+                  <span>or use your assigned PIIMS credentials</span>
+                  <span className="h-px flex-1 bg-neutral-200" />
+                </div>
+              </div>
             )}
 
             {stage === "credentials" && (
@@ -259,11 +324,6 @@ export default function LoginPage() {
                   required
                   value={password}
                   onChange={(e) => setPassword(e.target.value)}
-                />
-                <Checkbox
-                  label={t("auth.login.rememberDevice")}
-                  checked={remember}
-                  onChange={(e) => setRemember(e.target.checked)}
                 />
                 <Button
                   type="submit"
@@ -314,11 +374,6 @@ export default function LoginPage() {
                   }
                   className="text-center text-lg tracking-[0.4em]"
                 />
-                <Checkbox
-                  label={t("auth.login.trustDevice")}
-                  checked={remember}
-                  onChange={(e) => setRemember(e.target.checked)}
-                />
                 <Button type="submit" fullWidth size="lg" loading={submitting}>
                   {submitting
                     ? t("auth.login.verifying")
@@ -337,38 +392,25 @@ export default function LoginPage() {
             )}
 
             {stage === "reset" && (
-              <form
-                onSubmit={(e) => {
-                  e.preventDefault();
-                  setStage("credentials");
-                }}
-                className="space-y-4"
-                noValidate
-              >
+              <div className="space-y-4" role="region" aria-labelledby="reset-help-title">
                 <div className="flex justify-center">
-                  <div className="h-12 w-12 rounded-full bg-primary-100 flex items-center justify-center">
+                  <div className="flex h-12 w-12 items-center justify-center rounded-full bg-primary-100">
                     <Mail className="h-6 w-6 text-primary-700" aria-hidden />
                   </div>
                 </div>
-                <Input
-                  label={t("auth.login.email")}
-                  type="email"
-                  autoComplete="email"
-                  required
-                />
-                <Button type="submit" fullWidth size="lg">
-                  {t("auth.login.sendResetLink")}
-                </Button>
+                <h2 id="reset-help-title" className="text-center font-bold text-primary-900">Password assistance</h2>
+                <p className="text-sm leading-6 text-neutral-600">
+                  PIIMS password recovery must be handled through your authorized administrator or institutional help desk. For security, this page does not send credentials or reset links to an unverified address.
+                </p>
+                <a href="mailto:support@piims.gov.et?subject=PIIMS%20Password%20Assistance" className="flex min-h-11 items-center justify-center rounded-lg border border-primary-200 px-4 py-2 font-semibold text-primary-800 hover:bg-primary-50">
+                  Contact PIIMS support
+                </a>
                 <div className="text-center text-caption text-neutral-600">
-                  <button
-                    type="button"
-                    className="hover:underline focus-visible:underline"
-                    onClick={() => setStage("credentials")}
-                  >
+                  <button type="button" className="hover:underline focus-visible:underline" onClick={() => setStage("credentials")}>
                     {t("auth.login.backToSignIn")}
                   </button>
                 </div>
-              </form>
+              </div>
             )}
           </div>
 
