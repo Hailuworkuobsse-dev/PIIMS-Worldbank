@@ -1,5 +1,4 @@
 import { useEffect, useState } from "react";
-import { useTranslation } from "react-i18next";
 import { RefreshCw } from "lucide-react";
 import { offlineStore } from "./offlineStore";
 import { fieldApi } from "./field.api";
@@ -10,7 +9,6 @@ import { Chip } from "@/components/ui/Chip";
 import { useToast } from "@/components/ui/Toast";
 
 export function SyncQueue() {
-  const { t } = useTranslation();
   const { push } = useToast();
   const online = useSyncStore((s) => s.online);
   const setPending = useSyncStore((s) => s.setPending);
