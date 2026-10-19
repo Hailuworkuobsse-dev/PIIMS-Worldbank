@@ -417,7 +417,7 @@ export default function LoginPage() {
                   </button>
                 </div>
               </div>
-            )})}
+            )}
           </div>
 
           <p className="text-caption text-neutral-600 mt-6 text-center">
