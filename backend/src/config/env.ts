@@ -53,6 +53,8 @@ const envSchema = z.object({
   ODK_API_KEY: z.string().optional(),
   SAFE_ROOM_URL: z.string().url().optional(),
   IDP_ISSUER_URL: z.string().url().optional(),
+  API_PUBLIC_URL: z.string().url().optional(),
+  FRONTEND_URL: z.string().url().optional(),
   IDP_CLIENT_ID: z.string().optional(),
   IDP_CLIENT_SECRET: z.string().optional()
 });
