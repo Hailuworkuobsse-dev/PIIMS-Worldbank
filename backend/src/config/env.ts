@@ -17,7 +17,7 @@ const envSchema = z.object({
   JWT_REFRESH_EXPIRES_IN: z.string().default('8h'),
 
   MFA_ISSUER: z.string().default('PIIMS'),
-  MFA_REQUIRED_ROLES: z.string().default('WB-TTL,WB-IE,WB-FM,WB-PROC,WB-ES,WB-M&E,MW-SA,MW-PIU,MW-PM,MW-DM,MW-QA,MF-BO,MF-FM,MF-AUD,DB-LO,DB-DO,DB-PM,DB-AUD,RS-EX,AU-EX,AU-EV,SYS-DBA,SYS-OPS,SYS-SEC,SYS-HELP'),
+  MFA_REQUIRED_ROLES: z.string().default('WB-TTL,WB-IE,WB-FM,WB-PROC,WB-ES,WB-M&E,MW-SA,MW-PIU,MW-ME,MW-TL,MW-PM,MW-IE,MW-DM,MW-QA,MW-FO,MF-BO,MF-FM,MF-AUD,DB-LO,DB-DO,DB-PM,DB-AUD,RS-EX,AU-EX,AU-EV,SYS-DBA,SYS-OPS,SYS-SEC,SYS-HELP'),
 
   RATE_LIMIT_WINDOW_MS: z.coerce.number().int().positive().default(60_000),
   RATE_LIMIT_MAX: z.coerce.number().int().positive().default(1000),
