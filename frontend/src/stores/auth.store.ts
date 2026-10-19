@@ -14,7 +14,7 @@ interface AuthState {
 
   login: (
     req: LoginRequest,
-  ) => Promise<{ mfaRequired: boolean; mfaToken?: string }>;
+  ) => Promise<{ mfaRequired: boolean; mfaToken?: string; mfaSetupRequired?: boolean }>;
   completeMFA: (
     mfaToken: string,
     code: string,
