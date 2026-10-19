@@ -105,7 +105,7 @@ export async function meHandler(
 ): Promise<void> {
   try {
     const user = requireUser(req);
-    const me = await authService.getMe(user.userId);
+    const me = await authService.getMe(user.userId, user.mfa);
     sendSuccess(res, me);
   } catch (err) {
     next(err);
