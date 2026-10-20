@@ -1,4 +1,6 @@
-import { Menu, Search as SearchIcon, Languages } from "lucide-react";
+import { ArrowLeft, ArrowRight, Menu, Search as SearchIcon, Languages } from "lucide-react";
+import { useEffect, useRef, useState } from "react";
+import { useLocation, useNavigate, useNavigationType } from "react-router-dom";
 import { useTranslation } from "react-i18next";
 import { useUIStore } from "@/stores/ui.store";
 import { BrandMark } from "@/components/brand/BrandMark";
@@ -9,6 +11,38 @@ import { cn } from "@/components/ui/utils/cn";
 export function TopBar() {
   const { t } = useTranslation();
   const { locale, setLocale, setSearchOpen, setMobileNavOpen } = useUIStore();
+  const navigate = useNavigate();
+  const location = useLocation();
+  const navigationType = useNavigationType();
+  const historyRef = useRef<{ keys: string[]; index: number }>({
+    keys: [location.key],
+    index: 0,
+  });
+  const [, refreshHistory] = useState(0);
+
+  // Track in-app locations so global navigation works consistently on every page.
+  useEffect(() => {
+    const history = historyRef.current;
+    const existingIndex = history.keys.indexOf(location.key);
+
+    if (navigationType === "PUSH") {
+      history.keys = history.keys.slice(0, history.index + 1);
+      history.keys.push(location.key);
+      history.index = history.keys.length - 1;
+    } else if (navigationType === "REPLACE") {
+      history.keys[history.index] = location.key;
+    } else if (existingIndex >= 0) {
+      history.index = existingIndex;
+    } else {
+      history.keys = [location.key];
+      history.index = 0;
+    }
+
+    refreshHistory((value) => value + 1);
+  }, [location.key, navigationType]);
+
+  const canGoBack = historyRef.current.index > 0;
+  const canGoForward = historyRef.current.index < historyRef.current.keys.length - 1;
 
   return (
     <header
@@ -34,6 +68,30 @@ export function TopBar() {
             Impact-Enabled
           </div>
         </div>
+      </div>
+
+      {/* Global page-history controls */}
+      <div role="group" aria-label="Page navigation" className="inline-flex items-center gap-1">
+        <button
+          type="button"
+          onClick={() => navigate(-1)}
+          disabled={!canGoBack}
+          aria-label="Go back"
+          title="Go back (Alt+Left)"
+          className="h-9 w-9 rounded-md grid place-items-center hover:bg-white/10 disabled:opacity-35 disabled:cursor-not-allowed"
+        >
+          <ArrowLeft className="h-5 w-5" aria-hidden />
+        </button>
+        <button
+          type="button"
+          onClick={() => navigate(1)}
+          disabled={!canGoForward}
+          aria-label="Go forward"
+          title="Go forward (Alt+Right)"
+          className="h-9 w-9 rounded-md grid place-items-center hover:bg-white/10 disabled:opacity-35 disabled:cursor-not-allowed"
+        >
+          <ArrowRight className="h-5 w-5" aria-hidden />
+        </button>
       </div>
 
       {/* Search trigger */}
