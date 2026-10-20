@@ -1,5 +1,5 @@
 /* eslint-disable no-console -- Seed progress output is useful when running the development seed. */
-import { PrismaClient, OrgType, OrgLevel, ProjectStatus, ProjectSector, IndicatorType, IndicatorFrequency, IndicatorDirection, TrafficLight, ImpactDomain as DomainEnum, ImpactDirection, ImpactStatus, QaRuleType, Severity } from '@prisma/client';
+import { PrismaClient, OrgType, OrgLevel, ProjectStatus, ProjectSector, IndicatorType, IndicatorFrequency, IndicatorDirection, TrafficLight, ImpactDirection, ImpactStatus, QaRuleType, Severity } from '@prisma/client';
 import argon2 from 'argon2';
 
 const prisma = new PrismaClient();
