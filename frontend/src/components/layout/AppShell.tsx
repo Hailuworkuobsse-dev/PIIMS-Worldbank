@@ -92,20 +92,20 @@ export function AppShell() {
   ]);
 
   return (
-    <div className="min-h-screen flex flex-col bg-neutral-50">
+    <div className="h-screen h-[100dvh] min-h-0 overflow-hidden flex flex-col bg-neutral-50">
 
       <TopBar />
 
       {/* Offline banner — appears when browser goes offline */}
       <OfflineBanner />
 
-      <div className="flex-1 flex min-h-0">
+      <div className="flex-1 flex min-h-0 overflow-hidden">
         <SideNav />
 
         <main
           id="main"
           tabIndex={-1}
-          className="flex-1 flex flex-col min-w-0 focus:outline-none"
+          className="flex-1 flex flex-col min-w-0 min-h-0 focus:outline-none"
         >
           {/* Breadcrumb strip */}
           <div className="border-b border-neutral-200 bg-white/60 backdrop-blur-sm">
@@ -117,7 +117,7 @@ export function AppShell() {
           {/* Scrollable content */}
           <div
             id="main-scroll"
-            className="flex-1 overflow-y-auto pb-24 md:pb-8"
+            className="flex-1 min-h-0 overflow-y-auto overscroll-contain pb-[calc(6rem+env(safe-area-inset-bottom))] md:pb-8"
           >
             <div className="px-4 md:px-6 py-4 max-w-[1600px] mx-auto w-full">
               <Outlet />
