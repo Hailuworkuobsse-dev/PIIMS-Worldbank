@@ -1,4 +1,5 @@
-import { PrismaClient, OrgType, OrgLevel, ProjectStatus, ProjectSector, IndicatorType, IndicatorFrequency, IndicatorDirection, TrafficLight, ImpactDomain as DomainEnum, ImpactDirection, ImpactStatus, Gender, RegistrationChannel, BeneficiaryStatus, DeliveryStatus } from '@prisma/client';
+/* eslint-disable no-console -- Seed progress output is useful when running the development seed. */
+import { PrismaClient, OrgType, OrgLevel, ProjectStatus, ProjectSector, IndicatorType, IndicatorFrequency, IndicatorDirection, TrafficLight, ImpactDomain as DomainEnum, ImpactDirection, ImpactStatus, QaRuleType, Severity } from '@prisma/client';
 import argon2 from 'argon2';
 
 const prisma = new PrismaClient();
@@ -213,7 +214,7 @@ async function main() {
     }
   });
 
-  const project2 = await prisma.project.upsert({
+  await prisma.project.upsert({
     where: { projectCode: 'PIIMS-2026-0038' },
     update: {},
     create: {
@@ -231,7 +232,7 @@ async function main() {
     }
   });
 
-  const project3 = await prisma.project.upsert({
+  await prisma.project.upsert({
     where: { projectCode: 'PIIMS-2026-0035' },
     update: {},
     create: {
@@ -501,9 +502,9 @@ async function main() {
       create: {
         code: r.code,
         name: r.name,
-        type: r.type as any,
+        type: r.type as QaRuleType,
         threshold: r.threshold,
-        severity: r.severity as any,
+        severity: r.severity as Severity,
         active: true
       }
     });
