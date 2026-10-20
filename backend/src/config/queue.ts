@@ -1,5 +1,6 @@
-import { prisma } from '@/lib/prisma.js';
 import { logger } from './logger.js';
+
+import { prisma } from '@/lib/prisma.js';
 
 /**
  * MySQL-only job queues — replaces the former BullMQ/Redis implementation.
@@ -176,6 +177,7 @@ async function claimAndRun(handle: WorkerHandle): Promise<void> {
     data: { status: 'WAITING', startedAt: null }
   });
 
+  // eslint-disable-next-line no-constant-condition
   while (true) {
     const candidates = await prisma.job.findMany({
       where: {
@@ -189,7 +191,7 @@ async function claimAndRun(handle: WorkerHandle): Promise<void> {
     if (candidates.length === 0) break;
 
     await Promise.all(
-      candidates.map(async (candidate) => {
+      candidates.map(async (candidate: NonNullable<typeof candidates[number]>) => {
         // Atomic claim: only the update that flips WAITING→ACTIVE wins.
         const claimed = await prisma.job.updateMany({
           where: { jobId: candidate.jobId, status: 'WAITING' },
